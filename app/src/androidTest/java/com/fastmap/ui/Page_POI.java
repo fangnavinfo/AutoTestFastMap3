@@ -1,5 +1,7 @@
 package com.fastmap.ui;
 
+import android.support.test.uiautomator.StaleObjectException;
+
 import com.fang.testAdapter.*;
 
 /**
@@ -55,12 +57,20 @@ public class Page_POI extends FastMapPage
     public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
 
-        if (findRes.equals(SELECT_TYPE))
-        {
-            Click(SELECT_TYPE);
-            super.SetValue(SEARCH_TYPE, value);
+        try{
+            if (findRes.equals(SELECT_TYPE))
+            {
+                Click(SELECT_TYPE);
+                super.SetValue(SEARCH_TYPE, value);
 
-            Thread.sleep(1000);
+                Thread.sleep(1000);
+
+                Click(SEARCH_TYPE_RESULT);
+                return;
+            }
+
+        }catch (StaleObjectException e) {
+            Thread.sleep(10000);
 
             Click(SEARCH_TYPE_RESULT);
             return;
