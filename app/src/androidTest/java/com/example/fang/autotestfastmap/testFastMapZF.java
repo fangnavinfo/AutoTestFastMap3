@@ -23,6 +23,8 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapZF extends testFastMapBase
 {
+    private static int check_licence_flg = 1;
+
     @BeforeClass
     public static void setClassUp() throws Exception
     {
@@ -36,7 +38,13 @@ public class testFastMapZF extends testFastMapBase
 
     @Before
     public void setUp() throws Exception {
-        this.setClassUp("collector2", "123456");
+
+        if(1 == check_licence_flg) {
+            check_licence_flg = 0;
+            this.setClassUpByLicenceCheck("collector2", "123456", "鄂A12345");
+        }else {
+            this.setClassUp("collector2", "123456");
+        }
     }
 
     @After
@@ -44,6 +52,19 @@ public class testFastMapZF extends testFastMapBase
     {
 
         //super.setAfter();
+    }
+
+    // 车牌录入校验
+    @Test
+    public void test00101_licence_plate_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.EXIT);
+
+        Page_Confirm.Inst.Click(Page_Confirm.OK);
+        Page_Login.Inst.SetValue(Page_Login.CAR_NUM,"");
+        //TODO
     }
 
 

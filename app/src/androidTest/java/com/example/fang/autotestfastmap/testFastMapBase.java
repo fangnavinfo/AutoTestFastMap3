@@ -17,6 +17,12 @@ public class testFastMapBase
     {
         setClassUp(userName, passWord, false);
     }
+    protected  static void setClassUpByLicenceCheck(String userName, String passWord, String licence) throws Exception
+    {
+        testFastMapBase.licence = licence;
+        setClassUp(userName, passWord, false);
+        testFastMapBase.licence = "";
+    }
 
     protected  static void setClassUp(String userName, String passWord, boolean isHmWorking) throws Exception
     {
@@ -114,6 +120,7 @@ public class testFastMapBase
 
         Page_Login.Inst.SetValue(Page_Login.USER_NAME, userName);
         Page_Login.Inst.SetValue(Page_Login.USER_PASSWD, passWord);
+        Page_Login.Inst.SetValue(Page_Login.CAR_NUM, licence);
         
         Page_Login.Inst.Click(Page_Login.LOGIN_BTN);
 
@@ -1153,6 +1160,7 @@ public class testFastMapBase
 
     private static String userName = "";
     private static String passWord = "";
+    private static String licence = "";
 
     private static boolean isHmWorking;
 }

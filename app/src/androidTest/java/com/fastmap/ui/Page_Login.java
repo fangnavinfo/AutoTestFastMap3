@@ -14,6 +14,9 @@ public class Page_Login extends FastMapPage
     @FindResource(Id="login_pswd_et", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeSecureTextField")
     public static String USER_PASSWD;
 
+    @FindResource(Id="login_car_num_et")
+    public static String CAR_NUM;
+
     @FindResource(Id="login_btn", ios_xpath="//XCUIElementTypeButton[@name=\"登    录\"]")
     public static String LOGIN_BTN;
 
