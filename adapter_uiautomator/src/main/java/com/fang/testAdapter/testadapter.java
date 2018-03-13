@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.StaleObjectException;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
@@ -29,15 +30,20 @@ public class testadapter
     {
         while(true)
         {
-            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 5000);
-            if (!obj.isEnabled())
-            {
-                Thread.sleep(500);
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 50000);
+            try{
+                if (!obj.isEnabled())
+                {
+                    Thread.sleep(500);
+                    continue;
+                }
+
+                obj.click();
+                break;
+            }catch(StaleObjectException e){
+                Thread.sleep(10000);
                 continue;
             }
-
-            obj.click();
-            break;
         }
     }
 
