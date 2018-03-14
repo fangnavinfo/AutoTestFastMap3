@@ -8,6 +8,7 @@ import android.support.test.uiautomator.StaleObjectException;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
@@ -250,6 +251,16 @@ public class testadapter
         else
         {
             userPath += "/";
+        }
+    }
+
+    public static void ScrollOneStep()
+    {
+        UiScrollable objscoll = new UiScrollable(new UiSelector().className("android.widget.ScrollView"));
+        try {
+            objscoll.flingForward();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

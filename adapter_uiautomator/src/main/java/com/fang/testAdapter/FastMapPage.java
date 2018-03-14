@@ -196,6 +196,11 @@ public class FastMapPage
         testadapter.Drag(startX, startY, endX, endY, steps);
     }
 
+    public void ScrollOneStep()
+    {
+        testadapter.ScrollOneStep();
+    }
+
 //    protected void CheckResource(UiObject2 object, ArrayList<UiObject2> listResult)
 //    {
 //        List<UiObject2> lst = object.getChildren();

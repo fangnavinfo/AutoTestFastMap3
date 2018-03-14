@@ -1,6 +1,9 @@
 package com.example.fang.autotestfastmap;
 
 
+import android.support.test.uiautomator.UiScrollable;
+import android.support.test.uiautomator.UiSelector;
+
 import com.fang.testAdapter.*;
 import com.fastmap.ui.*;
 
@@ -294,6 +297,29 @@ public class testFastMapZF extends testFastMapBase
 
         //保存
         Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+
+        //TODO
+
+    }
+
+    // POI照片优化
+    @Test
+    public void test00109_poi_picture_check() throws Exception
+    {
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.ScrollOneStep();
+        Page_POI.Inst.Click(Page_POI.PICTURE);
+
+
+        //TODO
 
     }
 
