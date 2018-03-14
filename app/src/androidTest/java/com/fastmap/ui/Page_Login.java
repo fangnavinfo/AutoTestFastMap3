@@ -28,6 +28,8 @@ public class Page_Login extends FastMapPage
 
     @FindResource(Id="chk_work_area_type", ios_xpath="//XCUIElementTypeButton[@name=\"港澳作业\"]")
     public static String HKM_RADIO; //选择港澳服务器
+    @FindResource(Id="chk_enter_car_mode")
+    public static String CAR_MODE_RADIO; //车采模式
 
     public static Page_Login Inst;
     static

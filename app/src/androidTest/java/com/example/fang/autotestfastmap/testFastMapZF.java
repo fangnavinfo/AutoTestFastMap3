@@ -62,12 +62,15 @@ public class testFastMapZF extends testFastMapBase
     public void test00101_licence_plate_check() throws Exception
     {
 
+        String carNum;
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.EXIT);
 
         Page_Confirm.Inst.Click(Page_Confirm.OK);
-        Page_Login.Inst.SetValue(Page_Login.CAR_NUM,"");
-        //TODO
+        Page_Login.Inst.Click(Page_Login.CAR_MODE_RADIO);
+        carNum = Page_Login.Inst.GetValue(Page_Login.CAR_NUM);
+
+        assertEquals("鄂A12345", carNum);
     }
 
 
