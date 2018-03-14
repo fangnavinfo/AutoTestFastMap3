@@ -120,7 +120,9 @@ public class testFastMapBase
 
         Page_Login.Inst.SetValue(Page_Login.USER_NAME, userName);
         Page_Login.Inst.SetValue(Page_Login.USER_PASSWD, passWord);
-        Page_Login.Inst.SetValue(Page_Login.CAR_NUM, licence);
+        if(!"".equals(licence)) {
+            Page_Login.Inst.SetValue(Page_Login.CAR_NUM, licence);
+        }
         
         Page_Login.Inst.Click(Page_Login.LOGIN_BTN);
 

@@ -278,6 +278,25 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_TrueSence.Inst.isExistByName("6bCD1234"));
     }
 
+    // 功能面验证
+    @Test
+    public void test00108_functionalarea_check() throws Exception
+    {
+        //绘制功能面
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+        Page_MainBoard.Inst.Click(new Point(500,800));
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.COMPLETE);
+
+        //选择大学类型功能面
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.UNIVERSITY);
+
+        //保存
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+
+    }
+
     // FM-1207-6-2
     @Test
     public void test_FM_1207_6_2_check() throws Exception
