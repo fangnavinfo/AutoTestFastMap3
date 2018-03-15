@@ -332,7 +332,7 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.PICTURE);
 
 
-        //TODO
+        assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
 
     }
 
