@@ -298,10 +298,20 @@ public class testFastMapZF extends testFastMapBase
         //选择大学类型功能面
         Page_FunctionalArea.Inst.Click(Page_FunctionalArea.UNIVERSITY);
 
+        Page_FunctionalArea.Inst.ScrollOneStep();
+
+        Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME, "name1");
+
         //保存
         Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
 
-        //TODO
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("功能面");
+
+        Page_FunctionalArea.Inst.ScrollOneStep();
+
+        assertTrue(Page_FunctionalArea.Inst.isExistByName("name1"));
 
     }
 
