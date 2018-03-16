@@ -8,6 +8,15 @@ import com.fang.testAdapter.*;
  */
 public class Page_Sketch extends FastMapPage
 {
+    @FindResource(Id="sketch_sketch", Text = "草图")
+    public static String SKETCH;
+
+    @FindResource(Id="sketch_hook_1", Text = "挂接1")
+    public static String HOOK1;
+
+    @FindResource(Id="sketch_hook_2", Text = "挂接2")
+    public static String HOOK2;
+
     @FindResource(Id="connect_icons_2082", ios_xpath = "//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeButton[2]")
     public static String G1_R1_C2;
 

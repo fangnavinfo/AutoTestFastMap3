@@ -62,7 +62,7 @@ public class Page_MyData extends FastMapPage
 
     public void SelectData(String name, String ios_name) throws InterruptedException
     {
-        //ClickByText(name, ios_name);
+        ClickByText(name);
     }
     
     public void SelectData(String name) throws InterruptedException

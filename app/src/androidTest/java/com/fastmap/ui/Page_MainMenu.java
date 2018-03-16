@@ -32,9 +32,6 @@ public class Page_MainMenu extends FastMapPage
     @FindResource(clazz="android.widget.ScrollView")
     public static String SCROLL;
 
-    @FindResource(clazz="android.widget.ScrollView")
-    public static String SCROLL;
-
     public static Page_MainMenu Inst;
     static
     {

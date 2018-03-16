@@ -960,8 +960,9 @@ public class testFastMapBase
         }
         
         Thread.sleep(1000);
-        Page_GridManager.Inst.Click(syncType); //情报数据
-        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步
+        Page_GridManager.Inst.ClickByText("情报数据"); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.ClickByText("同步数据"); //同步
         Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
@@ -1080,7 +1081,7 @@ public class testFastMapBase
         Page_Search.Inst.ClickbyText("情报");
 
         Page_Search.Inst.SetValue(Page_Search.EDITINFO, globalId);
-        //Page_Search.Inst.ClickByText("搜索", "搜 索");
+        Page_Search.Inst.ClickByText("搜索", "搜 索");
         Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
     }
 

@@ -186,6 +186,11 @@ public class FastMapPage
         throw new RuntimeException("can not find id of " + findRes);
     }
 
+    public void ClickByText(String value, String ios_value)
+    {
+        testadapter.ClickByText(value);
+    }
+
     public void ClickByText(String value)
     {
         testadapter.ClickByText(value);

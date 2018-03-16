@@ -46,7 +46,6 @@ public class testFastMapYL extends testFastMapBase
     }
 
 
-
     @Test
     public void test00202_poi_add() throws Exception
     {
@@ -240,7 +239,7 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.INFO_TYPE);
         Page_MyData.Inst.SelectData("自采集情报(道路)(线)", "测试线ＩＮＦＯ");
 
-        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID);
+        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).replace("globalId:", "");
         Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE);
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
@@ -284,11 +283,8 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.INFO_TYPE);
         Page_MyData.Inst.SelectData("自采集情报(道路)(面)", "测试面ＩＮＦＯ");
 
-        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID);
+        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).replace("globalId:", "");
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
-
-        globalId = globalId.replace("globalId:", "");
-        ExitMyData();
 
         synchronize(Page_GridManager.INFO_UPDATE);
 
@@ -423,7 +419,7 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
-        assertFalse(Page_MyData.Inst.isExistByName("道路名标牌"));
+        assertTrue(Page_MyData.Inst.isExistByName("道路名标牌"));
     }
 
 //    @Test
@@ -506,6 +502,8 @@ public class testFastMapYL extends testFastMapBase
         //障碍物关联到这个测线上
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
         Page_AddPoint.Inst.Click(Page_AddPoint.OBST);
+        Thread.sleep(2000);
+
         Page_MainBoard.Inst.ClickCenter();
         Page_AddPoint.Inst.Click(Page_AddPoint.SAVE);
 
@@ -554,10 +552,10 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);
         Page_Gate.Inst.Click(Page_Gate.SAVE);
 
-        SearchLocation(LOC_K4);
-        Page_Gate.Inst.ClickCenter();
-        Page_Gate.Inst.Click(Page_Gate.CHANGEDIR);
-        Page_Gate.Inst.Click(Page_Gate.SAVE);
+//        SearchLocation(LOC_K4);
+//        Page_Gate.Inst.ClickCenter();
+//        Page_Gate.Inst.Click(Page_Gate.CHANGEDIR);
+//        Page_Gate.Inst.Click(Page_Gate.SAVE);
 
         AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
     }
@@ -1107,9 +1105,10 @@ public class testFastMapYL extends testFastMapBase
     {
         //挂接1
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
-        Thread.sleep(5000);
         
-        Page_Sketch.Inst.ClickbyText("挂接1");
+        Page_Sketch.Inst.Click(Page_Sketch.HOOK1);
+        Thread.sleep(2000);
+
         Page_MainBoard.Inst.ClickCenter();
 
         Page_Sketch.Inst.Click(Page_Sketch.G1_R1_C2);
@@ -1124,8 +1123,9 @@ public class testFastMapYL extends testFastMapBase
     {
         //挂接2
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
-        
-        Page_Sketch.Inst.ClickbyText("挂接2");
+
+        Page_Sketch.Inst.Click(Page_Sketch.HOOK2);
+        Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
         
         Page_Sketch.Inst.Click(Page_Sketch.G2_R1_C1);
@@ -1140,7 +1140,7 @@ public class testFastMapYL extends testFastMapBase
         //草图 直线
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.STRAIGHT);
 
         Page_MainBoard.Inst.ClickCenter();
@@ -1157,8 +1157,9 @@ public class testFastMapYL extends testFastMapBase
         //草图 曲线
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.CURVE);
+
 
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Drag(477,698,794,344,10);
@@ -1175,10 +1176,13 @@ public class testFastMapYL extends testFastMapBase
         //草图 折线
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.POLY);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(794,444));
 
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
@@ -1192,9 +1196,10 @@ public class testFastMapYL extends testFastMapBase
         //草图 矩形
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.RECT);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Drag(400,500,500,400,10);
 
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
@@ -1209,9 +1214,10 @@ public class testFastMapYL extends testFastMapBase
         //草图 圆形
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.ELLIPSE);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Drag(400,500,500,400,10);
 
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
@@ -1225,9 +1231,10 @@ public class testFastMapYL extends testFastMapBase
         //草图 圆点
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.POINT);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
 
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
@@ -1241,9 +1248,10 @@ public class testFastMapYL extends testFastMapBase
         //草图 草地
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.GREEN_LAND);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Click(new Point(1000, 500));
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
@@ -1260,9 +1268,10 @@ public class testFastMapYL extends testFastMapBase
         //草图 水系
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.WATER);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Click(new Point(1000, 500));
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
@@ -1278,9 +1287,10 @@ public class testFastMapYL extends testFastMapBase
         //草图 铁路
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
 
-        Page_Sketch.Inst.ClickbyText("草图");
+        Page_Sketch.Inst.Click(Page_Sketch.SKETCH);
         Page_Sketch.Inst.Click(Page_Sketch.RAILWAY);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Click(new Point(1000, 500));
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
@@ -1318,6 +1328,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
 
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+
         Page_MainBoard.Inst.ClickCenter();
         Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "E30");
         Page_MilePost.Inst.Click(Page_MilePost.ZERO);
@@ -1354,6 +1366,8 @@ public class testFastMapYL extends testFastMapBase
         
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+
         Page_MainBoard.Inst.Click(new Point(426,1185));
         Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO,"S479");//此时道路名编号应为空
         Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
@@ -1369,6 +1383,8 @@ public class testFastMapYL extends testFastMapBase
         SearchLocation("116.36099", "39.77775");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+
         Page_MainBoard.Inst.ClickCenter();
         //新规则，比对道路名编号S50，名称编号都继承
 
@@ -1690,8 +1706,17 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadName.Inst.Click(Page_RoadName.CANCEL);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.ROADNAME_BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("道路名标牌");
+        Thread.sleep(2000);
+
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.DELETE);
+        Page_RoadNameSign.Inst.ClickByText("确认");
+
+        Thread.sleep(3000);
+
         assertFalse(Page_MyData.Inst.isExistByName("道路名"));
 
     }
@@ -1711,6 +1736,7 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadName.Inst.Click(Page_RoadName.SAVE);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.ROADNAME_BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
@@ -1726,14 +1752,16 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);//点击道路标牌连线
         Page_MainBoard.Inst.ClickByText("道路名连线");
         Page_MainBoard.Inst.ClickByText("连线");
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         Page_RoadName.Inst.Click(Page_RoadName.COPYTYPE);//复制形状
         Page_RoadName.Inst.Click(Page_RoadName.MOVE);
         Page_RoadName.Inst.Click(Page_RoadName.SAVE);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.ROADNAME_BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
+        Thread.sleep(2000);
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
 }

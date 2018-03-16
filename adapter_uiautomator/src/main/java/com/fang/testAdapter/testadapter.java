@@ -31,8 +31,9 @@ public class testadapter
     {
         while(true)
         {
-            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 50000);
-            try{
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 3000);
+            try
+            {
                 if (!obj.isEnabled())
                 {
                     Thread.sleep(500);
@@ -41,8 +42,10 @@ public class testadapter
 
                 obj.click();
                 break;
-            }catch(StaleObjectException e){
-                Thread.sleep(10000);
+            }
+            catch(StaleObjectException e)
+            {
+                Thread.sleep(500);
                 continue;
             }
         }
@@ -137,7 +140,7 @@ public class testadapter
     {
         try
         {
-            UiObject2 hm = mDevice.wait(Until.findObject(By.text(name)), 500);
+            UiObject2 hm = mDevice.wait(Until.findObject(By.textContains(name)), 500);
             if (hm != null)
             {
                 return true;
