@@ -285,6 +285,8 @@ public class testFastMapYL extends testFastMapBase
 
         String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).replace("globalId:", "");
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         synchronize(Page_GridManager.INFO_UPDATE);
 
