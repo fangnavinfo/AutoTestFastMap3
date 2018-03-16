@@ -44,7 +44,7 @@ public class Page_IndoorMyData extends FastMapPage
 		Assert.assertTrue(isExistByName(rule, null));
 	}
 
-	public void SelectResult(String rule) 
+	public void SelectResult(String rule) throws InterruptedException 
 	{
 		ClickByText(rule);
 	}

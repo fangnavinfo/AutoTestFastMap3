@@ -31,6 +31,9 @@ public class Page_Login extends FastMapPage
     @FindResource(Id="chk_enter_car_mode")
     public static String CAR_MODE_RADIO; //车采模式
 
+    @FindResource(Id="chk_work_area_type", ios_predicate="value CONTAINS 'http:'")
+    public static String SERVER; //选择港澳服务器
+    
     public static Page_Login Inst;
     static
     {
@@ -39,7 +42,18 @@ public class Page_Login extends FastMapPage
 
     public static void SelectHKM() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
-        if(!Inst.isChecked(HKM_RADIO))
+    	String server = Inst.GetValue(SERVER);
+        if(!server.contains("dev/hm"))
+        {
+            Inst.Click(HKM_RADIO);
+        }
+    }
+
+
+    public static void NoSelectHKM() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+    	String server = Inst.GetValue(SERVER);
+        if(server.contains("dev/hm"))
         {
             Inst.Click(HKM_RADIO);
         }

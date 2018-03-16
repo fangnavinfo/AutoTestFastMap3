@@ -136,7 +136,7 @@ public class Page_ElecEye extends FastMapPage
         Inst = new Page_ElecEye();
     }
 
-    public void SetSpeed(String value)
+    public void SetSpeed(String value) throws InterruptedException
     {
         ClickByText(value);
     }

@@ -16,10 +16,13 @@ public class Page_InfoPoint extends FastMapPage
     @FindResource(Id="infor_report_type_poi", ios_xpath="//XCUIElementTypeButton[@name=\"POI\"]")
     public static String POI_TYPE;
 
+    @FindResource(Id="infor_report_type_road", Text="道路")
+    public static String ROAD_TYPE;
+
     @FindResource(Id="infor_report_level_1", ios_xpath="//XCUIElementTypeButton[@name=\"一级\"]")
     public static String LEVEL_1;
     
-    @FindResource(Id="tv_poiReport_time", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeOther[5]/XCUIElementTypeTextField")
+    @FindResource(Id="tv_poiReport_time", Text="单击选择时间")
     public static String TIME;
 
     @FindResource(Id="btn_fm_confirm", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")

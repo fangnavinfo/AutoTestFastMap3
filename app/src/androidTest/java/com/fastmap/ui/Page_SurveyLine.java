@@ -49,6 +49,12 @@ public class Page_SurveyLine extends FastMapPage
     @FindResource(Id="save_button", ios_xpath="//XCUIElementTypeButton[@name=\"保存\"]")
     public static String SAVE;
 
+    @FindResource(clazz = "android.widget.Button", Text="测线修形")
+    public static String EDIT_SHAPE;
+
+    @FindResource(clazz="android.widget.ScrollView")
+    public static String SCROLL;
+
     public static Page_SurveyLine Inst;
     static
     {

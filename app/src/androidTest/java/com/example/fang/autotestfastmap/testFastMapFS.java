@@ -108,6 +108,40 @@ public class testFastMapFS extends testFastMapBase
     }
 
     @Test
+    public void test00301_tips_line_DrawRoad_Edit() throws Exception
+    {
+
+        String[] LOC = {"116.41891", "39.96298"};
+        SearchLocation(LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1000, 1000));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        for (int i=0; i<1; i++)
+        {
+            SearchLocation(LOC);
+            Page_MainBoard.Inst.ClickCenter();
+            Page_SurveyLine.Inst.ScrollClick(Page_SurveyLine.EDIT_SHAPE);
+
+            Thread.sleep(3000);
+            Page_MainBoard.Inst.Click(new Point(1920, 877));
+            Page_MainBoard.Inst.Click(new Point(1710, 495));
+
+//            Page_SurveyLineEdit.Inst.Click(Page_SurveyLineEdit.SAVE);
+//            Page_SurveyLine.Inst.ClickByText("取消");
+//            Page_SurveyLine.Inst.ClickByText("舍弃");
+        }
+
+    }
+
+
+    @Test
     public void test00401_tips_releation_TrackLimit_add() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);

@@ -15,6 +15,13 @@ public class Page_POI extends FastMapPage
 
     @FindResource(Id="tv_assort_type", Text="请选择分类", ios_xpath="//XCUIElementTypeStaticText[@name=\"请选择类别\"]")
     public static String SELECT_TYPE;
+    @FindResource(Id="tv_poi_brand", Text="请选择品牌")
+    public static String SELECT_BRAND;
+
+    @FindResource(Id="filter_edit", Text="请输入搜索内容")
+    public static String SEARCH_BRAND;
+    @FindResource(Id="tv_city_name", ios_x = 430, ios_y=108)
+    public static String SEARCH_BRAND_RESULT;
 
     @FindResource(Id="tv_poi_father", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[4]/XCUIElementTypeOther[3]")
     public static String POI_FATHER;
@@ -76,6 +83,17 @@ public class Page_POI extends FastMapPage
             Thread.sleep(10000);
 
             Click(SEARCH_TYPE_RESULT);
+            return;
+        }
+
+
+
+        if (findRes.equals(SELECT_BRAND))
+        {
+            Click(SELECT_BRAND);
+            super.SetValue(SEARCH_BRAND, value);
+            Click(SEARCH_BRAND_RESULT);
+
             return;
         }
 

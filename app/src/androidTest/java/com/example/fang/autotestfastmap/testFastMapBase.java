@@ -117,6 +117,10 @@ public class testFastMapBase
         {
             Page_Login.SelectHKM();
         }
+        else
+        {
+            Page_Login.NoSelectHKM();
+        }
 
         Page_Login.Inst.SetValue(Page_Login.USER_NAME, userName);
         Page_Login.Inst.SetValue(Page_Login.USER_PASSWD, passWord);
@@ -824,7 +828,7 @@ public class testFastMapBase
         
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
     }
-//
+
     //设置起终点类型
     protected void SetStartEndPoint(Point start, Point end, String type) throws Exception
     {
@@ -882,6 +886,21 @@ public class testFastMapBase
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
     }
 
+    protected  void AddRoadNameSign(String name, String Lng, String Lat) throws Exception
+    {
+        SearchLocation(Lng, Lat);
+        AddRoadNameSign(name);
+    }
+
+    protected  void AddRoadNameSign(String name) throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, name);
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+    }
+
     //增加区域属性
     protected void AddRegional(Point point, String type) throws Exception
     {
@@ -890,83 +909,7 @@ public class testFastMapBase
         Page_RoundAbout.Inst.Click(type);
         Page_RoundAbout.Inst.Click(Page_RoundAbout.SAVE);
     }
-//
-//    private static  String GetUserPathHM() throws IOException
-//    {
-//        String rslt = mDevice.executeShellCommand("ls /sdcard/");
-//        String[] array  = rslt.split("\n");
-//
-//        String dirName = "";
-//        for (int i=0; i<array.length; i++)
-//        {
-//            if (array[i].contains("FastMap"))
-//            {
-//                dirName = array[i];
-//            }
-//        }
-//
-//        if (dirName.isEmpty())
-//        {
-//            return "";
-//        }
-//
-//        if(userName.equals("collector"))
-//        {
-//            return "/sdcard/" + dirName + "/Data/Collect/21_HM/";
-//        }
-//        if(userName.equals("collector1"))
-//        {
-//            return "/sdcard/" + dirName + "/Data/Collect/23_HM/";
-//        }
-//        if(userName.equals("collector2"))
-//        {
-//            return "/sdcard/" + dirName + "/Data/Collect/24_HM/";
-//        }
-//        if(userName.equals("zhanglingling03655"))
-//        {
-//            return "/sdcard/" + dirName + "/Data/Collect/3655_HM/";
-//        }
-//        return "";
-//    }
-//
-//    private static  String GetUserPath() throws IOException
-//    {
-//        String rslt = mDevice.executeShellCommand("ls /sdcard/");
-//        String[] array  = rslt.split("\n");
-//
-//        String dirName = "";
-//        for (int i=0; i<array.length; i++)
-//        {
-//            if (array[i].contains("FastMap"))
-//            {
-//                dirName = array[i];
-//            }
-//        }
-//
-//        if (dirName.isEmpty())
-//        {
-//            return "";
-//        }
-//
-//        if(userName.equals("collector"))
-//        {
-//            userPath = "/sdcard/" + dirName + "/Data/Collect/21/";
-//        }
-//        if(userName.equals("collector1"))
-//        {
-//            userPath =  "/sdcard/" + dirName + "/Data/Collect/23/";
-//        }
-//        if(userName.equals("collector2"))
-//        {
-//            userPath =  "/sdcard/" + dirName + "/Data/Collect/24/";
-//        }
-//        if(userName.equals("zhanglingling03655"))
-//        {
-//            userPath =  "/sdcard/" + dirName + "/Data/Collect/3655/";
-//        }
-//        return "";
-//    }
-//
+
     void CheckMyData(String type, String name) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
     	CheckMyData(type, name, null);
@@ -1131,6 +1074,29 @@ public class testFastMapBase
         Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
     }
 
+    protected void SearchInfos(String globalId) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, globalId);
+        //Page_Search.Inst.ClickByText("搜索", "搜 索");
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+    }
+
+    protected void SearchRoadFromLink(String  strRoad) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+
+        Page_Search.Inst.ClickByText("Link");
+        Page_Search.Inst.Click(Page_Search.EXACT_FIND_LINK);
+        Page_Search.Inst.SetValue(Page_Search.EDITLINK, strRoad);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
+
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+    }
+
     protected void GotoTIpsLocation(String rowkey) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
         SearchTips(rowkey);
@@ -1157,13 +1123,29 @@ public class testFastMapBase
         assertEquals(txtErrMessage, error);
     }
 
+    protected void SetConfFullView() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+        //产品全貌开关设置
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.ScrollClick(Page_MainMenu.SET);
+
+        if (!Page_Set.Inst.isChecked(Page_Set.FULLVIEW))
+        {
+            Page_Set.Inst.Click(Page_Set.FULLVIEW);
+        }
+        Page_Set.Inst.Click(Page_Set.BACK);
+
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
     protected final static  String[] LOC_K1 = {"116.45508", "39.95851"};
     protected final static  String[] LOC_K2 = {"116.45823", "39.97868"};
     protected final static  String[] LOC_K3 = {"116.45386", "39.95894"};
     protected final static  String[] LOC_K4 = {"116.45481", "39.95657"};
     protected final static  String[] LOC_K7 = {"116.41893", "39.96207"};
     protected final static  String[] LOC_K8 = {"116.41946", "39.96162"};
-
+    protected final static  String[] LOC_K10 = {"116.39964", "39.91966"};
+    
     private static String userName = "";
     private static String passWord = "";
     private static String licence = "";

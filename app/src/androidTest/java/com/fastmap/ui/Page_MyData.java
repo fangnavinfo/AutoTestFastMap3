@@ -60,7 +60,12 @@ public class Page_MyData extends FastMapPage
         //assertNull(mDevice.wait(Until.findObject(By.text(name)), 500));
     }
 
-    public void SelectData(String name)
+    public void SelectData(String name, String ios_name) throws InterruptedException
+    {
+        //ClickByText(name, ios_name);
+    }
+    
+    public void SelectData(String name) throws InterruptedException
     {
         ClickByText(name);
     }

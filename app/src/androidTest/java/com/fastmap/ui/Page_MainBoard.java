@@ -72,6 +72,7 @@ public class Page_MainBoard extends FastMapPage
     public void Trigger(String tips) throws Exception
     {
     	testadapter.TriggeInMainBoard(tips);
+    	Thread.sleep(2000);
     }
 
     //等待进入主界面
