@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AutoTestFastMap3.iml" filepath="$PROJECT_DIR$/AutoTestFastMap3.iml" />
+      <module fileurl="file://E:\Github\AutoTestFastMap3\AutoTestFastMap3.iml" filepath="E:\Github\AutoTestFastMap3\AutoTestFastMap3.iml" />
       <module fileurl="file://$PROJECT_DIR$/adapter_uiautomator/adapter_uiautomator.iml" filepath="$PROJECT_DIR$/adapter_uiautomator/adapter_uiautomator.iml" />
+      <module fileurl="file://E:\Github\AutoTestFastMap3\adapter_uiautomator\adapter_uiautomator.iml" filepath="E:\Github\AutoTestFastMap3\adapter_uiautomator\adapter_uiautomator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\Github\AutoTestFastMap3\app\app.iml" filepath="E:\Github\AutoTestFastMap3\app\app.iml" />
     </modules>
   </component>
 </project>

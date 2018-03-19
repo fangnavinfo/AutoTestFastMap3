@@ -1,7 +1,34 @@
 package com.example.fang.autotestfastmap;
 
-import com.fang.testAdapter.*;
-import com.fastmap.ui.*;
+import com.fang.testAdapter.Point;
+import com.fastmap.ui.Page_AddPoint;
+import com.fastmap.ui.Page_Dangerous;
+import com.fastmap.ui.Page_ElecEye;
+import com.fastmap.ui.Page_Gate;
+import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_HighSpeedEntryPic;
+import com.fastmap.ui.Page_IndoorMyData;
+import com.fastmap.ui.Page_InfoAccept;
+import com.fastmap.ui.Page_InfoFrame;
+import com.fastmap.ui.Page_InfoLine;
+import com.fastmap.ui.Page_InfoPoint;
+import com.fastmap.ui.Page_LaneInfo;
+import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MilePost;
+import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_NormalCrossPic;
+import com.fastmap.ui.Page_POI;
+import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_RoadName;
+import com.fastmap.ui.Page_RoadNameSign;
+import com.fastmap.ui.Page_RoundAbout;
+import com.fastmap.ui.Page_Sketch;
+import com.fastmap.ui.Page_SpeedLimit;
+import com.fastmap.ui.Page_StartEndPoint;
+import com.fastmap.ui.Page_SurveyLine;
+import com.fastmap.ui.Page_TimeCtl;
+import com.fastmap.ui.Page_TollGate;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,9 +39,9 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by fang on 17/11/21.
@@ -1766,4 +1793,133 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
+    @Test
+    public void test02100_note() throws Exception {
+        //在便签属性页--下一步按钮不可用
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+
+    }
+
+    @Test
+    public void test02101_note() throws Exception {
+        //在便签属性页--绘制“王”--点击上一步
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(332,675));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(751,478));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(355,377));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(653,879));
+    }
+
+    @Test
+    public void test02102_note() throws Exception {
+        //在便签属性页--绘制“王”--点击下一步
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(332,675));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(751,478));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(355,377));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(653,879));
+    }
+
+    @Test
+    public void test02103_note() throws Exception {
+        //在便签属性页--绘制“王”--点击重绘
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(332,675));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(751,478));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(355,377));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(653,879));
+    }
+
+    @Test
+    public void test02104_note() throws Exception {
+        //在便签属性页--绘制“王”--橡皮擦
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(332,675));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(751,478));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(355,377));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(653,879));
+    }
+
+    @Test
+    public void test02105_note() throws Exception {
+        //在便签属性页--绘制--修改新增
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(332,675));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(751,478));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(355,377));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(653,879));
+    }
+
+    @Test
+    public void test02106_note() throws Exception {
+        //在便签属性页--绘制--室内整理工具--加载便签
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+
+    }
+
+    @Test
+    public void test02107_note() throws Exception {
+        //在便签属性页--绘制--室内整理工具--筛选便签
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+
+    }
+
+    @Test
+    public void test02108_note() throws Exception {
+        //在便签属性页--绘制--查看我的数据
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(967,756));
+        Thread.sleep(2000);
+
+    }
+
 }
