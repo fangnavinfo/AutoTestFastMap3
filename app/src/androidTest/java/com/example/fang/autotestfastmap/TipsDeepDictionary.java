@@ -530,4 +530,9 @@ public class TipsDeepDictionary
      * 起点终点
      */
     public final static String StartEndPoint = "StartEndPoint";
+
+    /**
+     * 便签
+     */
+    public final static String TIPS_TYPE_NOTE = "2199";
 }
