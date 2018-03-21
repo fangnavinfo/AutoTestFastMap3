@@ -963,7 +963,7 @@ public class testFastMapBase
         }
         
         Thread.sleep(1000);
-        Page_GridManager.Inst.ClickByText("情报数据"); //情报数据
+        Page_GridManager.Inst.Click(syncType); //情报数据
         Thread.sleep(1000);
         Page_GridManager.Inst.ClickByText("同步数据"); //同步
         Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);

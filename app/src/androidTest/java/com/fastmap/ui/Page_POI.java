@@ -23,7 +23,7 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="tv_city_name", ios_x = 430, ios_y=108)
     public static String SEARCH_BRAND_RESULT;
 
-    @FindResource(Id="tv_poi_father", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[4]/XCUIElementTypeOther[3]")
+    @FindResource(Id="tv_poi_father", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[4]/XCUIElementTypeOther[3]")
     public static String POI_FATHER;
     @FindResource(Id="tv_poi_same_one", Text="同一关系")
     public static String POI_SAME;
@@ -43,7 +43,7 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="top_name_txtinfo",  ios_x=384, ios_y=108)
     public static String SEARCH_TYPE_RESULT;
 
-    @FindResource(Id="edt_contactItem_telNum", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeTextField[2]")
+    @FindResource(Id="edt_contactItem_telNum", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeTextField[2]")
     public static String TEL;
 
     @FindResource(Id="camera_button")

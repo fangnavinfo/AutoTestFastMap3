@@ -28,16 +28,16 @@ public class Page_FunctionalArea extends FastMapPage
     @FindResource(Id="btn_complete", Text="完成")
     public static String COMPLETE;
 
-    @FindResource(Id="rbtn_university")
+    @FindResource(Id="rbtn_university", ios_xpath="//XCUIElementTypeButton[@name=\"function university\"]")
     public static String UNIVERSITY;
-    @FindResource(Id="rbtn_shopping")
+    @FindResource(Id="rbtn_shopping", ios_xpath="//XCUIElementTypeButton[@name=\"function shopping\"]")
     public static String SHOPPING;
-    @FindResource(Id="rbtn_hospital")
+    @FindResource(Id="rbtn_hospital", ios_xpath="//XCUIElementTypeButton[@name=\"function hospital\"]")
     public static String HOSPITAL;
-    @FindResource(Id="rbtn_stadium")
+    @FindResource(Id="rbtn_stadium", ios_xpath="//XCUIElementTypeButton[@name=\"function stadium\"]")
     public static String STADIUM;
 
-    @FindResource(Id="edit_name")
+    @FindResource(Id="edit_name", Text="请输入名称")
     public static String NAME;
 
 

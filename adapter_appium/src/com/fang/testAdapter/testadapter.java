@@ -321,8 +321,8 @@ public class testadapter
 //		{
 //		case "9001":
 //			{
-//				 driver.findElement(By.xpath("//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton[1]")).click();
-//				 driver.findElement(By.xpath("//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[2]/XCUIElementTypeButton[1]")).click();
+//				 driver.findElement(By.xpath("//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton[1]")).click();
+//				 driver.findElement(By.xpath("//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[2]/XCUIElementTypeButton[1]")).click();
 //			}
 //			break;
 //			
@@ -405,8 +405,8 @@ public class testadapter
     	
     	Collections.reverse(RightList);
     	
-    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton[%d]";
-    	String value2="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[%d]/XCUIElementTypeButton[%d]";
+    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton[%d]";
+    	String value2="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[%d]/XCUIElementTypeButton[%d]";
     	
     	int index = 1;
     	for(int i=0; i<5; i++)

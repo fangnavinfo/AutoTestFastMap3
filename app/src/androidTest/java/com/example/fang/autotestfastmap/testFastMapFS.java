@@ -46,7 +46,7 @@ public class testFastMapFS extends testFastMapBase
         //super.setAfter();
     }
 
-    @Test
+    @Test   @IMPORTANT
     public void test00101_poi_add() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -61,7 +61,7 @@ public class testFastMapFS extends testFastMapBase
         CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00201_tips_point_TrafficLight_add() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
@@ -70,7 +70,7 @@ public class testFastMapFS extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "红绿灯");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00301_tips_line_DrawRoad_add() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
@@ -141,7 +141,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
 
-    @Test
+    @Test @IMPORTANT
     public void test00401_tips_releation_TrackLimit_add() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
@@ -154,7 +154,7 @@ public class testFastMapFS extends testFastMapBase
     }
 
 
-    @Test
+    @Test @IMPORTANT
     public void test00501_QCTask_add() throws Exception
     {
         GotoIndoorTools();
@@ -170,7 +170,7 @@ public class testFastMapFS extends testFastMapBase
         Page_IndoorMyData.Inst.CheckQcDataExist("红绿灯");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00601_Precise_Pas_add() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
@@ -184,7 +184,7 @@ public class testFastMapFS extends testFastMapBase
         CheckMyData(Page_MyData.PAS_TYPE, "测试ＰＡＳ１０１");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00701_info_Point_add() throws Exception
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
@@ -209,7 +209,7 @@ public class testFastMapFS extends testFastMapBase
         CheckMyData(Page_MyData.INFO_TYPE, "自采集情报(POI)(点)", "测试点ＩＮＦＯ");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00801_info_Line_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
 
@@ -239,7 +239,7 @@ public class testFastMapFS extends testFastMapBase
         CheckMyData(Page_MyData.INFO_TYPE, "自采集情报(POI)(线)", "测试线ＩＮＦＯ");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00901_info_Frame_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
@@ -268,7 +268,7 @@ public class testFastMapFS extends testFastMapBase
         CheckMyData(Page_MyData.INFO_TYPE, "自采集情报(道路)(面)", "测试面ＩＮＦＯ");
     }
 
-    @Test
+    @Test @IMPORTANT
     public  void test01201_tips_Eyes_SpeedType_Add_Modify_Del() throws Exception
     {
         String SpeedEyes[] = {
@@ -423,7 +423,7 @@ public class testFastMapFS extends testFastMapBase
         }
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01301_IndoorCheck_FM_1401_7_1() throws Exception
     {
     	//方向看板Tips，必须至少添加一张照片

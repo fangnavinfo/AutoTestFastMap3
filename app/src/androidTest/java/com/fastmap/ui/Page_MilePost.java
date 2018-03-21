@@ -8,7 +8,7 @@ import com.fang.testAdapter.*;
 
 public class Page_MilePost extends FastMapPage
 {
-    @FindResource(Id="et_milepost_road_name", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeTextView")
+    @FindResource(Id="et_milepost_road_name", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeTextView")
     public static String NAME;
 
     @FindResource(Id="tv_virtualKeyboard_0", Text="0")
@@ -26,7 +26,7 @@ public class Page_MilePost extends FastMapPage
     @FindResource(Id="milepost_rb", ios_xpath="//XCUIElementTypeButton[@name=\"mileagePile\"]")
     public static String MILEPOST;
 
-    @FindResource(Id="et_milepost_number", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeTextField")
+    @FindResource(Id="et_milepost_number", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeTextField")
     public static String MILE_NO;
 
     public static Page_MilePost Inst;

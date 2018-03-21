@@ -8,7 +8,7 @@ import com.fang.testAdapter.*;
  */
 public class Page_SearchResultList extends FastMapPage
 {
-    @FindResource(Id="ll_my_data_snap_list", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell")
+    @FindResource(Id="ll_my_data_snap_list", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell")
     public static String DATA_LIST;
 
 

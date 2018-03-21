@@ -12,7 +12,7 @@ public class Page_Confirm extends FastMapPage
     @FindResource(Id="btn_fm_cancel", Text="取消")
     public static String CANCEL;
 
-    @FindResource(Id="btn_fm_confirm", Text="确认")
+    @FindResource(Id="btn_fm_confirm", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")
     public static String OK;
 
     public static Page_Confirm Inst;

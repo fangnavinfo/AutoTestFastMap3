@@ -1,9 +1,5 @@
 package com.example.fang.autotestfastmap;
 
-
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
-
 import com.fang.testAdapter.*;
 import com.fastmap.ui.*;
 
@@ -27,8 +23,6 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapZF extends testFastMapBase
 {
-    private static int check_licence_flg = 1;
-
     @BeforeClass
     public static void setClassUp() throws Exception
     {
@@ -116,7 +110,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     //采纳情报fid保存
-    @Test
+    @Test @IMPORTANT
     public void test00103_poi_report_check() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
         // 上报情报
@@ -131,7 +125,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 删除标记
-    @Test
+    @Test @IMPORTANT
     public void test00104_tips_delete_check() throws Exception
     {
         String[] LIGHT_LOC = {"116.40631", "39.91562"};
@@ -261,7 +255,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 高速实景图手动录入编号
-    @Test
+    @Test @IMPORTANT
     public void test00107_tips_true_sence_check() throws Exception
     {
         //点击新增实景图POI
@@ -309,7 +303,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 功能面验证
-    @Test
+    @Test @IMPORTANT
     public void test00108_functionalarea_check() throws Exception
     {
         //绘制功能面
@@ -322,7 +316,7 @@ public class testFastMapZF extends testFastMapBase
         //选择大学类型功能面
         Page_FunctionalArea.Inst.Click(Page_FunctionalArea.UNIVERSITY);
 
-        Page_FunctionalArea.Inst.ScrollOneStep();
+        Page_FunctionalArea.Inst.ScrollClick(Page_FunctionalArea.NAME);
 
         Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME, "name1");
 
@@ -333,7 +327,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("功能面");
 
-        Page_FunctionalArea.Inst.ScrollOneStep();
+        Page_FunctionalArea.Inst.ScrollClick(Page_FunctionalArea.NAME);
 
         assertTrue(Page_FunctionalArea.Inst.isExistByName("name1"));
 
@@ -352,8 +346,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.ScrollOneStep();
-        Page_POI.Inst.Click(Page_POI.PICTURE);
+        Page_POI.Inst.ScrollClick(Page_POI.PICTURE);
 
 
         assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
@@ -361,7 +354,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 第三方数据验证
-    @Test
+    @Test @IMPORTANT
     public void test00110_3rdParty_Data_check() throws Exception
     {
         // 创建情报

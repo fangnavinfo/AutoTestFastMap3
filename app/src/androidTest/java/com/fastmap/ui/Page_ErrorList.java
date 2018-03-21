@@ -25,7 +25,7 @@ public class Page_ErrorList extends FastMapPage
     @FindResource(Id="btn_control_left_layout", Text="错误列表")
     public static String LEFT;
 
-    @FindResource(Id="tv_content", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18夏\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTextView")
+    @FindResource(Id="tv_content", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTextView")
     public static String ERROR_CONTENT;
 
     public static Page_ErrorList Inst;
