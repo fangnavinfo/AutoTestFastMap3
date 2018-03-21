@@ -27,6 +27,9 @@ public class Page_MyData extends FastMapPage
     @FindResource(Id="rb_condition_live_information", ios_xpath="//XCUIElementTypeStaticText[@name=\"自采集情报\"]")
     public static String INFO_TYPE;
 
+    @FindResource(Id="rb_condition_third_data")
+    public static String THIRD_TYPE;
+
     @FindResource(Id="tv_condition_confirm_hd", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")
     public static String SELECT_CONFIRM;
 

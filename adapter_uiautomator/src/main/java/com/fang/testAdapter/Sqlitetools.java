@@ -1,5 +1,6 @@
 package com.fang.testAdapter;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -93,6 +94,34 @@ public class Sqlitetools
         }
 
 
+    }
+
+    public static void update3rdPartyInfo(String globalId) throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+
+        boolean b = false;
+        try
+        {
+            ContentValues cv = new ContentValues();
+            cv.put("b_sourceCode", 6);
+
+            String whereClause="globalId=?";
+
+            String [] whereArgs = {globalId};
+
+            //db.execSQL("PRAGMA journal_mode=DELETE ");
+
+            db.update("edit_infos", cv, whereClause, whereArgs);
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
     }
 
     public static String GetRelateChildren(String infoFid) throws Exception

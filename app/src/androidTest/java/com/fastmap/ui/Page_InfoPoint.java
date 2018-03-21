@@ -28,7 +28,7 @@ public class Page_InfoPoint extends FastMapPage
     @FindResource(Id="btn_fm_confirm", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")
     public static String TIME_CONFIRM;
 
-    @FindResource(Id="camera_button", ios_xpath="//XCUIElementTypeButton[@name=\"photo icon\"]")
+    @FindResource(Id="camera_button_myselt", ios_xpath="//XCUIElementTypeButton[@name=\"photo icon\"]")
     public static String CAMERA;
 
     @FindResource(Id="save_button", Text="保存")

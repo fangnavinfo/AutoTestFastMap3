@@ -9,6 +9,7 @@ import com.fastmap.ui.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -42,11 +43,17 @@ public class testFastMapZF extends testFastMapBase
     @Before
     public void setUp() throws Exception {
 
-        if(1 == check_licence_flg) {
-            check_licence_flg = 0;
-            this.setClassUpByLicenceCheck("collector2", "123456", "鄂A12345");
-        }else {
-            this.setClassUp("collector2", "123456");
+        if (currTestName.getMethodName().equals("test00101_licence_plate_check"))
+        {
+            setClassUpByLicenceCheck("collector2", "123456", "鄂A12345");
+        }
+        else if (currTestName.getMethodName().equals("test00101_poi_hm_brand_check"))
+        {
+            this.setClassUp("zhanglingling03655", "036550", true);
+        }
+        else
+        {
+            setClassUp("collector2", "123456");
         }
     }
 
@@ -71,6 +78,23 @@ public class testFastMapZF extends testFastMapBase
         carNum = Page_Login.Inst.GetValue(Page_Login.CAR_NUM);
 
         assertEquals("鄂A12345", carNum);
+    }
+
+    // POI 分类品牌表增加港澳标识
+    @Test
+    public void test00101_poi_hm_brand_check() throws Exception
+    {
+
+        String[][] attrib = {
+                { Page_POI.NAME, "测试ＰＯＩ"},
+                { Page_POI.SELECT_TYPE, "厂家一览表内汽车修理"},
+                { Page_POI.SELECT_BRAND, "丰田维修"},
+        };
+
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Assert.assertTrue(Page_MyData.Inst.isExistByName("测试ＰＯＩ"));
     }
 
 
@@ -333,6 +357,49 @@ public class testFastMapZF extends testFastMapBase
 
 
         assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
+
+    }
+
+    // 第三方数据验证
+    @Test
+    public void test00110_3rdParty_Data_check() throws Exception
+    {
+        // 创建情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(900,500)); //点击情报位置
+
+        Page_InfoPoint.Inst.SetValue(Page_InfoPoint.NAME, "测试上报情报TEST"); //输入情报名称
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.POI_TYPE);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.LEVEL_1);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME); //点击选择时间
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME_CONFIRM);
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE); //点击保存
+
+        Sqlitetools.RefreshData();
+
+        GotoMyData(Page_MyData.INFO_TYPE);
+        Page_MyData.Inst.ClickbyText("自采集情报(POI)(点)");
+        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
+
+        testadapter.StopApp();
+
+        Sqlitetools.update3rdPartyInfo(globalId);
+        Sqlitetools.RefreshData();
+
+        GotoMyData(Page_MyData.THIRD_TYPE);
+        Page_MyData.Inst.ClickbyText("测试上报情报TEST");
+        String globalId2 = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
+        assertTrue(globalId.equals(globalId2));
 
     }
 

@@ -177,6 +177,18 @@ public class testadapter
         }
     }
 
+    public static void StopApp()
+    {
+        try
+        {
+            mDevice.executeShellCommand("am force-stop " + packageName);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void ClearCollect()
     {
         try
