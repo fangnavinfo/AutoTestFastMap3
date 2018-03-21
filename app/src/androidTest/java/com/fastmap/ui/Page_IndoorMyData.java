@@ -1,9 +1,8 @@
 package com.fastmap.ui;
-import com.fang.testAdapter.*;
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.FindResource;
 
 import junit.framework.Assert;
-
-import java.util.List;
 
 /**
  * Created by fang on 18/1/22.
@@ -27,7 +26,15 @@ public class Page_IndoorMyData extends FastMapPage
     
     @FindResource(Id="iv_indoor_check_back", ios_xpath="//XCUIElementTypeButton[@name=\"icon user back nor\"]")
     public static String CHECK_RESULT_BACK;
-    
+
+    @FindResource(Id="img_indoor_mydata_filter")
+    public static String SELECT;
+
+    @FindResource(Id="btn_fm_confirm")
+    public static String CONFIRM;
+
+    @FindResource(Id="edt_indoor_mydata_filter_type")
+    public static String SELECT_EDIT;
     public static Page_IndoorMyData Inst;
     static
     {

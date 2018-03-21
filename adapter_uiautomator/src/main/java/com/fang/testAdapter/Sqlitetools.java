@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
@@ -121,6 +122,40 @@ public class Sqlitetools
         }
     }
 
+    public static int GetBLOBdeep(String rowkey) throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+
+        try
+        {
+            String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+            Cursor cursor = db.rawQuery(sql, null);
+            if (!cursor.moveToFirst()) {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            int BLOBIndex = cursor.getColumnIndex("deep");
+            byte[] BOLBContent = cursor.getBlob(BLOBIndex);
+            String str = new String(BOLBContent);
+            int type = 0;
+            try {
+                JSONObject jsonObject = new JSONObject(str);
+                JSONObject fObject = jsonObject.getJSONObject("f");
+                type = fObject.getInt("type");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return type;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
+    }
 
     class DISPLAY_TEXT implements Comparable<DISPLAY_TEXT>
     {

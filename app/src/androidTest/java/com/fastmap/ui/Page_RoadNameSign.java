@@ -41,6 +41,8 @@ public class Page_RoadNameSign extends FastMapPage
     @FindResource(Id="btn_fm_confirm", Text="确认")
     public static String CONFIRM;
 
+    @FindResource(Id="et_title")
+    public static String ROWKEY;
     public static Page_RoadNameSign Inst;
     static
     {

@@ -1,6 +1,7 @@
 package com.example.fang.autotestfastmap;
 
 import com.fang.testAdapter.Point;
+import com.fang.testAdapter.Sqlitetools;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
@@ -8,6 +9,7 @@ import com.fastmap.ui.Page_Gate;
 import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_HighSpeedEntryPic;
 import com.fastmap.ui.Page_IndoorMyData;
+import com.fastmap.ui.Page_IndoorTool;
 import com.fastmap.ui.Page_InfoAccept;
 import com.fastmap.ui.Page_InfoFrame;
 import com.fastmap.ui.Page_InfoLine;
@@ -18,6 +20,7 @@ import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NormalCrossPic;
+import com.fastmap.ui.Page_Note;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_RoadName;
@@ -25,6 +28,7 @@ import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_RoundAbout;
 import com.fastmap.ui.Page_Sketch;
 import com.fastmap.ui.Page_SpeedLimit;
+import com.fastmap.ui.Page_SpeedLimitLane;
 import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
@@ -41,6 +45,7 @@ import org.junit.runners.MethodSorters;
 import java.io.IOException;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -328,6 +333,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01003_info_roadnamesign_add() throws Exception
     {
+        //新增有端点道路名标牌，我的数据中属性编辑移点，室内整理工具查看
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.ClickCenter();
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -355,6 +361,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01004_info_roadnamesign_add() throws Exception
     {
+        //新增有端点道路名标牌，我的数据中属性编辑移点，室内整理工具查看
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.ClickCenter();
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
@@ -380,7 +387,7 @@ public class testFastMapYL extends testFastMapBase
       //新增道路名标牌 多个字
       Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
       Page_MainBoard.Inst.ClickCenter();
-      Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK); //问题
+      Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
       Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME,"新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名新道路标牌名");
       Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
 
@@ -390,7 +397,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01008_info_roadnamesign_add() throws Exception
     {
-
+        //搜索经纬度创建道路名标牌，复制道路名标牌
     	SearchLocation(LOC_K8);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.ClickCenter();
@@ -418,8 +425,6 @@ public class testFastMapYL extends testFastMapBase
     public void test01010_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 新增名称为空 拍照
-        //Page_MainBoard.Inst.Drag();
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.ClickCenter();
 
@@ -436,19 +441,102 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"道路名标牌");
     }
 
-
     @Test
     public void test01012_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌 多个字
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
         Page_MainBoard.Inst.ClickCenter();
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK); //问题
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         assertTrue(Page_MyData.Inst.isExistByName("道路名标牌"));
+    }
+    @Test
+    public void test01013_tips_roadnamesign_add() throws Exception
+    {
+        //新增道路名标牌 室内整理工具编辑
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("道路名标牌");
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.ClickbyText("道路名标牌");
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+    }
+
+    @Test
+    public void test01014_tips_roadnamesign_add() throws Exception
+    {
+        //新增道路名标牌关联手绘测线
+        Page_MainBoard.Inst.Drag(900,356,870,1165,10);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1310, 1410));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("道路名标牌");
+        String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        int type = Sqlitetools.GetBLOBdeep(rowkey);
+        //assertTrue(type==2);
+        assertSame(type,2);
+    }
+
+    @Test
+    public void test01015_tips_roadnamesign_add() throws Exception
+    {
+        //新增道路名标牌关联手绘link
+        SearchLocation(LOC_K4);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("道路名标牌");
+        String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        int type = Sqlitetools.GetBLOBdeep(rowkey);
+        assertSame(type,1);
+    }
+
+    @Test
+    public void test01016_tips_roadnamesign_add() throws Exception
+    {
+        //新增道路名标牌关联不上node(不关联node(link交接处))
+        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
+        //Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(461,481));//关联node
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
+        Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("道路名标牌");
+        String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        int type = Sqlitetools.GetBLOBdeep(rowkey);
+        assertFalse(type==3);
     }
 
 //    @Test
@@ -1793,133 +1881,192 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
-    @Test
-    public void test02100_note() throws Exception {
-        //在便签属性页--下一步按钮不可用
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
-        Thread.sleep(2000);
-
-    }
 
     @Test
     public void test02101_note() throws Exception {
-        //在便签属性页--绘制“王”--点击上一步
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
+        //在便签属性页--绘制--点击上一步
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
+        Page_MainBoard.Inst.Drag(332,675,751,478,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(332,675));
+        Page_MainBoard.Inst.Drag(355,377,653,879,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(751,478));
+        Page_Note.Inst.Click(Page_Note.BACK);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(355,377));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(653,879));
+        Page_Note.Inst.Click(Page_Note.BACK);
+        Page_Note.Inst.Click(Page_Note.SAVE);
     }
 
     @Test
     public void test02102_note() throws Exception {
-        //在便签属性页--绘制“王”--点击下一步
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
+        //在便签属性页--绘制--点击下一步
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
+        Page_MainBoard.Inst.Drag(332,675,751,478,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(332,675));
+        Page_MainBoard.Inst.Drag(355,377,653,879,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(751,478));
+        Page_Note.Inst.Click(Page_Note.BACK);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(355,377));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(653,879));
+        Page_Note.Inst.Click(Page_Note.FORWARD);
+        Page_Note.Inst.Click(Page_Note.BACK);
+        Page_Note.Inst.Click(Page_Note.BACK);
+        Page_Note.Inst.Click(Page_Note.FORWARD);
+        Page_Note.Inst.Click(Page_Note.FORWARD);
+        Page_Note.Inst.Click(Page_Note.SAVE);
     }
 
     @Test
     public void test02103_note() throws Exception {
-        //在便签属性页--绘制“王”--点击重绘
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
+        //在便签属性页--绘制--点击重绘
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
+        Page_MainBoard.Inst.Drag(332,675,751,478,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(332,675));
+        Page_MainBoard.Inst.Drag(355,377,653,879,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(751,478));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(355,377));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(653,879));
+        Page_Note.Inst.Click(Page_Note.CLEAR);
+        Page_Note.Inst.Click(Page_Note.CANCEL);
     }
 
     @Test
     public void test02104_note() throws Exception {
-        //在便签属性页--绘制“王”--橡皮擦
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        //在便签属性页--绘制--橡皮擦
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Drag(332,675,751,478,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Drag(355,377,653,879,5);
+        Thread.sleep(2000);
+        Page_Note.Inst.Click(Page_Note.ERASER);
         Page_MainBoard.Inst.Click(new Point(404,1068));
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(332,675));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(751,478));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(355,377));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(653,879));
+        Page_Note.Inst.Click(Page_Note.SAVE);
     }
 
     @Test
     public void test02105_note() throws Exception {
         //在便签属性页--绘制--修改新增
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
+        Page_MainBoard.Inst.Drag(332,675,751,478,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(332,675));
+        Page_Note.Inst.Click(Page_Note.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("便签");
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(751,478));
+        Page_MainBoard.Inst.Drag(600,400,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(355,377));
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(653,879));
+        Page_Note.Inst.Click(Page_Note.SAVE);
     }
 
     @Test
     public void test02106_note() throws Exception {
         //在便签属性页--绘制--室内整理工具--加载便签
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
+        GotoIndoorTools();
         Thread.sleep(2000);
-
+        assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
+        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.BACK);
     }
 
     @Test
     public void test02107_note() throws Exception {
         //在便签属性页--绘制--室内整理工具--筛选便签
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.SELECT);//筛选
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便签");
+        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.CONFIRM);
         Thread.sleep(2000);
-
+        //ExitIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
 
     @Test
     public void test02108_note() throws Exception {
-        //在便签属性页--绘制--查看我的数据
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.Click(new Point(404,1068));
+        //在便签属性页--绘制--室内整理工具--筛选便签快捷提示
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Click(new Point(967,756));
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.SELECT);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便");
+        Page_IndoorMyData.Inst.ClickbyText("便签");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
         Thread.sleep(2000);
+        //ExitIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
 
+    @Test
+    public void test02109_note() throws Exception {
+        //在便签属性页--绘制--橡皮擦--我的数据重绘
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Drag(332,675,751,478,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Drag(355,377,653,879,5);
+        Thread.sleep(2000);
+        Page_Note.Inst.Click(Page_Note.ERASER);
+        Page_MainBoard.Inst.Click(new Point(404,1068));
+        Page_Note.Inst.Click(Page_Note.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("便签");
+        Page_MainBoard.Inst.Drag(888,596,1130,226,5);
+        Page_Note.Inst.Click(Page_Note.SAVE);
+    }
+
+    @Test
+    public void test02110_note() throws Exception {
+        //在便签属性页--绘制--清空重绘
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
+        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Drag(332,675,751,478,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Drag(355,377,653,879,5);
+        Thread.sleep(2000);
+        Page_Note.Inst.Click(Page_Note.CLEAR);
+        Page_MainBoard.Inst.Drag(355,377,653,879,5);
+        Page_Note.Inst.Click(Page_Note.SAVE);
+    }
+
+    @Test
+    public void test01041_speedlimitlane() throws Exception
+    {
+        //车道限速 去除有最低限速就要有最高限速的限制
+        Page_MainBoard.Inst.Click(new Point(959,1433));
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1883,344));
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(82,628,352,628,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(1);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(7);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+        CheckMyData(Page_MyData.TIPS_TYPE,"车道限速");
     }
 
 }
