@@ -77,7 +77,6 @@ public class testFastMapYL extends testFastMapBase
         //super.setAfter();
     }
 
-
     @Test
     public void test00202_poi_add() throws Exception
     {
