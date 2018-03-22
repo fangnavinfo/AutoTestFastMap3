@@ -201,7 +201,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.POI_TYPE, "彩票投注站");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00702_info_Point_testPath() throws Exception
     {
         //添加点情报
@@ -243,7 +243,7 @@ public class testFastMapYL extends testFastMapBase
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00802_info_Line_testPath() throws Exception
     {
         //添加线情报
@@ -289,7 +289,7 @@ public class testFastMapYL extends testFastMapBase
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test00902_info_Frame_testPath() throws Exception
     {
         //添加面情报
@@ -330,7 +330,7 @@ public class testFastMapYL extends testFastMapBase
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01003_info_roadnamesign_add() throws Exception
     {
         //新增有端点道路名标牌，我的数据中属性编辑移点，室内整理工具查看
@@ -1075,7 +1075,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "车信");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01118_tips_CarInfo_add() throws Exception
     {
         //增加单车道箭头
@@ -1106,7 +1106,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "车信");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01119_tips_CarInfo_add() throws Exception
     {
         //增加单车道箭头
@@ -1153,7 +1153,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
 
-    @Test
+    @Test @IMPORTANT
     public void test01201_tips_add_Click() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
@@ -1169,7 +1169,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"点限速");
     }
     
-    @Test
+    @Test @IMPORTANT
     public void test01203_tips_add_Click() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
@@ -1181,7 +1181,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"危险信息");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01204_tips_add_Click() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
@@ -1193,7 +1193,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"收费站");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01208_tips_add_Click() throws Exception
     {
         //单击手动设置点位信息，新增普通路口模式图
@@ -1207,7 +1207,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
 
-    @Test
+    @Test @IMPORTANT
     public void test01209_tips_add_Click() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_ENTRY_MODE_PICTURE);
@@ -1217,7 +1217,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"高速入口模式图");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01401_diagram_add() throws Exception
     {
         //挂接1
@@ -1235,7 +1235,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"挂接");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01402_diagram_add() throws Exception
     {
         //挂接2
@@ -1251,7 +1251,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"挂接");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01403_diagram_add() throws Exception
     {
         //草图 直线
@@ -1417,7 +1417,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01601_tips_copy() throws Exception
     {
         //复制电子眼
@@ -1437,7 +1437,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
 
-    @Test
+    @Test @IMPORTANT
     public void test01701_tips_add() throws Exception
     {
         SearchLocation(LOC_K8);
@@ -1511,7 +1511,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
 
-    @Test
+    @Test @IMPORTANT
     public void test01705_gate_add() throws Exception
     {
         //大门 PG默认值车辆和行人 取消勾选时间清空
@@ -1858,7 +1858,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test01804_tips_add() throws Exception
     {
         //道路名连线
@@ -2012,7 +2012,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
 
-    @Test
+    @Test @IMPORTANT
     public void test02109_note() throws Exception {
         //在便签属性页--绘制--橡皮擦--我的数据重绘
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);

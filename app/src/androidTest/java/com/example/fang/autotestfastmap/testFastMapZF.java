@@ -59,7 +59,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 车牌录入校验
-    @Test
+    @Test @IMPORTANT
     public void test00101_licence_plate_check() throws Exception
     {
 
