@@ -40,6 +40,8 @@ public class Page_FunctionalArea extends FastMapPage
     @FindResource(Id="edit_name", Text="请输入名称")
     public static String NAME;
 
+    @FindResource(clazz="android.widget.TextView", Text="名称")
+    public static String NAME_STATIC;
 
     public static Page_FunctionalArea Inst;
     static
