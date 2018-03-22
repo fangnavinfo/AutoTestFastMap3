@@ -46,7 +46,7 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="edt_contactItem_telNum", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeTextField[2]")
     public static String TEL;
 
-    @FindResource(Id="camera_button")
+    @FindResource(Id="camera_button_myselt")
     public static String CAMERA;
 
     @FindResource(clazz="android.widget.CheckBox", Text="人行门")
