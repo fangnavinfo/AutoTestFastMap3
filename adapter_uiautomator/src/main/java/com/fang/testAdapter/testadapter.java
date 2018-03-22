@@ -2,6 +2,7 @@ package com.fang.testAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.StaleObjectException;
@@ -69,12 +70,19 @@ public class testadapter
         return obj.getText();
     }
 
+    public static int getCtrlLeft(String id)
+    {
+        UiObject2 object = mDevice.findObject(By.res(packageName, id));//根据ID获取控件
+        Rect r = object.getVisibleBounds();
+        return r.left;
+    }
+
     public static int getDisplayWidth()
     {
         return mDevice.getDisplayWidth();
     }
 
-    public static int getDisplayHeight()
+    public static int  getDisplayHeight()
     {
         return  mDevice.getDisplayHeight();
     }
