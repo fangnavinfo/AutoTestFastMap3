@@ -2047,12 +2047,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test01041_speedlimitlane() throws Exception
+    public void test02201_speedlimitlane() throws Exception
     {
         //车道限速 去除有最低限速就要有最高限速的限制
-        Page_MainBoard.Inst.Click(new Point(959,1433));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1883,344));
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
         Page_MainBoard.Inst.Drag(82,628,352,628,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
