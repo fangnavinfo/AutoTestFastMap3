@@ -43,8 +43,7 @@ public class Page_Login extends FastMapPage
 
     public static void SelectHKM() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
-    	String server = Inst.GetValue(SERVER);
-        if(!server.contains("dev/hm"))
+        if (!Inst.isChecked(HKM_RADIO))
         {
             Inst.Click(HKM_RADIO);
         }
@@ -53,8 +52,7 @@ public class Page_Login extends FastMapPage
 
     public static void NoSelectHKM() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
-    	String server = Inst.GetValue(SERVER);
-        if(server.contains("dev/hm"))
+        if(Inst.isChecked(HKM_RADIO))
         {
             Inst.Click(HKM_RADIO);
         }

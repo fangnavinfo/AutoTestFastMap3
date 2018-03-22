@@ -59,7 +59,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // 车牌录入校验
-    @Test
+    @Test @IMPORTANT
     public void test00101_licence_plate_check() throws Exception
     {
 
@@ -316,8 +316,6 @@ public class testFastMapZF extends testFastMapBase
         //选择大学类型功能面
         Page_FunctionalArea.Inst.Click(Page_FunctionalArea.UNIVERSITY);
 
-        Page_FunctionalArea.Inst.ScrollClick(Page_FunctionalArea.NAME);
-
         Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME, "name1");
 
         //保存
@@ -327,7 +325,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("功能面");
 
-        Page_FunctionalArea.Inst.ScrollClick(Page_FunctionalArea.NAME);
+        Page_FunctionalArea.Inst.ScrollClick(Page_FunctionalArea.NAME_STATIC);
 
         assertTrue(Page_FunctionalArea.Inst.isExistByName("name1"));
 
@@ -346,8 +344,9 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.ScrollClick(Page_POI.PICTURE);
+        Page_POI.Inst.ScrollClick(Page_POI.MULIT_MEDIA);
 
+        Page_POI.Inst.Click(Page_POI.PICTURE);
 
         assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
 

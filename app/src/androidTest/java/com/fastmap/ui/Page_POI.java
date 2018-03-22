@@ -55,8 +55,11 @@ public class Page_POI extends FastMapPage
     @FindResource(clazz="android.widget.ScrollView")
     public static String SCROLL;
 
-    @FindResource(Id="iv_photo_list2")
+    @FindResource(Id="photo_tv_edit")
     public static String PICTURE;
+
+    @FindResource(clazz="android.widget.TextView", Text = "多媒体")
+    public static String MULIT_MEDIA;
 
     public static Page_POI Inst;
     static
