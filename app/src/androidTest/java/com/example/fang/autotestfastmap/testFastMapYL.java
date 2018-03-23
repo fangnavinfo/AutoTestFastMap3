@@ -1438,7 +1438,7 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
     }
 
-//    @Test 0322
+//    @Test
 //    public void test01602_tips_copy() throws Exception
 //    {
 //        //复制原库tips 查看inConfirm字段是否为1
