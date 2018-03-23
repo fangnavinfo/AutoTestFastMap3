@@ -397,6 +397,37 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // 精细化作业要素渲染
+    @Test
+    public void test00111_hide_feature_check() throws Exception
+    {
+        // 创建点门牌
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试ＰＡＳ");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        //隐藏要素
+        Page_MainBoard.Inst.Click(Page_MainBoard.MODE);
+        Page_MainBoard.Inst.Click(Page_MainBoard.REFINEMENT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.CLOSE);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        //点击要素
+        assertTrue(!Page_TrueSence.Inst.isExistByName("保存"));
+
+        //还原渲染开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.MODE);
+        Page_MainBoard.Inst.Click(Page_MainBoard.REFINEMENT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.CLOSE);
+
+
+    }
+
     // FM-1207-6-2
     @Test
     public void test_FM_1207_6_2_check() throws Exception

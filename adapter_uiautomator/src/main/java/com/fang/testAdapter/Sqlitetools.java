@@ -186,6 +186,31 @@ public class Sqlitetools
         }
     }
 
+    public static int GetinConfirm(String rowkey) throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+        int inConfirm = 0;
+        try
+        {
+            String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+            Cursor cursor = db.rawQuery(sql, null);
+            if (!cursor.moveToFirst()) {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            int BLOBIndex = cursor.getColumnIndex("inConfirm");
+            inConfirm = cursor.getInt(BLOBIndex);
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
+        return inConfirm;
+    }
     class DISPLAY_TEXT implements Comparable<DISPLAY_TEXT>
     {
         public DISPLAY_TEXT(String name, int row, int col)

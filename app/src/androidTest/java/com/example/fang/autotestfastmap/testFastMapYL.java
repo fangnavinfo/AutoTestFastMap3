@@ -3,6 +3,7 @@ package com.example.fang.autotestfastmap;
 import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
+import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
@@ -27,6 +28,7 @@ import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_RoadName;
 import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_RoundAbout;
+import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Sketch;
 import com.fastmap.ui.Page_SpeedLimit;
 import com.fastmap.ui.Page_SpeedLimitLane;
@@ -34,6 +36,7 @@ import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
+import com.fastmap.ui.Page_TrafficLight;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -78,7 +81,6 @@ public class testFastMapYL extends testFastMapBase
         //super.setAfter();
     }
 
-
     @Test
     public void test00202_poi_add() throws Exception
     {
@@ -112,6 +114,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
         Page_POI.Inst.Click(Page_POI.CAMERA);//看是否保存了上次置的属性(水牌，中)
+        Thread.sleep(2000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_POI.Inst.Click(Page_POI.SAVE);
         //poiNum++;
@@ -137,6 +140,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
         Thread.sleep(2000);
         Page_POI.Inst.Click(Page_POI.CAMERA);//名称，分辨率中
+        Thread.sleep(2000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
@@ -159,6 +163,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.NAME,"测试ＰＯＩ４");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
         Page_POI.Inst.Click(Page_POI.CAMERA);
+        Thread.sleep(2000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.SHUIPAI_TYPE);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.RADIO_HIG);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
@@ -263,6 +268,7 @@ public class testFastMapYL extends testFastMapBase
         Page_InfoLine.Inst.Click(Page_InfoLine.ROAD_TYPE);
         Page_InfoLine.Inst.Click(Page_InfoLine.TIME);
         Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
+        Thread.sleep(1000);
         Page_InfoLine.Inst.Click(Page_InfoLine.LEVEL_1);
         Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
@@ -526,10 +532,12 @@ public class testFastMapYL extends testFastMapBase
     public void test01016_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌关联不上node(不关联node(link交接处))
-        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        String[] LOC = {"116.41701", "39.98345"};
+        SearchLocation(LOC);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
-        //Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(461,481));//关联node
+        Page_MainBoard.Inst.ClickCenter();
+
+        //Page_MainBoard.Inst.Click(new Point(461,481));//关联node
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
@@ -539,7 +547,7 @@ public class testFastMapYL extends testFastMapBase
         rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
         Sqlitetools.RefreshData();
         int type = Sqlitetools.GetBLOBdeep(rowkey);
-        assertFalse(type==3);
+        assertFalse((type==3));
     }
 
 //    @Test
@@ -1156,7 +1164,6 @@ public class testFastMapYL extends testFastMapBase
         assertFalse(Page_MyData.Inst.isExistByName("车信"));
     }
 
-
     @Test @IMPORTANT
     public void test01201_tips_add_Click() throws Exception
     {
@@ -1172,8 +1179,8 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE,"点限速");
     }
-    
-    @Test @IMPORTANT
+
+    @Test
     public void test01203_tips_add_Click() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
@@ -1226,7 +1233,7 @@ public class testFastMapYL extends testFastMapBase
     {
         //挂接1
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_18_SKETCH);
-        
+
         Page_Sketch.Inst.Click(Page_Sketch.HOOK1);
         Thread.sleep(2000);
 
@@ -1248,7 +1255,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Sketch.Inst.Click(Page_Sketch.HOOK2);
         Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
-        
+
         Page_Sketch.Inst.Click(Page_Sketch.G2_R1_C1);
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
 
@@ -1376,7 +1383,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Click(new Point(1000, 500));
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
-        
+
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
@@ -1396,7 +1403,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Click(new Point(1000, 500));
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
-        
+
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
@@ -1415,7 +1422,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Click(new Point(1000, 500));
         Page_MainBoard.Inst.Click(new Point(1000, 1000));
-        
+
         Page_Sketch.Inst.Click(Page_Sketch.SAVE);
 
         CheckMyData(Page_MyData.TIPS_TYPE,"草图");
@@ -1425,7 +1432,7 @@ public class testFastMapYL extends testFastMapBase
     public void test01601_tips_copy() throws Exception
     {
         //复制电子眼
-    	
+
         String[] EYE_LOC = {"116.40653", "39.91529"};
         SearchLocation(EYE_LOC);
 
@@ -1440,6 +1447,33 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
     }
 
+    @Test
+    public void test01602_tips_copy() throws Exception
+    {
+        //复制原库tips 查看inConfirm字段是否为1
+        synchronize(Page_GridManager.TIPS_UPDATE);
+
+        SearchTips("1111027929206");
+        Page_TrafficLight.Inst.Click(Page_TrafficLight.CANCEL);
+        int left = testadapter.getCtrlLeft(Page_SearchResultList.FRAME);
+        Point p =  new Point(left/2,testadapter.getDisplayHeight()/2);
+        Thread.sleep(1000);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(p);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(300,360));
+        //CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+        //查数据库字段
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("红绿灯");
+        String rowkey = Page_TrafficLight.Inst.GetValue(Page_TrafficLight.TITLE);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        int inConfirm = Sqlitetools.GetinConfirm(rowkey);
+        assertSame(inConfirm,1);
+    }
 
     @Test @IMPORTANT
     public void test01701_tips_add() throws Exception
@@ -1477,7 +1511,6 @@ public class testFastMapYL extends testFastMapBase
     public void test01702_tips_add() throws Exception
     {
  //   	SearchLocation(LOC_K8);
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
         Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
         Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
@@ -1974,6 +2007,7 @@ public class testFastMapYL extends testFastMapBase
         //在便签属性页--绘制--室内整理工具--加载便签
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
+        Page_Note.Inst.Click(Page_Note.SAVE);
         Thread.sleep(2000);
         Page_Note.Inst.ClickByText("保存");
         
@@ -1986,8 +2020,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02107_note() throws Exception {
         //在便签属性页--绘制--室内整理工具--筛选便签
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
+        Page_Note.Inst.Click(Page_Note.SAVE);
         Thread.sleep(2000);
         Page_Note.Inst.ClickByText("保存");
         
@@ -1995,7 +2033,6 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);//筛选
         Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"便签");
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER_EDTOR);
-
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
         Thread.sleep(2000);
 
@@ -2069,5 +2106,6 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         CheckMyData(Page_MyData.TIPS_TYPE,"车道限速");
     }
+
 
 }
