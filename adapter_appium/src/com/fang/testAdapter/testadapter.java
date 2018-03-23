@@ -84,7 +84,7 @@ public class testadapter
 		capabilities.setCapability("platformName", "ios");
 		capabilities.setCapability("deviceName", "iPhone 6");
 		capabilities.setCapability("automationName", "XCUITest");
-		capabilities.setCapability("bundleId", "com.navinfo.fastmap.spring");
+		capabilities.setCapability("bundleId", "com.navinfo.fastmap.summer");
 		capabilities.setCapability("udid", "0641ba799efd8dda03e5da5705c98f1d8075a82b");
 			
 		System.out.println("设置自动化相关参数");
@@ -156,7 +156,28 @@ public class testadapter
     
     public static boolean isChecked(String xpath)
     {
-    	return driver.findElement(By.xpath(xpath)).isSelected();
+    	WebElement elem = driver.findElement(By.xpath(xpath));
+    	try
+    	{
+    		return elem.isSelected();
+    	}
+    	catch(Exception e)
+    	{
+    		try
+    		{
+	    		String value = elem.getAttribute("value");
+	    		if (value.equals("1"))
+	    		{
+	    			return true;
+	    		}
+	    		return false;
+    		}
+    		catch(Exception e2)
+    		{
+    			return false;
+    		}
+    	}
+    	
     }
     
     public static boolean isExist(String xpath, int time)
@@ -232,7 +253,7 @@ public class testadapter
 		p = Runtime.getRuntime().exec("umount " + mnpath);
 		p.waitFor();
 		
-		p = Runtime.getRuntime().exec("ifuse --container com.navinfo.fastmap.spring " + mnpath);													
+		p = Runtime.getRuntime().exec("ifuse --container com.navinfo.fastmap.summer " + mnpath);													
 		p.waitFor();
 		readProcessOutput(p);
         
@@ -524,6 +545,12 @@ public class testadapter
 		
 		String first;
 		String second;
+	}
+	
+	public static void StopApp() 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
 
