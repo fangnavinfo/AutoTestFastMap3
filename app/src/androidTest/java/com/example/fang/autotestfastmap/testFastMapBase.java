@@ -1156,12 +1156,13 @@ public class testFastMapBase
     protected final static  String[] LOC_K7 = {"116.41893", "39.96207"};
     protected final static  String[] LOC_K8 = {"116.41946", "39.96162"};
     protected final static  String[] LOC_K10 = {"116.39964", "39.91966"};
-    
+
     private static String userName = "";
     private static String passWord = "";
     private static String licence = "";
 
     private static boolean isHmWorking;
+
     @Rule
     public TestName currTestName = new TestName();
 }

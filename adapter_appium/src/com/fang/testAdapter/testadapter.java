@@ -550,7 +550,7 @@ public class testadapter
 	public static void StopApp() 
 	{
 		// TODO Auto-generated method stub
-		
+		driver.close();
 	}
 }
 
