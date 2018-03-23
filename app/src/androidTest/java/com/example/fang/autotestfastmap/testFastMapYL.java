@@ -2003,25 +2003,31 @@ public class testFastMapYL extends testFastMapBase
         GotoIndoorTools();
         Thread.sleep(2000);
         assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.BACK);
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
     }
 
     @Test
     public void test02107_note() throws Exception {
         //在便签属性页--绘制--室内整理工具--筛选便签
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Page_Note.Inst.Click(Page_Note.SAVE);
         Thread.sleep(2000);
         GotoIndoorTools();
         Thread.sleep(2000);
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.SELECT);//筛选
-        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便签");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.SELECT);//筛选
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT_EDIT,"便签");
         Thread.sleep(2000);
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.CONFIRM);
+        Page_MainBoard.Inst.Click(new Point(177,274));
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
         Thread.sleep(2000);
         //ExitIndoorTools();
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.BACK);
+        assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
         Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
