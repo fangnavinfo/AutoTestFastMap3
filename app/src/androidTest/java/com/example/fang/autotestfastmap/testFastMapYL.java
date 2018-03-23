@@ -79,7 +79,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
 
- /*   @Test
+    @Test
     public void test00202_poi_add() throws Exception
     {
         //产品全貌开关关，新增POI点查看相机设置
@@ -1882,7 +1882,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
-*/
+
     @Test
     public void test02101_note() throws Exception {
         //在便签属性页--绘制--点击上一步
@@ -1972,6 +1972,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
+        Page_Note.Inst.ClickByText("保存");
+        
         GotoIndoorTools();
         Thread.sleep(2000);
         assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
@@ -1984,6 +1986,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
+        Page_Note.Inst.ClickByText("保存");
+        
         GotoIndoorTools();
         Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.SELECT);//筛选
         Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便签");
@@ -2001,6 +2005,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
+        Page_Note.Inst.ClickByText("保存");
+        
         GotoIndoorTools();
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.SELECT);
         Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便");
