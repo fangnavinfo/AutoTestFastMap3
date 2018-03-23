@@ -180,6 +180,7 @@ public class testFastMapYL extends testFastMapBase
     {
 
         String[][] attrib= {
+                {Page_POI.NAME, "紧急停车带"},
                 {Page_POI.SELECT_TYPE, "紧急停车带"}
         };
 
@@ -194,6 +195,7 @@ public class testFastMapYL extends testFastMapBase
     {
         //POI 彩票投注站
         String[][] attrib= {
+                {Page_POI.NAME, "彩票投注站"},
                 {Page_POI.SELECT_TYPE, "彩票投注站"}
         };
         AddPOI(attrib);
@@ -658,25 +660,26 @@ public class testFastMapYL extends testFastMapBase
         AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
     }
 
-    @Test
-    public void test01047_data_check() throws Exception
-    {
-        //门的方向应与道路通行方向一致,单向门在单向车道上，但是门道方向相反
-    	SearchLocation(LOC_K4);
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_Gate.Inst.Click(Page_Gate.KG);
-        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);
-        Page_Gate.Inst.Click(Page_Gate.SAVE);
-
-//        SearchLocation(LOC_K4);
-//        Page_Gate.Inst.ClickCenter();
-//        Page_Gate.Inst.Click(Page_Gate.CHANGEDIR);
+//    新增门的方向可能和道路一致也可能不一致，没有办法查看，所以测试不了
+//    @Test
+//    public void test01047_data_check() throws Exception
+//    {
+//        //门的方向应与道路通行方向一致,单向门在单向车道上，但是门道方向相反
+//    	SearchLocation(LOC_K4);
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
+//        Page_MainBoard.Inst.ClickCenter();
+//        Page_Gate.Inst.Click(Page_Gate.KG);
+//        Page_Gate.Inst.Click(Page_Gate.SINGLEGATE);
 //        Page_Gate.Inst.Click(Page_Gate.SAVE);
-
-        AssertIndoorCheck("大门","中","FM-1104-6-5","门的方向应与道路通行方向一致","不能忽视");
-    }
+//
+////        SearchLocation(LOC_K4);
+////        Page_Gate.Inst.ClickCenter();
+////        Page_Gate.Inst.Click(Page_Gate.CHANGEDIR);
+////        Page_Gate.Inst.Click(Page_Gate.SAVE);
+//
+//        AssertIndoorCheck("大门","中","FM-11046-1","门的方向应与道路通行方向一致","不能忽视");
+//    }
 
     @Test
     public void test01048_data_check() throws Exception
@@ -1977,7 +1980,7 @@ public class testFastMapYL extends testFastMapBase
         GotoIndoorTools();
         Thread.sleep(2000);
         assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.BACK);
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
     }
 
     @Test
@@ -1989,31 +1992,15 @@ public class testFastMapYL extends testFastMapBase
         Page_Note.Inst.ClickByText("保存");
         
         GotoIndoorTools();
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.SELECT);//筛选
-        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便签");
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.CONFIRM);
-        Thread.sleep(2000);
-        //ExitIndoorTools();
-        Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.BACK);
-        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-    }
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);//筛选
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"便签");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER_EDTOR);
 
-    @Test
-    public void test02108_note() throws Exception {
-        //在便签属性页--绘制--室内整理工具--筛选便签快捷提示
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
-        Page_MainBoard.Inst.Drag(404,1068,967,756,5);
-        Thread.sleep(2000);
-        Page_Note.Inst.ClickByText("保存");
-        
-        GotoIndoorTools();
-        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.SELECT);
-        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便");
-        Page_IndoorMyData.Inst.ClickbyText("便签");
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
         Thread.sleep(2000);
-        //ExitIndoorTools();
+
+        assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
+
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
         Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
