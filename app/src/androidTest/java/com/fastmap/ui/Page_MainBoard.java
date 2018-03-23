@@ -39,6 +39,13 @@ public class Page_MainBoard extends FastMapPage
     public static String SEARCH_LINK_INPUT;
     @FindResource(Id="tv_search_link_btn")
     public static String SEARCH_LINK_BTN;
+
+    @FindResource(Id="btn_mode")
+    public static String MODE;
+    @FindResource(Id="btn_close_pop")
+    public static String CLOSE;
+    @FindResource(Id="cb_refinement_layer")
+    public static String REFINEMENT;
     
     @FindResource(Id="btn_distance_measure", ios_xpath="//XCUIElementTypeButton[@name=\"measure\"]")
     public static String DISTANCE_MEASURE;	//测量距离
