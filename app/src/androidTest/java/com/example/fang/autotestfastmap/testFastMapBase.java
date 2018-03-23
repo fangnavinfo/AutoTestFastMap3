@@ -272,9 +272,16 @@ public class testFastMapBase
     
     protected void GotoMyData(String strType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
+
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
-        
+
+        //进入我的数据后，默认是Tips信息
+        if (strType == Page_MyData.TIPS_TYPE)
+        {
+            return;
+        }
+
         Page_MyData.Inst.Click(Page_MyData.SELECT_DATA_TYPE);
         Page_MyData.Inst.Click(strType);
         Page_MyData.Inst.Click(Page_MyData.SELECT_CONFIRM);
