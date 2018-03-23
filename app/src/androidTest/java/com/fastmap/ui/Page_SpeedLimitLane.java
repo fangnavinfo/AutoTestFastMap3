@@ -1,17 +1,13 @@
 package com.fastmap.ui;
 
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiSelector;
-
-import com.fang.testAdapter.FastMapPage;
-import com.fang.testAdapter.FindResource;
+import com.fang.testAdapter.*;
 
 /**
  * Created by h on 2018/3/21.
  */
 
-public class Page_SpeedLimitLane extends FastMapPage {
+public class Page_SpeedLimitLane extends FastMapPage
+{
     @FindResource(Id="seek_view_container")
     public static String CTROL;
 
@@ -37,15 +33,12 @@ public class Page_SpeedLimitLane extends FastMapPage {
     @FindResource(Id="speed_limit_number_30")
     public static String NUM30;
 
+    @FindResource(clazz="android.widget.TextView")
+    public static String LIMIT_EDIT;
+
     public static Page_SpeedLimitLane Inst;
     static
     {
         Inst = new Page_SpeedLimitLane();
-    }
-
-    public  void ClickByIndex(int index) throws UiObjectNotFoundException {
-        UiObject obj = new UiObject(new UiSelector().className("android.widget.TextView").instance(index));
-        //UiObject obj = new UiObject(new UiSelector().instance(index));
-        obj.click();
     }
 }

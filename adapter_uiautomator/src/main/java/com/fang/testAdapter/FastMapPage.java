@@ -108,7 +108,8 @@ public class FastMapPage
         }
     }
 
-    public String GetValue(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
+    public String GetValue(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
         Field field = this.getClass().getDeclaredField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
@@ -201,10 +202,25 @@ public class FastMapPage
         testadapter.Drag(startX, startY, endX, endY, steps);
     }
 
+
+    public  void ClickByIndex(String findRes, int index) throws Exception
+    {
+        Field field = this.getClass().getDeclaredField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.clazz().isEmpty())
+        {
+            testadapter.ClickByIndex(annotation.clazz(), index);
+        }
+
+    }
+
     public void ScrollOneStep()
     {
         testadapter.ScrollOneStep();
     }
+
+    public final static boolean IS_OS_TEST = false;
 
 //    protected void CheckResource(UiObject2 object, ArrayList<UiObject2> listResult)
 //    {
