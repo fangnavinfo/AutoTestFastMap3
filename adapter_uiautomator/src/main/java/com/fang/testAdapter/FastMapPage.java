@@ -89,7 +89,7 @@ public class FastMapPage
     {
         testadapter.ClickByText(text);
     }
-
+    
     public void ClickbyText(String text, String ios_text)
     {
         testadapter.ClickByText(text);
