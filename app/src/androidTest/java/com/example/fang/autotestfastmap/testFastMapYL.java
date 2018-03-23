@@ -2,6 +2,7 @@ package com.example.fang.autotestfastmap;
 
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
+import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
@@ -26,6 +27,7 @@ import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_RoadName;
 import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_RoundAbout;
+import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Sketch;
 import com.fastmap.ui.Page_SpeedLimit;
 import com.fastmap.ui.Page_SpeedLimitLane;
@@ -33,6 +35,7 @@ import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
+import com.fastmap.ui.Page_TrafficLight;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -526,10 +529,12 @@ public class testFastMapYL extends testFastMapBase
     public void test01016_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌关联不上node(不关联node(link交接处))
-        Page_MainBoard.Inst.Click(Page_MainBoard.ZOOM_IN);
+        String[] LOC = {"116.41701", "39.98345"};
+        SearchLocation(LOC);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
-        //Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(461,481));//关联node
+        Page_MainBoard.Inst.ClickCenter();
+
+        //Page_MainBoard.Inst.Click(new Point(461,481));//关联node
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
@@ -539,7 +544,7 @@ public class testFastMapYL extends testFastMapBase
         rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
         Sqlitetools.RefreshData();
         int type = Sqlitetools.GetBLOBdeep(rowkey);
-        assertFalse(type==3);
+        assertFalse((type==3));
     }
 
 //    @Test
@@ -1438,33 +1443,33 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
     }
 
-//    @Test
-//    public void test01602_tips_copy() throws Exception
-//    {
-//        //复制原库tips 查看inConfirm字段是否为1
-//        synchronize(Page_GridManager.TIPS_UPDATE);
-//
-//        SearchTips("1111027929206");
-//        Page_TrafficLight.Inst.Click(Page_TrafficLight.CANCEL);
-//        int left = testadapter.getCtrlLeft(Page_SearchResultList.FRAME);
-//        Point p =  new Point(left/2,testadapter.getDisplayHeight()/2);
-//        Thread.sleep(1000);
-//        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
-//        Thread.sleep(1000);
-//        Page_MainBoard.Inst.Click(p);
-//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
-//        Page_MainBoard.Inst.ClickCenter();
-//        Page_MainBoard.Inst.Click(new Point(300,360));
-//        //CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
-//        //查数据库字段
-//        GotoMyData(Page_MyData.TIPS_TYPE);
-//        Page_MyData.Inst.ClickbyText("红绿灯");
-//        String rowkey = Page_TrafficLight.Inst.GetValue(Page_TrafficLight.TITLE);
-//        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
-//        Sqlitetools.RefreshData();
-//        int inConfirm = Sqlitetools.GetinConfirm(rowkey);
-//        assertSame(inConfirm,1);
-//    }
+    @Test
+    public void test01602_tips_copy() throws Exception
+    {
+        //复制原库tips 查看inConfirm字段是否为1
+        synchronize(Page_GridManager.TIPS_UPDATE);
+
+        SearchTips("1111027929206");
+        Page_TrafficLight.Inst.Click(Page_TrafficLight.CANCEL);
+        int left = testadapter.getCtrlLeft(Page_SearchResultList.FRAME);
+        Point p =  new Point(left/2,testadapter.getDisplayHeight()/2);
+        Thread.sleep(1000);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(p);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(300,360));
+        //CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+        //查数据库字段
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("红绿灯");
+        String rowkey = Page_TrafficLight.Inst.GetValue(Page_TrafficLight.TITLE);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        int inConfirm = Sqlitetools.GetinConfirm(rowkey);
+        assertSame(inConfirm,1);
+    }
 
     @Test @IMPORTANT
     public void test01701_tips_add() throws Exception
