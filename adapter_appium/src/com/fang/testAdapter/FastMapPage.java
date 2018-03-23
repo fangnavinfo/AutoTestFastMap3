@@ -254,6 +254,14 @@ public class FastMapPage
     	testadapter.Drag(startX/2, startY/2, endX/2, endY/2, steps/2);
     }
     
+    public  void ClickByIndex(String findRes, int index) throws Exception
+    {
+
+
+    }
+    
+    public final static boolean IS_OS_TEST = true;
+    
 //    protected void CheckResource(UiObject2 object, ArrayList<UiObject2> listResult)
 //    {
 //        List<UiObject2> lst = object.getChildren();

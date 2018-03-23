@@ -1,5 +1,6 @@
 package com.fang.testAdapter;
 
+import org.json.JSONObject;  
 import java.lang.reflect.Method;
 import java.sql.*;
 
@@ -162,8 +163,70 @@ public class Sqlitetools
         int col;
 
     }
+    
+    public static int GetBLOBdeep(String rowkey) throws Exception
+    {
+       	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zhou.db,不存在则创建
+
+        try
+        {
+        	String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+            
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery( sql );
+            
+            if (!rs.next()) 
+            {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            byte[] deep = rs.getBytes("deep");
+
+            String str = new String(deep);
+            int type = 0;
+
+            JSONObject jsonObject = new JSONObject(str);
+            JSONObject fObject = jsonObject.getJSONObject("f");
+            type = fObject.getInt("type");
+            return type;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            connection.close();
+        }
+    }
 
     static String mDBPath;
     private static String Drivde="org.sqlite.JDBC";
+	public static void update3rdPartyInfo(String globalId) throws SQLException, ClassNotFoundException
+	{
+		// TODO Auto-generated method stub
+		
+      	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zhou.db,不存在则创建
+    	
+        try
+        {
+        			
+        	String sql = "update edit_tips set b_sourceCode = 6 where globalId=" + "\"" + globalId + "\"";
+            
+            Statement stmt = connection.createStatement();
+            int rs = stmt.executeUpdate( sql );
+            
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+        	connection.close();
+        }
+	}
 }
 

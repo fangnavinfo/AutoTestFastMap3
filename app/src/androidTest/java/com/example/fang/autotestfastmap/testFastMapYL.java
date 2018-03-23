@@ -1,5 +1,6 @@
 package com.example.fang.autotestfastmap;
 
+import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
 import com.fastmap.ui.Page_AddPoint;
@@ -1971,6 +1972,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
+        Page_Note.Inst.ClickByText("保存");
+        
         GotoIndoorTools();
         Thread.sleep(2000);
         assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
@@ -1983,6 +1986,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
+        Page_Note.Inst.ClickByText("保存");
+        
         GotoIndoorTools();
         Page_IndoorMyData.Inst.ClickbyText(Page_IndoorMyData.SELECT);//筛选
         Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便签");
@@ -2000,6 +2005,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Thread.sleep(2000);
+        Page_Note.Inst.ClickByText("保存");
+        
         GotoIndoorTools();
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.SELECT);
         Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.SELECT,"便");
@@ -2049,20 +2056,26 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02201_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //车道限速 去除有最低限速就要有最高限速的限制
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
+
         Page_MainBoard.Inst.Drag(82,628,352,628,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
-        Page_SpeedLimitLane.Inst.ClickByIndex(1);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
-        Page_SpeedLimitLane.Inst.ClickByIndex(2);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
         Thread.sleep(1000);
-        Page_SpeedLimitLane.Inst.ClickByIndex(7);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 7);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
         Thread.sleep(1000);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);

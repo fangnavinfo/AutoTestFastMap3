@@ -57,10 +57,22 @@ public class testadapter
         obj.click();
     }
 
-    public static void SetValue(String id, String value)
+    public static void SetValue(String id, String value) throws InterruptedException
     {
-        UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, id)), 500);
-        obj.setText(value);
+        while (true)
+        {
+            try
+            {
+                UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, id)), 500);
+                obj.setText(value);
+                return;
+            }
+            catch (StaleObjectException e)
+            {
+                Thread.sleep(1000);
+                continue;
+            }
+        }
     }
 
     public static String GetValue(String id)
@@ -309,4 +321,9 @@ public class testadapter
     }
 
 
+    public static void ClickByIndex(String clazz, int index) throws UiObjectNotFoundException
+    {
+        UiObject obj = new UiObject(new UiSelector().className(clazz).instance(index));
+        obj.click();
+    }
 }
