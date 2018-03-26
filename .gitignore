@@ -57,3 +57,4 @@ freeline_project_description.json
 
 *.html
 ./appium_project/test/
+./appium_project/temp/
