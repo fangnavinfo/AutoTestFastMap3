@@ -28,13 +28,14 @@ public class Page_IndoorMyData extends FastMapPage
     public static String CHECK_RESULT_BACK;
 
     @FindResource(Id="img_indoor_mydata_filter")
-    public static String SELECT;
+    public static String FILTER;
 
     @FindResource(Id="btn_fm_confirm")
     public static String CONFIRM;
 
     @FindResource(Id="edt_indoor_mydata_filter_type")
-    public static String SELECT_EDIT;
+    public static String FILTER_EDTOR;
+
     public static Page_IndoorMyData Inst;
     static
     {
