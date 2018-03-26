@@ -1746,7 +1746,15 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
         Page_Gate.Inst.Click(Page_Gate.KG);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.PG);
+        person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1763,7 +1771,13 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
         Page_Gate.Inst.Click(Page_Gate.EG);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.KG);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1780,7 +1794,13 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.BICYCLE);
         Page_Gate.Inst.Click(Page_Gate.PG);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.EG);
+        car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1797,7 +1817,15 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.PG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
         Page_Gate.Inst.Click(Page_Gate.KG);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.PG);
+        person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1814,7 +1842,13 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.KG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
         Page_Gate.Inst.Click(Page_Gate.EG);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.KG);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1832,7 +1866,15 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.TRICYCLE);
         Page_Gate.Inst.Click(Page_Gate.PG);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.KG);
+        person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
