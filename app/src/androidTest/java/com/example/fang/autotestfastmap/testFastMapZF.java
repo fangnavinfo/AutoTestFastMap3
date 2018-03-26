@@ -427,6 +427,23 @@ public class testFastMapZF extends testFastMapBase
 
 
     }
+    // FM_1113_2_1 车道限速
+    @Test
+    public void test_FM_1113_2_1_check() throws Exception
+    {
+        // 创建车道限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Page_MainBoard.Inst.Drag(85,632,90,632,5);
+        Page_SpeedLimit.Inst.Click(new Point(65,472));
+        Page_SpeedLimit.Inst.Click(new Point(65,553));
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        //Page_SpeedLimit.Inst.Click(new Point(155,553));
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        AssertIndoorCheck("车道限速", "高", "FM-1113-2-1", "车道限速各车道的限速值一样时，不需采集", "忽略");
+    }
 
     // FM-1207-6-2
     @Test
