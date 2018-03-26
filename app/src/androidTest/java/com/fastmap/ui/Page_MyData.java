@@ -43,10 +43,12 @@ public class Page_MyData extends FastMapPage
     }
 
     public void CheckVaild(String type, String name, String ios_name) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
-        Click(SELECT_DATA_TYPE);
-        Click(type);
-        Click(SELECT_CONFIRM);
-
+        if(!type.equals(TIPS_TYPE))
+        {
+        	Click(SELECT_DATA_TYPE);
+            Click(type);
+            Click(SELECT_CONFIRM);
+        }
         //AssertExistByName(name);
         Assert.assertTrue(isExistByName(name, ios_name));
         //assertNotNull(mDevice.wait(Until.findObject(By.text(name)), 500));
