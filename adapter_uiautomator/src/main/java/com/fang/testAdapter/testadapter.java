@@ -82,11 +82,12 @@ public class testadapter
         return obj.getText();
     }
 
-    public static int getCtrlLeft(String id)
+    public static int getCtrlWidth()
     {
-        UiObject2 object = mDevice.findObject(By.res(packageName, id));//根据ID获取控件
+        //UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, id)), 500);
+        UiObject2 object = mDevice.wait(Until.findObject(By.res("com.fastmap.hd.aut18:id/right_fragment_layout")),500);
         Rect r = object.getVisibleBounds();
-        return r.left;
+        return r.width();
     }
 
     public static int getDisplayWidth()
