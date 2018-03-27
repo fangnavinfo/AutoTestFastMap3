@@ -23,7 +23,7 @@ public class Page_RoadNameSign extends FastMapPage
     @FindResource(Id="card_road_name_sign_radio_no", Text="否")
     public static String NO_POINT;
     
-    @FindResource(Id="camera_button")
+    @FindResource(Id="camera_button", ios_xpath="//XCUIElementTypeButton[@name=\"photo icon\"]")
     public static String CAMERA;
 
     @FindResource(Id="ck_move_point",Text = "显示点位")
@@ -41,7 +41,7 @@ public class Page_RoadNameSign extends FastMapPage
     @FindResource(Id="btn_fm_confirm", Text="确认")
     public static String CONFIRM;
 
-    @FindResource(Id="et_title")
+    @FindResource(Id="et_title", ios_predicate="value MATCHES '^[0-9a-fA-F]{10,}$'")
     public static String ROWKEY;
     public static Page_RoadNameSign Inst;
     static
