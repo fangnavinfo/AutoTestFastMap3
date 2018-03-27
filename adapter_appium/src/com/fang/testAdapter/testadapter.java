@@ -3,6 +3,7 @@ package com.fang.testAdapter;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
 import java.io.BufferedInputStream;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -70,13 +72,30 @@ public class testadapter
 	{
 		while(true)
 		{
-			WebElement elem = driver.findElement(By.xpath(xpath));
-			if (!elem.isEnabled())
+			int count = 0;
+			try
 			{
-				continue;
+				WebElement elem = driver.findElement(By.xpath(xpath));
+				if (!elem.isEnabled())
+				{
+					continue;
+				}
+				elem.click();
+				break;
 			}
-			elem.click();
-			break;
+			catch(NoSuchElementException e)
+			{
+				if(count > 6)
+				{
+					break;
+				}
+				else
+				{
+					count++;
+					Thread.sleep(500);
+					continue;
+				}
+			}
 		}
 	}
 	
@@ -121,7 +140,7 @@ public class testadapter
 
     public static void SetValue(String xpath, String value)
     {
-    	WebElement elem = driver.findElement(By.xpath(xpath));
+    	MobileElement elem = (MobileElement)driver.findElement(By.xpath(xpath));
     	elem.clear();
     	elem.sendKeys(value);
     	driver.hideKeyboard();
