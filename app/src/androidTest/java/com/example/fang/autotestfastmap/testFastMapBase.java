@@ -33,10 +33,11 @@ public class testFastMapBase
         testFastMapBase.passWord = passWord;
         testFastMapBase.isHmWorking = isHmWorking;
 
+        testadapter.ReStartApp();
+        
         testadapter.Initialize(userName, isHmWorking);
 
         testadapter.ClearCollect();
-        testadapter.ReStartApp();
 
         loginProcess();
 

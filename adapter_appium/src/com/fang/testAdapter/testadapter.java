@@ -3,19 +3,26 @@ package com.fang.testAdapter;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,6 +33,13 @@ import javax.xml.parsers.SAXParserFactory;
 import net.sourceforge.htmlunit.cyberneko.parsers.SAXParser;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -58,13 +72,30 @@ public class testadapter
 	{
 		while(true)
 		{
-			WebElement elem = driver.findElement(By.xpath(xpath));
-			if (!elem.isEnabled())
+			int count = 0;
+			try
 			{
-				continue;
+				WebElement elem = driver.findElement(By.xpath(xpath));
+				if (!elem.isEnabled())
+				{
+					continue;
+				}
+				elem.click();
+				break;
 			}
-			elem.click();
-			break;
+			catch(NoSuchElementException e)
+			{
+				if(count > 6)
+				{
+					break;
+				}
+				else
+				{
+					count++;
+					Thread.sleep(500);
+					continue;
+				}
+			}
 		}
 	}
 	
@@ -84,7 +115,7 @@ public class testadapter
 		capabilities.setCapability("platformName", "ios");
 		capabilities.setCapability("deviceName", "iPhone 6");
 		capabilities.setCapability("automationName", "XCUITest");
-		capabilities.setCapability("bundleId", "com.navinfo.fastmap.summer");
+		capabilities.setCapability("bundleId", "com.navinfo.fastmap.autumn");
 		capabilities.setCapability("udid", "0641ba799efd8dda03e5da5705c98f1d8075a82b");
 			
 		System.out.println("设置自动化相关参数");
@@ -109,7 +140,7 @@ public class testadapter
 
     public static void SetValue(String xpath, String value)
     {
-    	WebElement elem = driver.findElement(By.xpath(xpath));
+    	MobileElement elem = (MobileElement)driver.findElement(By.xpath(xpath));
     	elem.clear();
     	elem.sendKeys(value);
     	driver.hideKeyboard();
@@ -237,29 +268,75 @@ public class testadapter
     
 	public static void Initialize(String username, boolean isHmworking) throws IOException, InterruptedException 
 	{
-		// TODO Auto-generated method stub
+		HttpURLConnection conn = null;
 		
-		userName = username;
-		isHmWorking = isHmworking;
-		
-		String mnpath = "./test";
-		Process p = Runtime.getRuntime().exec("pwd");
-		p.waitFor();
-		readProcessOutput(p);
-		
-		p = Runtime.getRuntime().exec("mkdir " + mnpath);
-		p.waitFor();
-		
-		p = Runtime.getRuntime().exec("umount " + mnpath);
-		p.waitFor();
-		
-		p = Runtime.getRuntime().exec("ifuse --container com.navinfo.fastmap.summer " + mnpath);													
-		p.waitFor();
-		readProcessOutput(p);
-        
-		userPath = mnpath + "/Library/FastMap3/data/collect/" + getUserId() + "/";
-		
-		Sqlitetools.initialize(userPath);
+		try
+		{	
+	        Process prm = Runtime.getRuntime().exec("rm -rf ./temp");
+			prm.waitFor();
+			
+			userName = username;
+			isHmWorking = isHmworking;
+
+	        URL mURL = new URL("http://172.19.43.40/download?path=/data/collect/"+getUserId() +"/" + getUserId() + "_layout.plist");  
+	        conn = (HttpURLConnection) mURL.openConnection();  
+	        
+	        conn.setRequestMethod("GET");  
+	        conn.setReadTimeout(5000);  
+	        conn.setConnectTimeout(10000);
+	        
+	        int responseCode = conn.getResponseCode();  
+	        if (responseCode != 200) 
+	        {
+	        	throw new RuntimeException("http download failed! rscode=" + Integer.toString(responseCode) +" url=" + mURL.toString());
+	        }
+	        
+	        InputStream is = conn.getInputStream();  
+	       
+	        Process p = Runtime.getRuntime().exec("mkdir temp");
+			p.waitFor();
+	        
+	        File file = new File("./temp/layout.plist");
+	        file.createNewFile();
+	        
+	        OutputStream of = new FileOutputStream(file);
+	      
+	        byte[] b = new byte[is.available()];
+	        is.read(b);
+	        
+	        of.write(b, 0, b.length);
+	        
+		}
+		catch (Exception e)
+		{
+			throw e;
+		}
+		finally
+		{
+            if (conn != null) 
+            {  
+                conn.disconnect();  
+            }  
+		}  
+ 
+//		String mnpath = "./test";
+//		Process p = Runtime.getRuntime().exec("pwd");
+//		p.waitFor();
+//		readProcessOutput(p);
+//		
+//		p = Runtime.getRuntime().exec("mkdir " + mnpath);
+//		p.waitFor();
+//		
+//		p = Runtime.getRuntime().exec("umount " + mnpath);
+//		p.waitFor();
+//		
+//		p = Runtime.getRuntime().exec("ifuse --container com.navinfo.fastmap.summer " + mnpath);													
+//		p.waitFor();
+//		readProcessOutput(p);
+//        
+//		userPath = mnpath + "/Library/FastMap3/data/collect/" + getUserId() + "/";
+//		
+//		Sqlitetools.initialize(userPath);
 	}
 	
 	public static void CreateMainBoard() throws IOException
@@ -286,18 +363,34 @@ public class testadapter
 
 	public static void ClearCollect() throws IOException, InterruptedException 
 	{
+		
+		String url = "/data/collect/"+getUserId() +"/" + "coremap.";
+		String urls[] = {url+"sqlite", url+"wal", url+"shm"};
+		
+		for(String s : urls)
+		{
+			try
+			{	
+				String json = "path=" + s;
+		        HttpEntity entity = new StringEntity(json);
+		        
+		        HttpClient httpClient = new DefaultHttpClient();
+		        
+		        HttpDeleteWithBody httpDeleteWithBody = new HttpDeleteWithBody("http://172.19.43.40/delete");
+		        httpDeleteWithBody.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		        httpDeleteWithBody.setEntity(entity);
 
-		Process p = Runtime.getRuntime().exec("rm -r " + userPath + "coremap.sqlite");  
-		p.waitFor();
-		readProcessOutput(p);
-		
-		p = Runtime.getRuntime().exec("rm -r " + userPath + "coremap.wal");  
-		p.waitFor();
-		readProcessOutput(p);
-		
-		p = Runtime.getRuntime().exec("rm -r " + userPath + "coremap.shm");  
-		p.waitFor();
-		readProcessOutput(p);	
+		        HttpResponse response = httpClient.execute(httpDeleteWithBody);
+			}			
+			catch (Exception e)
+			{
+				continue;
+			}
+			finally
+			{
+
+			}
+		}
 	}
 
 	public static void TriggeInMainBoard(String tips) throws InterruptedException
@@ -390,7 +483,7 @@ public class testadapter
     	SAXParserFactory factorys = SAXParserFactory.newInstance();  
     	javax.xml.parsers.SAXParser saxparser = factorys.newSAXParser();  
     	PlistHandler plistHandler = new PlistHandler();  
-    	saxparser.parse(userPath+ getUserId() + "_layout.plist", plistHandler);  
+    	saxparser.parse("./temp/layout.plist", plistHandler);  
     	
 
     	HashMap<String, Object> hash = plistHandler.getMapResult();  
@@ -552,5 +645,20 @@ public class testadapter
 		// TODO Auto-generated method stub
 		driver.close();
 	}
+}
+
+class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
+    public static final String METHOD_NAME = "POST";
+    public String getMethod() { return METHOD_NAME; }
+
+    public HttpDeleteWithBody(final String uri) {
+        super();
+        setURI(URI.create(uri));
+    }
+    public HttpDeleteWithBody(final URI uri) {
+        super();
+        setURI(uri);
+    }
+    public HttpDeleteWithBody() { super(); }
 }
 
