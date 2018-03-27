@@ -43,6 +43,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
@@ -182,7 +183,22 @@ public class testadapter
     
     public static void ScrollClick(String clazz, String clazz1, String text)
     {
-
+//    	WebElement elem = driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '退出登录'"));
+//    	elem.click();
+//    	
+////    	WebElement  element = driver.findElementByXPath("//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable");  
+////    	HashMap<String, String> scrollObject = new HashMap<String, String>();  
+////    	scrollObject.put("element", ((RemoteWebElement) element).getId());
+////
+////    	while(true)
+////    	{
+////	    	scrollObject.put("direction", "Up"); 
+////	    	driver.executeScript("mobile: scroll", scrollObject);
+////	    	
+////	    	WebElement elem = driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '退出登录'"));
+////	    	elem.click();
+////	    	break;
+////    	}
     }
     
     public static boolean isChecked(String xpath)
@@ -266,58 +282,18 @@ public class testadapter
     }
 
     
-	public static void Initialize(String username, boolean isHmworking) throws IOException, InterruptedException 
+	public static void Initialize(String username, boolean isHmworking) throws Exception 
 	{
-		HttpURLConnection conn = null;
+		userName = username;
+		isHmWorking = isHmworking; 
 		
-		try
-		{	
-	        Process prm = Runtime.getRuntime().exec("rm -rf ./temp");
-			prm.waitFor();
-			
-			userName = username;
-			isHmWorking = isHmworking;
-
-	        URL mURL = new URL("http://172.19.43.40/download?path=/data/collect/"+getUserId() +"/" + getUserId() + "_layout.plist");  
-	        conn = (HttpURLConnection) mURL.openConnection();  
-	        
-	        conn.setRequestMethod("GET");  
-	        conn.setReadTimeout(5000);  
-	        conn.setConnectTimeout(10000);
-	        
-	        int responseCode = conn.getResponseCode();  
-	        if (responseCode != 200) 
-	        {
-	        	throw new RuntimeException("http download failed! rscode=" + Integer.toString(responseCode) +" url=" + mURL.toString());
-	        }
-	        
-	        InputStream is = conn.getInputStream();  
-	       
-	        Process p = Runtime.getRuntime().exec("mkdir temp");
-			p.waitFor();
-	        
-	        File file = new File("./temp/layout.plist");
-	        file.createNewFile();
-	        
-	        OutputStream of = new FileOutputStream(file);
-	      
-	        byte[] b = new byte[is.available()];
-	        is.read(b);
-	        
-	        of.write(b, 0, b.length);
-	        
-		}
-		catch (Exception e)
-		{
-			throw e;
-		}
-		finally
-		{
-            if (conn != null) 
-            {  
-                conn.disconnect();  
-            }  
-		}  
+        Process prm = Runtime.getRuntime().exec("rm -rf ./temp");
+		prm.waitFor();
+		
+        Process pmk = Runtime.getRuntime().exec("mkdir temp");
+        pmk.waitFor();
+		
+        DownLoadFileFromFastMap(getUserId() + "_layout.plist", "layout.plist");
  
 //		String mnpath = "./test";
 //		Process p = Runtime.getRuntime().exec("pwd");
@@ -337,6 +313,52 @@ public class testadapter
 //		userPath = mnpath + "/Library/FastMap3/data/collect/" + getUserId() + "/";
 //		
 //		Sqlitetools.initialize(userPath);
+	}
+	
+	public static void DownLoadFileFromFastMap(String urlPath, String name) throws Exception 
+	{
+		HttpURLConnection conn = null;
+		try
+		{	
+	        URL mURL = new URL(FASTMAP_URL+"download?path=/data/collect/"+getUserId() +"/"+ urlPath);  
+	        conn = (HttpURLConnection) mURL.openConnection();  
+	        
+	        conn.setRequestMethod("GET");  
+	        conn.setReadTimeout(5000);  
+	        conn.setConnectTimeout(10000);
+	        
+	        int responseCode = conn.getResponseCode();  
+	        if (responseCode != 200) 
+	        {
+	        	throw new RuntimeException("http download failed! rscode=" + Integer.toString(responseCode) +" url=" + mURL.toString());
+	        }
+	        
+	        InputStream is = conn.getInputStream();  
+	        
+	        File file = new File("./temp/" + name);
+	        file.createNewFile();
+	        
+	        OutputStream of = new FileOutputStream(file);
+	      
+	        byte[] b=new byte[1024];
+            int len=0;
+            while((len=is.read(b))!=-1)
+            {  //先读到内存  
+            	of.write(b, 0, len);
+            }
+            of.flush();
+		}
+		catch (Exception e)
+		{
+			throw e;
+		}
+		finally
+		{
+            if (conn != null) 
+            {  
+                conn.disconnect();  
+            }  
+		} 
 	}
 	
 	public static void CreateMainBoard() throws IOException
@@ -376,7 +398,7 @@ public class testadapter
 		        
 		        HttpClient httpClient = new DefaultHttpClient();
 		        
-		        HttpDeleteWithBody httpDeleteWithBody = new HttpDeleteWithBody("http://172.19.43.40/delete");
+		        HttpDeleteWithBody httpDeleteWithBody = new HttpDeleteWithBody(FASTMAP_URL+"/delete");
 		        httpDeleteWithBody.setHeader("Content-Type", "application/x-www-form-urlencoded");
 		        httpDeleteWithBody.setEntity(entity);
 
@@ -628,6 +650,7 @@ public class testadapter
 	private static HashMap<String, Pairs> mapKeyboardQc = new HashMap<String, Pairs>();
 	private static boolean isHmWorking;
 	private static String  userName;
+	private static final String FASTMAP_URL = "http://172.19.43.40/";
 	static class Pairs
 	{
 		Pairs(String v1, String v2)

@@ -140,6 +140,14 @@ public class testFastMapBase
 
         Page_MainBoard.Inst.WaitEnter(30*1000);
     }
+    
+    public static void logoutProcess() throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
+    	Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+    	Page_MainMenu.Inst.ClickByText("退出登录");
+    	Page_Confirm.Inst.Click(Page_Confirm.OK);
+    	
+    }
 
 //    // 选择非港澳服务
 //    public static void chooseServer() throws InterruptedException {

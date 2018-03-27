@@ -9,21 +9,36 @@ import java.sql.*;
  */
 public class Sqlitetools
 {
-    public static void initialize(String strDBPath)
-    {
-        mDBPath = strDBPath;
-    }
+//    public static void initialize(String strDBPath)
+//    {
+//        mDBPath = strDBPath;
+//    }
 
 
     //注意因为sqlite使用了wal缓存机制，所以每次对数据库做增删改操作后，需要调用此函数刷新数据到coremap.sqlite3中，才能从coremap.sqlite3获取对应数据
     public static void RefreshData() throws Exception
-    {
-        testadapter.ReStartApp();
-
+    {   
         Class clazz = Class.forName("com.example.fang.autotestfastmap.testFastMapBase");
-
-        Method method = clazz.getMethod("loginProcess");
-        method.invoke(null);
+        
+        testadapter.ReStartApp();
+        
+        Thread.sleep(2000);
+        
+        testadapter.DownLoadFileFromFastMap("coremap.sqlite", "coremap.sqlite");
+        testadapter.DownLoadFileFromFastMap("coremap.shm", "coremap.shm");
+        testadapter.DownLoadFileFromFastMap("coremap.wal", "coremap.wal");
+        
+        Process prm1 = Runtime.getRuntime().exec("mv ./temp/coremap.shm ./temp/coremap.sqlite-shm");
+        prm1.waitFor();
+        
+        Process prm2 = Runtime.getRuntime().exec("mv ./temp/coremap.wal ./temp/coremap.sqlite-wal");
+        prm2.waitFor();
+        
+        Process psql = Runtime.getRuntime().exec("cd temp && sqlite3 coremap.sqlite VACUUM");
+        psql.waitFor();
+        
+        Method methodout = clazz.getMethod("loginProcess");
+        methodout.invoke(null);
     }
 
     public String GetTipsDisplayText(String key) throws Exception
@@ -201,7 +216,7 @@ public class Sqlitetools
         }
     }
 
-    static String mDBPath;
+    static final String mDBPath = "./temp/";
     private static String Drivde="org.sqlite.JDBC";
 	public static void update3rdPartyInfo(String globalId) throws SQLException, ClassNotFoundException
 	{
