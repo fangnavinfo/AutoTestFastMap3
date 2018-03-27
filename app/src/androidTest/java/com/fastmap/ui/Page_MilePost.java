@@ -29,6 +29,12 @@ public class Page_MilePost extends FastMapPage
     @FindResource(Id="et_milepost_number", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeTextField")
     public static String MILE_NO;
 
+    @FindResource(Id="mileage_tv_milepost_mile_number" )
+    public static String MILE_EDIT;
+
+    @FindResource(Id="tv_virtualKeyboard_5", Text="5")
+    public static String FIVE;
+
     public static Page_MilePost Inst;
     static
     {

@@ -1504,6 +1504,62 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
     }
 
+    @Test @IMPORTANT
+    public void test01703_tips_add() throws Exception
+    {
+        String[] LOC_K8 = {"116.41222", "39.96192"};
+        SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
+        Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.FIVE);
+        Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Page_MilePost.Inst.Drag(400,200,300,200,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.ClickCenter();;
+        Page_MilePost.Inst.Click(Page_MilePost.INC);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Page_MilePost.Inst.Drag(400,200,100,200,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.ClickCenter();
+        String str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
+        assertTrue(str.equals("7"));
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        SearchLocation(LOC_K8);
+        Page_MilePost.Inst.ClickCenter();
+        //Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+        //Page_MilePost.Inst.ScrollClick(Page_MilePost.MILE_NO);
+        Page_MilePost.Inst.Drag(1743,846,1743,300,5);
+        Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
+        Page_MilePost.Inst.Click(Page_MilePost.ZERO);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Page_MilePost.Inst.Drag(400,200,10,200,5);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.ClickCenter();
+        str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
+        assertSame(str,"8");
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+    }
+
     @Test
     public void test01702_tips_add() throws Exception
     {
