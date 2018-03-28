@@ -2120,8 +2120,6 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Page_Note.Inst.Click(Page_Note.SAVE);
-        Thread.sleep(2000);
-        Page_Note.Inst.ClickByText("保存");
         
         GotoIndoorTools();
         Thread.sleep(2000);
@@ -2138,8 +2136,6 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TIPS_TYPE_NOTE);
         Page_MainBoard.Inst.Drag(404,1068,967,756,5);
         Page_Note.Inst.Click(Page_Note.SAVE);
-        Thread.sleep(2000);
-        Page_Note.Inst.ClickByText("保存");
         
         GotoIndoorTools();
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);//筛选
