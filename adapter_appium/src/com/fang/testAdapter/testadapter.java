@@ -52,6 +52,7 @@ public class testadapter
 {
 	private static AppiumDriver driver;
 			
+	
 	public static void ClickByText(String text) throws InterruptedException
 	{
 		try
@@ -201,9 +202,10 @@ public class testadapter
 ////    	}
     }
     
-    public static boolean isChecked(String xpath)
+    public static boolean isChecked(FindResource annotation)
     {
-    	WebElement elem = driver.findElement(By.xpath(xpath));
+    	WebElement elem = GetElement(annotation);
+
     	try
     	{
     		return elem.isSelected();
@@ -223,8 +225,7 @@ public class testadapter
     		{
     			return false;
     		}
-    	}
-    	
+    	}	
     }
     
     public static boolean isExist(String xpath, int time)
@@ -415,6 +416,7 @@ public class testadapter
 		}
 	}
 
+	
 	public static void TriggeInMainBoard(String tips) throws InterruptedException
 	{
 		HashMap<String, Pairs> mapKeyboardCurr = null;
@@ -471,6 +473,27 @@ public class testadapter
     {
 		new TouchAction(driver).press(startX, startY).moveTo(endX, endY).release().perform();
     }
+	
+	private static WebElement GetElement(FindResource annotation)
+	{
+    	if(!annotation.ios_xpath().isEmpty())
+    	{
+    		return driver.findElement(By.xpath(annotation.ios_xpath()));
+    	}
+    	else if(!annotation.Text().isEmpty())
+    	{
+    		try
+    		{
+    			return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + annotation.Text() + "'"));
+    		}
+    		catch (Exception e)
+    		{
+    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + annotation.Text() + "'"));
+    		}
+    	}
+    	
+		return null;
+	}
 	
 	private static void readProcessOutput(final Process process) {
         // 将进程的正常输出在 System.out 中打印，进程的错误输出在 System.err 中打印

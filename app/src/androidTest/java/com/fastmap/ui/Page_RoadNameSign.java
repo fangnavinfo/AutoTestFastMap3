@@ -35,7 +35,7 @@ public class Page_RoadNameSign extends FastMapPage
     @FindResource(Id="ck_move_point_or_line",Text = "显示/引导点位")
     public static String MOVEPOINTLINE;
 
-    @FindResource(Id="delete_button", Text="删除")
+    @FindResource(Id="delete_button", ios_xpath="//XCUIElementTypeButton[@name=\"删除\"]")
     public static String DELETE;
 
     @FindResource(Id="btn_fm_confirm", Text="确认")

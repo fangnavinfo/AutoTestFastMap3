@@ -197,12 +197,8 @@ public class FastMapPage
         Field field = this.getClass().getDeclaredField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
-        if (!annotation.ios_xpath().isEmpty())
-        {
-            return testadapter.isChecked(annotation.ios_xpath());
-        }
 
-        throw new RuntimeException("can not find id of " + findRes);
+        return testadapter.isChecked(annotation);
     }
 
     public boolean isExist(String findRes, int time) throws NoSuchFieldException

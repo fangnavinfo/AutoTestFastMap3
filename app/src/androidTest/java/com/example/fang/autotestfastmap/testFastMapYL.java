@@ -1508,6 +1508,11 @@ public class testFastMapYL extends testFastMapBase
     @Test @IMPORTANT
     public void test01703_tips_add() throws Exception
     {
+    	if(FastMapPage.IS_OS_TEST)
+    	{
+    		return;
+    	}
+    	
         String[] LOC_K8 = {"116.41222", "39.96192"};
         SearchLocation(LOC_K8);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
@@ -1963,8 +1968,11 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
 
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.DELETE);
-        Page_RoadNameSign.Inst.ClickByText("确认");
-
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_RoadNameSign.Inst.ClickByText("确认");
+        }
+        
         Thread.sleep(3000);
 
         assertFalse(Page_MyData.Inst.isExistByName("道路名"));
@@ -1986,7 +1994,11 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadName.Inst.Click(Page_RoadName.SAVE);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.ROADNAME_BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+        
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+        }
 
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
@@ -2009,8 +2021,12 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadName.Inst.Click(Page_RoadName.SAVE);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.ROADNAME_BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-
+        
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+        }
+        
         Thread.sleep(2000);
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
