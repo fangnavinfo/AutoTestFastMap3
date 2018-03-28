@@ -427,6 +427,50 @@ public class testFastMapZF extends testFastMapBase
 
 
     }
+
+    // 入库结果对话框去掉大区内/跨大区的提示信息
+    @Test
+    public void test00112_sync_over_grid_check() throws Exception
+    {
+        String[] FATHER_LOC = {"116.40631", "39.91562"};
+        String[] SON_LOC = {"116.40631", "39.91562"};
+
+        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
+
+        AddPOI(attrib1, "116.40557", "39.96121");
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+
+        String infoFid = AddPOI(attrib2, "116.40667", "39.96115");
+
+        SearchLocation("116.40557", "39.96121");
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.POI_UPDATE); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.ClickByText("同步数据"); //同步
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
+
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+
+        Thread.sleep(1000);
+
+        boolean rst = Page_GridManager.Inst.isExistByName("大区");
+
+        assertEquals(rst, false);
+    }
+
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
