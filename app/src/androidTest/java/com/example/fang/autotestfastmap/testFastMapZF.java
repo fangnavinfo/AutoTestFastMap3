@@ -363,6 +363,11 @@ public class testFastMapZF extends testFastMapBase
     @Test @IMPORTANT
     public void test00110_3rdParty_Data_check() throws Exception
     {
+    	if(FastMapPage.IS_OS_TEST)
+    	{
+    		return;
+    	}
+    	
         // 创建情报
         Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
         Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
