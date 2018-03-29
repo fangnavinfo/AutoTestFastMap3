@@ -1,8 +1,8 @@
 package com.fang.testAdapter;
 
-import org.json.JSONObject;  
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.HashMap;
 
 /**
  * Created by fang on 18/1/29.
@@ -104,35 +104,35 @@ public class Sqlitetools
 //
     }
 
-    public static String GetRelateChildren(String infoFid) throws Exception
-    {
-    	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
-    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zhou.db,不存在则创建
-
-        try
-        {
-            String sql = "select * from edit_pois where fid=" + "\"" + infoFid + "\"";
-            
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery( sql );
-            
-            if (!rs.next()) {
-                throw new Exception("query result is null, exec sql:" + sql);
-            }
-
-            byte[] relateChildren = rs.getBytes("relateChildren");
-
-            return new String(relateChildren);
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            connection.close();
-        }
-    }
+//    public static String GetRelateChildren(String infoFid) throws Exception
+//    {
+//    	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+//    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zhou.db,不存在则创建
+//
+//        try
+//        {
+//            String sql = "select * from edit_pois where fid=" + "\"" + infoFid + "\"";
+//            
+//            Statement stmt = connection.createStatement();
+//            ResultSet rs = stmt.executeQuery( sql );
+//            
+//            if (!rs.next()) {
+//                throw new Exception("query result is null, exec sql:" + sql);
+//            }
+//
+//            byte[] relateChildren = rs.getBytes("relateChildren");
+//
+//            return new String(relateChildren);
+//        }
+//        catch (Exception e)
+//        {
+//            throw e;
+//        }
+//        finally
+//        {
+//            connection.close();
+//        }
+//    }
 
 
     class DISPLAY_TEXT implements Comparable<DISPLAY_TEXT>
@@ -179,43 +179,113 @@ public class Sqlitetools
 
     }
     
-    public static int GetBLOBdeep(String rowkey) throws Exception
-    {
-       	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
-    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zhou.db,不存在则创建
+//    public static int GetBLOBdeep(String rowkey) throws Exception
+//    {
+//       	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+//    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zhou.db,不存在则创建
+//
+//        try
+//        {
+//        	String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+//            
+//            Statement stmt = connection.createStatement();
+//            ResultSet rs = stmt.executeQuery( sql );
+//            
+//            if (!rs.next()) 
+//            {
+//                throw new Exception("query result is null, exec sql:" + sql);
+//            }
+//
+//            byte[] deep = rs.getBytes("deep");
+//
+//            String str = new String(deep);
+//            int type = 0;
+//
+//            JSONObject jsonObject = new JSONObject(str);
+//            JSONObject fObject = jsonObject.getJSONObject("f");
+//            type = fObject.getInt("type");
+//            return type;
+//        }
+//        catch (Exception e)
+//        {
+//            throw e;
+//        }
+//        finally
+//        {
+//            connection.close();
+//        }
+//    }
 
-        try
-        {
-        	String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
-            
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery( sql );
-            
-            if (!rs.next()) 
-            {
-                throw new Exception("query result is null, exec sql:" + sql);
-            }
-
-            byte[] deep = rs.getBytes("deep");
-
-            String str = new String(deep);
-            int type = 0;
-
-            JSONObject jsonObject = new JSONObject(str);
-            JSONObject fObject = jsonObject.getJSONObject("f");
-            type = fObject.getInt("type");
-            return type;
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            connection.close();
-        }
-    }
-
+//    public static int Get(String rowkey) throws Exception
+//    {
+//       	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+//    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zhou.db,不存在则创建
+//
+//        try
+//        {
+//        	String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+//            
+//            Statement stmt = connection.createStatement();
+//            ResultSet rs = stmt.executeQuery( sql );
+//            
+//            if (!rs.next()) 
+//            {
+//                throw new Exception("query result is null, exec sql:" + sql);
+//            }
+//
+//            byte[] deep = rs.getBytes("deep");
+//
+//            String str = new String(deep);
+//            int type = 0;
+//
+//            JSONObject jsonObject = new JSONObject(str);
+//            JSONObject fObject = jsonObject.getJSONObject("f");
+//            type = fObject.getInt("type");
+//            return type;
+//        }
+//        catch (Exception e)
+//        {
+//            throw e;
+//        }
+//        finally
+//        {
+//            connection.close();
+//        }
+//    }
+//    
+//    public static int GetinConfirm(String rowkey) throws Exception
+//    {
+//       	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+//    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");//连接数据库zh
+//    	
+//        int inConfirm = 0;
+//        try
+//        {
+//            String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+//            Statement stmt = connection.createStatement();
+//            ResultSet rs = stmt.executeQuery( sql );
+//            
+//            if (!rs.next()) 
+//            {
+//                throw new Exception("query result is null, exec sql:" + sql);
+//            }
+//
+//            byte[] deep = rs.getBytes("deep");
+//            
+//
+//            inConfirm = rs.getInt("inConfirm");
+//        }
+//        catch (Exception e)
+//        {
+//            throw e;
+//        }
+//        finally
+//        {
+//        	connection.close();
+//        }
+//        return inConfirm;
+//    }
+    
     static final String mDBPath = "./temp/";
     private static String Drivde="org.sqlite.JDBC";
 	public static void update3rdPartyInfo(String globalId) throws SQLException, ClassNotFoundException
@@ -233,6 +303,110 @@ public class Sqlitetools
             Statement stmt = connection.createStatement();
             int rs = stmt.executeUpdate( sql );
             
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+        	connection.close();
+        }
+	}
+
+	public static Object GetTipsDataByRowKey(String rowkey, String colu) throws Exception 
+	{
+      	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");
+
+        try
+        {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery( "PRAGMA table_info(\"edit_tips\")" );
+            
+            if (!rs.next()) 
+            {
+            	throw new Exception();
+            }
+
+            do
+            {
+                TipsTableInfo.put(rs.getString(1),  rs.getString(2));
+            } while (rs.next());
+            
+
+            String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+            rs = stmt.executeQuery(sql);
+            if (!rs.next())
+            {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            switch (TipsTableInfo.get(colu))
+            {
+                case "integer":
+                    return rs.getInt(colu);
+                case "text":
+                    return rs.getString(colu);
+                case "blob":
+                    return rs.getBlob(colu);
+                default:
+                    throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+        	connection.close();
+        }
+	}
+
+	public static Object GePoiDataByFid(String infoFid, String colu) throws Exception
+	{
+      	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");
+
+        try
+        {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery( "PRAGMA table_info(\"edit_Pois\")" );
+            
+            if (!rs.next()) 
+            {
+            	throw new Exception();
+            }
+
+            do
+            {
+                TipsTableInfo.put(rs.getString(1),  rs.getString(2));
+            } while (rs.next());
+            
+
+            String sql = "select * from edit_tips where rowkey=" + "\"" + infoFid + "\"";
+            rs = stmt.executeQuery(sql);
+            if (!rs.next())
+            {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            switch (TipsTableInfo.get(colu))
+            {
+                case "integer":
+                    return rs.getInt(colu);
+                case "text":
+                    return rs.getString(colu);
+                case "blob":
+                    return rs.getBlob(colu);
+                default:
+                    throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
+            }
         }
         catch (Exception e)
         {

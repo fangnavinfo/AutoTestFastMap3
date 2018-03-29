@@ -38,6 +38,7 @@ import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
 
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -502,10 +503,14 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
         String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        rowkey = rowkey.replace("rowkey:", "");
+
         Sqlitetools.RefreshData();
-        int type = Sqlitetools.GetBLOBdeep(rowkey);
-        //assertTrue(type==2);
+        String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+
+        JSONObject jsonObject = new JSONObject(str);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+
         assertSame(type,2);
     }
 
@@ -519,12 +524,17 @@ public class testFastMapYL extends testFastMapBase
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
         String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
-        Sqlitetools.RefreshData();
-        int type = Sqlitetools.GetBLOBdeep(rowkey);
+        rowkey = rowkey.replace("rowkey:", "");
+
+        String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+
+        JSONObject jsonObject = new JSONObject(str);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+
         assertSame(type,1);
     }
 
@@ -543,10 +553,14 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
+
         String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        rowkey = rowkey.replace("rowkey:", "");
+
         Sqlitetools.RefreshData();
-        int type = Sqlitetools.GetBLOBdeep(rowkey);
+        String str = (String)Sqlitetools.GetTipsDataByRowKey(rowkey, "deep");
+        JSONObject jsonObject = new JSONObject(str);
+        int type = jsonObject.getJSONObject("f").getInt("type");
         assertFalse((type==3));
     }
 
@@ -1451,17 +1465,19 @@ public class testFastMapYL extends testFastMapBase
     public void test01602_tips_copy() throws Exception
     {
         //复制原库tips 查看inConfirm字段是否为1
+        SearchLocation("116.42218", "39.96087");
+
         synchronize(Page_GridManager.TIPS_UPDATE);
 
-        SearchTips("021102132D09A9A7F84495B83E09D30A55DAD1");
-        Page_Light.Inst.Click(Page_Light.CANCEL);
-        int width = testadapter.getCtrlWidth();
-        Point p =  new Point((testadapter.getDisplayWidth()-width)/2,testadapter.getDisplayHeight()/2);
-        Thread.sleep(1000);
-        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
-        Thread.sleep(1000);
+//        SearchTips("021102132D09A9A7F84495B83E09D30A55DAD1");
+//        Page_Light.Inst.Click(Page_Light.CANCEL);
+//        int width = testadapter.getCtrlWidth();
+//        Point p =  new Point((testadapter.getDisplayWidth()-width)/2,testadapter.getDisplayHeight()/2);
+//        Thread.sleep(1000);
+//        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+//        Thread.sleep(1000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
-        Page_MainBoard.Inst.Click(p);
+        Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Click(new Point(300,360));
         //查数据库字段
         GotoMyData(Page_MyData.TIPS_TYPE);
@@ -1469,7 +1485,7 @@ public class testFastMapYL extends testFastMapBase
         String rowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
         rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
         Sqlitetools.RefreshData();
-        int inConfirm = Sqlitetools.GetinConfirm(rowkey);
+        int inConfirm = (Integer)Sqlitetools.GetTipsDataByRowKey(rowkey, "inConfirm");
         assertSame(inConfirm,1);
     }
 
@@ -2145,10 +2161,6 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
 
         assertTrue(Page_IndoorMyData.Inst.isExistByName("便签"));
-
-        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
-        Page_IndoorTool.Inst.Click(Page_IndoorTool.BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
     }
 
     @Test @IMPORTANT

@@ -6,6 +6,5 @@
 	<classpathentry kind="lib" path="libs/selenium-java-3.8.1.zip"/>
 	<classpathentry kind="lib" path="libs/selenium-server-standalone-3.8.1.jar"/>
 	<classpathentry kind="lib" path="/Users/fang/Documents/Eclipse Workspace/AppiumAdpater/libs/sqlite-jdbc-3.21.0.1.jar"/>
-	<classpathentry kind="lib" path="/Users/fang/Documents/GitHub/AutoTestFastMap3/adapter_appium/libs/org.json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

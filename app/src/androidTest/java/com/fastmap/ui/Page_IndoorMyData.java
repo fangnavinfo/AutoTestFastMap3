@@ -27,13 +27,13 @@ public class Page_IndoorMyData extends FastMapPage
     @FindResource(Id="iv_indoor_check_back", ios_xpath="//XCUIElementTypeButton[@name=\"icon user back nor\"]")
     public static String CHECK_RESULT_BACK;
 
-    @FindResource(Id="img_indoor_mydata_filter")
+    @FindResource(Id="img_indoor_mydata_filter", ios_xpath="//XCUIElementTypeButton[@name=\"indoor filter\"]")
     public static String FILTER;
 
-    @FindResource(Id="btn_fm_confirm")
+    @FindResource(Id="btn_fm_confirm", ios_xpath="(//XCUIElementTypeButton[@name=\"确认\"])[2]")
     public static String CONFIRM;
 
-    @FindResource(Id="edt_indoor_mydata_filter_type")
+    @FindResource(Id="edt_indoor_mydata_filter_type", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTextField")
     public static String FILTER_EDTOR;
 
     public static Page_IndoorMyData Inst;

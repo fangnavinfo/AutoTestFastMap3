@@ -40,12 +40,12 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="tv_search_link_btn")
     public static String SEARCH_LINK_BTN;
 
-    @FindResource(Id="btn_mode")
-    public static String MODE;
-    @FindResource(Id="btn_close_pop")
+    @FindResource(Id="btn_mode", ios_xpath = "//XCUIElementTypeButton[@name=\"scene integrated\"]")
+    public static String MODE; //场景设置
+    @FindResource(Id="btn_close_pop", ios_xpath = "//XCUIElementTypeButton[@name=\"gray close\"]")
     public static String CLOSE;
-    @FindResource(Id="cb_refinement_layer")
-    public static String REFINEMENT;
+    @FindResource(Id="cb_refinement_layer", ios_xpath = "//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeOther[8]/XCUIElementTypeSwitch")
+    public static String REFINEMENT; //精细化图层
     
     @FindResource(Id="btn_distance_measure", ios_xpath="//XCUIElementTypeButton[@name=\"measure\"]")
     public static String DISTANCE_MEASURE;	//测量距离

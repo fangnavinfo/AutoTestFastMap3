@@ -79,6 +79,11 @@ public class testFastMapZF extends testFastMapBase
     public void test00101_poi_hm_brand_check() throws Exception
     {
 
+    	if(FastMapPage.IS_OS_TEST)
+    	{
+    		return;
+    	}
+    	
         String[][] attrib = {
                 { Page_POI.NAME, "测试ＰＯＩ"},
                 { Page_POI.SELECT_TYPE, "厂家一览表内汽车修理"},
@@ -228,7 +233,9 @@ public class testFastMapZF extends testFastMapBase
         Page_MultiList.Inst.Click(Page_MultiList.CANCEL_POI);
 
         Sqlitetools.RefreshData();
-        assertEquals(Sqlitetools.GetRelateChildren(infoFid), "[]");
+
+        String child = new String((byte[])Sqlitetools.GePoiDataByFid(infoFid, "relateChildren"));
+        assertEquals(child, "[]");
 
     }
 
@@ -475,6 +482,11 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1113_2_1_check() throws Exception
     {
+    	if(FastMapPage.IS_OS_TEST)
+    	{
+    		return;
+    	}
+    	
         // 创建车道限速
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
         Page_MainBoard.Inst.ClickCenter();
@@ -525,7 +537,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         Page_ParkLink.Inst.Click(Page_ParkLink.SAVE);
 
-        AssertIndoorCheck("停车场出入口link", "中", "FM-1208-2-1", "单方向道路未进行停车场出入口LINK连接", "");
+        AssertIndoorCheckNull("FM-1208-2-1");
     }
 
     // FM-1301-6-4

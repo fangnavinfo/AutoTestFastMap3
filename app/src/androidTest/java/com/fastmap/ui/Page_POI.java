@@ -50,10 +50,10 @@ public class Page_POI extends FastMapPage
     @FindResource(clazz="android.widget.CheckBox", Text="人行门")
     public static String PERSION_GATE;
 
-    @FindResource(clazz="android.widget.ScrollView")
+    @FindResource(clazz="android.widget.ScrollView", ios_x=740, ios_y=314)
     public static String SCROLL;
 
-    @FindResource(Id="photo_tv_edit")
+    @FindResource(Id="photo_tv_edit", ios_xpath="//XCUIElementTypeButton[@name=\"编辑\"]")
     public static String PICTURE;
 
     @FindResource(clazz="android.widget.TextView", Text = "多媒体")

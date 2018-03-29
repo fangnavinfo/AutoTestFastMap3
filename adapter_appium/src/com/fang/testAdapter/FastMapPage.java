@@ -171,7 +171,7 @@ public class FastMapPage
             field = this.getClass().getDeclaredField(findRes);
             FindResource res_annotation = field.getAnnotation(FindResource.class);
 
-            testadapter.ScrollClick(scrl_annotation.clazz(), res_annotation.clazz(), res_annotation.Text());
+            testadapter.ScrollClick(scrl_annotation, res_annotation);
     	}
 
 //        FindResource annotation = field.getAnnotation(FindResource.class);

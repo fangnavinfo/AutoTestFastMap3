@@ -42,6 +42,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -85,11 +86,11 @@ public class testadapter
 				elem.click();
 				break;
 			}
-			catch(NoSuchElementException e)
+			catch(org.openqa.selenium.NoSuchElementException e)
 			{
 				if(count > 6)
 				{
-					break;
+					throw e;
 				}
 				else
 				{
@@ -182,24 +183,38 @@ public class testadapter
     	return driver.findElement(MobileBy.iOSNsPredicateString(Predicate)).getText();
     }
     
-    public static void ScrollClick(String clazz, String clazz1, String text)
-    {
-//    	WebElement elem = driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '退出登录'"));
-//    	elem.click();
+    public static void ScrollClick(FindResource scrl_annotation, FindResource target_annotation)
+    {	
+    	TouchAction action1 = new TouchAction(driver); 
+    	
+    	for(int i=0; i<5; i++)
+    	{	 
+	    	action1.press(scrl_annotation.ios_x(), scrl_annotation.ios_y()).moveTo(scrl_annotation.ios_x(), -200).release().perform() ;
+	    	if(isExistByName(target_annotation.Text()))
+	    	{
+	    		return;
+	    	}
+    	}
+    	
+    	throw new NoSuchElementException();
+    	
+//    	WebElement  element = driver.findElementByXPath("//XCUIElementTypeStaticText[@name=\"同一关系\"]");  
+//
+//  
+//    	HashMap<String, String> scrollObject = new HashMap<String, String>();  
+//    	scrollObject.put("element", ((RemoteWebElement) element).getId());
+//
+//    	scrollObject.put("direction", "up"); 
 //    	
-////    	WebElement  element = driver.findElementByXPath("//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable");  
-////    	HashMap<String, String> scrollObject = new HashMap<String, String>();  
-////    	scrollObject.put("element", ((RemoteWebElement) element).getId());
-////
-////    	while(true)
-////    	{
-////	    	scrollObject.put("direction", "Up"); 
-////	    	driver.executeScript("mobile: scroll", scrollObject);
-////	    	
+//    	while(true)
+//    	{
+//	    	
+//	    	driver.executeScript("mobile: scroll", scrollObject);
+//	    	
 ////	    	WebElement elem = driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '退出登录'"));
 ////	    	elem.click();
 ////	    	break;
-////    	}
+//    	}
     }
     
     public static boolean isChecked(FindResource annotation)

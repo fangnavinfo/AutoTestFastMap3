@@ -124,22 +124,69 @@ public class Sqlitetools
         }
     }
 
-    public static String GetRelateChildren(String infoFid) throws Exception
+//    public static String GetRelateChildren(String infoFid) throws Exception
+//    {
+//        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+//
+//        try
+//        {
+//            String sql = "select * from edit_pois where fid=" + "\"" + infoFid + "\"";
+//            Cursor cursor = db.rawQuery(sql, null);
+//            if (!cursor.moveToFirst()) {
+//                throw new Exception("query result is null, exec sql:" + sql);
+//            }
+//
+//            int relateChildrenIndex = cursor.getColumnIndex("relateChildren");
+//            byte[] relateChildren = cursor.getBlob(relateChildrenIndex);
+//
+//            return new String(relateChildren);
+//        }
+//        catch (Exception e)
+//        {
+//            throw e;
+//        }
+//        finally
+//        {
+//            db.close();
+//        }
+//    }
+
+    public static Object GePoiDataByFid(String fid, String colu) throws Exception
     {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
 
         try
         {
-            String sql = "select * from edit_pois where fid=" + "\"" + infoFid + "\"";
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_pois\")", null);
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    TipsTableInfo.put(c.getString(1),  c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+
+            String sql = "select * from edit_pois where fid=" + "\"" + fid + "\"";
             Cursor cursor = db.rawQuery(sql, null);
-            if (!cursor.moveToFirst()) {
+            if (!cursor.moveToFirst())
+            {
                 throw new Exception("query result is null, exec sql:" + sql);
             }
 
-            int relateChildrenIndex = cursor.getColumnIndex("relateChildren");
-            byte[] relateChildren = cursor.getBlob(relateChildrenIndex);
-
-            return new String(relateChildren);
+            int index = cursor.getColumnIndex(colu);
+            switch (TipsTableInfo.get(colu))
+            {
+                case "integer":
+                    return cursor.getInt(index);
+                case "text":
+                    return cursor.getString(index);
+                case "blob":
+                    return cursor.getBlob(index);
+                default:
+                    throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
+            }
         }
         catch (Exception e)
         {
@@ -151,30 +198,42 @@ public class Sqlitetools
         }
     }
 
-    public static int GetBLOBdeep(String rowkey) throws Exception
+    public static Object GetTipsDataByRowKey(String rowkey, String colu) throws Exception
     {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
 
         try
         {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_tips\")", null);
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    TipsTableInfo.put(c.getString(1),  c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+
             String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
             Cursor cursor = db.rawQuery(sql, null);
-            if (!cursor.moveToFirst()) {
+            if (!cursor.moveToFirst())
+            {
                 throw new Exception("query result is null, exec sql:" + sql);
             }
 
-            int BLOBIndex = cursor.getColumnIndex("deep");
-            byte[] BOLBContent = cursor.getBlob(BLOBIndex);
-            String str = new String(BOLBContent);
-            int type = 0;
-            try {
-                JSONObject jsonObject = new JSONObject(str);
-                JSONObject fObject = jsonObject.getJSONObject("f");
-                type = fObject.getInt("type");
-            } catch (JSONException e) {
-                e.printStackTrace();
+            int index = cursor.getColumnIndex(colu);
+            switch (TipsTableInfo.get(colu))
+            {
+                case "integer":
+                    return cursor.getInt(index);
+                case "text":
+                    return cursor.getString(index);
+                case "blob":
+                    return cursor.getBlob(index);
+                default:
+                    throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
             }
-            return type;
         }
         catch (Exception e)
         {
@@ -186,31 +245,68 @@ public class Sqlitetools
         }
     }
 
-    public static int GetinConfirm(String rowkey) throws Exception
-    {
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
-        int inConfirm = 0;
-        try
-        {
-            String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
-            Cursor cursor = db.rawQuery(sql, null);
-            if (!cursor.moveToFirst()) {
-                throw new Exception("query result is null, exec sql:" + sql);
-            }
 
-            int BLOBIndex = cursor.getColumnIndex("inConfirm");
-            inConfirm = cursor.getInt(BLOBIndex);
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            db.close();
-        }
-        return inConfirm;
-    }
+//    public static int GetBLOBdeep(String rowkey) throws Exception
+//    {
+//        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+//
+//        try
+//        {
+//            String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+//            Cursor cursor = db.rawQuery(sql, null);
+//            if (!cursor.moveToFirst()) {
+//                throw new Exception("query result is null, exec sql:" + sql);
+//            }
+//
+//            int BLOBIndex = cursor.getColumnIndex("deep");
+//            byte[] BOLBContent = cursor.getBlob(BLOBIndex);
+//            String str = new String(BOLBContent);
+//            int type = 0;
+//            try {
+//                JSONObject jsonObject = new JSONObject(str);
+//                JSONObject fObject = jsonObject.getJSONObject("f");
+//                type = fObject.getInt("type");
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            return type;
+//        }
+//        catch (Exception e)
+//        {
+//            throw e;
+//        }
+//        finally
+//        {
+//            db.close();
+//        }
+//    }
+//
+//    public static int GetinConfirm(String rowkey) throws Exception
+//    {
+//        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+//        int inConfirm = 0;
+//        try
+//        {
+//            String sql = "select * from edit_tips where rowkey=" + "\"" + rowkey + "\"";
+//            Cursor cursor = db.rawQuery(sql, null);
+//            if (!cursor.moveToFirst()) {
+//                throw new Exception("query result is null, exec sql:" + sql);
+//            }
+//
+//            int BLOBIndex = cursor.getColumnIndex("inConfirm");
+//            inConfirm = cursor.getInt(BLOBIndex);
+//        }
+//        catch (Exception e)
+//        {
+//            throw e;
+//        }
+//        finally
+//        {
+//            db.close();
+//        }
+//        return inConfirm;
+//    }
+
     class DISPLAY_TEXT implements Comparable<DISPLAY_TEXT>
     {
         public DISPLAY_TEXT(String name, int row, int col)
