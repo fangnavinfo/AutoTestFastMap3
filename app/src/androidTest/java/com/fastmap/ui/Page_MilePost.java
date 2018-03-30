@@ -36,6 +36,9 @@ public class Page_MilePost extends FastMapPage
     @FindResource(Id="tv_virtualKeyboard_5", Text="5")
     public static String FIVE;
 
+    @FindResource(Id="tv_milepost_road_name_one")
+    public static String ROADNAME;
+
     public static Page_MilePost Inst;
     static
     {

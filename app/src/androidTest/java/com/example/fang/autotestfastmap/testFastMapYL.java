@@ -3,7 +3,6 @@ package com.example.fang.autotestfastmap;
 import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
-import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
@@ -11,7 +10,6 @@ import com.fastmap.ui.Page_Gate;
 import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_HighSpeedEntryPic;
 import com.fastmap.ui.Page_IndoorMyData;
-import com.fastmap.ui.Page_IndoorTool;
 import com.fastmap.ui.Page_InfoAccept;
 import com.fastmap.ui.Page_InfoFrame;
 import com.fastmap.ui.Page_InfoLine;
@@ -29,7 +27,6 @@ import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_RoadName;
 import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_RoundAbout;
-import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Sketch;
 import com.fastmap.ui.Page_SpeedLimit;
 import com.fastmap.ui.Page_SpeedLimitLane;
@@ -503,8 +500,7 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
         String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.replace("rowkey:", "");
-
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
         Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
 
@@ -528,10 +524,9 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
         String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.replace("rowkey:", "");
-
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
-
         JSONObject jsonObject = new JSONObject(str);
         int type = jsonObject.getJSONObject("f").getInt("type");
 
@@ -555,10 +550,9 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("道路名标牌");
 
         String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.replace("rowkey:", "");
-
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
         Sqlitetools.RefreshData();
-        String str = (String)Sqlitetools.GetTipsDataByRowKey(rowkey, "deep");
+        String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
         JSONObject jsonObject = new JSONObject(str);
         int type = jsonObject.getJSONObject("f").getInt("type");
         assertFalse((type==3));
@@ -1536,6 +1530,8 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.ROADNAME);
+        Thread.sleep(1000);
         Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
         Thread.sleep(1000);
         Page_MilePost.Inst.Click(Page_MilePost.FIVE);
@@ -1578,7 +1574,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
         str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
-        assertSame(str,"8");
+        assertTrue((str.equals("8")));
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
     }
 
@@ -1757,23 +1753,6 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
-        Page_Gate.Inst.Click(Page_Gate.TIMECAR);
-        Page_TimeCtl.Inst.Click(Page_TimeCtl.CONFIRM);
-        Page_Gate.Inst.Click(Page_Gate.CAR);
-        Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
-        Thread.sleep(2000);
-        //tipsNum++;
-
-        CheckMyData(Page_MyData.TIPS_TYPE, "大门");
-    }
-
-    @Test
-    public void test01720_gate_add() throws Exception {
-        //大门 EG默认值车辆和行人 取消勾选时间清空
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-        Page_MainBoard.Inst.ClickCenter();
-        Thread.sleep(2000);
-        Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
         Page_TimeCtl.Inst.Click(Page_TimeCtl.CONFIRM);
         Page_Gate.Inst.Click(Page_Gate.CAR);
