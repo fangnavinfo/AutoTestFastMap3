@@ -491,9 +491,9 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
         Page_MainBoard.Inst.ClickCenter();
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
-        Page_MainBoard.Inst.Drag(85,632,90,632,5);
-        Page_SpeedLimit.Inst.Click(new Point(65,472));
-        Page_SpeedLimit.Inst.Click(new Point(65,553));
+        Page_MainBoard.Inst.Drag(85,514,90,514,5);
+        Page_SpeedLimit.Inst.Click(new Point(65,354));
+        Page_SpeedLimit.Inst.Click(new Point(65,435));
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
         //Page_SpeedLimit.Inst.Click(new Point(155,553));
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
