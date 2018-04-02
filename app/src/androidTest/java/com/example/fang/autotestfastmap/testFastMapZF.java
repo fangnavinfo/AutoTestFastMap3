@@ -478,6 +478,58 @@ public class testFastMapZF extends testFastMapBase
         assertEquals(rst, false);
     }
 
+    // POI 卡车标识验证
+    @Test
+    public void test00113_1_poi_truck_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_TRUCK, "非卡车"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("非卡车");
+    }
+    // POI 卡车标识验证
+    @Test
+    public void test00113_2_poi_truck_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_TRUCK, "仅卡车"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("仅卡车");
+    }
+    // POI 卡车标识验证
+    @Test
+    public void test00113_3_poi_truck_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_TRUCK, "卡车+小汽车"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("卡车+小汽车");
+    }
+
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
