@@ -27,6 +27,8 @@ public class Page_POI extends FastMapPage
     public static String POI_SAME;
     @FindResource(Id="tv_truck", Text="非卡车")
     public static String POI_TRUCK;
+    @FindResource(Id="tv_poi_remark", Text="标记字段")
+    public static String POI_REMARK;
 
     @FindResource(Id="delete_button", Text="删除")
     public static String DELETE;
@@ -106,6 +108,12 @@ public class Page_POI extends FastMapPage
             return;
         }
 
+        if (findRes.equals(POI_REMARK))
+        {
+            SelectRemarkType(value);
+            return;
+        }
+
         super.SetValue(findRes, value);
     }
 
@@ -132,6 +140,12 @@ public class Page_POI extends FastMapPage
     private void SelectTruckType(String name) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
         Click(Page_POI.POI_TRUCK);
+        ClickByText(name);
+        ClickByText("确定");
+    }
+    private void SelectRemarkType(String name) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+        Click(Page_POI.POI_REMARK);
         ClickByText(name);
         ClickByText("确定");
     }

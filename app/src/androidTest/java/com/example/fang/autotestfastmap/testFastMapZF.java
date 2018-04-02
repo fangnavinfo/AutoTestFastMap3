@@ -530,6 +530,127 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.isExistByName("卡车+小汽车");
     }
 
+    // POI 标记字段验证
+    @Test
+    public void test00114_1_poi_remark_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_REMARK, "名称"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("名称");
+    }
+    // POI 标记字段验证
+    @Test
+    public void test00114_2_poi_remark_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_REMARK, "电话"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("电话");
+    }
+    // POI 标记字段验证
+    @Test
+    public void test00114_3_poi_remark_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_REMARK, "分类"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("分类");
+    }
+    // POI 标记字段验证
+    @Test
+    public void test00114_4_poi_remark_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_REMARK, "品牌"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("品牌");
+    }
+    // POI 标记字段验证
+    @Test
+    public void test00114_5_poi_remark_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_REMARK, "地址"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("地址");
+    }
+    // POI 标记字段验证
+    @Test
+    public void test00114_6_poi_remark_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_REMARK, "邮编"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("邮编");
+    }
+    // POI 标记字段验证
+    @Test
+    public void test00114_7_poi_remark_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"},
+                {Page_POI.POI_REMARK, "深度信息"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("深度信息");
+    }
+
+
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
