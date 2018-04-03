@@ -7,17 +7,8 @@ import com.fang.testAdapter.*;
  * 禁止穿行
  */
 
-public class Page_NoPassing extends FastMapPage
+public class Page_NoPassing extends Page_Base_Tips
 {
-
-    @FindResource(Id="delete_button", Text="删除")
-    public static String DELETE;
-    @FindResource(Id="cancel_button", Text="取消")
-    public static String CANCEL;
-    @FindResource(Id="save_button", Text="保存")
-    public static String SAVE;
-
-
     public static Page_NoPassing Inst;
     static
     {

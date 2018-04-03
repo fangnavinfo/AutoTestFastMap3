@@ -2,9 +2,9 @@ package com.fastmap.ui;
 
 import com.fang.testAdapter.*;
 
-public class Page_LaneNumber extends FastMapPage 
+public class Page_LaneNumber extends Page_Base_Tips 
 {
-    @FindResource(Id="lane_num_1", ios_xpath="//XCUIElementTypeButton[@name=\"lane num 1\"]")
+    @FindResource(Id="lane_num_1", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_lane_num_1.png\"]")
     public static String NUM1;
     
     public static Page_LaneNumber Inst;

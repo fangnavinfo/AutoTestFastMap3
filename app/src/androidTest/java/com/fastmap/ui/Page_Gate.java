@@ -6,7 +6,7 @@ import com.fang.testAdapter.*;
  * Created by h on 2018/1/29.
  */
 
-public class Page_Gate extends FastMapPage 
+public class Page_Gate extends Page_Base_Tips 
 {
     @FindResource(Id = "gate_type_eg", Text="EG")
     public static String EG;
@@ -44,9 +44,6 @@ public class Page_Gate extends FastMapPage
 
     @FindResource(Id = "checkBox_single_dir_gate", Text="单方向大门")
     public static String SINGLEGATE;
-
-    @FindResource(Id = "save_button", Text="保存")
-    public static String SAVE;
 
     @FindResource(Id = "card_road_direction_swap",Text = "调整箭头方向")
     public static String CHANGEDIR;

@@ -6,16 +6,8 @@ import com.fang.testAdapter.*;
  * Created by fang on 18/1/19.
  */
 
-public class Page_LaneInfo extends FastMapPage
+public class Page_LaneInfo extends Page_Base_Tips
 {
-
-
-    @FindResource(Id="delete_button", Text="删除")
-    public static String DELETE;
-    @FindResource(Id="cancel_button", Text="取消")
-    public static String CANCEL;
-    @FindResource(Id="save_button", Text="保存")
-    public static String SAVE;
     @FindResource(Id="tv_poi_fid_hd")
     public static String FID;
 
@@ -27,9 +19,6 @@ public class Page_LaneInfo extends FastMapPage
 
     @FindResource(Id="edt_contactItem_telNum")
     public static String TEL;
-
-    @FindResource(Id="camera_button")
-    public static String CAMERA;
 
     //单车道
     @FindResource(Id="rb_select_one_d", ios_xpath="//XCUIElementTypeButton[@name=\"1301 d\"]")

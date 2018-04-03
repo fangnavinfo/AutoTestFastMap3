@@ -6,7 +6,7 @@ import com.fang.testAdapter.*;
 /**
  * Created by fang on 18/1/22.
  */
-public class Page_PAS extends FastMapPage
+public class Page_PAS extends Page_Base_Tips
 {
     @FindResource(Id="fm_et_name_pas", ios_xpath="//XCUIElementTypeStaticText[@name=\"请输入道路名称\"]")
     public static String NAME;
@@ -19,9 +19,6 @@ public class Page_PAS extends FastMapPage
 
     @FindResource(Id="ck_road", ios_xpath="//XCUIElementTypeStaticText[@name=\"路\"]")
     public static String ROAD_TYPE;
-
-    @FindResource(Id="save_button", ios_xpath="//XCUIElementTypeButton[@name=\"保存\"]")
-    public static String SAVE;
 
     public static Page_PAS Inst;
     static

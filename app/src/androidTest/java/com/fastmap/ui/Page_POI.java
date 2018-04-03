@@ -25,12 +25,16 @@ public class Page_POI extends FastMapPage
     public static String POI_FATHER;
     @FindResource(Id="tv_poi_same_one", Text="同一关系")
     public static String POI_SAME;
+    @FindResource(Id="tv_truck", Text="非卡车")
+    public static String POI_TRUCK;
+    @FindResource(Id="tv_poi_remark", Text="标记字段")
+    public static String POI_REMARK;
 
-    @FindResource(Id="delete_button", Text="删除")
+    @FindResource(Id="delete_button", ios_xpath="//XCUIElementTypeButton[@name=\"operate_deletelBtn\"]")
     public static String DELETE;
-    @FindResource(Id="cancel_button", Text="取消")
+    @FindResource(Id="cancel_button", ios_xpath="//XCUIElementTypeButton[@name=\"operate_cancelBtn\"]")
     public static String CANCEL;
-    @FindResource(Id="save_button", Text="保存", ios_xpath="//XCUIElementTypeButton[@name=\"保存\"]")
+    @FindResource(Id="save_button", ios_xpath="//XCUIElementTypeButton[@name=\"operate_saveBtn\"]")
     public static String SAVE;
     @FindResource(Id="tv_poi_fid_hd", ios_predicate="value BEGINSWITH 'fid'")
     public static String FID;
@@ -44,7 +48,7 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="edt_contactItem_telNum", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeTextField[2]")
     public static String TEL;
 
-    @FindResource(Id="camera_button_myselt", ios_xpath="//XCUIElementTypeButton[@name=\"photo icon\"]")
+    @FindResource(Id="camera_button_myselt", ios_xpath="//XCUIElementTypeButton[@name=\"mediaOperate_photoBtn\"]")
     public static String CAMERA;
 
     @FindResource(clazz="android.widget.CheckBox", Text="人行门")
@@ -98,6 +102,18 @@ public class Page_POI extends FastMapPage
             return;
         }
 
+        if (findRes.equals(POI_TRUCK))
+        {
+            SelectTruckType(value);
+            return;
+        }
+
+        if (findRes.equals(POI_REMARK))
+        {
+            SelectRemarkType(value);
+            return;
+        }
+
         super.SetValue(findRes, value);
     }
 
@@ -120,6 +136,18 @@ public class Page_POI extends FastMapPage
     {
         Click(Page_POI.POI_SAME);
         ClickByText(name);
+    }
+    private void SelectTruckType(String name) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+        Click(Page_POI.POI_TRUCK);
+        ClickByText(name);
+        ClickByText("确定");
+    }
+    private void SelectRemarkType(String name) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
+    {
+        Click(Page_POI.POI_REMARK);
+        ClickByText(name);
+        ClickByText("确定");
     }
 
 }

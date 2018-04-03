@@ -1026,6 +1026,15 @@ public class testFastMapBase
 
         }
         
+        try
+        {
+            Page_GridManager.Inst.ClickByText("确定"); //入库结果
+        }
+        catch (Exception e)
+        {
+
+        }
+        
         Page_GridManager.Inst.Click(Page_GridManager.BACK);
 
 //        UiObject2 object = findObjectByResourceId("btn_fm_confirm");
@@ -1082,7 +1091,11 @@ public class testFastMapBase
         Page_Search.Inst.Click(Page_Search.SEARCH_START_LOCATION);
 
         Thread.sleep(1000);
-        Page_MainBoard.Inst.ClickCenter();
+
+        if (!FastMapPage.IS_OS_TEST)
+        {
+            Page_MainBoard.Inst.ClickCenter();
+        }
     }
 
     protected void SearchTips(String rowkey) throws InterruptedException, NoSuchFieldException, ClassNotFoundException

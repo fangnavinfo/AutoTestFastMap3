@@ -333,7 +333,7 @@ public class Sqlitetools
 
             do
             {
-                TipsTableInfo.put(rs.getString(1),  rs.getString(2));
+                TipsTableInfo.put(rs.getString(2),  rs.getString(3));
             } while (rs.next());
             
 
@@ -351,7 +351,7 @@ public class Sqlitetools
                 case "text":
                     return rs.getString(colu);
                 case "blob":
-                    return rs.getBlob(colu);
+                    return rs.getBytes(colu);
                 default:
                     throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
             }
@@ -385,11 +385,11 @@ public class Sqlitetools
 
             do
             {
-                TipsTableInfo.put(rs.getString(1),  rs.getString(2));
+                TipsTableInfo.put(rs.getString(2),  rs.getString(3));
             } while (rs.next());
             
 
-            String sql = "select * from edit_tips where rowkey=" + "\"" + infoFid + "\"";
+            String sql = "select * from edit_Pois where fid=" + "\"" + infoFid + "\"";
             rs = stmt.executeQuery(sql);
             if (!rs.next())
             {
@@ -403,7 +403,7 @@ public class Sqlitetools
                 case "text":
                     return rs.getString(colu);
                 case "blob":
-                    return rs.getBlob(colu);
+                    return rs.getBytes(colu);
                 default:
                     throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
             }

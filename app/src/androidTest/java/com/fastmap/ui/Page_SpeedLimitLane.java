@@ -6,7 +6,7 @@ import com.fang.testAdapter.*;
  * Created by h on 2018/3/21.
  */
 
-public class Page_SpeedLimitLane extends FastMapPage
+public class Page_SpeedLimitLane extends Page_Base_Tips
 {
     @FindResource(Id="seek_view_container")
     public static String CTROL;
@@ -17,8 +17,6 @@ public class Page_SpeedLimitLane extends FastMapPage
     @FindResource(Id="speed_limit_number_110")
     public static String NUM110;
 
-    @FindResource(Id="save_button")
-    public static String SAVE;
     @FindResource(Id="card_speed_limit_type_driveway")
     public static String ROADLIMIT;
 
