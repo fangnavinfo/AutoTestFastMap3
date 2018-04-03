@@ -46,6 +46,7 @@ import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -2206,5 +2207,185 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE,"车道限速");
     }
 
+    @Test
+    public void test02202_speedlimitlane() throws Exception
+    {
+        //点限速 限速标志 0 限速开始； 1 限速解除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
 
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        //rowkey.replace("rowkey:","");
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int flag = jsonObject.getInt("flag");
+        int sign = jsonObject.getInt("se");
+
+        assertSame(flag,0);
+        assertSame(sign,0);
+    }
+
+    @Test
+    public void test02207_speedlimitlane() throws Exception
+    {
+        //点限速 限速标志 0 限速开始； 1 限速解除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.ClickbyText("解除限速");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int flag = jsonObject.getInt("flag");
+        int sign = jsonObject.getInt("se");
+        assertSame(sign,1);
+        assertSame(flag,0);
+    }
+
+    @Test
+    public void test02203_speedlimitlane() throws Exception
+    {
+        //点限速 采集标志 0 现场采集（默认）； 1 理论判断 是否收费站前0 否（默认），1 是
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.ClickbyText("理论判断");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int flag = jsonObject.getInt("flag");
+        assertSame(flag,1);
+    }
+
+    @Test
+    public void test02204_speedlimitlane() throws Exception
+    {
+        //点限速 限速标志 文字显示
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.ClickbyText("匝道");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String str = jsonObject.getString("desc");
+        assertEquals(str,"R");
+    }
+
+    @Test
+    public void test02208_speedlimitlane() throws Exception
+    {
+        //点限速 限速标志 文字显示
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.SetValue(Page_SpeedLimitLane.EDIT,"测试路段");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String str = jsonObject.getString("desc");
+        assertEquals(str,"测试路段");
+    }
+
+    @Test
+    public void test02209_speedlimitlane() throws Exception
+    {
+        //点限速 限速标志 文字显示
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.SetValue(Page_SpeedLimitLane.EDIT,"测试路段");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String str = jsonObject.getString("desc");
+        assertEquals(str,"测试路段");
+    }
+
+    @Test
+    public void test02205_speedlimitlane() throws Exception
+    {
+        //点限速 修改道路方向 顺时针 逆时针
+        String[] LOC = {"116.41701", "39.98345"};
+        SearchLocation(LOC);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
+        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        double agl = jsonObject.getDouble("agl");
+        assertSame(agl,270);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.ClickbyText("调整箭头方向");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Sqlitetools.RefreshData();
+        String temp1 = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject1 = new JSONObject(temp1);
+        double agl2 = jsonObject1.getInt("agl");
+        //assertSame(rdDir,3);
+        assertSame(90,agl2);
+    }
+
+    @Test
+    public void test02206_speedlimitlane() throws Exception
+    {
+        //点限速 关联测线还是link
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+
+    }
 }

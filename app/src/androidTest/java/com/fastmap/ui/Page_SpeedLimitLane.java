@@ -36,6 +36,11 @@ public class Page_SpeedLimitLane extends FastMapPage
     @FindResource(clazz="android.widget.TextView")
     public static String LIMIT_EDIT;
 
+    @FindResource(Id="et_speed_limit_desc")
+    public static String EDIT;
+
+    @FindResource(Id="et_title")
+    public static String ROWKEY;
     public static Page_SpeedLimitLane Inst;
     static
     {
