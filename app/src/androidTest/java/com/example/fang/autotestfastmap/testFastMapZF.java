@@ -275,7 +275,7 @@ public class testFastMapZF extends testFastMapBase
         Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "6bCD1234");
 
         //拍照5张并返回
-        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA_BUTTON);
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
         Thread.sleep(1000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
@@ -293,8 +293,7 @@ public class testFastMapZF extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
 
         Page_MyData.Inst.ClickbyText("实景图");
-        String rowkey = Page_TrueSence.Inst.GetValue(Page_TrueSence.ROWKEY);
-        rowkey = rowkey.replace("rowkey：", "");
+        String rowkey = Page_TrueSence.Inst.GetRowKey();
         Page_TrueSence.Inst.Click(Page_TrueSence.CANCEL);
         ExitMyData();
 

@@ -8,18 +8,10 @@ import com.fang.testAdapter.FindResource;
  * 功能面
  */
 
-public class Page_FunctionalArea extends FastMapPage
+public class Page_FunctionalArea extends Page_Base_Tips
 {
     @FindResource(clazz="android.widget.ScrollView")
     public static String SCROLL;
-
-    @FindResource(Id="delete_button", Text="删除")
-    public static String DELETE;
-    @FindResource(Id="cancel_button", Text="取消")
-    public static String CANCEL;
-    @FindResource(Id="save_button", Text="保存")
-    public static String SAVE;
-
 
     @FindResource(Id="btn_last_step", Text="上一步")
     public static String LAST_STEP;
@@ -28,13 +20,13 @@ public class Page_FunctionalArea extends FastMapPage
     @FindResource(Id="btn_complete", Text="完成")
     public static String COMPLETE;
 
-    @FindResource(Id="rbtn_university", ios_xpath="//XCUIElementTypeButton[@name=\"function university\"]")
+    @FindResource(Id="rbtn_university", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_university.png\"]")
     public static String UNIVERSITY;
-    @FindResource(Id="rbtn_shopping", ios_xpath="//XCUIElementTypeButton[@name=\"function shopping\"]")
+    @FindResource(Id="rbtn_shopping", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_shopping.png\"]")
     public static String SHOPPING;
-    @FindResource(Id="rbtn_hospital", ios_xpath="//XCUIElementTypeButton[@name=\"function hospital\"]")
+    @FindResource(Id="rbtn_hospital", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_hospital.png\"]")
     public static String HOSPITAL;
-    @FindResource(Id="rbtn_stadium", ios_xpath="//XCUIElementTypeButton[@name=\"function stadium\"]")
+    @FindResource(Id="rbtn_stadium", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_stadium.png\"]")
     public static String STADIUM;
 
     @FindResource(Id="edit_name", Text="请输入名称")

@@ -5,7 +5,7 @@ import com.fang.testAdapter.*;
 /**
  * Created by fang on 18/1/22.
  */
-public class Page_ElecEye extends FastMapPage
+public class Page_ElecEye extends Page_Base_Tips
 {
     @FindResource(Id="tv_electronic_eye_type_more", ios_xpath="//XCUIElementTypeButton[@name=\"更多\"]")
     public static String TYPE_MORE;
@@ -108,15 +108,6 @@ public class Page_ElecEye extends FastMapPage
 
     @FindResource(Id="btn_fm_confirm", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")
     public static String TIME_CONFIRM;
-
-    @FindResource(Id="cancel_button")
-    public static String CANCEL;
-
-    @FindResource(Id="save_button", ios_xpath="//XCUIElementTypeButton[@name=\"保存\"]")
-    public static String SAVE;
-
-    @FindResource(Id="delete_button", ios_xpath="//XCUIElementTypeButton[@name=\"删除\"]")
-    public static String DELETE;
 
     @FindResource(Id="btn_fm_confirm", ios_ignore=true)
     public static String DELETE_CONFIRM;

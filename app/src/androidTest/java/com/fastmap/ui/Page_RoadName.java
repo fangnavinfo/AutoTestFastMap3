@@ -6,14 +6,8 @@ import com.fang.testAdapter.*;
  * Created by h on 2018/1/30.
  */
 
-public class Page_RoadName extends FastMapPage
+public class Page_RoadName extends Page_Base_Tips
 {
-    @FindResource(Id = "save_button",Text = "保存")
-    public static String SAVE;
-
-    @FindResource(Id = "cancel_button",Text = "取消")
-    public static String CANCEL;
-
     @FindResource(Id = "et_road_name",Text = "请输入道路名")
     public static String NAME;
 

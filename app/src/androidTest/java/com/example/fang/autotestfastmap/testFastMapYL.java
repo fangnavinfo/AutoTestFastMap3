@@ -464,6 +464,7 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         assertTrue(Page_MyData.Inst.isExistByName("道路名标牌"));
     }
+    
     @Test
     public void test01013_tips_roadnamesign_add() throws Exception
     {
@@ -483,7 +484,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
     }
-
+	
     @Test
     public void test01014_tips_roadnamesign_add() throws Exception
     {
@@ -502,8 +503,7 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
-        String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.replace("rowkey:", "");
+        String rowkey = Page_RoadNameSign.Inst.GetRowKey();
 
         Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
@@ -513,7 +513,7 @@ public class testFastMapYL extends testFastMapBase
 
         assertSame(type,2);
     }
-
+    
     @Test
     public void test01015_tips_roadnamesign_add() throws Exception
     {
@@ -527,9 +527,9 @@ public class testFastMapYL extends testFastMapBase
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
-        String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.replace("rowkey:", "");
+        String rowkey = Page_RoadNameSign.Inst.GetRowKey();
 
+        Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
 
         JSONObject jsonObject = new JSONObject(str);
@@ -537,7 +537,7 @@ public class testFastMapYL extends testFastMapBase
 
         assertSame(type,1);
     }
-
+	
     @Test
     public void test01016_tips_roadnamesign_add() throws Exception
     {
@@ -554,11 +554,10 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
 
-        String rowkey = Page_RoadNameSign.Inst.GetValue(Page_RoadNameSign.ROWKEY);
-        rowkey = rowkey.replace("rowkey:", "");
+        String rowkey = Page_RoadNameSign.Inst.GetRowKey();
 
         Sqlitetools.RefreshData();
-        String str = (String)Sqlitetools.GetTipsDataByRowKey(rowkey, "deep");
+        String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
         JSONObject jsonObject = new JSONObject(str);
         int type = jsonObject.getJSONObject("f").getInt("type");
         assertFalse((type==3));
@@ -1482,8 +1481,9 @@ public class testFastMapYL extends testFastMapBase
         //查数据库字段
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("红绿灯");
-        String rowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        String rowkey = Page_Light.Inst.GetRowKey();
+
+        
         Sqlitetools.RefreshData();
         int inConfirm = (Integer)Sqlitetools.GetTipsDataByRowKey(rowkey, "inConfirm");
         assertSame(inConfirm,1);
@@ -1540,6 +1540,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_MilePost.Inst.Click(Page_MilePost.FIVE);
         Thread.sleep(1000);
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
 
         SearchLocation(LOC_K8);
@@ -1549,6 +1550,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();;
         Page_MilePost.Inst.Click(Page_MilePost.INC);
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
 
         SearchLocation(LOC_K8);
@@ -1559,6 +1561,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         String str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
         assertTrue(str.equals("7"));
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
 
         SearchLocation(LOC_K8);
@@ -1579,8 +1582,10 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
         assertSame(str,"8");
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
     }
+
 
     @Test
     public void test01702_tips_add() throws Exception
@@ -1776,6 +1781,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Gate.Inst.Click(Page_Gate.EG);
         Page_Gate.Inst.Click(Page_Gate.TIMECAR);
         Page_TimeCtl.Inst.Click(Page_TimeCtl.CONFIRM);
+        Page_Gate.Inst.Click(Page_Gate.CAR);
         Page_Gate.Inst.Click(Page_Gate.CAR);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);

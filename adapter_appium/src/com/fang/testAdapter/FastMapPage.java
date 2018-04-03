@@ -41,7 +41,7 @@ public class FastMapPage
     public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException 
     {
 
-        Field field = this.getClass().getDeclaredField(findRes);
+    	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
         if (annotation.ios_ignore())
@@ -116,8 +116,9 @@ public class FastMapPage
     	}
     }
     
-    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
-        Field field = this.getClass().getDeclaredField(findRes);
+    public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException 
+    {
+    	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
         if (!annotation.ios_xpath().isEmpty())
@@ -141,8 +142,9 @@ public class FastMapPage
         throw new RuntimeException("can not find id of " + findRes);
     }
 
-    public String GetValue(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException {
-        Field field = this.getClass().getDeclaredField(findRes);
+    public String GetValue(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException 
+    {
+    	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
         if (!annotation.ios_xpath().isEmpty())
@@ -168,7 +170,7 @@ public class FastMapPage
             Field field = this.getClass().getDeclaredField("SCROLL");
             FindResource scrl_annotation = field.getAnnotation(FindResource.class);
 
-            field = this.getClass().getDeclaredField(findRes);
+            field = GetField(findRes);
             FindResource res_annotation = field.getAnnotation(FindResource.class);
 
             testadapter.ScrollClick(scrl_annotation, res_annotation);
@@ -194,7 +196,7 @@ public class FastMapPage
 
     public boolean isChecked(String findRes) throws NoSuchFieldException
     {
-        Field field = this.getClass().getDeclaredField(findRes);
+    	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
 
@@ -203,7 +205,7 @@ public class FastMapPage
 
     public boolean isExist(String findRes, int time) throws NoSuchFieldException
     {
-        Field field = this.getClass().getDeclaredField(findRes);
+    	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
         if (!annotation.ios_xpath().isEmpty())
@@ -254,6 +256,18 @@ public class FastMapPage
     {
 
 
+    }
+    
+    private Field GetField(String findRes) throws NoSuchFieldException
+    {
+    	try
+    	{
+    		return this.getClass().getDeclaredField(findRes);
+    	}
+    	catch (NoSuchFieldException e)
+    	{
+    		return this.getClass().getSuperclass().getDeclaredField(findRes);
+    	}
     }
     
     public final static boolean IS_OS_TEST = true;

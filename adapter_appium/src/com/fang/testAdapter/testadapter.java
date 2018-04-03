@@ -62,7 +62,14 @@ public class testadapter
 		}
 		catch (Exception e)
 		{
-			driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + text + "'")).click();
+			try
+			{
+				driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + text + "'")).click();
+			}
+			catch (Exception e1)
+			{
+				driver.findElement(MobileBy.iOSNsPredicateString("label CONTAINS '" + text + "'")).click();
+			}
 		}
 	}
 	
@@ -76,7 +83,7 @@ public class testadapter
 		while(true)
 		{
 			int count = 0;
-			try
+			//try
 			{
 				WebElement elem = driver.findElement(By.xpath(xpath));
 				if (!elem.isEnabled())
@@ -86,19 +93,19 @@ public class testadapter
 				elem.click();
 				break;
 			}
-			catch(org.openqa.selenium.NoSuchElementException e)
-			{
-				if(count > 6)
-				{
-					throw e;
-				}
-				else
-				{
-					count++;
-					Thread.sleep(500);
-					continue;
-				}
-			}
+//			catch(org.openqa.selenium.NoSuchElementException e)
+//			{
+//				if(count > 6)
+//				{
+//					throw e;
+//				}
+//				else
+//				{
+//					count++;
+//					Thread.sleep(500);
+//					continue;
+//				}
+//			}
 		}
 	}
 	
@@ -465,7 +472,7 @@ public class testadapter
 
 		if(!elem.second.isEmpty())
 		{
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			driver.findElement(By.xpath(elem.second)).click();
 		}
 		

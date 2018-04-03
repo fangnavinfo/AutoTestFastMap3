@@ -333,7 +333,7 @@ public class Sqlitetools
 
             do
             {
-                TipsTableInfo.put(rs.getString(1),  rs.getString(2));
+                TipsTableInfo.put(rs.getString(2),  rs.getString(3));
             } while (rs.next());
             
 

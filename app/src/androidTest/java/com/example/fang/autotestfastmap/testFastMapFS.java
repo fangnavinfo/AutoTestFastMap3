@@ -113,6 +113,7 @@ public class testFastMapFS extends testFastMapBase
 
         String[] LOC = {"116.41891", "39.96298"};
         SearchLocation(LOC);
+        Page_MainBoard.Inst.ClickCenter();
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
 
@@ -238,7 +239,7 @@ public class testFastMapFS extends testFastMapBase
 
         CheckMyData(Page_MyData.INFO_TYPE, "自采集情报(POI)(线)", "测试线ＩＮＦＯ");
     }
-
+    
     @Test @IMPORTANT
     public void test00901_info_Frame_add() throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
@@ -449,7 +450,7 @@ public class testFastMapFS extends testFastMapBase
         {
         	//如果FM-1401-7-1不是最后一个检查项，则app会自动触发下一个检查项，此时需要点击取消
             Thread.sleep(2000);
-            Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CANNCLE);
+            Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CANCEL);
         }
         catch(NoSuchFieldException e)
         {
@@ -464,7 +465,6 @@ public class testFastMapFS extends testFastMapBase
     	
         Page_IndoorMyData.Inst.CheckResultNotExit("FM-1401-7-1");
     }
-
 
     @Test
     public void test01302_IndoorCheck_FM_1401_6_1_1() throws Exception
@@ -493,7 +493,7 @@ public class testFastMapFS extends testFastMapBase
         //方向看板关联在前道路级别为K1、K2、K8~K13
         test_IndoorCheck_FM_1401_6_1(Page_SurveyLine.FERRY_RD);
     }
-
+    
     @Test
     public void test01306_IndoorCheck_FM_2001_6_1() throws Exception
     {
@@ -697,7 +697,7 @@ public class testFastMapFS extends testFastMapBase
         {
             //如果FM-1401-7-1不是最后一个检查项，则app会自动触发下一个检查项，此时需要点击取消
             Thread.sleep(2000);
-            Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CANNCLE);
+            Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CANCEL);
         }
         catch (Exception e)
         {
@@ -711,4 +711,5 @@ public class testFastMapFS extends testFastMapBase
 
         Page_IndoorMyData.Inst.CheckResultNotExit("FM-1401-6-1");
     }
+    
 }
