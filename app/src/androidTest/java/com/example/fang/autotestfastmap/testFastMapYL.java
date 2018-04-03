@@ -35,6 +35,7 @@ import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -529,7 +530,6 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("道路名标牌");
 
         String rowkey = Page_RoadNameSign.Inst.GetRowKey();
-
         Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
         JSONObject jsonObject = new JSONObject(str);
@@ -553,9 +553,7 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
-        
         String rowkey = Page_RoadNameSign.Inst.GetRowKey();
-
         Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
         JSONObject jsonObject = new JSONObject(str);
@@ -2251,9 +2249,7 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
-        //rowkey.replace("rowkey:","");
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
         Sqlitetools.RefreshData();
         String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
         JSONObject jsonObject = new JSONObject(temp);
@@ -2265,7 +2261,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02207_speedlimitlane() throws Exception
+    public void test02203_speedlimitlane() throws Exception
     {
         //点限速 限速标志 0 限速开始； 1 限速解除
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
@@ -2277,8 +2273,7 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
         Sqlitetools.RefreshData();
         String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
         JSONObject jsonObject = new JSONObject(temp);
@@ -2289,7 +2284,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02203_speedlimitlane() throws Exception
+    public void test02204_speedlimitlane() throws Exception
     {
         //点限速 采集标志 0 现场采集（默认）； 1 理论判断 是否收费站前0 否（默认），1 是
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
@@ -2301,8 +2296,7 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
         Sqlitetools.RefreshData();
         String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
         JSONObject jsonObject = new JSONObject(temp);
@@ -2311,7 +2305,7 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02204_speedlimitlane() throws Exception
+    public void test02205_speedlimitlane() throws Exception
     {
         //点限速 限速标志 文字显示
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
@@ -2323,8 +2317,7 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
         Sqlitetools.RefreshData();
         String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
         JSONObject jsonObject = new JSONObject(temp);
@@ -2333,51 +2326,49 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
+    public void test02206_speedlimitlane() throws Exception
+    {
+        //点限速 限速标志 文字显示
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.SetValue(Page_SpeedLimitLane.EDIT,"测试路段");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String str = jsonObject.getString("desc");
+        assertEquals(str,"测试路段");
+    }
+
+    @Test
+    public void test02207_speedlimitlane() throws Exception
+    {
+        //点限速 限速标志 文字显示
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.SetValue(Page_SpeedLimitLane.EDIT,"测试路段");
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String str = jsonObject.getString("desc");
+        assertEquals(str,"测试路段");
+    }
+
+    @Test
     public void test02208_speedlimitlane() throws Exception
-    {
-        //点限速 限速标志 文字显示
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
-        Page_MainBoard.Inst.ClickCenter();
-        Thread.sleep(2000);
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
-        Page_SpeedLimitLane.Inst.SetValue(Page_SpeedLimitLane.EDIT,"测试路段");
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
-        GotoMyData(Page_MyData.TIPS_TYPE);
-        Page_MyData.Inst.ClickbyText("点限速");
-        Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
-        Sqlitetools.RefreshData();
-        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
-        JSONObject jsonObject = new JSONObject(temp);
-        String str = jsonObject.getString("desc");
-        assertEquals(str,"测试路段");
-    }
-
-    @Test
-    public void test02209_speedlimitlane() throws Exception
-    {
-        //点限速 限速标志 文字显示
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
-        Page_MainBoard.Inst.ClickCenter();
-        Thread.sleep(2000);
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
-        Page_SpeedLimitLane.Inst.SetValue(Page_SpeedLimitLane.EDIT,"测试路段");
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
-        GotoMyData(Page_MyData.TIPS_TYPE);
-        Page_MyData.Inst.ClickbyText("点限速");
-        Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
-        Sqlitetools.RefreshData();
-        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
-        JSONObject jsonObject = new JSONObject(temp);
-        String str = jsonObject.getString("desc");
-        assertEquals(str,"测试路段");
-    }
-
-    @Test
-    public void test02205_speedlimitlane() throws Exception
     {
         //点限速 修改道路方向 顺时针 逆时针
         String[] LOC = {"116.41701", "39.98345"};
@@ -2390,13 +2381,12 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetValue(Page_SpeedLimitLane.ROWKEY);
-        rowkey = rowkey.substring(rowkey.length()-38,rowkey.length());
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
         Sqlitetools.RefreshData();
         String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
         JSONObject jsonObject = new JSONObject(temp);
         double agl = jsonObject.getDouble("agl");
-        assertSame(agl,270);
+        assertEquals(agl,270.0,10.0);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(2000);
@@ -2406,17 +2396,509 @@ public class testFastMapYL extends testFastMapBase
         String temp1 = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
         JSONObject jsonObject1 = new JSONObject(temp1);
         double agl2 = jsonObject1.getInt("agl");
-        //assertSame(rdDir,3);
-        assertSame(90,agl2);
+        assertEquals(90.0,agl2,10.0);
     }
 
     @Test
-    public void test02206_speedlimitlane() throws Exception
-    {
-        //点限速 关联测线还是link
+    public void test02209_speedlimitlane() throws Exception {
+        //点限速 关联 2测线还是 1link
+        String[] LOC = {"116.41701", "39.98345"};
+        SearchLocation(LOC);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
 
+        assertSame(type, 1);
+    }
+
+    @Test
+    public void test02210_speedlimitlane() throws Exception {
+        //点限速 关联 2测线还是 1link
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1038,200));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEDESTRIAN_RD);
+        //Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        assertSame(type, 2);
+    }
+
+    @Test
+    public void test02211_speedlimitlane() throws Exception {
+        //室内整理工具搜索点限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"点");
+        Page_IndoorMyData.Inst.ClickbyText("点限速");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("点限速");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("点限速");
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.MINNUM);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickbyText("解除限速");
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickbyText("收费站前");
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(1778,1260,1778,1100,5);
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.ClickbyText("匝道");
+        Thread.sleep(2000);
+        if (!Page_SpeedLimitLane.Inst.isExist(Page_SpeedLimitLane.NUM30,100))
+        {
+            Page_MainBoard.Inst.Drag(1778,1260,1778,1100,5);
+        }
+        Page_SpeedLimitLane.Inst.ClickbyText("30");
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        assertSame(type, 1);
+        int value = jsonObject.getInt("value");
+        assertSame(value, 40);
+        int minV = jsonObject.getInt("minV");
+        assertSame(minV, 30);
+        int toll = jsonObject.getInt("toll");
+        assertSame(toll, 1);
+        int se = jsonObject.getInt("se");
+        assertSame(se, 1);
+        String desc = jsonObject.getString("desc");
+        assertEquals(desc, "R");
+    }
+
+    @Test
+    public void test02212_speedlimitlane() throws Exception {
+        //我的数据 点限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickbyText("解除限速");
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.MINNUM);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickbyText("收费站前");
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(1778,1260,1778,1100,5);
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.ClickbyText("匝道");
+        Thread.sleep(2000);
+        if (!Page_SpeedLimitLane.Inst.isExist(Page_SpeedLimitLane.NUM30,100))
+        {
+            Page_MainBoard.Inst.Drag(1778,1260,1778,1100,5);
+        }
+        Page_SpeedLimitLane.Inst.ClickbyText("30");
+        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        assertSame(type, 1);
+        int value = jsonObject.getInt("value");
+        assertSame(value, 40);
+        int minV = jsonObject.getInt("minV");
+        assertSame(minV, 30);
+        int toll = jsonObject.getInt("toll");
+        assertSame(toll, 1);
+        int se = jsonObject.getInt("se");
+        assertSame(se, 1);
+        String desc = jsonObject.getString("desc");
+        assertEquals(desc, "R");
+    }
+
+    @Test
+    public void test02213_speedlimitlane() throws Exception {
+        //我的数据 取消
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.CANCEL);
+    }
+
+    @Test
+    public void test02214_speedlimitlane() throws Exception {
+        //我的数据 点限速删除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("点限速");
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.DELETE);
+        Page_MainBoard.Inst.ClickbyText("确认");
+        Thread.sleep(1000);
+        assertFalse(Page_MyData.Inst.isExistByName("点限速"));
+    }
+
+    @Test
+    public void test02301_dangerusinfo() throws Exception
+    {
+        //危险信息  历史记录
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        Page_MainBoard.Inst.Drag(1350,700,1200,700,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.HISTORY1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+    }
+
+    @Test
+    public void test02302_dangerusinfo() throws Exception
+    {
+        //危险信息  选中当前icon
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICONSTOP);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_2);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+    }
+
+    @Test
+    public void test02303_dangerusinfo() throws Exception
+    {
+        //危险信息  当前icon删除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICONDEL);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_2);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+    }
+
+    @Test
+    public void test02304_dangerusinfo() throws Exception
+    {
+        //危险信息  附属信息是否展开显示
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SHOWINFO);
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.EFFECTIVEDIS,"20");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.WARNINGDIS,"20");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.DESC,"测试信息");
+        Page_Dangerous.Inst.Click(Page_Dangerous.SHOWINFO);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        Thread.sleep(2000);
+        assertTrue(Page_Dangerous.Inst.isExist(Page_Dangerous.EFFECTIVEDIS,100));
+        assertTrue(Page_Dangerous.Inst.isExist(Page_Dangerous.WARNINGDIS,100));
+        assertTrue(Page_Dangerous.Inst.isExist(Page_Dangerous.DESC,100));
+    }
+
+    @Test
+    public void test02305_dangerusinfo() throws Exception
+    {
+        //危险信息  附属信息中的数据是否准确赋值
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SHOWINFO);
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.EFFECTIVEDIS,"20");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.WARNINGDIS,"20");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.DESC,"测试信息");
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONArray jsontemp = new JSONObject(temp).getJSONArray("w_array");
+        JSONObject jsonObject = jsontemp.getJSONObject(0);
+        int vDis = jsonObject.getInt("vDis");
+        assertSame(vDis, 20);
+        int wDis = jsonObject.getInt("wDis");
+        assertSame(wDis, 20);
+        String desc = jsonObject.getString("desc");
+        assertEquals(desc, "测试信息");
+    }
+
+    @Test
+    public void test02306_dangerusinfo() throws Exception
+    {
+        //危险信息  关联 2 测线还是link 1
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1038,200));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEDESTRIAN_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("in").getInt("type");
+        assertSame(type, 2);
+    }
+
+    @Test
+    public void test02307_dangerusinfo() throws Exception
+    {
+        //危险信息  关联 2 测线还是link 1
+        String[] LOC = {"116.41701", "39.98345"};
+        SearchLocation(LOC);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("in").getInt("type");
+        assertSame(type, 1);
+    }
+
+    @Test
+    public void test02308_dangerusinfo() throws Exception
+    {
+        //室内整理工具 危险信息
+        String[] LOC = {"116.41701", "39.98345"};
+        SearchLocation(LOC);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"危");
+        Page_IndoorMyData.Inst.ClickbyText("危险信息");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("危险信息");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("危险信息");
+        Thread.sleep(2000);
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Page_Dangerous.Inst.Click(Page_Dangerous.SHOWINFO);
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.EFFECTIVEDIS,"30");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.WARNINGDIS,"40");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.DESC,"测试信息1");
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("in").getInt("type");
+        assertSame(type, 1);
+        JSONArray jsontemp = new JSONObject(temp).getJSONArray("w_array");
+        JSONObject jsonObject1 = jsontemp.getJSONObject(0);
+        int vDis = jsonObject1.getInt("vDis");
+        assertSame(vDis, 30);
+        int wDis = jsonObject1.getInt("wDis");
+        assertSame(wDis, 40);
+        String desc = jsonObject1.getString("desc");
+        assertEquals(desc, "测试信息1");
+    }
+
+    @Test
+    public void test02309_dangerusinfo() throws Exception
+    {
+        //我的数据 危险信息
+        String[] LOC = {"116.41701", "39.98345"};
+        SearchLocation(LOC);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Page_Dangerous.Inst.Click(Page_Dangerous.SHOWINFO);
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.EFFECTIVEDIS,"40");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.WARNINGDIS,"30");
+        Page_Dangerous.Inst.SetValue(Page_Dangerous.DESC,"测试信息2");
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("in").getInt("type");
+        assertSame(type, 1);
+        JSONArray jsontemp = new JSONObject(temp).getJSONArray("w_array");
+        JSONObject jsonObject1 = jsontemp.getJSONObject(0);
+        int vDis = jsonObject1.getInt("vDis");
+        assertSame(vDis, 40);
+        int wDis = jsonObject1.getInt("wDis");
+        assertSame(wDis, 30);
+        String desc = jsonObject1.getString("desc");
+        assertEquals(desc, "测试信息2");
+    }
+
+    @Test
+    public void test02310_dangerusinfo() throws Exception
+    {
+        //我的数据 危险信息取消
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        Page_Dangerous.Inst.Click(Page_Dangerous.CANCEL);
+    }
+
+    @Test
+    public void test02311_dangerusinfo() throws Exception
+    {
+        //我的数据 危险信息删除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("危险信息");
+        Page_Dangerous.Inst.Click(Page_Dangerous.DELETE);
+        Page_MainBoard.Inst.ClickbyText("确认");
+        Thread.sleep(1000);
+        assertFalse(Page_MyData.Inst.isExistByName("危险信息"));
+    }
+
+    @Test
+    public void test02401_tollgate() throws Exception
+    {
+        //收费站 名称 跨界收费
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void test02402_tollgate() throws Exception
+    {
+        //收费站 收费类型
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void test02403_tollgate() throws Exception
+    {
+        //收费站 标牌照片
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void test02404_tollgate() throws Exception
+    {
+        //收费站 通道数
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void test02405_tollgate() throws Exception
+    {
+        //室内整理工具 收费站
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void test02406_tollgate() throws Exception
+    {
+        //我的数据 收费站
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void test02407_tollgate() throws Exception
+    {
+        //收费站取消
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+    }
+
+    @Test
+    public void test02408_tollgate() throws Exception
+    {
+        //收费站删除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
     }
 }
