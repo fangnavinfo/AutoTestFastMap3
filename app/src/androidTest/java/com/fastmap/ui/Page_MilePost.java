@@ -33,6 +33,9 @@ public class Page_MilePost extends Page_Base_Tips
     @FindResource(Id="tv_virtualKeyboard_5", ios_xpath="//XCUIElementTypeButton[@name=\"numberPad_5\"]")
     public static String FIVE;
 
+    @FindResource(Id="tv_milepost_road_name_one")
+    public static String ROADNAME;
+
     public static Page_MilePost Inst;
     static
     {

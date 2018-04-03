@@ -1,11 +1,9 @@
 package com.fastmap.ui;
 
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.FindResource;
+
 import junit.framework.Assert;
-
-import com.fang.testAdapter.*;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created by fang on 18/1/19.
@@ -67,7 +65,7 @@ public class Page_MyData extends FastMapPage
 
     public void SelectData(String name, String ios_name) throws InterruptedException
     {
-        ClickByText(ios_name);
+        ClickByText(name);
     }
     
     public void SelectData(String name) throws InterruptedException

@@ -3,7 +3,6 @@ package com.example.fang.autotestfastmap;
 import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
-import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
@@ -11,7 +10,6 @@ import com.fastmap.ui.Page_Gate;
 import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_HighSpeedEntryPic;
 import com.fastmap.ui.Page_IndoorMyData;
-import com.fastmap.ui.Page_IndoorTool;
 import com.fastmap.ui.Page_InfoAccept;
 import com.fastmap.ui.Page_InfoFrame;
 import com.fastmap.ui.Page_InfoLine;
@@ -29,7 +27,6 @@ import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_RoadName;
 import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_RoundAbout;
-import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Sketch;
 import com.fastmap.ui.Page_SpeedLimit;
 import com.fastmap.ui.Page_SpeedLimitLane;
@@ -503,7 +500,9 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
+
         String rowkey = Page_RoadNameSign.Inst.GetRowKey();
+
 
         Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
@@ -527,11 +526,11 @@ public class testFastMapYL extends testFastMapBase
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
+
         String rowkey = Page_RoadNameSign.Inst.GetRowKey();
 
         Sqlitetools.RefreshData();
         String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
-
         JSONObject jsonObject = new JSONObject(str);
         int type = jsonObject.getJSONObject("f").getInt("type");
 
@@ -553,7 +552,7 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("道路名标牌");
-
+        
         String rowkey = Page_RoadNameSign.Inst.GetRowKey();
 
         Sqlitetools.RefreshData();
@@ -1536,6 +1535,8 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.ROADNAME);
+        Thread.sleep(1000);
         Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
         Thread.sleep(1000);
         Page_MilePost.Inst.Click(Page_MilePost.FIVE);
@@ -1581,8 +1582,11 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_MainBoard.Inst.ClickCenter();
         str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
-        assertSame(str,"8");
+
         Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
+
+        assertTrue((str.equals("8")));
+
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
     }
 
