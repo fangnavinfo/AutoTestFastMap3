@@ -72,7 +72,8 @@ public class testFastMapYL extends testFastMapBase
 
     @Before
     public void setUp() throws Exception {
-        testFastMapBase.setClassUp("collector1","123456");
+        //testFastMapBase.setClassUp("collector1","123456");
+        testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
     @After
@@ -2837,6 +2838,24 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("跨界收费");
+        Page_TollGate.Inst.ClickbyText("领卡");
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("收费站");
+        String rowkey = Page_TollGate.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String name = jsonObject.getString("name");
+        int loc = jsonObject.getInt("loc");
+        int tp = jsonObject.getInt("tp");
+        int photo = jsonObject.getInt("photo");
+        assertSame(loc,2);
+        assertSame(tp,1);
+        assertSame(photo,1);
+        assertEquals(name,"测试名称");
     }
 
     @Test
@@ -2846,6 +2865,23 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("收费站");
+        String rowkey = Page_TollGate.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String name = jsonObject.getString("name");
+        int loc = jsonObject.getInt("loc");
+        int tp = jsonObject.getInt("tp");
+        int photo = jsonObject.getInt("photo");
+        assertSame(loc,1);
+        assertSame(tp,4);
+        assertSame(photo,1);
+        assertEquals(name,"测试名称");
     }
 
     @Test
@@ -2855,6 +2891,38 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
+        Page_TollGate.Inst.ClickbyText("无标牌");
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("收费站");
+        String rowkey = Page_TollGate.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String name = jsonObject.getString("name");
+        int loc = jsonObject.getInt("loc");
+        int tp = jsonObject.getInt("tp");
+        int photo = jsonObject.getInt("photo");
+        assertSame(loc,1);
+        assertSame(tp,4);
+        assertSame(photo,2);
+        assertEquals(name,"测试名称");
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("收费站");
+        Thread.sleep(2000);
+        if (!Page_TollGate.Inst.isExistByName("已采集"))
+        {
+            Page_MainBoard.Inst.Drag(1778,1260,1778,1100,5);
+        }
+        Page_TollGate.Inst.ClickbyText("已采集");
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        Sqlitetools.RefreshData();
+        String temp1 = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject1 = new JSONObject(temp1);
+        int photo1 = jsonObject1.getInt("photo");
+        assertSame(photo1,3);
     }
 
     @Test
@@ -2864,6 +2932,27 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
+        Page_MainBoard.Inst.Drag(138,488,318,488,5);
+        Thread.sleep(2000);
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("收费站");
+        String rowkey = Page_TollGate.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String name = jsonObject.getString("name");
+        int loc = jsonObject.getInt("loc");
+        int tp = jsonObject.getInt("tp");
+        int photo = jsonObject.getInt("photo");
+        int pNum = jsonObject.getInt("pNum");
+        assertSame(pNum,4);
+        assertSame(loc,1);
+        assertSame(tp,4);
+        assertSame(photo,1);
+        assertEquals(name,"测试名称");
     }
 
     @Test
@@ -2873,6 +2962,36 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
+        Page_MainBoard.Inst.Drag(123,488,318,488,5);
+        Thread.sleep(2000);
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"收");
+        Page_IndoorMyData.Inst.ClickbyText("收费站");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("收费站");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("收费站");
+        Thread.sleep(2000);
+
+        String rowkey = Page_TollGate.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String name = jsonObject.getString("name");
+        int loc = jsonObject.getInt("loc");
+        int tp = jsonObject.getInt("tp");
+        int photo = jsonObject.getInt("photo");
+        int pNum = jsonObject.getInt("pNum");
+        assertSame(pNum,4);
+        assertSame(loc,1);
+        assertSame(tp,4);
+        assertSame(photo,1);
+        assertEquals(name,"测试名称");
     }
 
     @Test
@@ -2882,6 +3001,30 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
+        Page_MainBoard.Inst.Drag(138,488,318,488,5);
+        Thread.sleep(2000);
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.ClickbyText("收费站");
+        Thread.sleep(1000);
+
+        String rowkey = Page_TollGate.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String name = jsonObject.getString("name");
+        int loc = jsonObject.getInt("loc");
+        int tp = jsonObject.getInt("tp");
+        int photo = jsonObject.getInt("photo");
+        int pNum = jsonObject.getInt("pNum");
+        assertSame(pNum,4);
+        assertSame(loc,1);
+        assertSame(tp,4);
+        assertSame(photo,1);
+        assertEquals(name,"测试名称");
     }
 
     @Test
@@ -2891,6 +3034,15 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        Thread.sleep(2000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.ClickbyText("收费站");
+        Thread.sleep(1000);
+        Page_TollGate.Inst.Click(Page_TollGate.CANCEL);
     }
 
     @Test
@@ -2900,5 +3052,17 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
+        Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
+        Thread.sleep(2000);
+        Page_TollGate.Inst.Click(Page_TollGate.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.ClickbyText("收费站");
+        Thread.sleep(1000);
+        Page_TollGate.Inst.Click(Page_TollGate.DELETE);
+        Page_TollGate.Inst.ClickbyText("确认");
+        Thread.sleep(1000);
+        assertFalse(Page_MyData.Inst.isExistByName("收费站"));
     }
 }

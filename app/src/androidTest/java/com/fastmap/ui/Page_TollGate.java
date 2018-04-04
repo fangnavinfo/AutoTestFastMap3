@@ -1,6 +1,6 @@
 package com.fastmap.ui;
 
-import com.fang.testAdapter.*;
+import com.fang.testAdapter.FindResource;
 
 /**
  * 收费站
@@ -9,6 +9,9 @@ import com.fang.testAdapter.*;
 
 public class Page_TollGate extends Page_Base_Tips
 {
+    @FindResource(Id="tollgate_name_edit")
+    public static String EDIT;
+
     public static Page_TollGate Inst;
     static
     {
