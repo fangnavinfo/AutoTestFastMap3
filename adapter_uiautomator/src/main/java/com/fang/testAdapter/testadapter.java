@@ -215,6 +215,21 @@ public class testadapter
         try
         {
             mDevice.executeShellCommand("rm -rf " + userPath + "coremap.sqlite");
+            mDevice.executeShellCommand("rm -rf " + userPath + "coremap.sqlite-journal");
+            mDevice.executeShellCommand("rm -rf " + userPath + "coremap.shm");
+            mDevice.executeShellCommand("rm -rf " + userPath + "coremap.wal");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void ClearWal()
+    {
+        try
+        {
+            mDevice.executeShellCommand("rm -rf " + userPath + "coremap.sqlite-journal");
             mDevice.executeShellCommand("rm -rf " + userPath + "coremap.shm");
             mDevice.executeShellCommand("rm -rf " + userPath + "coremap.wal");
         }
