@@ -72,8 +72,8 @@ public class testFastMapYL extends testFastMapBase
 
     @Before
     public void setUp() throws Exception {
-        //testFastMapBase.setClassUp("collector1","123456");
-        testFastMapBase.setClassUp("zhanglingling03655","036550");
+        testFastMapBase.setClassUp("collector1","123456");
+        //testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
     @After
