@@ -398,7 +398,11 @@ public class testFastMapZF extends testFastMapBase
 
         testadapter.StopApp();
 
+        testadapter.ClearWal();
         Sqlitetools.update3rdPartyInfo(globalId);
+
+        testadapter.ClearWal();
+
         Sqlitetools.RefreshData();
 
         GotoMyData(Page_MyData.THIRD_TYPE);
