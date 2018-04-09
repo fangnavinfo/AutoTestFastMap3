@@ -71,15 +71,15 @@ public class Page_POI extends FastMapPage
 
     public void SetValue(String findRes, String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
-        if (findRes.equals(SELECT_TYPE))
-        {
+    	if (findRes.equals(SELECT_TYPE))
+    	{
         	Click(SELECT_TYPE);
         	super.SetValue(SEARCH_TYPE, value);
         	
         	Thread.sleep(1000);
         	Click(SEARCH_TYPE_RESULT);
-        	return;
-        }
+        	return;    		
+    	}
 
         if (findRes.equals(SELECT_BRAND))
         {

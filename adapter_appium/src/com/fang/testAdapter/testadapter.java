@@ -713,6 +713,12 @@ public class testadapter
 		// TODO Auto-generated method stub
 		driver.close();
 	}
+
+	public static void ClearWal()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
