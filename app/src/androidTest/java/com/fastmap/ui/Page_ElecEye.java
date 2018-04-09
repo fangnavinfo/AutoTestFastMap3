@@ -121,6 +121,17 @@ public class Page_ElecEye extends Page_Base_Tips
     @FindResource(Id="camera_button")
     public static String CAMERA;
 
+    @FindResource(Id="electronic_eye_et_speed_limit_number")
+    public static String SPEEDEDIT;
+
+    @FindResource(Id="et_eye_card_time")
+    public static String TIMEEDIT;
+
+    @FindResource(Id="electronic_eye_interval_start")
+    public static String EYE_INTERVAL_START;
+
+    @FindResource(Id="elec_eye_adapter_checkbox")
+    public static String EYE_ADAPTER_CHECKBOX;
     public static Page_ElecEye Inst;
     static
     {

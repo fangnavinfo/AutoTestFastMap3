@@ -3065,4 +3065,333 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("收费站"));
     }
+
+    @Test
+    public void test02501_electroniceye() throws Exception
+    {
+        //电子眼  超高速限速值 数据库赋值
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.ClickbyText("60");
+        Thread.sleep(1000);
+        String speednum = Page_ElecEye.Inst.GetValue(Page_ElecEye.SPEEDEDIT);
+        assertEquals(speednum,"60");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        assertFalse(Page_MyData.Inst.isExistByName("电子眼"));
+        Page_MyData.Inst.ClickbyText("电子眼");
+
+    }
+
+    @Test
+    public void test02502_electroniceye() throws Exception
+    {
+        //电子眼  公交车道显示时间 数据库赋值
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_BUS_LANE);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("增加时间");
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        String speednum = Page_ElecEye.Inst.GetValue(Page_ElecEye.TIMEEDIT);
+        assertEquals(speednum,"06:00~20:00;");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.ClickbyText("电子眼");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int thrd = jsonObject.getInt("thrd");
+        int tp = jsonObject.getInt("tp");
+        String time = jsonObject.getString("time");
+        assertEquals(time,"06:00~20:00;");
+        assertSame(type,1);
+        assertSame(thrd,0);
+        assertSame(tp,15);
+    }
+
+    @Test
+    public void test02503_electroniceye() throws Exception
+    {
+        //电子眼  环保限行 显示车辆类型 数据库赋值
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_ENV_PROT);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("客车");
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("运输卡车");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        //assertFalse(Page_MyData.Inst.isExistByName("电子眼"));
+        Page_MyData.Inst.ClickbyText("电子眼");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int thrd = jsonObject.getInt("thrd");
+        int tp = jsonObject.getInt("tp");
+        JSONArray vt = jsonObject.getJSONArray ("vt");
+
+        assertSame(vt.getInt(0),1);
+        assertSame(vt.getInt(1),3);
+        assertSame(type,1);
+        assertSame(thrd,0);
+        assertSame(tp,24);
+    }
+
+    @Test
+    public void test02504_electroniceye() throws Exception
+    {
+        //电子眼  建立配对关系 文字提示 10km内
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_END);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_START);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(9000);
+        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)");
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+        Page_MyData.Inst.SelectData("电子眼");
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("删除配对关系");
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02505_electroniceye() throws Exception
+    {
+        //电子眼  建立配对关系 文字提示 10km内
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_END);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_START);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(9000);
+        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)");
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+        Page_MyData.Inst.SelectData("电子眼");
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        //Thread.sleep(3000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02506_electroniceye() throws Exception
+    {
+        //电子眼  建立配对关系 文字提示勾选框 推荐默认勾选
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_END);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,800,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_START);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(9000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+        Page_MyData.Inst.SelectData("电子眼");
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("删除配对关系");
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02507_electroniceye() throws Exception
+    {
+        //电子眼  建立配对关系 文字提示勾选框
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_END);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_START);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(9000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_ADAPTER_CHECKBOX);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+        Page_MyData.Inst.SelectData("电子眼");
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("删除配对关系");
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02508_electroniceye() throws Exception
+    {
+        //电子眼  建立配对关系多选项列表
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_END);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_START);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1300,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_START);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+        CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
+        Page_MyData.Inst.SelectData("电子眼");
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(9000);
+        Page_ElecEye.Inst.ClickbyText("2 测速开始(10km内)");
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Page_MyData.Inst.SelectData("电子眼");
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.ClickbyText("删除配对关系");
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02509_electroniceye() throws Exception
+    {
+        //电子眼  室内整理工具
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("电子眼");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("电子眼");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        ExitIndoorTools();
+    }
 }
