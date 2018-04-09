@@ -1,8 +1,9 @@
 package com.fastmap.ui;
 
-import java.lang.reflect.Field;
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.FindResource;
 
-import com.fang.testAdapter.*;
+import java.lang.reflect.Field;
 
 public class Page_Base_Tips extends FastMapPage
 {
@@ -18,7 +19,7 @@ public class Page_Base_Tips extends FastMapPage
     
     @FindResource(Id="camera_button_myselt", ios_xpath="//XCUIElementTypeButton[@name=\"mediaOperate_photoBtn\"]")
     public static String CAMERA;
-    
+
     public Page_Base_Tips()
     {
         try

@@ -36,7 +36,8 @@ public class testFastMapFS extends testFastMapBase
     @Before
     public void setUp() throws Exception
     {
-        this.setClassUp("collector", "123456");
+        //this.setClassUp("collector", "123456");
+        testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
     @After
