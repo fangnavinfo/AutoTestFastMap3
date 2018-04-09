@@ -1,39 +1,8 @@
 package com.example.fang.autotestfastmap;
 
-import com.fang.testAdapter.FastMapPage;
-import com.fang.testAdapter.Point;
-import com.fang.testAdapter.Sqlitetools;
-import com.fastmap.ui.Page_AddPoint;
-import com.fastmap.ui.Page_Dangerous;
-import com.fastmap.ui.Page_ElecEye;
-import com.fastmap.ui.Page_Gate;
-import com.fastmap.ui.Page_GridManager;
-import com.fastmap.ui.Page_HighSpeedEntryPic;
-import com.fastmap.ui.Page_IndoorMyData;
-import com.fastmap.ui.Page_InfoAccept;
-import com.fastmap.ui.Page_InfoFrame;
-import com.fastmap.ui.Page_InfoLine;
-import com.fastmap.ui.Page_InfoPoint;
-import com.fastmap.ui.Page_LaneInfo;
-import com.fastmap.ui.Page_Light;
-import com.fastmap.ui.Page_MainBoard;
-import com.fastmap.ui.Page_MainMenu;
-import com.fastmap.ui.Page_MilePost;
-import com.fastmap.ui.Page_MyData;
-import com.fastmap.ui.Page_NormalCrossPic;
-import com.fastmap.ui.Page_Note;
-import com.fastmap.ui.Page_POI;
-import com.fastmap.ui.Page_POI_Camera;
-import com.fastmap.ui.Page_RoadName;
-import com.fastmap.ui.Page_RoadNameSign;
-import com.fastmap.ui.Page_RoundAbout;
-import com.fastmap.ui.Page_Sketch;
-import com.fastmap.ui.Page_SpeedLimit;
-import com.fastmap.ui.Page_SpeedLimitLane;
-import com.fastmap.ui.Page_StartEndPoint;
-import com.fastmap.ui.Page_SurveyLine;
-import com.fastmap.ui.Page_TimeCtl;
-import com.fastmap.ui.Page_TollGate;
+import com.fang.testAdapter.*;
+import com.fastmap.ui.*;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -2240,6 +2209,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02202_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 0 限速开始； 1 限速解除
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2264,6 +2238,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02203_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 0 限速开始； 1 限速解除
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2287,6 +2266,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02204_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 采集标志 0 现场采集（默认）； 1 理论判断 是否收费站前0 否（默认），1 是
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2308,6 +2292,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02205_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 文字显示
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2329,6 +2318,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02206_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 文字显示
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2350,6 +2344,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02207_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 文字显示
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2371,6 +2370,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02208_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 修改道路方向 顺时针 逆时针
         String[] LOC = {"116.41701", "39.98345"};
         SearchLocation(LOC);
@@ -2401,7 +2405,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02209_speedlimitlane() throws Exception {
+    public void test02209_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 关联 2测线还是 1link
         String[] LOC = {"116.41701", "39.98345"};
         SearchLocation(LOC);
@@ -2423,7 +2433,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02210_speedlimitlane() throws Exception {
+    public void test02210_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 关联 2测线还是 1link
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
         Page_MainBoard.Inst.ClickCenter();
@@ -2449,7 +2465,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02211_speedlimitlane() throws Exception {
+    public void test02211_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //室内整理工具搜索点限速
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2501,7 +2523,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02212_speedlimitlane() throws Exception {
+    public void test02212_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //我的数据 点限速
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2546,7 +2574,12 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02213_speedlimitlane() throws Exception {
+    public void test02213_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
         //我的数据 取消
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2560,7 +2593,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02214_speedlimitlane() throws Exception {
+    public void test02214_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //我的数据 点限速删除
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();

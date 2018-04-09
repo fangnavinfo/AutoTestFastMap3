@@ -221,6 +221,8 @@ public class testFastMapZF extends testFastMapBase
 
         Page_POI.Inst.DeleteFather("大厦ＴＥＳＴ１");
 
+        Thread.sleep(3000);
+        
         //移动父POI
         Page_MultiList.Inst.Click(Page_MultiList.CHECK_LIST_ITEM);
         Page_MultiList.Inst.Click(Page_MultiList.MOVE);
