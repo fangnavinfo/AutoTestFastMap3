@@ -94,6 +94,9 @@ public class FastMapPage
     
     public void ClickCenter() throws InterruptedException
     {
+    	int x = testadapter.getDisplayWidth();
+    	int y = testadapter.getDisplayHeight();
+    	
         testadapter.Click(testadapter.getDisplayWidth()/2, testadapter.getDisplayHeight()/2);
         //mDevice.click(point.x, point.y);
         Thread.sleep(1000);
@@ -249,7 +252,7 @@ public class FastMapPage
     
     public void Drag(int startX, int startY, int endX, int endY, int steps)
     {
-    	testadapter.Drag(startX/2, startY/2, endX/2, endY/2, steps/2);
+    	testadapter.Drag(startX/2, startY/2, endX/2, endY/2, steps);
     }
     
     public  void ClickByIndex(String findRes, int index) throws Exception

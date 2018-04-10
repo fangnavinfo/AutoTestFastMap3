@@ -42,6 +42,7 @@ public class testFastMapYL extends testFastMapBase
     @Before
     public void setUp() throws Exception {
         testFastMapBase.setClassUp("collector1","123456");
+        Page_MainBoard.Inst.ClickCenter();
         //testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
@@ -3228,8 +3229,8 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
-        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)");
+        Thread.sleep(15000);
+        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)", "区间结束(10公里内)");
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
@@ -3238,7 +3239,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Thread.sleep(2000);
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Thread.sleep(2000);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
@@ -3271,8 +3272,8 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
-        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)");
+        Thread.sleep(20000);
+        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)", "区间结束(10公里内)");
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
@@ -3280,7 +3281,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         //Thread.sleep(3000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
@@ -3312,14 +3313,14 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(2000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
+        Thread.sleep(15000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
         Page_MyData.Inst.SelectData("电子眼");
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
     }
@@ -3350,7 +3351,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
+        Thread.sleep(15000);
         Page_ElecEye.Inst.Click(Page_ElecEye.EYE_ADAPTER_CHECKBOX);
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
@@ -3360,7 +3361,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Thread.sleep(2000);
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
     }
@@ -3403,15 +3404,15 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
-        Page_ElecEye.Inst.ClickbyText("2 测速开始(10km内)");
+        Thread.sleep(15000);
+        Page_ElecEye.Inst.ClickbyText("2 测速开始(10km内)", "区间开始(10公里内)");
         Thread.sleep(2000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         Page_MyData.Inst.SelectData("电子眼");
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
     }
