@@ -8,7 +8,7 @@ import com.fang.testAdapter.*;
  */
 public class Page_SurveyLineEdit extends FastMapPage
 {
-    @FindResource(Id="tv_complete", ios_xpath="//XCUIElementTypeButton[@name=\"operate_saveBtn\"]")
+    @FindResource(Id="tv_complete", ios_name="operate_saveBtn")
     public static String SAVE;
 
     public static Page_SurveyLineEdit Inst;

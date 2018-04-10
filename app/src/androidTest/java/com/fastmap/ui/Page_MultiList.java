@@ -23,10 +23,10 @@ public class Page_MultiList extends FastMapPage
     public static String MOVE_POINT;
     @FindResource(Id="ck_poi_move_line", Text="移线")
     public static String MOVE_LINE;
-    @FindResource(Id="ck_poi_move_point_and_line", Text="移点/移线", ios_xpath="//XCUIElementTypeButton[@name=\"poiMovePointLine\"]")
+    @FindResource(Id="ck_poi_move_point_and_line", Text="移点/移线", ios_name="移点/线\"]")
     public static String MOVE_POINT_AND_LINE;
 
-    														
+
     @FindResource(Id="cb_snap_check_list_item", ios_xpath="(//XCUIElementTypeButton[@name=\"login checkbox\"])[1]")
     public static String CHECK_LIST_ITEM;
 

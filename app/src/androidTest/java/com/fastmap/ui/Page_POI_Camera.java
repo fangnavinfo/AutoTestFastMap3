@@ -7,10 +7,10 @@ import com.fang.testAdapter.*;
  */
 public class Page_POI_Camera extends FastMapPage
 {
-    @FindResource(Id="take_pic_imgbtn", ios_xpath="//XCUIElementTypeButton[@name=\"camera btn nor\"]")
+    @FindResource(Id="take_pic_imgbtn", ios_name="camera btn nor")
     public static String TAKE_PIC;
 
-    @FindResource(Id="task_pic_back_img", ios_xpath="//XCUIElementTypeButton[@name=\"返回\"]")
+    @FindResource(Id="task_pic_back_img", ios_name="返回")
     public static String BACK;
 
     @FindResource(Id="mingcheng_btn", Text="名称")

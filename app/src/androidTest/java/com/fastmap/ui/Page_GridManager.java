@@ -8,32 +8,32 @@ import com.fang.testAdapter.*;
  */
 public class Page_GridManager extends FastMapPage
 {
-    @FindResource(Id="rb_poi_update", ios_xpath="//XCUIElementTypeButton[@name=\"POI数据\"]")
+    @FindResource(Id="rb_poi_update", ios_name="POI数据")
     public static String POI_UPDATE;
-    @FindResource(Id="rb_tips_update", ios_xpath="//XCUIElementTypeButton[@name=\"Tips数据\"]")
+    @FindResource(Id="rb_tips_update", ios_name="Tips数据")
     public static String TIPS_UPDATE;
     @FindResource(Id="rb_integrate_update")
     public static String INTEGRATE_UPDATE;
-    @FindResource(Id="rb_info_update", ios_xpath="//XCUIElementTypeButton[@name=\"情报数据\"]")
+    @FindResource(Id="rb_info_update", ios_name="情报数据")
     public static String INFO_UPDATE;
-    @FindResource(Id="synchronous_button", ios_xpath="//XCUIElementTypeButton[@name=\"同步数据\"]")
+    @FindResource(Id="synchronous_button", ios_name="同步数据")
     public static String SYNCHRONOUS_BUTTON;
 
-    @FindResource(Id="grid_project_button", ios_xpath="//XCUIElementTypeStaticText[@name=\"任 务 列 表\"]")
+    @FindResource(Id="grid_project_button", ios_name="任 务 列 表")
     public static String PROJECT_BUTTON;
 
 
-    @FindResource(Id="back", ios_xpath="//XCUIElementTypeButton[@name=\"blue arrow\"]")
+    @FindResource(Id="back", ios_name="blue arrow")
     public static String BACK;
-    @FindResource(Id="btn_fm_confirm", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")
+    @FindResource(Id="btn_fm_confirm", ios_name="确定")
     public static String NO_TASK_CONFIRM;
-    @FindResource(Id="btn_fm_confirm", ios_xpath="//XCUIElementTypeButton[@name=\"同步\"]")
+    @FindResource(Id="btn_fm_confirm", ios_name="同步")
     public static String STATIS_CONFIRM;
-    @FindResource(Id="btn_fm_confirm", ios_xpath="//XCUIElementTypeButton[@name=\"取消\"]")
+    @FindResource(Id="btn_fm_confirm", ios_name="取消")
     public static String UPDATA_RSLT_CONFIRM;
     @FindResource(Id="btn_fm_cancel")
     public static String CANCEL;
-    @FindResource(Id="grid_sync_btn_positive", ios_xpath="//XCUIElementTypeButton[@name=\"确认\"]")
+    @FindResource(Id="grid_sync_btn_positive", ios_name="确认")
     public static String GRID_SYNC_BTN_POSITIVE;
 
     public static Page_GridManager Inst;

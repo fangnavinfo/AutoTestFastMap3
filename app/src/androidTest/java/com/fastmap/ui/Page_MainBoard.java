@@ -7,12 +7,12 @@ import com.fang.testAdapter.*;
  */
 public class Page_MainBoard extends FastMapPage
 {
-    @FindResource(Id="back", ios_xpath="//XCUIElementTypeButton[@name=\"main user\"]")
+    @FindResource(Id="back", ios_name="main user")
     public static String BACK;
-    @FindResource(Id="head_icon", ios_xpath="//XCUIElementTypeButton[@name=\"main user\"]")
+    @FindResource(Id="head_icon", ios_name="main user")
     public static String MAIN_MENU;
 
-    @FindResource(Id="img_search", ios_xpath="//XCUIElementTypeButton[@name=\"search\"]")
+    @FindResource(Id="img_search", ios_name="search")
     public static String SEARCH;
 
     @FindResource(Text="POI")
@@ -40,14 +40,14 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="tv_search_link_btn")
     public static String SEARCH_LINK_BTN;
 
-    @FindResource(Id="btn_mode", ios_xpath = "//XCUIElementTypeButton[@name=\"scene integrated\"]")
+    @FindResource(Id="btn_mode", ios_name="scene integrated")
     public static String MODE; //场景设置
-    @FindResource(Id="btn_close_pop", ios_xpath = "//XCUIElementTypeButton[@name=\"gray close\"]")
+    @FindResource(Id="btn_close_pop", ios_name="gray close")
     public static String CLOSE;
     @FindResource(Id="cb_refinement_layer", ios_xpath = "//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeOther[8]/XCUIElementTypeSwitch")
     public static String REFINEMENT; //精细化图层
     
-    @FindResource(Id="btn_distance_measure", ios_xpath="//XCUIElementTypeButton[@name=\"measure\"]")
+    @FindResource(Id="btn_distance_measure", ios_name="measure")
     public static String DISTANCE_MEASURE;	//测量距离
 
     @FindResource(Id="iv_zoom_out")
@@ -55,19 +55,19 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="iv_zoom_in")
     public static String ZOOM_IN;
 
-    @FindResource(Id="btn_indoor_data_check_open", ios_xpath="//XCUIElementTypeButton[@name=\"quality control\"]")
+    @FindResource(Id="btn_indoor_data_check_open", ios_name="quality control")
     public static String QC_TASK;
 
-    @FindResource(Id="btn_infor_report", ios_xpath="//XCUIElementTypeButton[@name=\"up report\"]")
+    @FindResource(Id="btn_infor_report", ios_name="up report")
     public static String REPORT;
 
-    @FindResource(Id="info_pop_add_point", ios_xpath="//XCUIElementTypeButton[@name=\"点情报\"]")
+    @FindResource(Id="info_pop_add_point", ios_name="点情报")
     public static String POINT_INFO;
 
-    @FindResource(Id="info_pop_add_line", ios_xpath="//XCUIElementTypeButton[@name=\"线情报\"]")
+    @FindResource(Id="info_pop_add_line", ios_name="线情报")
     public static String LINE_INFO;
 
-    @FindResource(Id="info_pop_add_frame", ios_xpath="//XCUIElementTypeButton[@name=\"面情报\"]")
+    @FindResource(Id="info_pop_add_frame", ios_name="面情报")
     public static String FRAME_INFO;
 
     public static Page_MainBoard Inst;

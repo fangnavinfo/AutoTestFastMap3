@@ -10,10 +10,10 @@ import com.fang.testAdapter.*;
 public class Page_QCProblem extends FastMapPage
 {
 
-    @FindResource(Id="btn_save_data_check", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")
+    @FindResource(Id="btn_save_data_check", ios_name="确定")
     public static String SAVE;
 
-    @FindResource(Id="btn_save_data_check", ios_xpath="//XCUIElementTypeButton[@name=\"错误\"]")
+    @FindResource(Id="btn_save_data_check", ios_name="错误")
     public static String PROB_ERROR;
     
     public void SelectError(String error) throws InterruptedException

@@ -8,10 +8,10 @@ import com.fang.testAdapter.*;
 
 public class Page_POI extends FastMapPage
 {
-    @FindResource(Id="fm_et_name", ios_xpath="//XCUIElementTypeStaticText[@name=\"请输入名称\"]")
+    @FindResource(Id="fm_et_name", ios_name="请输入名称")
     public static String NAME;
 
-    @FindResource(Id="tv_assort_type", Text="请选择分类", ios_xpath="//XCUIElementTypeStaticText[@name=\"请选择类别\"]")
+    @FindResource(Id="tv_assort_type", Text="请选择分类", ios_name="请选择类别")
     public static String SELECT_TYPE;
     @FindResource(Id="tv_poi_brand", Text="请选择品牌")
     public static String SELECT_BRAND;
@@ -30,16 +30,16 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="tv_poi_remark", Text="标记字段")
     public static String POI_REMARK;
 
-    @FindResource(Id="delete_button", ios_xpath="//XCUIElementTypeButton[@name=\"operate_deletelBtn\"]")
+    @FindResource(Id="delete_button", ios_name="operate_deletelBtn")
     public static String DELETE;
-    @FindResource(Id="cancel_button", ios_xpath="//XCUIElementTypeButton[@name=\"operate_cancelBtn\"]")
+    @FindResource(Id="cancel_button", ios_name="operate_cancelBtn")
     public static String CANCEL;
-    @FindResource(Id="save_button", ios_xpath="//XCUIElementTypeButton[@name=\"operate_saveBtn\"]")
+    @FindResource(Id="save_button", ios_name="operate_saveBtn")
     public static String SAVE;
     @FindResource(Id="tv_poi_fid_hd", ios_predicate="value BEGINSWITH 'fid'")
     public static String FID;
 
-    @FindResource(Id="et_kind_search", Text="请输入搜索内容", ios_xpath="//XCUIElementTypeSearchField[@name=\"请输入分类名或kindCode\"]")
+    @FindResource(Id="et_kind_search", Text="请输入搜索内容", ios_name="请输入分类名或kindCode")
     public static String SEARCH_TYPE;
 
     @FindResource(Id="top_name_txtinfo",  ios_x=384, ios_y=108)
@@ -48,7 +48,7 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="edt_contactItem_telNum", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeTextField[2]")
     public static String TEL;
 
-    @FindResource(Id="camera_button_myselt", ios_xpath="//XCUIElementTypeButton[@name=\"mediaOperate_photoBtn\"]")
+    @FindResource(Id="camera_button_myselt", ios_name="mediaOperate_photoBtn")
     public static String CAMERA;
 
     @FindResource(clazz="android.widget.CheckBox", Text="人行门")
@@ -57,7 +57,7 @@ public class Page_POI extends FastMapPage
     @FindResource(clazz="android.widget.ScrollView", ios_x=740, ios_y=314)
     public static String SCROLL;
 
-    @FindResource(Id="photo_tv_edit", ios_xpath="//XCUIElementTypeButton[@name=\"编辑\"]")
+    @FindResource(Id="photo_tv_edit", ios_name="编辑")
     public static String PICTURE;
 
     @FindResource(clazz="android.widget.TextView", Text = "多媒体")
