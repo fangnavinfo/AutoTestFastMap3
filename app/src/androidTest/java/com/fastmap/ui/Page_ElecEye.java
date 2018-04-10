@@ -124,7 +124,7 @@ public class Page_ElecEye extends Page_Base_Tips
     @FindResource(Id="et_eye_card_time")
     public static String TIMEEDIT;
     
-    @FindResource(Id="electronic_eye_interval_start")
+    @FindResource(Id="electronic_eye_interval_start", ios_name="elecEye 20")
     public static String EYE_INTERVAL_START;
     
     @FindResource(Id="elec_eye_adapter_checkbox")
