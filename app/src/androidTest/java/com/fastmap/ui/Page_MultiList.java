@@ -23,7 +23,7 @@ public class Page_MultiList extends FastMapPage
     public static String MOVE_POINT;
     @FindResource(Id="ck_poi_move_line", Text="移线")
     public static String MOVE_LINE;
-    @FindResource(Id="ck_poi_move_point_and_line", Text="移点/移线", ios_name="移点/线\"]")
+    @FindResource(Id="ck_poi_move_point_and_line", Text="移点/移线", ios_name="poiMovePointLine")
     public static String MOVE_POINT_AND_LINE;
 
 
