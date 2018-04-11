@@ -143,9 +143,43 @@ public class testadapter
     	action.tap(x, y).perform();
     }
 
-    public static void Click(String Id)
+    public static void Click(FindResource annotation) throws InterruptedException
     {
-
+    	if (annotation.ios_x() != -1 && annotation.ios_y() != -1)
+    	{
+    		Click(annotation.ios_x(), annotation.ios_y());
+    		Thread.sleep(1000);
+	      	return;
+	    }
+    	
+    	int count = 0;
+    	
+		while(true)
+		{
+			try
+			{
+				WebElement elem = GetElement(annotation);
+				if (!elem.isEnabled())
+				{
+					continue;
+				}
+				elem.click();
+				break;
+			}
+			catch(org.openqa.selenium.NoSuchElementException e)
+			{
+				if(count > 6)
+				{
+					throw e;
+				}
+				else
+				{
+					count++;
+					Thread.sleep(500);
+					continue;
+				}
+			}
+		}
     }
 
     public static void SetValue(String xpath, String value)
@@ -501,6 +535,10 @@ public class testadapter
     	if(!annotation.ios_xpath().isEmpty())
     	{
     		return driver.findElement(By.xpath(annotation.ios_xpath()));
+    	}
+    	else if(!annotation.ios_name().isEmpty())
+    	{
+    		return driver.findElement(MobileBy.iOSNsPredicateString("name == '" + annotation.ios_name() + "'"));
     	}
     	else if(!annotation.Text().isEmpty())
     	{

@@ -40,7 +40,6 @@ public class FastMapPage
 
     public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException 
     {
-
     	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
@@ -49,39 +48,41 @@ public class FastMapPage
             return;
         }
         
-        if (!annotation.ios_xpath().isEmpty())
-        {
-            testadapter.ClickByXPath(annotation.ios_xpath());
-            //Thread.sleep(1000);
-            return;
-        }
-
-        if (annotation.ios_x() != -1 && annotation.ios_y() != -1)
-        {
-        	testadapter.Click(annotation.ios_x(), annotation.ios_y());
-        	Thread.sleep(1000);
-        	return;
-        }
+        testadapter.Click(annotation);
         
-        if (!annotation.ios_predicate().isEmpty())
-        {
-        	testadapter.ClickByPredicate(annotation.ios_predicate());
-        	return;
-        }
-        
-        if (!annotation.ios_name().isEmpty())
-        {
-        	testadapter.ClickByPredicate("name == '" + annotation.ios_name() + "'");
-        	return;
-        }
-
-        if (!annotation.Text().isEmpty())
-        {
-            testadapter.ClickByText(annotation.Text());
-            Thread.sleep(1000);
-            return;
-        }
-        throw new RuntimeException("can not find id of " + findRes);
+//        if (!annotation.ios_xpath().isEmpty())
+//        {
+//            testadapter.ClickByXPath(annotation.ios_xpath());
+//            //Thread.sleep(1000);
+//            return;
+//        }
+//
+//        if (annotation.ios_x() != -1 && annotation.ios_y() != -1)
+//        {
+//        	testadapter.Click(annotation.ios_x(), annotation.ios_y());
+//        	Thread.sleep(1000);
+//        	return;
+//        }
+//        
+//        if (!annotation.ios_predicate().isEmpty())
+//        {
+//        	testadapter.ClickByPredicate(annotation.ios_predicate());
+//        	return;
+//        }
+//        
+//        if (!annotation.ios_name().isEmpty())
+//        {
+//        	testadapter.ClickByPredicate("name == '" + annotation.ios_name() + "'");
+//        	return;
+//        }
+//
+//        if (!annotation.Text().isEmpty())
+//        {
+//            testadapter.ClickByText(annotation.Text());
+//            Thread.sleep(1000);
+//            return;
+//        }
+//        throw new RuntimeException("can not find id of " + findRes);
     }
     
     public void Click(Point p) throws InterruptedException
@@ -158,6 +159,10 @@ public class FastMapPage
         if (!annotation.ios_xpath().isEmpty())
         {
         	return testadapter.GetValue(annotation.ios_xpath());
+        }
+        else if (!annotation.ios_name().isEmpty())
+        {
+        	return testadapter.GetValueByPredicate("name == '" + annotation.ios_name() + "'");
         }
         else if (!annotation.ios_predicate().isEmpty())
         {
