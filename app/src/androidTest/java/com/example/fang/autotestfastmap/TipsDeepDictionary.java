@@ -49,7 +49,7 @@ public class TipsDeepDictionary
     public final static String POINT_ELECTRONIC_EYE = "1109";
 
     /**
-     * 卡车限速
+     * 卡车限制
      */
     public final static String TRUCK_LIMIT = "1110";
     /**

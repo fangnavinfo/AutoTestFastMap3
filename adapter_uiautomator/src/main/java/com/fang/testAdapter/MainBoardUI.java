@@ -24,7 +24,7 @@ class MainBoardUI
         MainBoardUI.arrayLocation = new ArrayList<>();
         MainBoardUI.arrayLocationQc = new ArrayList<>();
 
-        ArrayList<HashMap<int[], String>> arrayMap = new ArrayList<>();
+        ArrayList<HashMap<long[], String>> arrayMap = new ArrayList<>();
 
         arrayMap.add(Sqlitetools.GetKeyboardLeft());
         arrayMap.add(Sqlitetools.GetKeyboardRight());
@@ -115,14 +115,14 @@ class MainBoardUI
         throw new Resources.NotFoundException();
     }
 
-    private static void InitialLocation(ArrayList<HashMap<int[], String>> arrayMap, ArrayList<ArrayList<String>> arrayLocation)
+    private static void InitialLocation(ArrayList<HashMap<long[], String>> arrayMap, ArrayList<ArrayList<String>> arrayLocation)
     {
-        for (HashMap<int[], String> map : arrayMap)
+        for (HashMap<long[], String> map : arrayMap)
         {
-            ArrayList<int[]> arrayKey = new ArrayList<>(map.keySet());
-            Collections.sort(arrayKey, new Comparator<int[]>() {
+            ArrayList<long[]> arrayKey = new ArrayList<>(map.keySet());
+            Collections.sort(arrayKey, new Comparator<long[]>() {
                 @Override
-                public int compare(int[] o1, int[] o2) {
+                public int compare(long[] o1, long[] o2) {
                     if (o1[0] > o2[0])
                     {
                         return 1;
@@ -151,7 +151,7 @@ class MainBoardUI
 
             for (int i=0; i<arrayKey.size(); i++) {
                 if (i != 0) {
-                    int[] perKey = arrayKey.get(i - 1);
+                    long[] perKey = arrayKey.get(i - 1);
                     if (perKey[0] == arrayKey.get(i)[0]) {
                         arrayLocation.get(arrayLocation.size() - 1).add(map.get(arrayKey.get(i)));
                         continue;

@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
@@ -393,51 +392,51 @@ public class Sqlitetools
         }
     }
 
-    static public HashMap<int[], String> GetKeyboardLeft() throws Exception
+    static public HashMap<long[], String> GetKeyboardLeft() throws Exception
     {
         return GetKeyboardByAreaRange(200, 300, "areaCodeIntegrated", "timeIntegrated");
     }
 
-    static public HashMap<int[], String> GetKeyboardBottom() throws Exception
+    static public HashMap<long[], String> GetKeyboardBottom() throws Exception
     {
         return GetKeyboardByAreaRange(100, 200, "areaCodeIntegrated", "timeIntegrated");
     }
 
-    static public HashMap<int[], String> GetKeyboardRight() throws Exception
+    static public HashMap<long[], String> GetKeyboardRight() throws Exception
     {
         return GetKeyboardByAreaRange(300, 400, "areaCodeIntegrated", "timeIntegrated");
     }
 
-    static public HashMap<int[], String> GetKeyboardRightWithQC() throws Exception
+    static public HashMap<long[], String> GetKeyboardRightWithQC() throws Exception
     {
         return GetKeyboardByAreaRange(300, 400, "areaCodeRoad", "timeRoad");
     }
 
-    static public HashMap<int[], String> GetKeyboardLeftWithQC() throws Exception
+    static public HashMap<long[], String> GetKeyboardLeftWithQC() throws Exception
     {
         return GetKeyboardByAreaRange(200, 300, "areaCodeRoad", "timeRoad");
     }
 
-    static public HashMap<int[], String> GetKeyboardBottomWithQC() throws Exception
+    static public HashMap<long[], String> GetKeyboardBottomWithQC() throws Exception
     {
         return GetKeyboardByAreaRange(100, 200, "areaCodeRoad", "timeRoad");
     }
 
 
-    static private HashMap<int[], String> GetKeyboardByAreaRange(int min, int max, String outter, String inner)
+    static private HashMap<long[], String> GetKeyboardByAreaRange(int min, int max, String outter, String inner)
     {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"keyboard.db", null, SQLiteDatabase.OPEN_READONLY, null);
 
         try
         {
-            HashMap<int[], String> mapResult = new HashMap<>();
+            HashMap<long[], String> mapResult = new HashMap<>();
 
-            String sql = "select * from dragviews where " + outter +">"+ min + " and " + outter + "<" + max;
+            String sql = "select * from dragviews where " + outter +">"+ min + " and " + outter + "<" + max + " order by " + outter +","+inner;
             Cursor cursor = db.rawQuery(sql, null);
             while (cursor.moveToNext())
             {
                 String type = cursor.getString(cursor.getColumnIndex("tipstype"));
-                int[]  location = new int[]{cursor.getInt(cursor.getColumnIndex(outter)), cursor.getInt(cursor.getColumnIndex(inner))};
+                long[]  location = new long[]{cursor.getInt(cursor.getColumnIndex(outter)), cursor.getLong(cursor.getColumnIndex(inner))};
                 mapResult.put(location, type);
             }
 

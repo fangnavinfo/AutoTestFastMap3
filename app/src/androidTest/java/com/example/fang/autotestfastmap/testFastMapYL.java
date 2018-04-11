@@ -7,6 +7,7 @@ import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
 import com.fastmap.ui.Page_Gate;
+import com.fastmap.ui.Page_Gradient;
 import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_HighSpeedEntryPic;
 import com.fastmap.ui.Page_IndoorMyData;
@@ -34,6 +35,7 @@ import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
+import com.fastmap.ui.Page_TruckLimit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -3393,5 +3395,298 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("电子眼");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitIndoorTools();
+    }
+
+    @Test
+    public void test02601_trucklimit() throws Exception {
+        //卡车限制 限高
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.ClickbyText("现场预估");
+        Page_TruckLimit.Inst.ClickbyText("复制反方向卡车限制");
+        Page_TruckLimit.Inst.ClickbyText("2.5");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+        Thread.sleep(2000);
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
+        Page_MyData.Inst.ClickbyText("卡车限制");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        double ht = jsonObject.getDouble("ht");
+        int htFlag = jsonObject.getInt("htFlag");
+        assertEquals(ht,2.5,0.0);
+        assertSame(htFlag,2);
+    }
+
+    @Test
+    public void test02602_trucklimit() throws Exception {
+        //卡车限制 限重
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.ClickbyText("20");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
+        Page_MyData.Inst.ClickbyText("卡车限制");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        double wt = jsonObject.getDouble("wt");
+        assertEquals(wt,20.0,0.0);
+    }
+
+    @Test
+    public void test02603_trucklimit() throws Exception {
+        //卡车限制 限轴重
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.ClickbyText("10");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
+        Page_MyData.Inst.ClickbyText("卡车限制");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        double ax = jsonObject.getDouble("ax");
+        assertEquals(ax,10.0,0.0);
+    }
+
+    @Test
+    public void test02604_trucklimit() throws Exception {
+        //卡车限制 限宽
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.ClickbyText("3.5");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
+        Page_MyData.Inst.ClickbyText("卡车限制");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        double wd = jsonObject.getDouble("wd");
+        int wdFlag = jsonObject.getInt("wdFlag");
+        assertEquals(wd,3.5,0.0);
+        assertSame(wdFlag,0);
+    }
+
+    @Test
+    public void test02605_trucklimit() throws Exception {
+        //卡车限制 拍照
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
+    }
+
+    @Test
+    public void test02606_trucklimit() throws Exception
+    {
+        //室内整理工具 卡车限制
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"卡");
+        Page_IndoorMyData.Inst.ClickbyText("卡车限制");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("卡车限制");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("卡车限制");
+        Thread.sleep(2000);
+        Page_TruckLimit.Inst.ClickbyText("限高");
+        Page_TruckLimit.Inst.ClickbyText("3.5");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+    }
+
+    @Test
+    public void test02607_trucklimit() throws Exception
+    {
+        //我的数据 收费站
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车限制");
+        Page_MyData.Inst.SelectData("卡车限制");
+        Page_TruckLimit.Inst.ClickbyText("限高");
+        Page_TruckLimit.Inst.ClickbyText("3.5");
+        Page_TruckLimit.Inst.ClickbyText("限宽");
+        Page_TruckLimit.Inst.ClickbyText("3");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+    }
+
+    @Test
+    public void test02608_trucklimit() throws Exception
+    {
+        //卡车限制取消
+        //我的数据
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车限制");
+        Page_MyData.Inst.SelectData("卡车限制");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.CANCEL);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02609_trucklimit() throws Exception
+    {
+        //卡车限制删除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车限制");
+        Page_MyData.Inst.ClickbyText("卡车限制");
+        Thread.sleep(2000);
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.DELETE);
+        Page_TruckLimit.Inst.ClickbyText("确认");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02701_gradient() throws Exception
+    {
+        //坡度
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);// GRADIENT
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.ClickbyText("水平");
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02702_gradient() throws Exception
+    {
+        //坡度
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.ClickbyText("上坡");
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02703_gradient() throws Exception
+    {
+        //坡度
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.ClickbyText("下坡");
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02704_gradient() throws Exception
+    {
+        //坡度 我的数据
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.ClickbyText("下坡");
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
+        Page_MyData.Inst.SelectData("坡度");
+        Page_Gradient.Inst.ClickbyText("水平");
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test02705_gradient() throws Exception
+    {
+        //坡度 室内整理
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.ClickbyText("下坡");
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"坡度");
+        Page_IndoorMyData.Inst.ClickbyText("坡度");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("坡度");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("坡度");
+        Page_Gradient.Inst.ClickbyText("水平");
+        ExitIndoorTools();
+    }
+
+    @Test
+    public void test02706_gradient() throws Exception
+    {
+        //坡度 删除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Gradient.Inst.ClickbyText("下坡");
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
+        Page_MyData.Inst.SelectData("坡度");
+        Thread.sleep(2000);
+        Page_Gradient.Inst.Click(Page_Gradient.DELETE);
+        Thread.sleep(2000);
+        Page_Gradient.Inst.ClickbyText("确认");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02707_gradient() throws Exception
+    {
+        //坡度 删除
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Gradient.Inst.ClickbyText("下坡");
+
+        CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
+        Page_MyData.Inst.SelectData("坡度");
+        Thread.sleep(2000);
+        Page_Gradient.Inst.Click(Page_Gradient.CANCEL);
+        ExitMyData();
     }
 }
