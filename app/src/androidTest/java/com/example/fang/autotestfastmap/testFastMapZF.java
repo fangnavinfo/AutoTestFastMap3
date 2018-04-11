@@ -221,6 +221,8 @@ public class testFastMapZF extends testFastMapBase
 
         Page_POI.Inst.DeleteFather("大厦ＴＥＳＴ１");
 
+        Thread.sleep(3000);
+        
         //移动父POI
         Page_MultiList.Inst.Click(Page_MultiList.CHECK_LIST_ITEM);
         Page_MultiList.Inst.Click(Page_MultiList.MOVE);
@@ -310,7 +312,7 @@ public class testFastMapZF extends testFastMapBase
 
     // 功能面验证
     @Test @IMPORTANT
-    public void test00108_functionalarea_check() throws Exception
+    public void test00108_001_functionalarea_check() throws Exception
     {
         //绘制功能面
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -334,6 +336,29 @@ public class testFastMapZF extends testFastMapBase
         Page_FunctionalArea.Inst.ScrollClick(Page_FunctionalArea.NAME_STATIC);
 
         assertTrue(Page_FunctionalArea.Inst.isExistByName("name1"));
+
+    }
+
+    // 功能面名称空格验证
+    @Test @IMPORTANT
+    public void test00108_002_functionalarea_check() throws Exception
+    {
+        //绘制功能面
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+        Page_MainBoard.Inst.Click(new Point(500,800));
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.COMPLETE);
+
+        //选择大学类型功能面
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.UNIVERSITY);
+
+        Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME, "    ");
+
+        //保存
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+
+        assertTrue(Page_FunctionalArea.Inst.isExistByName("保存"));
 
     }
 

@@ -493,7 +493,7 @@ public class testadapter
 	
 	public static void Drag(int startX, int startY, int endX, int endY, int steps)
     {
-		new TouchAction(driver).press(startX, startY).moveTo(endX, endY).release().perform();
+		new TouchAction(driver).press(startX, startY).moveTo(endX-startX, endY-startY).release().perform();
     }
 	
 	private static WebElement GetElement(FindResource annotation)
@@ -712,6 +712,12 @@ public class testadapter
 	{
 		// TODO Auto-generated method stub
 		driver.close();
+	}
+
+	public static void ClearWal()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
 

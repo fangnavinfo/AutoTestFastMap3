@@ -8,16 +8,16 @@ import com.fang.testAdapter.*;
  */
 public class Page_Login extends FastMapPage
 {
-    @FindResource(Id="login_account_et", ios_xpath="//XCUIElementTypeTextField[@name=\"login_UserTF\"]")
+    @FindResource(Id="login_account_et", ios_name="login_UserTF")
     public static String USER_NAME;
 
-    @FindResource(Id="login_pswd_et", ios_xpath="//XCUIElementTypeSecureTextField[@name=\"login_pwdTF\"]")
+    @FindResource(Id="login_pswd_et", ios_name="login_pwdTF")
     public static String USER_PASSWD;
 
-    @FindResource(Id="login_car_num_et", ios_xpath="//XCUIElementTypeTextField[@name=\"login_carNumTF\"]")
+    @FindResource(Id="login_car_num_et", ios_name="login_carNumTF")
     public static String CAR_NUM;
 
-    @FindResource(Id="login_btn", ios_xpath="//XCUIElementTypeButton[@name=\"login_loginBtn\"]")
+    @FindResource(Id="login_btn", ios_name="login_loginBtn")
     public static String LOGIN_BTN;
 
     @FindResource(Id="camera_button")
@@ -26,10 +26,10 @@ public class Page_Login extends FastMapPage
     @FindResource(Id="camera_button")
     public static String DEVELOP_SERV;
 
-    @FindResource(Id="chk_work_area_type", ios_xpath="//XCUIElementTypeButton[@name=\"login_wtBtn\"]")
+    @FindResource(Id="chk_work_area_type", ios_name="login_wtBtn")
     public static String HKM_RADIO; //选择港澳服务器
     
-    @FindResource(Id="chk_enter_car_mode", ios_xpath="//XCUIElementTypeButton[@name=\"login_collectBtn\"]")
+    @FindResource(Id="chk_enter_car_mode", ios_name="login_collectBtn")
     public static String CAR_MODE_RADIO; //车采模式
 
     @FindResource(Id="chk_work_area_type", ios_predicate="value CONTAINS 'http:'")

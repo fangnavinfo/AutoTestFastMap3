@@ -1,5 +1,6 @@
 package com.example.fang.autotestfastmap;
 
+<<<<<<< .mine
 import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
@@ -35,7 +36,45 @@ import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
+=======
+import com.fang.testAdapter.*;
+import com.fastmap.ui.*;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
 import com.fastmap.ui.Page_TruckLimit;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,6 +114,7 @@ public class testFastMapYL extends testFastMapBase
     @Before
     public void setUp() throws Exception {
         testFastMapBase.setClassUp("collector1","123456");
+        Page_MainBoard.Inst.ClickCenter();
         //testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
@@ -2242,6 +2282,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02202_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 0 限速开始； 1 限速解除
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2266,6 +2311,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02203_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 0 限速开始； 1 限速解除
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2289,6 +2339,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02204_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 采集标志 0 现场采集（默认）； 1 理论判断 是否收费站前0 否（默认），1 是
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2310,6 +2365,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02205_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 文字显示
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2331,6 +2391,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02206_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 文字显示
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2352,6 +2417,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02207_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 限速标志 文字显示
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2373,6 +2443,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02208_speedlimitlane() throws Exception
     {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 修改道路方向 顺时针 逆时针
         String[] LOC = {"116.41701", "39.98345"};
         SearchLocation(LOC);
@@ -2403,7 +2478,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02209_speedlimitlane() throws Exception {
+    public void test02209_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 关联 2测线还是 1link
         String[] LOC = {"116.41701", "39.98345"};
         SearchLocation(LOC);
@@ -2425,7 +2506,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02210_speedlimitlane() throws Exception {
+    public void test02210_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //点限速 关联 2测线还是 1link
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
         Page_MainBoard.Inst.ClickCenter();
@@ -2451,7 +2538,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02211_speedlimitlane() throws Exception {
+    public void test02211_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //室内整理工具搜索点限速
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2503,7 +2596,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02212_speedlimitlane() throws Exception {
+    public void test02212_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //我的数据 点限速
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2548,7 +2647,12 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02213_speedlimitlane() throws Exception {
+    public void test02213_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
         //我的数据 取消
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -2562,7 +2666,13 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test02214_speedlimitlane() throws Exception {
+    public void test02214_speedlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
         //我的数据 点限速删除
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
@@ -3191,8 +3301,8 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
-        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)");
+        Thread.sleep(15000);
+        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)", "区间结束(10公里内)");
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
@@ -3201,7 +3311,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Thread.sleep(2000);
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Thread.sleep(2000);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
@@ -3234,8 +3344,8 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
-        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)");
+        Thread.sleep(20000);
+        Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)", "区间结束(10公里内)");
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
@@ -3243,7 +3353,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         //Thread.sleep(3000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
@@ -3275,14 +3385,14 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(2000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
+        Thread.sleep(15000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
         Page_MyData.Inst.SelectData("电子眼");
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
     }
@@ -3313,7 +3423,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
+        Thread.sleep(15000);
         Page_ElecEye.Inst.Click(Page_ElecEye.EYE_ADAPTER_CHECKBOX);
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
@@ -3323,7 +3433,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Thread.sleep(2000);
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
     }
@@ -3366,15 +3476,15 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(9000);
-        Page_ElecEye.Inst.ClickbyText("2 测速开始(10km内)");
+        Thread.sleep(15000);
+        Page_ElecEye.Inst.ClickbyText("2 测速开始(10km内)", "区间开始(10公里内)");
         Thread.sleep(2000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         Page_MyData.Inst.SelectData("电子眼");
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        Page_ElecEye.Inst.ClickbyText("确定");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
     }

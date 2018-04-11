@@ -13,7 +13,7 @@ public class Page_SearchResultList extends FastMapPage
     public static String DATA_LIST;
 
 
-    @FindResource(Id="iv_search_result_list_back", ios_xpath="//XCUIElementTypeButton[@name=\"white arrow\"]")
+    @FindResource(Id="iv_search_result_list_back", ios_name="white arrow")
     public static String BACK;
 
     @FindResource(Id="right_fragment_layout")

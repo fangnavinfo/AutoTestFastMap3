@@ -63,13 +63,6 @@ public class FastMapPage
         	return;
         }
         
-        if (!annotation.Text().isEmpty())
-        {
-            testadapter.ClickByText(annotation.Text());
-            Thread.sleep(1000);
-            return;
-        }
-        
         if (!annotation.ios_predicate().isEmpty())
         {
         	testadapter.ClickByPredicate(annotation.ios_predicate());
@@ -82,6 +75,12 @@ public class FastMapPage
         	return;
         }
 
+        if (!annotation.Text().isEmpty())
+        {
+            testadapter.ClickByText(annotation.Text());
+            Thread.sleep(1000);
+            return;
+        }
         throw new RuntimeException("can not find id of " + findRes);
     }
     
@@ -94,6 +93,9 @@ public class FastMapPage
     
     public void ClickCenter() throws InterruptedException
     {
+    	int x = testadapter.getDisplayWidth();
+    	int y = testadapter.getDisplayHeight();
+    	
         testadapter.Click(testadapter.getDisplayWidth()/2, testadapter.getDisplayHeight()/2);
         //mDevice.click(point.x, point.y);
         Thread.sleep(1000);
@@ -125,6 +127,12 @@ public class FastMapPage
         {
             testadapter.SetValue(annotation.ios_xpath(), value);       
             return;
+        }
+        
+        if (!annotation.ios_name().isEmpty())
+        {
+        	testadapter.SetValueByPredicate("name == '" + annotation.ios_name() + "'", value);
+        	return;
         }
         
         if (!annotation.ios_predicate().isEmpty())
@@ -213,6 +221,11 @@ public class FastMapPage
             return testadapter.isExist(annotation.ios_xpath(), time);
         }
 
+        if (!annotation.ios_name().isEmpty())
+        {
+            return testadapter.isExistByPredicate("name == '" + annotation.ios_name() + "'");
+        }
+        
         throw new RuntimeException("can not find id of " + findRes);
     }
     
@@ -249,7 +262,7 @@ public class FastMapPage
     
     public void Drag(int startX, int startY, int endX, int endY, int steps)
     {
-    	testadapter.Drag(startX/2, startY/2, endX/2, endY/2, steps/2);
+    	testadapter.Drag(startX/2, startY/2, endX/2, endY/2, steps);
     }
     
     public  void ClickByIndex(String findRes, int index) throws Exception

@@ -17,6 +17,7 @@ public @interface FindResource
 
     int ios_x() default -1;
     int ios_y() default -1;
+    String ios_name() default "";
 
     boolean ios_ignore() default false;
 }

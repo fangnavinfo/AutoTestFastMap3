@@ -20,13 +20,13 @@ public class Page_FunctionalArea extends Page_Base_Tips
     @FindResource(Id="btn_complete", Text="完成")
     public static String COMPLETE;
 
-    @FindResource(Id="rbtn_university", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_university.png\"]")
+    @FindResource(Id="rbtn_university", ios_name="gridView_function_university.png")
     public static String UNIVERSITY;
-    @FindResource(Id="rbtn_shopping", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_shopping.png\"]")
+    @FindResource(Id="rbtn_shopping", ios_name="gridView_function_shopping.png")
     public static String SHOPPING;
-    @FindResource(Id="rbtn_hospital", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_hospital.png\"]")
+    @FindResource(Id="rbtn_hospital", ios_name="gridView_function_hospital.png")
     public static String HOSPITAL;
-    @FindResource(Id="rbtn_stadium", ios_xpath="//XCUIElementTypeButton[@name=\"gridView_function_stadium.png\"]")
+    @FindResource(Id="rbtn_stadium", ios_name="gridView_function_stadium.png")
     public static String STADIUM;
 
     @FindResource(Id="edit_name", Text="请输入名称")

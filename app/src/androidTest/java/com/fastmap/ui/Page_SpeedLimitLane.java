@@ -2,10 +2,6 @@ package com.fastmap.ui;
 
 import com.fang.testAdapter.*;
 
-/**
- * Created by h on 2018/3/21.
- */
-
 public class Page_SpeedLimitLane extends Page_Base_Tips
 {
     @FindResource(Id="seek_view_container")
@@ -37,8 +33,6 @@ public class Page_SpeedLimitLane extends Page_Base_Tips
     @FindResource(Id="et_speed_limit_desc")
     public static String EDIT;
 
-    @FindResource(Id="et_title")
-    public static String ROWKEY;
     public static Page_SpeedLimitLane Inst;
     static
     {

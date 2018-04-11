@@ -13,25 +13,25 @@ public class Page_MyData extends FastMapPage
     @FindResource(Id="tv_my_data_condition_1", ios_x=0, ios_y=75)
     public static String SELECT_DATA_TYPE;
 
-    @FindResource(Id="rb_condition_poi", ios_xpath="//XCUIElementTypeStaticText[@name=\"POI数据\"]")
+    @FindResource(Id="rb_condition_poi", ios_name="POI数据")
     public static String POI_TYPE;
 
-    @FindResource(Id="rb_condition_tips", ios_xpath="//XCUIElementTypeStaticText[@name=\"Tips数据\"]")
+    @FindResource(Id="rb_condition_tips", ios_name="Tips数据")
     public static String TIPS_TYPE;
 
-    @FindResource(Id="rb_condition_pas", ios_xpath="//XCUIElementTypeStaticText[@name=\"点门牌\"]")
+    @FindResource(Id="rb_condition_pas", ios_name="点门牌")
     public static String PAS_TYPE;
 
-    @FindResource(Id="rb_condition_live_information", ios_xpath="//XCUIElementTypeStaticText[@name=\"自采集情报\"]")
+    @FindResource(Id="rb_condition_live_information", ios_name="自采集情报")
     public static String INFO_TYPE;
 
     @FindResource(Id="rb_condition_third_data")
     public static String THIRD_TYPE;
 
-    @FindResource(Id="tv_condition_confirm_hd", ios_xpath="//XCUIElementTypeButton[@name=\"确定\"]")
+    @FindResource(Id="tv_condition_confirm_hd", ios_name="确定")
     public static String SELECT_CONFIRM;
 
-    @FindResource(Id="iv_my_data_back", ios_xpath="//XCUIElementTypeButton[@name=\"white arrow\"]")
+    @FindResource(Id="iv_my_data_back", ios_name="white arrow")
     public static String BACK;
 
     public static Page_MyData Inst;

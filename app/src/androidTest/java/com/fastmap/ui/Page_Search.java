@@ -18,7 +18,7 @@ public class Page_Search extends FastMapPage
     @FindResource(Id = "tv_search_link_btn", Text="搜 索")
     public static String SEARCH_START_LINK;
 
-    @FindResource(Id = "tv_search_location_btn", ios_xpath="//XCUIElementTypeButton[@name=\"搜 索\"]")
+    @FindResource(Id = "tv_search_location_btn", ios_name="搜 索")
     public static String SEARCH_START_LOCATION; //按照经纬度搜索
 
     @FindResource(Id = "edt_search_location_longitude", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeTextField[1]")
