@@ -1,41 +1,5 @@
 package com.example.fang.autotestfastmap;
 
-import com.fang.testAdapter.*;
-
-import com.fastmap.ui.Page_AddPoint;
-import com.fastmap.ui.Page_ConditionSpeedLimit;
-import com.fastmap.ui.Page_Dangerous;
-import com.fastmap.ui.Page_ElecEye;
-import com.fastmap.ui.Page_Gate;
-import com.fastmap.ui.Page_Gradient;
-import com.fastmap.ui.Page_GridManager;
-import com.fastmap.ui.Page_HighSpeedEntryPic;
-import com.fastmap.ui.Page_IndoorMyData;
-import com.fastmap.ui.Page_InfoAccept;
-import com.fastmap.ui.Page_InfoFrame;
-import com.fastmap.ui.Page_InfoLine;
-import com.fastmap.ui.Page_InfoPoint;
-import com.fastmap.ui.Page_LaneInfo;
-import com.fastmap.ui.Page_Light;
-import com.fastmap.ui.Page_MainBoard;
-import com.fastmap.ui.Page_MainMenu;
-import com.fastmap.ui.Page_MilePost;
-import com.fastmap.ui.Page_MyData;
-import com.fastmap.ui.Page_NormalCrossPic;
-import com.fastmap.ui.Page_Note;
-import com.fastmap.ui.Page_POI;
-import com.fastmap.ui.Page_POI_Camera;
-import com.fastmap.ui.Page_RoadName;
-import com.fastmap.ui.Page_RoadNameSign;
-import com.fastmap.ui.Page_RoundAbout;
-import com.fastmap.ui.Page_Sketch;
-import com.fastmap.ui.Page_SpeedLimit;
-import com.fastmap.ui.Page_SpeedLimitLane;
-import com.fastmap.ui.Page_StartEndPoint;
-import com.fastmap.ui.Page_SurveyLine;
-import com.fastmap.ui.Page_TimeCtl;
-import com.fastmap.ui.Page_TollGate;
-import com.fastmap.ui.Page_TruckLimit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -1552,6 +1516,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Page_MilePost.Inst.Drag(400,200,300,200,5);
         Thread.sleep(2000);
+ 
         Page_MainBoard.Inst.ClickCenter();
         Page_MilePost.Inst.Click(Page_MilePost.INC);
         Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");

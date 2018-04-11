@@ -192,9 +192,9 @@ public class testadapter
 
     public static void SetValueByPredicate(String Predicate, String value)
     {
-    	WebElement elem = driver.findElement(MobileBy.iOSNsPredicateString(Predicate));
+    	MobileElement elem = (MobileElement)driver.findElement(MobileBy.iOSNsPredicateString(Predicate));
     	elem.clear();
-    	elem.sendKeys(value);
+    	elem.setValue(value);
     	driver.hideKeyboard();
     }
     
