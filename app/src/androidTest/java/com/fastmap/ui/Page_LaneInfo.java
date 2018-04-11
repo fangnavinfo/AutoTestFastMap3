@@ -64,9 +64,9 @@ public class Page_LaneInfo extends Page_Base_Tips
     public static String MORE;
 
     //三车道
-    @FindResource(Id="rb_select_one_b_a_c", ios_predicate="name == '3 0'")
+    @FindResource(Id="rb_select_one_b_a_c", ios_name = "3 0")
     public static String ONE_B_A_C;
-    @FindResource(Id="rb_select_one_g_a_f", ios_predicate="name == '3 1'")
+    @FindResource(Id="rb_select_one_g_a_f", ios_name = "3 1")
     public static String ONE_G_A_F;
 
     @FindResource(Id = "iv_dri", ios_name="close blue")
