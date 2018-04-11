@@ -20,6 +20,9 @@ public class Page_SpeedLimit extends Page_Base_Tips
     @FindResource(Id="card_speed_limit_type_driveway", ios_xpath = "//XCUIElementTypeButton[@name\"gridView_sl_lane.png\"]")
     public static String ROADLIMIT;
 
+    @FindResource(Id="speed_limit_type_condition")
+    public static String CONDITIONLIMIT;
+
     public static Page_SpeedLimit Inst;
     static
     {

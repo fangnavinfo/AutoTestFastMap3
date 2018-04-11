@@ -1,10 +1,9 @@
 package com.example.fang.autotestfastmap;
 
-<<<<<<< .mine
-import com.fang.testAdapter.FastMapPage;
-import com.fang.testAdapter.Point;
-import com.fang.testAdapter.Sqlitetools;
+import com.fang.testAdapter.*;
+
 import com.fastmap.ui.Page_AddPoint;
+import com.fastmap.ui.Page_ConditionSpeedLimit;
 import com.fastmap.ui.Page_Dangerous;
 import com.fastmap.ui.Page_ElecEye;
 import com.fastmap.ui.Page_Gate;
@@ -36,45 +35,7 @@ import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
-=======
-import com.fang.testAdapter.*;
-import com.fastmap.ui.*;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
 import com.fastmap.ui.Page_TruckLimit;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -1591,7 +1552,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Page_MilePost.Inst.Drag(400,200,300,200,5);
         Thread.sleep(2000);
-        Page_MainBoard.Inst.ClickCenter();;
+        Page_MainBoard.Inst.ClickCenter();
         Page_MilePost.Inst.Click(Page_MilePost.INC);
         Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
@@ -3798,5 +3759,138 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_Gradient.Inst.Click(Page_Gradient.CANCEL);
         ExitMyData();
+    }
+
+    @Test
+    public void test02801_conditionlimit() throws Exception
+    {
+        //条件限速
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.CONDITIONLIMIT);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("开始限速");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("40");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("雨");
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.CONDITIONLIMIT);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("解除限速");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("40");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("雨");
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE,"条件限速");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02802_conditionlimit() throws Exception
+    {
+        //条件限速
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.CONDITIONLIMIT);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("开始限速");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("40");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("雨");
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SCHOOL);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.TIME);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.EDIT,"测试");
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE,"条件限速");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02803_conditionlimit() throws Exception
+    {
+        //条件限速 我的数据
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.CONDITIONLIMIT);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("开始限速");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("40");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("雨");
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE,"条件限速");
+        Page_MyData.Inst.ClickbyText("条件限速");
+        Thread.sleep(2000);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("调整箭头方向");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("解除限速");
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("雪");
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SCHOOL);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.TIME);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.EDIT,"测试");
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02804_conditionlimit() throws Exception
+    {
+        //条件限速 室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.CONDITIONLIMIT);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("开始限速");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("40");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("雨");
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"条件");
+        Page_IndoorMyData.Inst.ClickbyText("条件限速");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("条件限速");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("条件限速");
+        Thread.sleep(2000);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("调整箭头方向");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("解除限速");
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
+        Page_ConditionSpeedLimit.Inst.ClickbyText("雪");
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SCHOOL);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.TIME);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.EDIT,"测试");
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+        ExitIndoorTools();
     }
 }
