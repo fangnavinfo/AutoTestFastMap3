@@ -1,5 +1,7 @@
 package com.example.fang.autotestfastmap;
 
+import com.fang.testAdapter.*;
+import com.fastmap.ui.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
