@@ -9,19 +9,19 @@ import com.fang.testAdapter.FindResource;
 
 public class Page_Note extends Page_Base_Tips
 {
-    @FindResource(Id="sketch_eraser", ios_xpath = "//XCUIElementTypeButton[@name=\"eraser eraser\"]")
+    @FindResource(Id="sketch_eraser", ios_name = "eraser eraser")
     public static String ERASER;
 
-    @FindResource(Id="sketch_back", ios_xpath = "//XCUIElementTypeButton[@name=\"gridView_revoke.png\"]")
+    @FindResource(Id="sketch_back", ios_name = "gridView_revoke.png")
     public static String BACK;
 
-    @FindResource(Id="sketch_forward", ios_xpath = "//XCUIElementTypeButton[@name=\"gridView_next.png\"]")
+    @FindResource(Id="sketch_forward", ios_name = "gridView_next.png")
     public static String FORWARD;
 
-    @FindResource(Id="sketch_clear", Text = "重绘")
+    @FindResource(Id="sketch_clear", ios_name = "gridView_(null).png")
     public static String CLEAR;
 
-    @FindResource(Id="et_remark_txt", ios_xpath = "//XCUIElementTypeTextView[@name=\"page_multiTextCard\"]")
+    @FindResource(Id="et_remark_txt", ios_name = "page_multiTextCard")
     public static String TXT;
 
     public static Page_Note Inst;
