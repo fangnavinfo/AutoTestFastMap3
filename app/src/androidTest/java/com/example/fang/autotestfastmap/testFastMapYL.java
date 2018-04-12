@@ -3280,7 +3280,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.SelectData("电子眼");
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
-        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Page_ElecEye.Inst.ClickbyText("确定");
         //Thread.sleep(3000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
