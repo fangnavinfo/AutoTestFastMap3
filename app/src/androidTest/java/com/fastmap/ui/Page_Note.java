@@ -21,9 +21,6 @@ public class Page_Note extends Page_Base_Tips
     @FindResource(Id="sketch_clear", ios_name = "gridView_(null).png")
     public static String CLEAR;
 
-    @FindResource(Id="et_remark_txt", ios_name = "page_multiTextCard")
-    public static String TXT;
-
     public static Page_Note Inst;
     static
     {

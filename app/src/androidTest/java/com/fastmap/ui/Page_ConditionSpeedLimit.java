@@ -14,8 +14,6 @@ public class Page_ConditionSpeedLimit extends Page_Base_Tips
     @FindResource(Id="btn_select_time3")
     public static String TIME;
 
-    @FindResource(Id="et_remark_txt")
-    public static String EDIT;
     public static Page_ConditionSpeedLimit Inst;
     static
     {
