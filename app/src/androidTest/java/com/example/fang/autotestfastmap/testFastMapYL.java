@@ -3860,4 +3860,668 @@ public class testFastMapYL extends testFastMapBase
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
         ExitIndoorTools();
     }
+
+    @Test
+    public void test02901_noparking() throws Exception
+    {
+        //禁停  道路 数据库赋值
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC,"描述信息");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.REMARK,"备注信息");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("通用禁停");
+        String rowkey = Page_NoParking.Inst.GetRowKey();
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int se = jsonObject.getInt("se");
+        int virt = jsonObject.getInt("virt");
+        String desc = jsonObject.getString("desc");
+        assertSame(type,1);
+        assertSame(se,0);
+        assertSame(virt,0);
+        assertEquals(desc,"描述信息");
+    }
+
+    @Test
+    public void test02902_noparking() throws Exception
+    {
+        //禁停   测线 数据库赋值
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("是");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC," 描述");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.REMARK,"备注");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("通用禁停");
+        String rowkey = Page_NoParking.Inst.GetRowKey();
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int se = jsonObject.getInt("se");
+        int virt = jsonObject.getInt("virt");
+        String desc = jsonObject.getString("desc");
+        assertSame(type,2);
+        assertSame(se,1);
+        assertSame(virt,1);
+        assertEquals(desc,"描述");
+    }
+
+    @Test
+    public void test02903_noparking() throws Exception
+    {
+        //通用禁停  建立配对关系 1 禁停开始(推荐)默认勾选
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(15000);
+        Page_NoParking.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "通用禁停");
+        Page_MyData.Inst.SelectData("通用禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("删除配对关系");
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.DELETE);
+        Page_NoParking.Inst.ClickbyText("确定");
+        ExitMyData();
+    }
+
+    @Test
+    public void test02904_noparking() throws Exception
+    {
+        //禁停  建立配对关系 文字提示 2km内
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(20000);
+        Page_NoParking.Inst.ClickbyText("1 禁停结束(2km内)","1 禁停结束(2km内)");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "通用禁停");
+        Page_MyData.Inst.SelectData("通用禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Page_NoParking.Inst.ClickbyText("确定");
+        //Thread.sleep(3000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02905_noparking() throws Exception
+    {
+        //禁停  建立配对关系 文字提示勾选框
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(20000);
+        Page_NoParking.Inst.Click(Page_NoParking.CHECKBOX);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "通用禁停");
+        Page_MyData.Inst.SelectData("通用禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Page_NoParking.Inst.ClickbyText("确定");
+        //Thread.sleep(3000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02906_noparking() throws Exception
+    {
+        //禁停  建立配对关系多选项列表 我的数据
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1300,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1500,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(15000);
+
+        Page_NoParking.Inst.ClickbyText("3 禁停开始(2km内)", "3 禁停开始(2km内)");
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE,"通用禁停");
+        Page_MyData.Inst.SelectData("通用禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("删除配对关系");
+        Page_NoParking.Inst.ClickbyText("确定");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test02907_noparking() throws Exception
+    {
+        //禁停  室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("通用禁停");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("通用禁停");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitIndoorTools();
+    }
+
+    @Test
+    public void test02908_noparking() throws Exception
+    {
+        //禁停  室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("通用禁停");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("通用禁停");
+        Page_NoParking.Inst.Click(Page_NoParking.CANCEL);
+        ExitIndoorTools();
+    }
+
+    @Test
+    public void test02909_noparking() throws Exception
+    {
+        //禁停  室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("通用禁停");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("通用禁停");
+        Page_NoParking.Inst.Click(Page_NoParking.DELETE);
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+        ExitIndoorTools();
+    }
+
+    @Test
+    public void test03001_noparkingtruck() throws Exception
+    {
+        //卡车禁停  道路 数据库赋值
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC,"描述信息");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.REMARK,"备注信息");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("卡车禁停");
+        String rowkey = Page_NoParking.Inst.GetRowKey();
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int se = jsonObject.getInt("se");
+        int virt = jsonObject.getInt("virt");
+        String desc = jsonObject.getString("desc");
+        assertSame(type,1);
+        assertSame(se,0);
+        assertSame(virt,0);
+        assertEquals(desc,"描述信息");
+    }
+
+    @Test
+    public void test03002_noparkingtruck() throws Exception
+    {
+        //卡车禁停   测线 数据库赋值
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("是");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC," 描述");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.REMARK,"备注");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("卡车禁停");
+        String rowkey = Page_NoParking.Inst.GetRowKey();
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int se = jsonObject.getInt("se");
+        int virt = jsonObject.getInt("virt");
+        String desc = jsonObject.getString("desc");
+        assertSame(type,2);
+        assertSame(se,1);
+        assertSame(virt,1);
+        assertEquals(desc,"描述");
+    }
+
+    @Test
+    public void test03003_noparkingtruck() throws Exception
+    {
+        //卡车禁停  建立配对关系 1 禁停开始(推荐)默认勾选
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(15000);
+        Page_NoParking.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车禁停");
+        Page_MyData.Inst.SelectData("卡车禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("删除配对关系");
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.DELETE);
+        Page_NoParking.Inst.ClickbyText("确定");
+        ExitMyData();
+    }
+
+    @Test
+    public void test03004_noparkingtruck() throws Exception
+    {
+        //卡车禁停  建立配对关系 文字提示 2km内
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(20000);
+        Page_NoParking.Inst.ClickbyText("1 禁停结束(2km内)","1 卡车禁停结束(2km内)");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车禁停");
+        Page_MyData.Inst.SelectData("卡车禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Page_NoParking.Inst.ClickbyText("确定");
+        //Thread.sleep(3000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test03005_noparkingtruck() throws Exception
+    {
+        //卡车禁停  建立配对关系 文字提示勾选框
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(20000);
+        Page_NoParking.Inst.Click(Page_NoParking.CHECKBOX);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE, "卡车禁停");
+        Page_MyData.Inst.SelectData("卡车禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Page_NoParking.Inst.ClickbyText("确定");
+        //Thread.sleep(3000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test03006_noparkingtruck() throws Exception
+    {
+        //卡车禁停  建立配对关系多选项列表 我的数据
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停结束");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1300,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1500,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.ClickbyText("禁停开始");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_NoParking.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(15000);
+
+        Page_NoParking.Inst.ClickbyText("3 禁停开始(2km内)", "3 卡车禁停开始(2km内)");
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_ElecEye.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车禁停");
+        Page_MyData.Inst.SelectData("卡车禁停");
+        Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("删除配对关系");
+        Page_NoParking.Inst.ClickbyText("确定");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test03007_noparkingtruck() throws Exception
+    {
+        //卡车禁停  室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitIndoorTools();
+    }
+
+    @Test
+    public void test03008_noparkingtruck() throws Exception
+    {
+        //卡车禁停  室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
+        Page_NoParking.Inst.Click(Page_NoParking.CANCEL);
+        ExitIndoorTools();
+    }
+
+    @Test
+    public void test03009_noparkingtruck() throws Exception
+    {
+        //卡车禁停  室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Thread.sleep(1000);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
+        Page_NoParking.Inst.Click(Page_NoParking.DELETE);
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+        ExitIndoorTools();
+    }
 }
