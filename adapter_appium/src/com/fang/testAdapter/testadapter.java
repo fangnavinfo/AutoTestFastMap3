@@ -490,15 +490,22 @@ public class testadapter
 
 		Pairs elem = mapKeyboardCurr.get(tips);
 		
-		for(int i=0; i<5; i++)
+		int count = 0;
+		while(true)
 		{
 			try
 			{
+				count++;
 				driver.findElement(By.xpath(elem.first)).click();
 				break;
 			}
 			catch(Exception e)
 			{
+				if(count == 3)
+				{
+					throw e;
+				}
+				
 				Thread.sleep(500);
 			}
 		}

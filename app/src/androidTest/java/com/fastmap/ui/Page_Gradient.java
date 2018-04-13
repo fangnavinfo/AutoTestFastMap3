@@ -8,9 +8,6 @@ import com.fang.testAdapter.FindResource;
 
 public class Page_Gradient extends Page_Base_Tips
 {
-    @FindResource(Id="et_remark_txt")
-    public static String EDIT;//备注
-
     public static Page_Gradient Inst;
     static
     {

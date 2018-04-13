@@ -3280,7 +3280,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.SelectData("电子眼");
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
-        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Page_ElecEye.Inst.ClickbyText("确定");
         //Thread.sleep(3000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
@@ -3443,7 +3443,7 @@ public class testFastMapYL extends testFastMapBase
         Page_TruckLimit.Inst.ClickbyText("现场预估");
         Page_TruckLimit.Inst.ClickbyText("复制反方向卡车限制");
         Page_TruckLimit.Inst.ClickbyText("2.5");
-        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.REMARK,"测试");
         Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
         Thread.sleep(2000);
 
@@ -3465,7 +3465,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
         Page_MainBoard.Inst.ClickCenter();
         Page_TruckLimit.Inst.ClickbyText("20");
-        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.REMARK,"测试");
         Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
 
         CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
@@ -3484,7 +3484,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
         Page_MainBoard.Inst.ClickCenter();
         Page_TruckLimit.Inst.ClickbyText("10");
-        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.REMARK,"测试");
         Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
 
         CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
@@ -3503,7 +3503,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
         Page_MainBoard.Inst.ClickCenter();
         Page_TruckLimit.Inst.ClickbyText("3.5");
-        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.EDIT,"测试");
+        Page_TruckLimit.Inst.SetValue(Page_TruckLimit.REMARK,"测试");
         Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
 
         CheckMyData(Page_MyData.TIPS_TYPE, "卡车限制");
@@ -3625,7 +3625,7 @@ public class testFastMapYL extends testFastMapBase
         //坡度
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);// GRADIENT
         Page_MainBoard.Inst.ClickCenter();
-        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.SetValue(Page_Gradient.REMARK,"测试");
         Page_Gradient.Inst.ClickbyText("水平");
 
         CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
@@ -3638,7 +3638,7 @@ public class testFastMapYL extends testFastMapBase
         //坡度
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
         Page_MainBoard.Inst.ClickCenter();
-        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.SetValue(Page_Gradient.REMARK,"测试");
         Page_Gradient.Inst.ClickbyText("上坡");
 
         CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
@@ -3651,7 +3651,7 @@ public class testFastMapYL extends testFastMapBase
         //坡度
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
         Page_MainBoard.Inst.ClickCenter();
-        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.SetValue(Page_Gradient.REMARK,"测试");
         Page_Gradient.Inst.ClickbyText("下坡");
 
         CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
@@ -3664,7 +3664,7 @@ public class testFastMapYL extends testFastMapBase
         //坡度 我的数据
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
         Page_MainBoard.Inst.ClickCenter();
-        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.SetValue(Page_Gradient.REMARK,"测试");
         Page_Gradient.Inst.ClickbyText("下坡");
 
         CheckMyData(Page_MyData.TIPS_TYPE,"坡度");
@@ -3680,7 +3680,7 @@ public class testFastMapYL extends testFastMapBase
         //坡度 室内整理
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GRADIENT);
         Page_MainBoard.Inst.ClickCenter();
-        Page_Gradient.Inst.SetValue(Page_Gradient.EDIT,"测试");
+        Page_Gradient.Inst.SetValue(Page_Gradient.REMARK,"测试");
         Page_Gradient.Inst.ClickbyText("下坡");
 
         GotoIndoorTools();
@@ -3776,7 +3776,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
         Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
-        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.EDIT,"测试");
+        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE,"条件限速");
         ExitMyData();
@@ -3813,7 +3813,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
         Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
         Thread.sleep(1000);
-        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.EDIT,"测试");
+        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
         ExitMyData();
     }
@@ -3856,7 +3856,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
         Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
-        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.EDIT,"测试");
+        Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
         ExitIndoorTools();
     }
