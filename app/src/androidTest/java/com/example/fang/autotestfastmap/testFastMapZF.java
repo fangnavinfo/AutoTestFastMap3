@@ -682,6 +682,94 @@ public class testFastMapZF extends testFastMapBase
 
         Page_POI.Inst.isExistByName("深度信息");
     }
+    //危险信息Tips修改实时控制条件
+    @Test
+    public void test00115_1_tips_dangerous_info_check() throws Exception
+    {
+
+        String[] LOC = {"116.54238", "39.93779"};
+        //SearchLocation(LOC);
+
+        //创建危险信息tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+
+        //左侧合流
+        Page_Dangerous.Inst.Click(Page_Dangerous.CONFLUENCE_LEFT);
+
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+
+        Page_POI.Inst.isExistByName("危险信息");
+
+    }
+
+    @Test
+    public void test00115_2_tips_dangerous_info_check() throws Exception
+    {
+
+        String[] LOC = {"116.54246", "39.93779"};
+        SearchLocation(LOC);
+
+        //创建危险信息tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+
+        //左侧合流
+        Page_Dangerous.Inst.Click(Page_Dangerous.CONFLUENCE_LEFT);
+
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+
+        Page_POI.Inst.isExistByName("危险信息");
+
+    }
+
+    @Test
+    public void test00115_3_tips_dangerous_info_check() throws Exception
+    {
+
+        String[] LOC = {"116.54238", "39.93779"};
+        //SearchLocation(LOC);
+
+        //创建危险信息tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+
+        //右侧合流
+        Page_Dangerous.Inst.Click(Page_Dangerous.CONFLUENCE_RIGHT);
+
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+
+        Page_POI.Inst.isExistByName("危险信息");
+
+    }
+
+    @Test
+    public void test00115_4_tips_dangerous_info_check() throws Exception
+    {
+
+        String[] LOC = {"116.54246", "39.93779"};
+        SearchLocation(LOC);
+
+        //创建危险信息tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
+        Page_MainBoard.Inst.ClickCenter();
+
+        //右侧合流
+        Page_Dangerous.Inst.Click(Page_Dangerous.CONFLUENCE_RIGHT);
+
+        Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+
+        Page_POI.Inst.isExistByName("危险信息");
+
+    }
 
 
     // FM_1113_2_1 车道限速

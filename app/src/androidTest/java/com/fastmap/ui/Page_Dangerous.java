@@ -35,6 +35,12 @@ public class Page_Dangerous extends Page_Base_Tips
     @FindResource(Id="stop_satellite_information_button", ios_name="展开附属信息")
     public static String SHOWINFO;
 
+    @FindResource(Id="dangerous_information_icon_a43")
+    public static String CONFLUENCE_LEFT;
+
+    @FindResource(Id="dangerous_information_icon_a44")
+    public static String CONFLUENCE_RIGHT;
+
     public static Page_Dangerous Inst;
     static
     {
