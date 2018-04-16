@@ -771,6 +771,124 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    //补充同一关系原则
+    //风景名胜（180400）可以和任意类型（除自身以及210304风景名胜售票点）做同一关系
+    @Test
+    public void test00116_1_poi_same_error_check() throws Exception
+    {
+
+        String[][] attrib1 = {{Page_POI.NAME, "中餐馆TEST"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}};
+
+        AddPOI(attrib1, "116.40624", "39.95918");
+
+        String[][] attrib2 = {{Page_POI.NAME, "风景名胜TEST"},
+                {Page_POI.SELECT_TYPE, "风景名胜"},
+                {Page_POI.POI_SAME, "中餐馆ＴＥＳＴ"}};
+
+        String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
+
+        SearchLocation("116.40624", "39.95918");
+        synchronize(Page_GridManager.POI_UPDATE);
+
+        CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
+    }
+
+    //补充同一关系原则
+    //风景名胜（180400）可以和任意类型（除自身以及210304风景名胜售票点）做同一关系
+    @Test
+    public void test00116_2_poi_same_error_check() throws Exception
+    {
+
+        String[][] attrib1 = {{Page_POI.NAME, "风景名胜TEST"},
+                {Page_POI.SELECT_TYPE, "风景名胜"}};
+
+        AddPOI(attrib1, "116.40624", "39.95918");
+
+        String[][] attrib2 = {{Page_POI.NAME, "风景名胜售票点TEST"},
+                {Page_POI.SELECT_TYPE, "风景名胜售票点"},
+                {Page_POI.POI_SAME, "风景名胜ＴＥＳＴ"}};
+
+        try {
+            AddPOI(attrib2, "116.40628", "39.95918");
+        }catch (Exception e) {
+
+        }
+
+        assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
+    }
+    //补充同一关系原则
+    //旅游观光（180403）可以和任意类型（除自身以及210304风景名胜售票点）做同一关系
+    @Test
+    public void test00116_3_poi_same_error_check() throws Exception
+    {
+
+        String[][] attrib1 = {{Page_POI.NAME, "中餐馆TEST"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}};
+
+        AddPOI(attrib1, "116.40624", "39.95918");
+
+        String[][] attrib2 = {{Page_POI.NAME, "旅游观光TEST"},
+                {Page_POI.SELECT_TYPE, "旅游观光"},
+                {Page_POI.POI_SAME, "中餐馆ＴＥＳＴ"}};
+
+        String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
+
+        SearchLocation("116.40624", "39.95918");
+        synchronize(Page_GridManager.POI_UPDATE);
+
+        CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
+    }
+
+    //补充同一关系原则
+    //旅游观光（180403）可以和任意类型（除自身以及210304风景名胜售票点）做同一关系
+    @Test
+    public void test00116_4_poi_same_error_check() throws Exception
+    {
+
+        String[][] attrib1 = {{Page_POI.NAME, "旅游观光TEST"},
+                {Page_POI.SELECT_TYPE, "旅游观光"}};
+
+        AddPOI(attrib1, "116.40624", "39.95918");
+
+        String[][] attrib2 = {{Page_POI.NAME, "风景名胜售票点TEST"},
+                {Page_POI.SELECT_TYPE, "风景名胜售票点"},
+                {Page_POI.POI_SAME, "旅游观光ＴＥＳＴ"}};
+
+        try {
+            AddPOI(attrib2, "116.40628", "39.95918");
+        }catch (Exception e) {
+
+        }
+
+        assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
+    }
+
+    //补充同一关系原则
+    //风景名胜（180400）与旅游观光（180403）不能建立同一关系
+    @Test
+    public void test00116_5_poi_same_error_check() throws Exception
+    {
+
+        String[][] attrib1 = {{Page_POI.NAME, "旅游观光TEST"},
+                {Page_POI.SELECT_TYPE, "旅游观光"}};
+
+        AddPOI(attrib1, "116.40624", "39.95918");
+
+        String[][] attrib2 = {{Page_POI.NAME, "风景名胜TEST"},
+                {Page_POI.SELECT_TYPE, "风景名胜"},
+                {Page_POI.POI_SAME, "旅游观光ＴＥＳＴ"}};
+
+        try {
+            AddPOI(attrib2, "116.40628", "39.95918");
+        }catch (Exception e) {
+
+        }
+
+        assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
+    }
+
+
 
     // FM_1113_2_1 车道限速
     @Test
