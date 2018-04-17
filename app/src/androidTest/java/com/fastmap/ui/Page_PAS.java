@@ -20,6 +20,13 @@ public class Page_PAS extends Page_Base_Tips
     @FindResource(Id="ck_road", ios_name="路")
     public static String ROAD_TYPE;
 
+    @FindResource(Id="fm_rb_building_house", ios_name="楼栋门牌")
+    public static String BUILDING_PAS;
+    @FindResource(Id="fm_rb_door_card", ios_name="楼门门牌")
+    public static String DOOR_PAS;
+    @FindResource(Id="fm_rb_address_card", ios_name="地址门牌")
+    public static String ADDRESS_PAS;
+
     public static Page_PAS Inst;
     static
     {

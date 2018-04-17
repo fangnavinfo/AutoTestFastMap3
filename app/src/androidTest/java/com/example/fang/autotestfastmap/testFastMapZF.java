@@ -888,6 +888,43 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
     }
 
+    //点门牌：属性栏布局优化
+    @Test
+    public void test00117_1_pas_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
+        String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
+        assertTrue("请输入小区名称".equals(name));
+        assertTrue("请输入楼栋号".equals(address));
+    }
+
+    @Test
+    public void test00117_2_pas_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
+        String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
+        assertTrue("请输入小区名称".equals(name));
+        assertTrue("请输入楼栋号与楼门号".equals(address));
+    }
+
+    @Test
+    public void test00117_3_pas_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
+        String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
+        assertTrue("请输入道路名称".equals(name));
+        assertTrue("请输入门牌号".equals(address));
+    }
+
 
 
     // FM_1113_2_1 车道限速
