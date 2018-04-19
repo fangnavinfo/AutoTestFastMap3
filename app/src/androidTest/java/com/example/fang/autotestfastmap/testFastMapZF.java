@@ -893,7 +893,6 @@ public class testFastMapZF extends testFastMapBase
     public void test00117_1_pas_update_check() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        Page_MainBoard.Inst.ClickCenter();
         Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
         String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
         String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
@@ -905,7 +904,6 @@ public class testFastMapZF extends testFastMapBase
     public void test00117_2_pas_update_check() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        Page_MainBoard.Inst.ClickCenter();
         Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
         String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
         String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
@@ -917,7 +915,6 @@ public class testFastMapZF extends testFastMapBase
     public void test00117_3_pas_update_check() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        Page_MainBoard.Inst.ClickCenter();
         Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
         String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
         String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
