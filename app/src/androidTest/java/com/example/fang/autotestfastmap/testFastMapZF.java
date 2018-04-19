@@ -815,7 +815,7 @@ public class testFastMapZF extends testFastMapBase
 
         }
 
-        assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
+        assertTrue(Page_TrueSence.Inst.isExistByName("保存")||Page_MainBoard.Inst.isExistByName("气泡"));
     }
     //补充同一关系原则
     //旅游观光（180403）可以和任意类型（除自身以及210304风景名胜售票点）做同一关系
@@ -861,7 +861,7 @@ public class testFastMapZF extends testFastMapBase
 
         }
 
-        assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
+        assertTrue(Page_TrueSence.Inst.isExistByName("保存")||Page_MainBoard.Inst.isExistByName("气泡"));
     }
 
     //补充同一关系原则
@@ -885,7 +885,7 @@ public class testFastMapZF extends testFastMapBase
 
         }
 
-        assertTrue(Page_TrueSence.Inst.isExistByName("保存"));
+        assertTrue(Page_TrueSence.Inst.isExistByName("保存")||Page_MainBoard.Inst.isExistByName("气泡"));
     }
 
     //点门牌：属性栏布局优化
