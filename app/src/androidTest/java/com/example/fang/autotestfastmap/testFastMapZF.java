@@ -925,6 +925,17 @@ public class testFastMapZF extends testFastMapBase
         assertTrue("请输入门牌号".equals(address));
     }
 
+    // 室内整理工具增加量测工具
+    @Test
+    public void test00118_measure_tool_check() throws Exception
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        Page_MainBoard.Inst.Click(Page_MainBoard.DISTANCE_MEASURE_LEFT_TOP);
+        assertTrue(Page_MainBoard.Inst.isExistByName("重绘"));
+    }
+
 
 
     // FM_1113_2_1 车道限速

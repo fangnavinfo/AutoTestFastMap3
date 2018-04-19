@@ -49,6 +49,8 @@ public class Page_MainBoard extends FastMapPage
     
     @FindResource(Id="btn_distance_measure", ios_name="measure")
     public static String DISTANCE_MEASURE;	//测量距离
+    @FindResource(Id="btn_distance_measure_left_top")
+    public static String DISTANCE_MEASURE_LEFT_TOP;
 
     @FindResource(Id="iv_zoom_out")
     public static String ZOOM_OUT;
