@@ -688,7 +688,7 @@ public class testFastMapZF extends testFastMapBase
     {
 
         String[] LOC = {"116.54238", "39.93779"};
-        //SearchLocation(LOC);
+        SearchLocation(LOC);
 
         //创建危险信息tips
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
@@ -732,7 +732,7 @@ public class testFastMapZF extends testFastMapBase
     {
 
         String[] LOC = {"116.54238", "39.93779"};
-        //SearchLocation(LOC);
+        SearchLocation(LOC);
 
         //创建危险信息tips
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
