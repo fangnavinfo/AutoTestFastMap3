@@ -207,7 +207,7 @@ public class FastMapPage
 //        packageName = name;
 //    }
 
-    public boolean isChecked(String findRes) throws NoSuchFieldException
+    public boolean isChecked(String findRes) throws NoSuchFieldException, InterruptedException
     {
     	Field field = GetField(findRes);
 

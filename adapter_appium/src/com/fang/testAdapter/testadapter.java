@@ -258,7 +258,7 @@ public class testadapter
 //    	}
     }
     
-    public static boolean isChecked(FindResource annotation)
+    public static boolean isChecked(FindResource annotation) throws InterruptedException
     {
     	WebElement elem = GetElement(annotation);
 
@@ -537,29 +537,47 @@ public class testadapter
 		new TouchAction(driver).press(startX, startY).moveTo(endX-startX, endY-startY).release().perform();
     }
 	
-	private static WebElement GetElement(FindResource annotation)
+	private static WebElement GetElement(FindResource annotation) throws InterruptedException
 	{
-    	if(!annotation.ios_xpath().isEmpty())
-    	{
-    		return driver.findElement(By.xpath(annotation.ios_xpath()));
-    	}
-    	else if(!annotation.ios_name().isEmpty())
-    	{
-    		return driver.findElement(MobileBy.iOSNsPredicateString("name == '" + annotation.ios_name() + "'"));
-    	}
-    	else if(!annotation.Text().isEmpty())
-    	{
-    		try
-    		{
-    			return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + annotation.Text() + "'"));
-    		}
-    		catch (Exception e)
-    		{
-    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + annotation.Text() + "'"));
-    		}
-    	}
-    	
-		return null;
+		int count = 0;
+		while(true)
+		{
+			try
+			{
+				count++;
+				
+		    	if(!annotation.ios_xpath().isEmpty())
+		    	{
+		    		return driver.findElement(By.xpath(annotation.ios_xpath()));
+		    	}
+		    	else if(!annotation.ios_name().isEmpty())
+		    	{
+		    		return driver.findElement(MobileBy.iOSNsPredicateString("name == '" + annotation.ios_name() + "'"));
+		    	}
+		    	else if(!annotation.Text().isEmpty())
+		    	{
+		    		try
+		    		{
+		    			return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + annotation.Text() + "'"));
+		    		}
+		    		catch (Exception e)
+		    		{
+		    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + annotation.Text() + "'"));
+		    		}
+		    	}
+		    	
+		    	return null;
+			}
+			catch(NoSuchElementException e)
+			{
+				if(count == 3)
+				{
+					throw e;
+				}
+				
+				Thread.sleep(500);
+			}
+		}
 	}
 	
 	private static void readProcessOutput(final Process process) {

@@ -14,6 +14,9 @@ public class Page_ConditionSpeedLimit extends Page_Base_Tips
     @FindResource(Id="btn_select_time3")
     public static String TIME;
 
+    @FindResource(clazz="android.widget.ScrollView")
+    public static String SCROLL;
+
     public static Page_ConditionSpeedLimit Inst;
     static
     {

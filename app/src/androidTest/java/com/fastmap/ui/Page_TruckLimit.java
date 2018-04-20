@@ -10,6 +10,16 @@ import com.fang.testAdapter.FindResource;
 public class Page_TruckLimit extends Page_Base_Tips
 {
 
+    @FindResource(Id="truck_limit_weight")
+    public static String WEIGHT; //限重
+
+    @FindResource(Id="truck_limit_axle")
+    public static String AXLE; //限轴重
+
+    @FindResource(Id="truck_limit_width")
+    public static String WIDTH; //限宽
+
+
     public static Page_TruckLimit Inst;
     static
     {

@@ -359,8 +359,8 @@ public class testFastMapFS extends testFastMapBase
             Page_MainBoard.Inst.ClickCenter();
 
             Page_ElecEye.Inst.Click(type);
-            Page_ElecEye.Inst.Click(Page_ElecEye.TIME);
-            Page_ElecEye.Inst.Click(Page_ElecEye.TIME_CONFIRM);
+//            Page_ElecEye.Inst.Click(Page_ElecEye.TIME);
+//            Page_ElecEye.Inst.Click(Page_ElecEye.TIME_CONFIRM);
             Page_ElecEye.Inst.Click(Page_ElecEye.TRUCK);
             Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
 
@@ -663,6 +663,50 @@ public class testFastMapFS extends testFastMapBase
         AssertIndoorCheck("中", "电子眼", "FM-1109-6-7", "10级、人渡、轮渡、具有区域内道路属性的8级路不采集摄像头", "不能忽略");
 
     }
+
+    @Test
+    public void test01316_IndoorCheck_FM_1119_2_1() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_NoParkingGeneral.Inst.SetValue(Page_NoParkingGeneral.REMARK, "TEST");
+        Page_NoParkingGeneral.Inst.Click(Page_NoParkingGeneral.SAVE);
+
+        AssertIndoorCheck("低", "通用禁停", "FM-1119-2-1", "禁停区域描述需要填在“描述信息”中", "忽略");
+
+        Page_IndoorMyData.Inst.SelectResult("FM-1119-2-1");
+
+        Page_NoParkingGeneral.Inst.SetValue(Page_NoParkingGeneral.DESC, "TEST");
+        Page_NoParkingGeneral.Inst.Click(Page_NoParkingGeneral.SAVE);
+
+        ExitIndoorToolsWithCheckResult();
+
+        AssertIndoorCheckNull("FM-1119-2-1");
+
+    }
+
+    @Test
+    public void test01316_IndoorCheck_FM_1120_2_1() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_NoParkingTruck.Inst.SetValue(Page_NoParkingTruck.REMARK, "TEST");
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        AssertIndoorCheck("低", "通用禁停", "FM-1120-2-1", "卡车禁停区域描述需要填在“描述信息”中", "忽略");
+
+        Page_IndoorMyData.Inst.SelectResult("FM-1120-2-1");
+
+        Page_NoParkingTruck.Inst.SetValue(Page_NoParkingTruck.DESC, "TEST");
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        ExitIndoorToolsWithCheckResult();
+
+        AssertIndoorCheckNull("FM-1120-2-1");
+    }
+
 
     private void test_IndoorCheck_FM_1109_6_7(String type) throws Exception
     {

@@ -3124,7 +3124,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Thread.sleep(1000);
-        assertFalse(Page_MyData.Inst.isExistByName("电子眼"));
+        assertTrue(Page_MyData.Inst.isExistByName("电子眼"));
         Page_MyData.Inst.ClickbyText("电子眼");
 
     }
@@ -3437,6 +3437,7 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test02601_trucklimit() throws Exception {
+        SearchLocation(LOC_K3);
         //卡车限制 限高
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
         Page_MainBoard.Inst.ClickCenter();
@@ -3461,9 +3462,12 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test02602_trucklimit() throws Exception {
+
         //卡车限制 限重
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
         Page_MainBoard.Inst.ClickCenter();
+
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.WEIGHT);
         Page_TruckLimit.Inst.ClickbyText("20");
         Page_TruckLimit.Inst.SetValue(Page_TruckLimit.REMARK,"测试");
         Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
@@ -3480,9 +3484,11 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test02603_trucklimit() throws Exception {
+
         //卡车限制 限轴重
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
         Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.AXLE);
         Page_TruckLimit.Inst.ClickbyText("10");
         Page_TruckLimit.Inst.SetValue(Page_TruckLimit.REMARK,"测试");
         Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
@@ -3502,6 +3508,7 @@ public class testFastMapYL extends testFastMapBase
         //卡车限制 限宽
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
         Page_MainBoard.Inst.ClickCenter();
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.WIDTH);
         Page_TruckLimit.Inst.ClickbyText("3.5");
         Page_TruckLimit.Inst.SetValue(Page_TruckLimit.REMARK,"测试");
         Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
@@ -3803,14 +3810,14 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_ConditionSpeedLimit.Inst.ClickbyText("调整箭头方向");
         Page_ConditionSpeedLimit.Inst.ClickbyText("解除限速");
-        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
-        Thread.sleep(1000);
-        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
         Page_ConditionSpeedLimit.Inst.ClickbyText("雪");
         Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SCHOOL);
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.TIME);
         Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
         Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
         Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
@@ -3846,15 +3853,14 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_ConditionSpeedLimit.Inst.ClickbyText("调整箭头方向");
         Page_ConditionSpeedLimit.Inst.ClickbyText("解除限速");
-        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
-        Thread.sleep(1000);
-        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
         Page_ConditionSpeedLimit.Inst.ClickbyText("雪");
         Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SCHOOL);
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.TIME);
         Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
-        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,727,5);
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
+        Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
         Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
