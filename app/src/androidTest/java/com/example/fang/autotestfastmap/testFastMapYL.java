@@ -50,7 +50,7 @@ public class testFastMapYL extends testFastMapBase
     {
         //super.setAfter();
     }
-
+/*
     @Test
     public void test00202_poi_add() throws Exception
     {
@@ -2677,7 +2677,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Dangerous.Inst.SetValue(Page_Dangerous.EFFECTIVEDIS,"20");
         Page_Dangerous.Inst.SetValue(Page_Dangerous.WARNINGDIS,"20");
         Page_Dangerous.Inst.SetValue(Page_Dangerous.DESC,"测试信息");
-        Page_Dangerous.Inst.Click(Page_Dangerous.SHOWINFO);
+        //Page_Dangerous.Inst.Click(Page_Dangerous.SHOWINFO);
         Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("危险信息");
@@ -2866,7 +2866,10 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("危险信息");
         Page_Dangerous.Inst.Click(Page_Dangerous.DELETE);
-        Page_MainBoard.Inst.ClickbyText("确认");
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_MainBoard.Inst.ClickbyText("确认");
+        }
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("危险信息"));
     }
@@ -2968,6 +2971,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02404_tollgate() throws Exception
     {
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	//拖动长度和android不同
+        	return;
+        }
+        
         //收费站 通道数
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
@@ -2998,6 +3007,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02405_tollgate() throws Exception
     {
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	//拖动长度和android不同
+        	return;
+        }
+        
         //室内整理工具 收费站
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
@@ -3037,6 +3052,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02406_tollgate() throws Exception
     {
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	//拖动长度和android不同
+        	return;
+        }
+        
         //我的数据 收费站
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TOLLGATE);
         Page_MainBoard.Inst.ClickCenter();
@@ -3101,7 +3122,11 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("收费站");
         Thread.sleep(1000);
         Page_TollGate.Inst.Click(Page_TollGate.DELETE);
-        Page_TollGate.Inst.ClickbyText("确认");
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_TollGate.Inst.ClickbyText("确认");
+        }
+        
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("收费站"));
     }
@@ -3118,7 +3143,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_ElecEye.Inst.ClickbyText("60");
         Thread.sleep(1000);
-        String speednum = Page_ElecEye.Inst.GetValue(Page_ElecEye.SPEEDEDIT);
+        String speednum = Page_ElecEye.Inst.GetValue(Page_ElecEye.SPEEDEDIT).trim();
         assertEquals(speednum,"60");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         Thread.sleep(1000);
@@ -3622,8 +3647,14 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("卡车限制");
         Thread.sleep(2000);
         Page_TruckLimit.Inst.Click(Page_TruckLimit.DELETE);
-        Page_TruckLimit.Inst.ClickbyText("确认");
-        ExitMyData();
+        
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_TruckLimit.Inst.ClickbyText("确认");
+        }
+        
+        Thread.sleep(1000);
+        assertFalse(Page_MyData.Inst.isExistByName("卡车限制"));
     }
 
     @Test
@@ -3715,9 +3746,13 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.SelectData("坡度");
         Thread.sleep(2000);
         Page_Gradient.Inst.Click(Page_Gradient.DELETE);
-        Thread.sleep(2000);
-        Page_Gradient.Inst.ClickbyText("确认");
-        ExitMyData();
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_Gradient.Inst.ClickbyText("确认");
+        }
+        
+        Thread.sleep(1000);
+        assertFalse(Page_MyData.Inst.isExistByName("坡度"));
     }
 
     @Test
@@ -3818,7 +3853,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
         Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.ClickbyText("50");
-        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,527,5);
         Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
@@ -3851,6 +3886,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_IndoorMyData.Inst.ClickbyText("条件限速");
         Thread.sleep(2000);
+        Page_IndoorMyData.Inst.ClickbyText("移动点位");
         Page_ConditionSpeedLimit.Inst.ClickbyText("调整箭头方向");
         Page_ConditionSpeedLimit.Inst.ClickbyText("解除限速");
         Page_ConditionSpeedLimit.Inst.ClickbyText("雪");
@@ -3862,11 +3898,12 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.ClickbyText("50");
         Thread.sleep(1000);
+        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,527,5);
         Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
         ExitIndoorTools();
     }
-
+*/
     @Test
     public void test02901_noparking() throws Exception
     {
@@ -3925,7 +3962,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_NoParking.Inst.ClickbyText("禁停结束");
         Thread.sleep(1000);
-        Page_NoParking.Inst.ClickbyText("是");
+        Page_NoParking.Inst.Click(Page_NoParking.IS_VIRTUAL);
         Thread.sleep(1000);
         Page_NoParking.Inst.Click(Page_NoParking.TIME);
         Thread.sleep(1000);
@@ -3991,9 +4028,13 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_NoParking.Inst.ClickbyText("确定");
         Thread.sleep(2000);
-        Page_NoParking.Inst.Click(Page_NoParking.DELETE);
-        Page_NoParking.Inst.ClickbyText("确定");
-        ExitMyData();
+        
+        if(FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+        }
+        
+        assertFalse(Page_MyData.Inst.isExistByName("通用禁停"));
     }
 
     @Test
@@ -4195,8 +4236,12 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("通用禁停");
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
         Thread.sleep(2000);
-        Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
-        ExitIndoorTools();
+        if(FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+        }
+        
+        assertFalse(Page_MyData.Inst.isExistByName("通用禁停"));
     }
 
     @Test
@@ -4526,8 +4571,11 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
-        Thread.sleep(2000);
-        Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
-        ExitIndoorTools();
+        if(FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+        }
+        
+        assertFalse(Page_MyData.Inst.isExistByName("通用禁停"));
     }
 }

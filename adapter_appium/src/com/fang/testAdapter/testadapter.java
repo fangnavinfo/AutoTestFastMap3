@@ -127,7 +127,8 @@ public class testadapter
 		capabilities.setCapability("automationName", "XCUITest");
 		capabilities.setCapability("bundleId", "com.navinfo.fastmap.autumn");
 		capabilities.setCapability("udid", "0641ba799efd8dda03e5da5705c98f1d8075a82b");
-			
+		capabilities.setCapability("preventWDAAttachments", "false");
+		
 		System.out.println("设置自动化相关参数");
 			
 		driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities );
@@ -758,7 +759,7 @@ public class testadapter
 	private static HashMap<String, Pairs> mapKeyboardQc = new HashMap<String, Pairs>();
 	private static boolean isHmWorking;
 	private static String  userName;
-	private static final String FASTMAP_URL = "http://172.19.43.40/";
+	private static final String FASTMAP_URL = "http://172.19.43.65/";
 	static class Pairs
 	{
 		Pairs(String v1, String v2)

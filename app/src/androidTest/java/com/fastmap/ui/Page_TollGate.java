@@ -9,7 +9,7 @@ import com.fang.testAdapter.FindResource;
 
 public class Page_TollGate extends Page_Base_Tips
 {
-    @FindResource(Id="tollgate_name_edit")
+    @FindResource(Id="tollgate_name_edit", ios_name="tollGate_nameTF")
     public static String EDIT;
 
     public static Page_TollGate Inst;

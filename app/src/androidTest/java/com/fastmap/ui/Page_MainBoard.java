@@ -15,30 +15,30 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="img_search", ios_name="search")
     public static String SEARCH;
 
-    @FindResource(Text="POI")
-    public static String SEARCH_POI;
-    @FindResource(Id="edt_search_poi_input")
-    public static String SEARCH_POI_INPUT;
-    @FindResource(Id="tv_search_poi_btn")
-    public static String SEARCH_POI_BTN;
-    @FindResource(Text="点门牌")
-    public static String SEARCH_PAS;
-    @FindResource(Id="edt_search_pas_input")
-    public static String SEARCH_PAS_INPUT;
-    @FindResource(Id="tv_search_pas_btn")
-    public static String SEARCH_PAS_BTN;
-    @FindResource(Text="情报")
-    public static String SEARCH_INFO;
-    @FindResource(Id="edt_search_info_input")
-    public static String SEARCH_INFO_INPUT;
-    @FindResource(Id="tv_search_info_btn")
-    public static String SEARCH_INFO_BTN;
-    @FindResource(Text="Link")
-    public static String SEARCH_LINK;
-    @FindResource(Id="edt_search_link_input")
-    public static String SEARCH_LINK_INPUT;
-    @FindResource(Id="tv_search_link_btn")
-    public static String SEARCH_LINK_BTN;
+//    @FindResource(Text="POI")
+//    public static String SEARCH_POI;
+//    @FindResource(Id="edt_search_poi_input")
+//    public static String SEARCH_POI_INPUT;
+//    @FindResource(Id="tv_search_poi_btn")
+//    public static String SEARCH_POI_BTN;
+//    @FindResource(Text="点门牌")
+//    public static String SEARCH_PAS;
+//    @FindResource(Id="edt_search_pas_input")
+//    public static String SEARCH_PAS_INPUT;
+//    @FindResource(Id="tv_search_pas_btn")
+//    public static String SEARCH_PAS_BTN;
+//    @FindResource(Text="情报")
+//    public static String SEARCH_INFO;
+//    @FindResource(Id="edt_search_info_input")
+//    public static String SEARCH_INFO_INPUT;
+//    @FindResource(Id="tv_search_info_btn")
+//    public static String SEARCH_INFO_BTN;
+//    @FindResource(Text="Link")
+//    public static String SEARCH_LINK;
+//    @FindResource(Id="edt_search_link_input")
+//    public static String SEARCH_LINK_INPUT;
+//    @FindResource(Id="tv_search_link_btn")
+//    public static String SEARCH_LINK_BTN;
 
     @FindResource(Id="btn_mode", ios_name="scene integrated")
     public static String MODE; //场景设置
@@ -49,12 +49,12 @@ public class Page_MainBoard extends FastMapPage
     
     @FindResource(Id="btn_distance_measure", ios_name="measure")
     public static String DISTANCE_MEASURE;	//测量距离
-    @FindResource(Id="btn_distance_measure_left_top")
+    @FindResource(Id="btn_distance_measure_left_top", ios_name="measure")
     public static String DISTANCE_MEASURE_LEFT_TOP;
 
-    @FindResource(Id="iv_zoom_out")
+    @FindResource(Id="iv_zoom_out", ios_name="sign minus")
     public static String ZOOM_OUT;
-    @FindResource(Id="iv_zoom_in")
+    @FindResource(Id="iv_zoom_in", ios_name="sign add")
     public static String ZOOM_IN;
 
     @FindResource(Id="btn_indoor_data_check_open", ios_name="quality control")

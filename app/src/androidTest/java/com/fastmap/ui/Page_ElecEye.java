@@ -118,10 +118,10 @@ public class Page_ElecEye extends Page_Base_Tips
     @FindResource(clazz="android.widget.CheckBox", Text="卡车", ios_name="运输卡车")
     public static String TRUCK;
 
-    @FindResource(Id="electronic_eye_et_speed_limit_number")
+    @FindResource(Id="electronic_eye_et_speed_limit_number", ios_name="eleceye_valueLabel")
     public static String SPEEDEDIT;
     
-    @FindResource(Id="et_eye_card_time")
+    @FindResource(Id="et_eye_card_time", ios_name="Time_timeTF")
     public static String TIMEEDIT;
     
     @FindResource(Id="electronic_eye_interval_start", ios_name="elecEye 20")

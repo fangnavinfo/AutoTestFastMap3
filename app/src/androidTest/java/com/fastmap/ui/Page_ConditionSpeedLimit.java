@@ -8,10 +8,10 @@ import com.fang.testAdapter.FindResource;
 
 public class Page_ConditionSpeedLimit extends Page_Base_Tips
 {
-    @FindResource(Id="speed_limit_condition_school")
+    @FindResource(Id="speed_limit_condition_school", ios_name="学校")
     public static String SCHOOL;
 
-    @FindResource(Id="btn_select_time3")
+    @FindResource(Id="btn_select_time3", ios_xpath="(//XCUIElementTypeButton[@name=\"clock\"])[1]")
     public static String TIME;
 
     @FindResource(clazz="android.widget.ScrollView")

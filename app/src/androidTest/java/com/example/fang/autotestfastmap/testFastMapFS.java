@@ -670,15 +670,15 @@ public class testFastMapFS extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
         Page_MainBoard.Inst.ClickCenter();
 
-        Page_NoParkingGeneral.Inst.SetValue(Page_NoParkingGeneral.REMARK, "TEST");
-        Page_NoParkingGeneral.Inst.Click(Page_NoParkingGeneral.SAVE);
+        Page_NoParking.Inst.SetValue(Page_NoParking.REMARK, "TEST");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
 
         AssertIndoorCheck("低", "通用禁停", "FM-1119-2-1", "禁停区域描述需要填在“描述信息”中", "忽略");
 
         Page_IndoorMyData.Inst.SelectResult("FM-1119-2-1");
 
-        Page_NoParkingGeneral.Inst.SetValue(Page_NoParkingGeneral.DESC, "TEST");
-        Page_NoParkingGeneral.Inst.Click(Page_NoParkingGeneral.SAVE);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC, "TEST");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
 
         ExitIndoorToolsWithCheckResult();
 
