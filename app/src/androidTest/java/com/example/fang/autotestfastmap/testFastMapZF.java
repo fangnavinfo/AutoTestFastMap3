@@ -1001,12 +1001,10 @@ public class testFastMapZF extends testFastMapBase
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
-        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
         Page_MainBoard.Inst.Click(Page_MainBoard.DISTANCE_MEASURE_LEFT_TOP);
         assertTrue(Page_MainBoard.Inst.isExistByName("重绘"));
     }
-
-
 
     // FM_1113_2_1 车道限速
     @Test
