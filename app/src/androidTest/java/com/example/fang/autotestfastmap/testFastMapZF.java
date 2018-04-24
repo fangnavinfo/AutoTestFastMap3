@@ -312,7 +312,7 @@ public class testFastMapZF extends testFastMapBase
 
     // 功能面验证
     @Test @IMPORTANT
-    public void test00108_001_functionalarea_check() throws Exception
+    public void test00108_1_functionalarea_check() throws Exception
     {
         //绘制功能面
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -341,7 +341,7 @@ public class testFastMapZF extends testFastMapBase
 
     // 功能面名称空格验证
     @Test @IMPORTANT
-    public void test00108_002_functionalarea_check() throws Exception
+    public void test00108_2_functionalarea_check() throws Exception
     {
         //绘制功能面
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -385,7 +385,7 @@ public class testFastMapZF extends testFastMapBase
 
     // 第三方数据验证
     @Test @IMPORTANT
-    public void test00110_3rdParty_Data_check() throws Exception
+    public void test00110_1_3rdParty_Data_check() throws Exception
     {
     	if(FastMapPage.IS_OS_TEST)
     	{
@@ -434,6 +434,79 @@ public class testFastMapZF extends testFastMapBase
         Page_MyData.Inst.ClickbyText("测试上报情报TEST");
         String globalId2 = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
         assertTrue(globalId.equals(globalId2));
+
+    }
+
+    // 第三方数据验证 补充需求
+    @Test @IMPORTANT
+    public void test00110_2_3rdParty_Data_check() throws Exception
+    {
+        if(FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
+        // 创建情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter(); //点击情报位置
+
+        Page_InfoPoint.Inst.SetValue(Page_InfoPoint.NAME, "测试上报情报TEST1"); //输入情报名称
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.POI_TYPE);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.LEVEL_1);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME); //点击选择时间
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME_CONFIRM);
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE); //点击保存
+
+
+        // 创建情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter(); //点击情报位置
+
+        Page_InfoPoint.Inst.SetValue(Page_InfoPoint.NAME, "测试上报情报TEST2"); //输入情报名称
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.POI_TYPE);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.LEVEL_1);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME); //点击选择时间
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME_CONFIRM);
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE); //点击保存
+
+        Sqlitetools.RefreshData();
+
+//        GotoMyData(Page_MyData.INFO_TYPE);
+//        Page_MyData.Inst.ClickbyText("自采集情报(POI)(点)");
+//        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
+//        Page_InfoPoint.Inst.ClickByText("取消");
+//        ExitMyData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.update3rdPartyInfo("");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        Page_MainBoard.Inst.ClickCenter();
 
     }
 
