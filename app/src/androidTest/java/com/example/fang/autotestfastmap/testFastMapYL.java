@@ -50,7 +50,7 @@ public class testFastMapYL extends testFastMapBase
     {
         //super.setAfter();
     }
-/*
+    
     @Test
     public void test00202_poi_add() throws Exception
     {
@@ -2971,7 +2971,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02404_tollgate() throws Exception
     {
-        if(!FastMapPage.IS_OS_TEST)
+        if(FastMapPage.IS_OS_TEST)
         {
         	//拖动长度和android不同
         	return;
@@ -3007,7 +3007,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02405_tollgate() throws Exception
     {
-        if(!FastMapPage.IS_OS_TEST)
+        if(FastMapPage.IS_OS_TEST)
         {
         	//拖动长度和android不同
         	return;
@@ -3052,7 +3052,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02406_tollgate() throws Exception
     {
-        if(!FastMapPage.IS_OS_TEST)
+        if(FastMapPage.IS_OS_TEST)
         {
         	//拖动长度和android不同
         	return;
@@ -3254,7 +3254,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
-        Thread.sleep(15000);
+        Thread.sleep(20000);
         Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)", "区间结束(10公里内)");
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
@@ -3903,7 +3903,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
         ExitIndoorTools();
     }
-*/
+
     @Test
     public void test02901_noparking() throws Exception
     {
@@ -3987,7 +3987,7 @@ public class testFastMapYL extends testFastMapBase
         int type = jsonObject.getJSONObject("f").getInt("type");
         int se = jsonObject.getInt("se");
         int virt = jsonObject.getInt("virt");
-        String desc = jsonObject.getString("desc");
+        String desc = jsonObject.getString("desc").trim();
         assertSame(type,2);
         assertSame(se,1);
         assertSame(virt,1);
@@ -4029,12 +4029,12 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.ClickbyText("确定");
         Thread.sleep(2000);
         
-        if(FastMapPage.IS_OS_TEST)
+        Page_NoParking.Inst.Click(Page_NoParking.DELETE);
+        
+        if(!FastMapPage.IS_OS_TEST)
         {
         	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
         }
-        
-        assertFalse(Page_MyData.Inst.isExistByName("通用禁停"));
     }
 
     @Test
@@ -4062,7 +4062,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("建立配对关系");
         Thread.sleep(20000);
-        Page_NoParking.Inst.ClickbyText("1 禁停结束(2km内)","1 禁停结束(2km内)");
+        Page_NoParking.Inst.ClickbyText("1 禁停结束(2km内)","禁停结束(2公里内)");
         Thread.sleep(1000);
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "通用禁停");
@@ -4070,7 +4070,12 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("建立配对关系");
-        Page_NoParking.Inst.ClickbyText("确定");
+        
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.ClickbyText("确定");
+        }
+        
         //Thread.sleep(3000);
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         ExitMyData();
@@ -4109,8 +4114,11 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("建立配对关系");
-        Page_NoParking.Inst.ClickbyText("确定");
-        //Thread.sleep(3000);
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.ClickbyText("确定");
+        }
+        
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         ExitMyData();
     }
@@ -4162,7 +4170,7 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.ClickbyText("建立配对关系");
         Thread.sleep(15000);
 
-        Page_NoParking.Inst.ClickbyText("3 禁停开始(2km内)", "3 禁停开始(2km内)");
+        Page_NoParking.Inst.ClickbyText("3 禁停开始(2km内)", "禁停开始(2公里内)");
         Thread.sleep(2000);
         Page_NoParking.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE,"通用禁停");
@@ -4170,7 +4178,11 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("删除配对关系");
-        Page_NoParking.Inst.ClickbyText("确定");
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.ClickbyText("确定");
+        }
+        
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         ExitMyData();
     }
@@ -4236,7 +4248,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("通用禁停");
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
         Thread.sleep(2000);
-        if(FastMapPage.IS_OS_TEST)
+        if(!FastMapPage.IS_OS_TEST)
         {
         	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
         }
@@ -4302,7 +4314,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_NoParking.Inst.ClickbyText("禁停结束");
         Thread.sleep(1000);
-        Page_NoParking.Inst.ClickbyText("是");
+        Page_NoParking.Inst.Click(Page_NoParking.IS_VIRTUAL);
         Thread.sleep(1000);
         Page_NoParking.Inst.Click(Page_NoParking.TIME);
         Thread.sleep(1000);
@@ -4327,7 +4339,7 @@ public class testFastMapYL extends testFastMapBase
         int type = jsonObject.getJSONObject("f").getInt("type");
         int se = jsonObject.getInt("se");
         int virt = jsonObject.getInt("virt");
-        String desc = jsonObject.getString("desc");
+        String desc = jsonObject.getString("desc").trim();
         assertSame(type,2);
         assertSame(se,1);
         assertSame(virt,1);
@@ -4369,7 +4381,11 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.ClickbyText("确定");
         Thread.sleep(2000);
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
-        Page_NoParking.Inst.ClickbyText("确定");
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+        }
+        
         ExitMyData();
     }
 
@@ -4398,7 +4414,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("建立配对关系");
         Thread.sleep(20000);
-        Page_NoParking.Inst.ClickbyText("1 禁停结束(2km内)","1 卡车禁停结束(2km内)");
+        Page_NoParking.Inst.ClickbyText("1 禁停结束(2km内)","卡车禁停结束(2公里内)");
         Thread.sleep(1000);
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE, "卡车禁停");
@@ -4406,7 +4422,11 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("建立配对关系");
-        Page_NoParking.Inst.ClickbyText("确定");
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.ClickbyText("确定");
+        }
+        
         //Thread.sleep(3000);
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         ExitMyData();
@@ -4445,7 +4465,10 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("建立配对关系");
-        Page_NoParking.Inst.ClickbyText("确定");
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.ClickbyText("确定");
+        }
         //Thread.sleep(3000);
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         ExitMyData();
@@ -4498,7 +4521,7 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.ClickbyText("建立配对关系");
         Thread.sleep(15000);
 
-        Page_NoParking.Inst.ClickbyText("3 禁停开始(2km内)", "3 卡车禁停开始(2km内)");
+        Page_NoParking.Inst.ClickbyText("3 禁停开始(2km内)", "卡车禁停开始(2公里内)");
         Thread.sleep(2000);
         Page_NoParking.Inst.Click(Page_ElecEye.SAVE);
         CheckMyData(Page_MyData.TIPS_TYPE,"卡车禁停");
@@ -4506,7 +4529,10 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.Drag(1824,1290,1824,727,5);
         Thread.sleep(1000);
         Page_NoParking.Inst.ClickbyText("删除配对关系");
-        Page_NoParking.Inst.ClickbyText("确定");
+        if(!FastMapPage.IS_OS_TEST)
+        {
+        	Page_NoParking.Inst.ClickbyText("确定");
+        }
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         ExitMyData();
     }
@@ -4571,7 +4597,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
-        if(FastMapPage.IS_OS_TEST)
+        if(!FastMapPage.IS_OS_TEST)
         {
         	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
         }
