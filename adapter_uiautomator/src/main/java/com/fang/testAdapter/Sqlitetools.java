@@ -104,7 +104,7 @@ public class Sqlitetools
         {
             ContentValues cv = new ContentValues();
             cv.put("b_sourceCode", 6);
-            cv.put("i_varField", "[{\"属性名称1\":\"属性内容1\",\"属性名称2\":\"属性内容2\"}]");
+            cv.put("i_varField", "[{\"属性的名称1\":\"属性内容1\",\"属性名称2\":\"属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2\"}]");
 
             //String whereClause="globalId=?";
 
