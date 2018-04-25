@@ -93,11 +93,8 @@ public class FastMapPage
     }
     
     public void ClickCenter() throws InterruptedException
-    {
-    	int x = testadapter.getDisplayWidth();
-    	int y = testadapter.getDisplayHeight();
-    	
-        testadapter.Click(testadapter.getDisplayWidth()/2, testadapter.getDisplayHeight()/2);
+    {	
+        testadapter.ClickCenter();
         //mDevice.click(point.x, point.y);
         Thread.sleep(1000);
     }
@@ -124,31 +121,12 @@ public class FastMapPage
     	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
-        if (!annotation.ios_xpath().isEmpty())
+        if (annotation.ios_ignore())
         {
-            testadapter.SetValue(annotation.ios_xpath(), value);       
             return;
         }
         
-        if (!annotation.ios_name().isEmpty())
-        {
-        	testadapter.SetValueByPredicate("name == '" + annotation.ios_name() + "'", value);
-        	return;
-        }
-        
-        if (!annotation.ios_predicate().isEmpty())
-        {
-        	testadapter.SetValueByPredicate(annotation.ios_predicate(), value);
-        	return;
-        }
-        
-        if (!annotation.Text().isEmpty())
-        {
-        	testadapter.SetValueByText(annotation.Text(), value);
-        	return;
-        }
-        
-        throw new RuntimeException("can not find id of " + findRes);
+        testadapter.SetValue(annotation, value);
     }
 
     public String GetValue(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException 
@@ -156,20 +134,9 @@ public class FastMapPage
     	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
-        if (!annotation.ios_xpath().isEmpty())
-        {
-        	return testadapter.GetValue(annotation.ios_xpath());
-        }
-        else if (!annotation.ios_name().isEmpty())
-        {
-        	return testadapter.GetValueByPredicate("name == '" + annotation.ios_name() + "'");
-        }
-        else if (!annotation.ios_predicate().isEmpty())
-        {
-        	return testadapter.GetValueByPredicate(annotation.ios_predicate());
-        }
+
         
-        throw new RuntimeException("can not find id of " + findRes);
+        return testadapter.GetValue(annotation);
     }
 
     public void ScrollClick(String findRes) throws NoSuchFieldException
@@ -216,22 +183,13 @@ public class FastMapPage
         return testadapter.isChecked(annotation);
     }
 
-    public boolean isExist(String findRes, int time) throws NoSuchFieldException
+    public boolean isExist(String findRes, int time) throws NoSuchFieldException, InterruptedException
     {
     	Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
-        if (!annotation.ios_xpath().isEmpty())
-        {
-            return testadapter.isExist(annotation.ios_xpath(), time);
-        }
 
-        if (!annotation.ios_name().isEmpty())
-        {
-            return testadapter.isExistByPredicate("name == '" + annotation.ios_name() + "'");
-        }
-        
-        throw new RuntimeException("can not find id of " + findRes);
+        return testadapter.isExist(annotation);
     }
     
     public boolean isExistByName(String name)
@@ -243,9 +201,9 @@ public class FastMapPage
     {
 		if(ios_name != null)
 		{
-			return testadapter.isExistByName(ios_name);
+			return testadapter.isExist(ios_name);
 		}
-    	return testadapter.isExistByName(name);
+    	return testadapter.isExist(name);
 	}
 
     public void ClickByText(String value) throws InterruptedException
