@@ -151,7 +151,7 @@ public class testadapter
 		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
 			@Override 
 			public WebElement apply(WebDriver d) { 
-		    			return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + Text + "'"));
+		    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + Text + "'" + "OR label CONTAINS '" + Text + "'"));
 		    	}
 		});
 		
@@ -397,14 +397,11 @@ public class testadapter
 		    	}
 		    	else if(!testRes.Text().isEmpty())
 		    	{
-		    		try
-		    		{
-		    			return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + testRes.Text() + "'"));
-		    		}
-		    		catch (Exception e)
-		    		{
-		    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes.Text() + "'"));
-		    		}
+		    		return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + testRes.Text() + "'" + " OR value CONTAINS '" + testRes.Text() + "'"));
+		    	}
+		    	else if(!testRes.ios_predicate().isEmpty())
+		    	{
+		    		return driver.findElement(MobileBy.iOSNsPredicateString(testRes.ios_predicate()));
 		    	}
 		    	
 		    	return null;
@@ -422,7 +419,7 @@ public class testadapter
 		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
 			@Override 
 			public WebElement apply(WebDriver d) { 
-				return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes + "'"));
+				return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes + "'" + "OR label CONTAINS '" + testRes + "'"));
 			}
 		});
 		

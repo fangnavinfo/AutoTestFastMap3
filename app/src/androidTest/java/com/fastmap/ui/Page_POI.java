@@ -36,7 +36,7 @@ public class Page_POI extends FastMapPage
     public static String CANCEL;
     @FindResource(Id="save_button", ios_name="operate_saveBtn")
     public static String SAVE;
-    @FindResource(Id="tv_poi_fid_hd", ios_predicate="value BEGINSWITH 'fid'")
+    @FindResource(Id="tv_poi_fid_hd", Text="fid : ")
     public static String FID;
 
     @FindResource(Id="et_kind_search", Text="请输入搜索内容", ios_name="请输入分类名或kindCode")
