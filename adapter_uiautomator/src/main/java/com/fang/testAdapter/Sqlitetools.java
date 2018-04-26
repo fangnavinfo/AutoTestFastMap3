@@ -106,6 +106,9 @@ public class Sqlitetools
             cv.put("b_sourceCode", 6);
             cv.put("i_varField", "[{\"属性的名称1\":\"属性内容1\",\"属性名称2\":\"属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2\"}]");
             cv.put("t_sync", 1);
+            cv.put("b_reliability", 1);
+            cv.put("i_level", 3);
+            cv.put("t_isPublished", 1);
             //String whereClause="globalId=?";
 
             //String [] whereArgs = {globalId};
