@@ -1006,6 +1006,30 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_MainBoard.Inst.isExistByName("重绘"));
     }
 
+    @Test
+    public void test00119_pas_select_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME,"道路名1");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS,"门牌号1");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_SELECT);
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(500,1000));
+        Page_MainBoard.Inst.Click(new Point(1500,1000));
+        Page_MainBoard.Inst.Click(new Point(1500,500));
+        Page_PAS.Inst.Click(Page_PAS.COMPLETE);
+        Page_PAS.Inst.Click(Page_PAS.MOVE_POINTS);
+        Page_MainBoard.Inst.Drag(500,500,1300,500,5);
+        Page_PAS.Inst.Click(Page_PAS.MOVE_POINTS);
+        Page_PAS.Inst.Click(Page_PAS.AUTO_LINK);
+        Page_MainBoard.Inst.ClickByText("确定");
+    }
+    
+
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
