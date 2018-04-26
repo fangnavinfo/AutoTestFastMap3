@@ -1006,6 +1006,7 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_MainBoard.Inst.isExistByName("重绘"));
     }
 
+    // 点门牌框选
     @Test
     public void test00119_pas_select_check() throws Exception
     {
