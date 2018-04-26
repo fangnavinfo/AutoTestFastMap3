@@ -6,7 +6,6 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,6 +39,7 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.touch.TouchActions;
@@ -135,32 +134,46 @@ public class testadapter
     
     public static Boolean isExist(FindResource annotation) throws InterruptedException
     {
-    	WebElement elem = GetElement(annotation);
-    	if(elem != null)
+    	try
     	{
-    		return true;
+	    	WebElement elem = GetElement(annotation);
+	    	if(elem != null)
+	    	{
+	    		return true;
+	    	}
+	    	
+	    	return false;
     	}
-    	
-    	return false;
+       	catch(TimeoutException e)
+    	{
+    		return false;
+    	}
     }
     
     public static boolean isExist(String name)
     {
-    	final String Text = name;
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
-			@Override 
-			public WebElement apply(WebDriver d) { 
-		    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + Text + "'" + "OR label CONTAINS '" + Text + "'"));
-		    	}
-		});
-		
-		if(e != null)
-		{
-			return true;
-		}
-		
-		return false;
+    	try
+    	{
+	    	final String Text = name;
+			WebDriverWait wait = new WebDriverWait(driver, 3);
+			WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
+				@Override 
+				public WebElement apply(WebDriver d) { 
+			    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + Text + "'" + "OR label CONTAINS '" + Text + "'"));
+			    	}
+			});
+			
+			if(e != null)
+			{
+				return true;
+			}
+			
+			return false;
+    	}
+    	catch(TimeoutException e)
+    	{
+    		return false;
+    	}
     }
     
     public static void ScrollClick(FindResource scrl_annotation, FindResource target_annotation)
