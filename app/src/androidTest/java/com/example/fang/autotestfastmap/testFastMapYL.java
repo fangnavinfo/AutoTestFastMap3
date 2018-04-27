@@ -1,17 +1,9 @@
 package com.example.fang.autotestfastmap;
 
-import com.fang.testAdapter.FastMapPage;
-import com.fang.testAdapter.Point;
-import com.fang.testAdapter.Sqlitetools;
-import com.fastmap.ui.Page_ElecEye;
-import com.fastmap.ui.Page_IndoorMyData;
-import com.fastmap.ui.Page_MainBoard;
-import com.fastmap.ui.Page_MyData;
-import com.fastmap.ui.Page_NoParking;
-import com.fastmap.ui.Page_POI;
-import com.fastmap.ui.Page_POI_Camera;
-import com.fastmap.ui.Page_SurveyLine;
+import com.fang.testAdapter.*;
+import com.fastmap.ui.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -26,7 +18,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
-
+import static org.junit.Assert.assertTrue;
 /**
  * Created by fang on 17/11/21.
  */
