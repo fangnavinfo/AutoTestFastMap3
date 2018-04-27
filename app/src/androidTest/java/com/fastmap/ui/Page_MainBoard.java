@@ -85,7 +85,7 @@ public class Page_MainBoard extends FastMapPage
     }
 
     //等待进入主界面
-    public boolean WaitEnter(int time) throws NoSuchFieldException
+    public boolean WaitEnter(int time) throws NoSuchFieldException, InterruptedException
     {
         return isExist(MAIN_MENU, time);
     }

@@ -103,7 +103,7 @@ public class Page_ElecEye extends Page_Base_Tips
     @FindResource(Id="electronic_eye_tail_gas_exceeding_standard", ios_name="elecEye 31")
     public static String EYE_TAIL_GAS; //尾气超标
 
-    @FindResource(Id="tv_eye_card_add_time", clazz = "android.widget.TextView", Text="增加时间", ios_name="增加时间")
+    @FindResource(Id="tv_eye_card_add_time", clazz = "android.widget.TextView", Text="增加时间", ios_name="Time_addBtn")
     public static String TIME;
 
     @FindResource(Id="btn_fm_confirm", ios_name="确定")

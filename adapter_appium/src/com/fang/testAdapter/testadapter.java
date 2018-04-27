@@ -6,7 +6,6 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,10 +39,13 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
@@ -52,89 +53,30 @@ import org.w3c.dom.Document;
 public class testadapter 
 {
 	private static AppiumDriver driver;
-			
-	
-	public static void ClickByText(String text) throws InterruptedException
-	{
-		try
-		{
-			driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + text + "'")).click();
-		}
-		catch (Exception e)
-		{
-			try
-			{
-				driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + text + "'")).click();
-			}
-			catch (Exception e1)
-			{
-				driver.findElement(MobileBy.iOSNsPredicateString("label CONTAINS '" + text + "'")).click();
-			}
-		}
-	}
-	
-	public static void ClickById(String Id) throws InterruptedException
-	{
-		driver.findElement(By.id(Id)).click();
-	}
-	
-	public static void ClickByXPath(String xpath) throws InterruptedException
-	{
-		while(true)
-		{
-			int count = 0;
-			//try
-			{
-				WebElement elem = driver.findElement(By.xpath(xpath));
-				if (!elem.isEnabled())
-				{
-					continue;
-				}
-				elem.click();
-				break;
-			}
-//			catch(org.openqa.selenium.NoSuchElementException e)
-//			{
-//				if(count > 6)
-//				{
-//					throw e;
-//				}
-//				else
-//				{
-//					count++;
-//					Thread.sleep(500);
-//					continue;
-//				}
-//			}
-		}
-	}
-	
-	public static void ClickByPredicate(String text) throws InterruptedException
-	{
-		driver.findElement(MobileBy.iOSNsPredicateString(text)).click();
-	}
-	
-	
+
 	private static void InitAppiumDriver() throws MalformedURLException
 	{
 		//设置自动化相关参数
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 			
-		capabilities.setCapability("appium-version", "1.1.0");
+		//capabilities.setCapability("appium-version", "1.1.0");
 		capabilities.setCapability("platformVersion", "10.3");
 		capabilities.setCapability("platformName", "ios");
 		capabilities.setCapability("deviceName", "iPhone 6");
 		capabilities.setCapability("automationName", "XCUITest");
 		capabilities.setCapability("bundleId", "com.navinfo.fastmap.autumn");
 		capabilities.setCapability("udid", "0641ba799efd8dda03e5da5705c98f1d8075a82b");
-		capabilities.setCapability("preventWDAAttachments", "false");
+		capabilities.setCapability("preventWDAAttachments", false);
 		
 		System.out.println("设置自动化相关参数");
 			
 		driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities );
 
+		center_x = driver.manage().window().getSize().width/2;
+		center_y = driver.manage().window().getSize().height/2;
+		
 		//设置等待秒数
-		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		System.out.println("初始化 AppiumDriver");
 	}
 	
@@ -153,76 +95,85 @@ public class testadapter
 	      	return;
 	    }
     	
-    	int count = 0;
-    	
 		while(true)
 		{
-			try
+			WebElement elem = GetElement(annotation);
+			if (!elem.isEnabled())
 			{
-				WebElement elem = GetElement(annotation);
-				if (!elem.isEnabled())
-				{
-					continue;
-				}
-				elem.click();
-				break;
+				continue;
 			}
-			catch(org.openqa.selenium.NoSuchElementException e)
-			{
-				if(count > 6)
-				{
-					throw e;
-				}
-				else
-				{
-					count++;
-					Thread.sleep(500);
-					continue;
-				}
-			}
+			elem.click();
+			break;
 		}
     }
-
-    public static void SetValue(String xpath, String value)
+    
+	public static void ClickByText(String text) throws InterruptedException
+	{	 
+		WebElement elem = GetElement(text);
+		elem.click();
+	}
+	
+	public static void ClickCenter()
+	{
+		Click(center_x, center_y);
+	}
+	
+    public static void SetValue(FindResource annotation, String value) throws InterruptedException
     {
-    	MobileElement elem = (MobileElement)driver.findElement(By.xpath(xpath));
-    	elem.clear();
-    	elem.sendKeys(value);
-    	driver.hideKeyboard();
-    }
-
-    public static void SetValueByPredicate(String Predicate, String value)
-    {
-    	MobileElement elem = (MobileElement)driver.findElement(MobileBy.iOSNsPredicateString(Predicate));
+    	MobileElement elem = (MobileElement)GetElement(annotation);
     	elem.clear();
     	elem.setValue(value);
     	driver.hideKeyboard();
     }
     
-    public static void SetValueByText(String text, String value)
+    public static String GetValue(FindResource annotation) throws InterruptedException
     {
-    	WebElement elem = null;
-    	try
-    	{
-    		elem = driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + text + "'"));
-    	}
-		catch (Exception e)
-		{
-			elem = driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + text + "'"));
-		}
-    	elem.clear();
-    	elem.sendKeys(value);
-    	driver.hideKeyboard();
+    	WebElement elem = GetElement(annotation);
+    	return elem.getText();
     }
     
-    public static String GetValue(String xpath)
+    public static Boolean isExist(FindResource annotation) throws InterruptedException
     {
-    	return driver.findElement(By.xpath(xpath)).getText();
+    	try
+    	{
+	    	WebElement elem = GetElement(annotation);
+	    	if(elem != null)
+	    	{
+	    		return true;
+	    	}
+	    	
+	    	return false;
+    	}
+       	catch(TimeoutException e)
+    	{
+    		return false;
+    	}
     }
-
-    public static String GetValueByPredicate(String Predicate)
+    
+    public static boolean isExist(String name)
     {
-    	return driver.findElement(MobileBy.iOSNsPredicateString(Predicate)).getText();
+    	try
+    	{
+	    	final String Text = name;
+			WebDriverWait wait = new WebDriverWait(driver, 3);
+			WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
+				@Override 
+				public WebElement apply(WebDriver d) { 
+			    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + Text + "'" + "OR label CONTAINS '" + Text + "'"));
+			    	}
+			});
+			
+			if(e != null)
+			{
+				return true;
+			}
+			
+			return false;
+    	}
+    	catch(TimeoutException e)
+    	{
+    		return false;
+    	}
     }
     
     public static void ScrollClick(FindResource scrl_annotation, FindResource target_annotation)
@@ -232,31 +183,13 @@ public class testadapter
     	for(int i=0; i<5; i++)
     	{	 
 	    	action1.press(scrl_annotation.ios_x(), scrl_annotation.ios_y()).moveTo(scrl_annotation.ios_x(), -200).release().perform() ;
-	    	if(isExistByName(target_annotation.Text()))
+	    	if(isExist(target_annotation.Text()))
 	    	{
 	    		return;
 	    	}
     	}
     	
     	throw new NoSuchElementException();
-    	
-//    	WebElement  element = driver.findElementByXPath("//XCUIElementTypeStaticText[@name=\"同一关系\"]");  
-//
-//  
-//    	HashMap<String, String> scrollObject = new HashMap<String, String>();  
-//    	scrollObject.put("element", ((RemoteWebElement) element).getId());
-//
-//    	scrollObject.put("direction", "up"); 
-//    	
-//    	while(true)
-//    	{
-//	    	
-//	    	driver.executeScript("mobile: scroll", scrollObject);
-//	    	
-////	    	WebElement elem = driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '退出登录'"));
-////	    	elem.click();
-////	    	break;
-//    	}
     }
     
     public static boolean isChecked(FindResource annotation) throws InterruptedException
@@ -285,61 +218,6 @@ public class testadapter
     	}	
     }
     
-    public static boolean isExist(String xpath, int time)
-    {
-    	try
-    	{
-        	WebElement elem = driver.findElement(By.xpath(xpath));
-        	if (elem == null)
-        	{
-        		return false;
-        	}
-        	
-        	return true;
-    	}
-    	catch(Exception e)
-    	{
-    		return false;
-    	}
-    }
-
-    public static boolean isExistByPredicate(String text)
-    {
-    	try
-    	{
-	    	WebElement elem = driver.findElement(MobileBy.iOSNsPredicateString(text));
-	    	if (elem == null)
-	    	{
-	    		return false;
-	    	}
-	    	
-	    	return true;
-    	}
-    	catch(Exception e)
-    	{
-    		return false;
-    	}
-    }
-    
-    public static boolean isExistByName(String name)
-    {
-    	try
-    	{
-	    	WebElement elem = driver.findElement(By.name(name));
-	    	if (elem == null)
-	    	{
-	    		return false;
-	    	}
-	    	
-	    	return true;
-    	}
-    	catch(Exception e)
-    	{
-    		return false;
-    	}
-    }
-
-    
 	public static void Initialize(String username, boolean isHmworking) throws Exception 
 	{
 		userName = username;
@@ -352,25 +230,6 @@ public class testadapter
         pmk.waitFor();
 		
         DownLoadFileFromFastMap(getUserId() + "_layout.plist", "layout.plist");
- 
-//		String mnpath = "./test";
-//		Process p = Runtime.getRuntime().exec("pwd");
-//		p.waitFor();
-//		readProcessOutput(p);
-//		
-//		p = Runtime.getRuntime().exec("mkdir " + mnpath);
-//		p.waitFor();
-//		
-//		p = Runtime.getRuntime().exec("umount " + mnpath);
-//		p.waitFor();
-//		
-//		p = Runtime.getRuntime().exec("ifuse --container com.navinfo.fastmap.summer " + mnpath);													
-//		p.waitFor();
-//		readProcessOutput(p);
-//        
-//		userPath = mnpath + "/Library/FastMap3/data/collect/" + getUserId() + "/";
-//		
-//		Sqlitetools.initialize(userPath);
 	}
 	
 	public static void DownLoadFileFromFastMap(String urlPath, String name) throws Exception 
@@ -432,11 +291,21 @@ public class testadapter
 	}
 	public static void ReStartApp() 
 	{
-		// TODO Auto-generated method stub
-		try {
-			InitAppiumDriver();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+		
+		try 
+		{
+			if(driver == null)
+			{
+				InitAppiumDriver();
+			}
+			else
+			{
+				driver.resetApp();
+			}
+		}
+		catch (MalformedURLException e) 
+		{
+			
 			e.printStackTrace();
 		}
 	}
@@ -480,8 +349,8 @@ public class testadapter
 		
 		try
 		{
-			driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-			WebElement elem = driver.findElement(By.xpath("//XCUIElementTypeButton[@name=\"quality control\"]"));
+			//driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+			WebElement elem = driver.findElement(By.name("quality control"));
 			mapKeyboardCurr = mapKeyboardQc;
 		}
 		catch(Exception e)
@@ -491,46 +360,31 @@ public class testadapter
 
 		Pairs elem = mapKeyboardCurr.get(tips);
 		
-		int count = 0;
-		while(true)
-		{
-			try
-			{
-				count++;
-				driver.findElement(By.xpath(elem.first)).click();
-				break;
+		final String FirstRes = elem.first;
+		
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
+			@Override 
+			public WebElement apply(WebDriver d) { 
+				return driver.findElement(By.xpath(FirstRes));
 			}
-			catch(Exception e)
-			{
-				if(count == 3)
-				{
-					throw e;
-				}
-				
-				Thread.sleep(500);
-			}
-		}
+		});
+		e.click();
 
-
-		if(!elem.second.isEmpty())
+		final String SecondRes = elem.second;
+		if(SecondRes.isEmpty())
 		{
-			Thread.sleep(2000);
-			driver.findElement(By.xpath(elem.second)).click();
+			return;
 		}
 		
-		// TODO Auto-generated method stub
-//		switch(tips)
-//		{
-//		case "9001":
-//			{
-//				 driver.findElement(By.xpath("//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton[1]")).click();
-//				 driver.findElement(By.xpath("//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[2]/XCUIElementTypeButton[1]")).click();
-//			}
-//			break;
-//			
-//		default:
-//			break;
-//		}
+		e = wait.until(new ExpectedCondition<WebElement>(){ 
+			@Override 
+			public WebElement apply(WebDriver d) { 
+				return driver.findElement(By.xpath(SecondRes));
+			}
+		});
+		e.click();
+		
 	} 
 	
 	public static void Drag(int startX, int startY, int endX, int endY, int steps)
@@ -540,45 +394,49 @@ public class testadapter
 	
 	private static WebElement GetElement(FindResource annotation) throws InterruptedException
 	{
-		int count = 0;
-		while(true)
-		{
-			try
-			{
-				count++;
-				
-		    	if(!annotation.ios_xpath().isEmpty())
+		final FindResource testRes = annotation;
+		
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
+			@Override 
+			public WebElement apply(WebDriver d) { 
+		    	if(!testRes.ios_xpath().isEmpty())
 		    	{
-		    		return driver.findElement(By.xpath(annotation.ios_xpath()));
+		    		return driver.findElement(By.xpath(testRes.ios_xpath()));
 		    	}
-		    	else if(!annotation.ios_name().isEmpty())
+		    	else if(!testRes.ios_name().isEmpty())
 		    	{
-		    		return driver.findElement(MobileBy.iOSNsPredicateString("name == '" + annotation.ios_name() + "'"));
+		    		return driver.findElement(By.name(testRes.ios_name()));
 		    	}
-		    	else if(!annotation.Text().isEmpty())
+		    	else if(!testRes.Text().isEmpty())
 		    	{
-		    		try
-		    		{
-		    			return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + annotation.Text() + "'"));
-		    		}
-		    		catch (Exception e)
-		    		{
-		    			return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + annotation.Text() + "'"));
-		    		}
+		    		return driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS '" + testRes.Text() + "'" + " OR value CONTAINS '" + testRes.Text() + "'"));
+		    	}
+		    	else if(!testRes.ios_predicate().isEmpty())
+		    	{
+		    		return driver.findElement(MobileBy.iOSNsPredicateString(testRes.ios_predicate()));
 		    	}
 		    	
 		    	return null;
 			}
-			catch(NoSuchElementException e)
-			{
-				if(count == 3)
-				{
-					throw e;
-				}
-				
-				Thread.sleep(500);
+		});
+		
+		return e;
+	}
+	
+	private static WebElement GetElement(String Text) throws InterruptedException
+	{
+		final String testRes = Text;
+		
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
+			@Override 
+			public WebElement apply(WebDriver d) { 
+				return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes + "'" + "OR label CONTAINS '" + testRes + "'"));
 			}
-		}
+		});
+		
+		return e;
 	}
 	
 	private static void readProcessOutput(final Process process) {
@@ -650,7 +508,7 @@ public class testadapter
     	
     	Collections.reverse(RightList);
     	
-    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton[%d]";
+    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeButton[%d]";
     	String value2="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[%d]/XCUIElementTypeButton[%d]";
     	
     	int index = 1;
@@ -760,6 +618,9 @@ public class testadapter
 	private static boolean isHmWorking;
 	private static String  userName;
 	private static final String FASTMAP_URL = "http://172.19.43.65/";
+	
+	private static int center_x;
+	private static int center_y;
 	static class Pairs
 	{
 		Pairs(String v1, String v2)

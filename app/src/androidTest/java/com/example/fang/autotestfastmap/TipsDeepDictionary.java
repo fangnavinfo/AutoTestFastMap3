@@ -535,4 +535,9 @@ public class TipsDeepDictionary
      * 便签
      */
     public final static String TIPS_TYPE_NOTE = "2199";
+
+    /**
+     * 框选点门牌
+     */
+    public final static String PAS_SELECT = "9005";
 }

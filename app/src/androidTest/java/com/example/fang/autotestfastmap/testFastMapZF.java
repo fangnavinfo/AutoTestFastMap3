@@ -312,7 +312,7 @@ public class testFastMapZF extends testFastMapBase
 
     // 功能面验证
     @Test @IMPORTANT
-    public void test00108_001_functionalarea_check() throws Exception
+    public void test00108_1_functionalarea_check() throws Exception
     {
         //绘制功能面
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -341,7 +341,7 @@ public class testFastMapZF extends testFastMapBase
 
     // 功能面名称空格验证
     @Test @IMPORTANT
-    public void test00108_002_functionalarea_check() throws Exception
+    public void test00108_2_functionalarea_check() throws Exception
     {
         //绘制功能面
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -385,7 +385,7 @@ public class testFastMapZF extends testFastMapBase
 
     // 第三方数据验证
     @Test @IMPORTANT
-    public void test00110_3rdParty_Data_check() throws Exception
+    public void test00110_1_3rdParty_Data_check() throws Exception
     {
     	if(FastMapPage.IS_OS_TEST)
     	{
@@ -437,6 +437,79 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // 第三方数据验证 补充需求
+    @Test @IMPORTANT
+    public void test00110_2_3rdParty_Data_check() throws Exception
+    {
+        if(FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
+        // 创建情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter(); //点击情报位置
+
+        Page_InfoPoint.Inst.SetValue(Page_InfoPoint.NAME, "测试上报情报TEST1"); //输入情报名称
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.POI_TYPE);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.LEVEL_1);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME); //点击选择时间
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME_CONFIRM);
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE); //点击保存
+
+
+        // 创建情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter(); //点击情报位置
+
+        Page_InfoPoint.Inst.SetValue(Page_InfoPoint.NAME, "测试上报情报TEST2"); //输入情报名称
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.POI_TYPE);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.LEVEL_1);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME); //点击选择时间
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME_CONFIRM);
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE); //点击保存
+
+        Sqlitetools.RefreshData();
+
+//        GotoMyData(Page_MyData.INFO_TYPE);
+//        Page_MyData.Inst.ClickbyText("自采集情报(POI)(点)");
+//        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
+//        Page_InfoPoint.Inst.ClickByText("取消");
+//        ExitMyData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.update3rdPartyInfo("");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        Page_MainBoard.Inst.ClickCenter();
+
+    }
+
     // 精细化作业要素渲染
     @Test
     public void test00111_hide_feature_check() throws Exception
@@ -448,6 +521,7 @@ public class testFastMapZF extends testFastMapBase
         Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
         Page_PAS.Inst.Click(Page_PAS.ODD);
         Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
         Page_PAS.Inst.Click(Page_PAS.SAVE);
 
         //隐藏要素
@@ -928,12 +1002,35 @@ public class testFastMapZF extends testFastMapBase
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
-        Page_IndoorTool.Inst.Click(Page_IndoorTool.MY_DATA);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
         Page_MainBoard.Inst.Click(Page_MainBoard.DISTANCE_MEASURE_LEFT_TOP);
         assertTrue(Page_MainBoard.Inst.isExistByName("重绘"));
     }
 
+    // 点门牌框选
+    @Test
+    public void test00119_pas_select_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME,"道路名1");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS,"门牌号1");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
 
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_SELECT);
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(500,1000));
+        Page_MainBoard.Inst.Click(new Point(1500,1000));
+        Page_MainBoard.Inst.Click(new Point(1500,500));
+        Page_PAS.Inst.Click(Page_PAS.COMPLETE);
+        Page_PAS.Inst.Click(Page_PAS.MOVE_POINTS);
+        Page_MainBoard.Inst.Drag(500,500,1300,500,5);
+        Page_PAS.Inst.Click(Page_PAS.MOVE_POINTS);
+        Page_PAS.Inst.Click(Page_PAS.AUTO_LINK);
+        Page_MainBoard.Inst.ClickByText("确定");
+    }
+    
 
     // FM_1113_2_1 车道限速
     @Test
