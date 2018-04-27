@@ -1,9 +1,17 @@
 package com.example.fang.autotestfastmap;
 
-import com.fang.testAdapter.*;
-import com.fastmap.ui.*;
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.Point;
+import com.fang.testAdapter.Sqlitetools;
+import com.fastmap.ui.Page_ElecEye;
+import com.fastmap.ui.Page_IndoorMyData;
+import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_NoParking;
+import com.fastmap.ui.Page_POI;
+import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_SurveyLine;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,7 +26,6 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by fang on 17/11/21.
@@ -4578,4 +4585,237 @@ public class testFastMapYL extends testFastMapBase
         
         assertFalse(Page_MyData.Inst.isExistByName("通用禁停"));
     }
+
+    @Test
+    public void test04001_PoiAddressHistory() throws Exception
+    {
+        //新增多个poi 查看邮编历史记录
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "001837");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "星级酒店");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "100983");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "786700");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ４");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.Click(Page_POI.POST_CODE);
+        Page_POI.Inst.ClickbyText("786700","786700");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ４");
+        //Page_POI.Inst.ScrollClick(Page_POI.POST_CODE);
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.isExistByName("786700");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        ExitMyData();
+    }
+
+    @Test
+    public void test04002_PoiAddressHistory() throws Exception
+{
+    //邮编icon赋值 查看邮编历史记录
+    Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+    Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+    Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+    Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+    Page_POI.Inst.Drag(1790,1095,1790,800,5);
+    Page_POI.Inst.SetValue(Page_POI.POST_CODE, "001837");
+    Page_POI.Inst.Click(Page_POI.SAVE);
+
+    Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+    try
+    {
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+    }
+    catch (Exception e)
+    {
+
+    }
+    Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+    Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
+    Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "星级酒店");
+    Page_POI.Inst.Drag(1790,1095,1790,800,5);
+    Page_POI.Inst.SetValue(Page_POI.POST_CODE, "100983");
+    Page_POI.Inst.Click(Page_POI.SAVE);
+
+    Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+    try
+    {
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+    }
+    catch (Exception e)
+    {
+
+    }
+    Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+    Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
+    Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
+    Page_POI.Inst.Drag(1790,1095,1790,800,5);
+    Page_POI.Inst.SetValue(Page_POI.POST_CODE, "786700");
+    Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);//点击邮编icon赋值
+    Page_POI.Inst.Click(Page_POI.SAVE);
+
+    GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+    Page_MyData.Inst.SelectData("测试ＰＯＩ１");
+    Page_POI.Inst.Drag(1790,1095,1790,800,5);
+    Page_POI.Inst.isExistByName("100983");
+    Page_POI.Inst.Click(Page_POI.SAVE);
+    ExitMyData();
+}
+
+    @Test
+    public void test04003_PoiAddressHistory() throws Exception
+    {
+        //poi点击邮编icon 我的数据选择历史邮编
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        //Page_POI.Inst.Click(Page_POI.POST_CODE);//复制默认邮编
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"790621");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "686700");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "586700");
+        Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);//点击邮编icon赋值
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ１");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.isExistByName("686700");
+        Page_POI.Inst.ClickbyText("790621","790621");
+        Page_POI.Inst.isExistByName("790621");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+    }
+
+    @Test
+    public void test04004_PoiAddressHistory() throws Exception
+    {
+        //poi点击邮编icon 我的数据编辑复制邮编
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"353332");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ１");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.isExistByName("353332");
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"034489");
+        Page_POI.Inst.isExistByName("034489");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+    }
+
+    @Test
+    public void test04005_PoiAddressHistory() throws Exception
+    {
+        //poi点击邮编icon 我的数据点击邮编
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"353332");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ１");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.isExistByName("353332");
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"134489");//013445
+        Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);
+        Page_POI.Inst.isExistByName("353332");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
+    }
+
 }
