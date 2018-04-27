@@ -59,14 +59,14 @@ public class testadapter
 		//设置自动化相关参数
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 			
-		capabilities.setCapability("appium-version", "1.1.0");
+		//capabilities.setCapability("appium-version", "1.1.0");
 		capabilities.setCapability("platformVersion", "10.3");
 		capabilities.setCapability("platformName", "ios");
 		capabilities.setCapability("deviceName", "iPhone 6");
 		capabilities.setCapability("automationName", "XCUITest");
 		capabilities.setCapability("bundleId", "com.navinfo.fastmap.autumn");
 		capabilities.setCapability("udid", "0641ba799efd8dda03e5da5705c98f1d8075a82b");
-		capabilities.setCapability("preventWDAAttachments", "false");
+		capabilities.setCapability("preventWDAAttachments", false);
 		
 		System.out.println("设置自动化相关参数");
 			
@@ -508,7 +508,7 @@ public class testadapter
     	
     	Collections.reverse(RightList);
     	
-    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeButton[%d]";
+    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeButton[%d]";
     	String value2="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[%d]/XCUIElementTypeButton[%d]";
     	
     	int index = 1;

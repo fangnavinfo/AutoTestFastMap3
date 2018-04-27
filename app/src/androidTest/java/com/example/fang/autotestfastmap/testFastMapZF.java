@@ -521,6 +521,7 @@ public class testFastMapZF extends testFastMapBase
         Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
         Page_PAS.Inst.Click(Page_PAS.ODD);
         Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
         Page_PAS.Inst.Click(Page_PAS.SAVE);
 
         //隐藏要素

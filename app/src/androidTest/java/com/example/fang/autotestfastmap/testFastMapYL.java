@@ -4207,7 +4207,7 @@ public class testFastMapYL extends testFastMapBase
         Page_NoParking.Inst.Click(Page_NoParking.SAVE);
         ExitIndoorTools();
     }
-
+    
     @Test
     public void test02908_noparking() throws Exception
     {
