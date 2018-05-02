@@ -21,7 +21,7 @@ public class Page_MainMenu extends FastMapPage
     @FindResource(Id="iv_road_name_back", ios_name="white arrow")
     public static String  ROADNAME_BACK; //退出道路名连线
     
-    @FindResource(Id="fmcard_ibtn_back", ios_name="pop_arrow")
+    @FindResource(Id="fmcard_ibtn_back", ios_x=40, ios_y=73)
     public static String BACK;
 
     @FindResource(Id="fmcard_tv_user_settings", clazz = "android.widget.TextView", Text="设置")

@@ -530,7 +530,7 @@ public class testadapter
 	            	{
 	                	for(int m=0; m<listmp.size(); m++)
 	                	{
-	                		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, 2, m+1)));
+	                		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
 	                	}
 	            	}	
             	}
@@ -550,7 +550,7 @@ public class testadapter
 	            	{
 		            	for(int m=0; m<listmp.size(); m++)
 		            	{
-		            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, 2, m+1)));
+		            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
 		            	}
 	            	}
             	}
@@ -573,7 +573,7 @@ public class testadapter
         	}
         	for(int m=0; m<listmp.size(); m++)
         	{
-        		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, 1, m+1)));
+        		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
         	}
     	}
     	
