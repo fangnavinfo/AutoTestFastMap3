@@ -229,6 +229,8 @@ public class testadapter
         Process pmk = Runtime.getRuntime().exec("mkdir temp");
         pmk.waitFor();
 		
+        FASTMAP_URL = "http://" + driver.findElement(By.name("login_ipLabel")).getText().trim() + "/";
+        
         DownLoadFileFromFastMap(getUserId() + "_layout.plist", "layout.plist");
 	}
 	
@@ -508,8 +510,8 @@ public class testadapter
     	
     	Collections.reverse(RightList);
     	
-    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeButton[%d]";
-    	String value2="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[%d]/XCUIElementTypeButton[%d]";
+    	String value1="//XCUIElementTypeOther[@name=\"menu_container\"]/XCUIElementTypeButton[%d]";
+    	String value2="//XCUIElementTypeImage[@name=\"menu_sub_Container\"]/XCUIElementTypeButton[%d]";
     	
     	int index = 1;
     	for(int i=0; i<5; i++)
@@ -617,7 +619,7 @@ public class testadapter
 	private static HashMap<String, Pairs> mapKeyboardQc = new HashMap<String, Pairs>();
 	private static boolean isHmWorking;
 	private static String  userName;
-	private static final String FASTMAP_URL = "http://172.19.43.65/";
+	private static String FASTMAP_URL;
 	
 	private static int center_x;
 	private static int center_y;
