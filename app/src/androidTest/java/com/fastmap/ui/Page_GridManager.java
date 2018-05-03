@@ -19,7 +19,7 @@ public class Page_GridManager extends FastMapPage
     @FindResource(Id="synchronous_button", ios_name="同步数据")
     public static String SYNCHRONOUS_BUTTON;
 
-    @FindResource(Id="grid_project_button", ios_name="任 务 列 表")
+    @FindResource(Id="grid_project_button", ios_x=700, ios_y=349)
     public static String PROJECT_BUTTON;
 
 
