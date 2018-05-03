@@ -1030,6 +1030,34 @@ public class testFastMapZF extends testFastMapBase
         Page_PAS.Inst.Click(Page_PAS.AUTO_LINK);
         Page_MainBoard.Inst.ClickByText("确定");
     }
+
+    // 建筑物tips复制
+    @Test
+    public void test00120_tips_copy_building_check() throws Exception
+    {
+        //创建建筑面
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUILDING_AREA);
+        Page_MainBoard.Inst.Click(new Point(200,300));
+        Page_MainBoard.Inst.Click(new Point(200,500));
+        Page_MainBoard.Inst.Click(new Point(300,500));
+        Page_MainBoard.Inst.Click(new Point(300,300));
+
+        Page_BuildingArea.Inst.Click(Page_BuildingArea.COMPLETE);
+        Page_BuildingArea.Inst.SetValue(Page_BuildingArea.FLOOR_NUMBER, "26");
+
+        Page_BuildingArea.Inst.Click(Page_BuildingArea.SHAPE_CHANGE);
+        Page_BuildingArea.Inst.Click(Page_BuildingArea.HEIGHT_ADD);
+        Page_BuildingArea.Inst.Click(Page_BuildingArea.ASSOCIATE_DELETE);
+
+        Page_BuildingArea.Inst.Click(Page_BuildingArea.SAVE);
+
+        //复制tips
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
+        Page_MainBoard.Inst.Click(new Point(250,400));
+
+        Page_MainBoard.Inst.Click(new Point(500,800));
+
+    }
     
 
     // FM_1113_2_1 车道限速
