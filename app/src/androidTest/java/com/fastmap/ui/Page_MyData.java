@@ -54,10 +54,12 @@ public class Page_MyData extends FastMapPage
 
 	public void CheckNotExist(String type, String name) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
-        Click(SELECT_DATA_TYPE);
-        Click(type);
-        Click(SELECT_CONFIRM);
-
+        if(!type.equals(TIPS_TYPE))
+        {
+	        Click(SELECT_DATA_TYPE);
+	        Click(type);
+	        Click(SELECT_CONFIRM);
+        }
         Assert.assertFalse(isExistByName(name, null));
         
         //assertNull(mDevice.wait(Until.findObject(By.text(name)), 500));
