@@ -592,8 +592,7 @@ public class testFastMapZF extends testFastMapBase
 
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
-                {Page_POI.TEL, "19012345678"},
-                {Page_POI.POI_TRUCK, "非卡车"}};
+                {Page_POI.TEL, "19012345678"}};
         AddPOI(attrib);
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据

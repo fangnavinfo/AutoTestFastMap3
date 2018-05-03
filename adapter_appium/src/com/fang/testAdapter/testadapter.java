@@ -429,14 +429,22 @@ public class testadapter
 	private static WebElement GetElement(String Text) throws InterruptedException
 	{
 		final String testRes = Text;
+		WebElement e = null;
 		
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
-			@Override 
-			public WebElement apply(WebDriver d) { 
-				return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes + "'" + "OR label CONTAINS '" + testRes + "'"));
-			}
-		});
+		try
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			e = wait.until(new ExpectedCondition<WebElement>(){ 
+				@Override 
+				public WebElement apply(WebDriver d) { 
+					return driver.findElement(MobileBy.iOSNsPredicateString("name == '" + testRes + "'"));
+				}
+			});
+		}
+		catch(Exception ex)
+		{
+			e = driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes + "'" + "OR label CONTAINS '" + testRes + "'"));
+		}
 		
 		return e;
 	}
