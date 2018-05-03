@@ -1055,7 +1055,16 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
         Page_MainBoard.Inst.Click(new Point(250,400));
 
-        Page_MainBoard.Inst.Click(new Point(500,800));
+        Page_MainBoard.Inst.Drag(100,200,500,200,10);
+        Page_MainBoard.Inst.Drag(100,200,100,600,10);
+
+        Page_MainBoard.Inst.ClickByText("确定");
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        String height = Page_BuildingArea.Inst.GetValue(Page_BuildingArea.FLOOR_NUMBER);
+
+        assertTrue("26".equals(height));
 
     }
     
