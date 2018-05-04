@@ -1,6 +1,5 @@
 package com.fastmap.ui;
 
-import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.FindResource;
 
 /**
@@ -28,6 +27,8 @@ public class Page_FunctionalArea extends Page_Base_Tips
     public static String HOSPITAL;
     @FindResource(Id="rbtn_stadium", ios_name="gridView_function_stadium.png")
     public static String STADIUM;
+    @FindResource(Id="rbtn_airport")
+    public static String AIRPORT;
 
     @FindResource(Id="edit_name", Text="请输入名称")
     public static String NAME;

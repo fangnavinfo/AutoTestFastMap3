@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -248,7 +249,6 @@ public class Sqlitetools
         }
     }
 
-
 //    public static int GetBLOBdeep(String rowkey) throws Exception
 //    {
 //        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
@@ -457,5 +457,6 @@ public class Sqlitetools
     }
 
     static String mDBPath;
+
 }
 

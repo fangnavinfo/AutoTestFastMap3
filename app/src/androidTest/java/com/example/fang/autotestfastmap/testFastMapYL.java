@@ -1,8 +1,6 @@
 package com.example.fang.autotestfastmap;
-
 import com.fang.testAdapter.*;
 import com.fastmap.ui.*;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
@@ -29,7 +27,8 @@ public class testFastMapYL extends testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
-        //testFastMapBase.setClassUp("collector1","123456");//"collector1","123456"
+        //testFastMapBase.setClassUp("yanghaifei01902","wy0190202815");//"collector1","123456"
+        //testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
     @AfterClass
@@ -49,7 +48,7 @@ public class testFastMapYL extends testFastMapBase
     {
         //super.setAfter();
     }
-    
+
     @Test
     public void test00202_poi_add() throws Exception
     {
@@ -4788,6 +4787,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.ClickbyText("790621","790621");
         Page_POI.Inst.isExistByName("790621");
         Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
     }
 
     @Test
@@ -4810,6 +4810,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.POST_CODE,"034489");
         Page_POI.Inst.isExistByName("034489");
         Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
     }
 
     @Test
@@ -4836,4 +4837,65 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
     }
 
+    @Test
+    public void test05001_FunctionalArea() throws Exception
+    {
+        //新增功能面 关闭精细化开关 我的数据查看功能面
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.COMPLETE);
+
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.AIRPORT);
+        Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME, "测试");
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("功能面");
+        ExitMyData();
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MODE);//进入场景
+        Page_MainBoard.Inst.Click(Page_MainBoard.REFINEMENT);//关闭精细化开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.CLOSE);
+
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.ClickCenter();
+        assertFalse(Page_FunctionalArea.Inst.isExist(Page_FunctionalArea.SAVE,1000));
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("功能面");
+        ExitMyData();
+    }
+
+    @Test
+    public void test05002_FunctionalArea() throws Exception
+    {
+        //新增建筑面 关闭精细化开关 我的数据查看建筑面
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUILDING_AREA);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+        Page_BuildingArea.Inst.Click(Page_BuildingArea.COMPLETE);
+
+        Page_BuildingArea.Inst.Click(Page_BuildingArea.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("建筑物");
+        ExitMyData();
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MODE);//进入场景
+        Page_MainBoard.Inst.Click(Page_MainBoard.REFINEMENT);//关闭精细化开关
+        Page_MainBoard.Inst.Click(Page_MainBoard.CLOSE);
+
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.ClickCenter();
+        assertFalse(Page_BuildingArea.Inst.isExist(Page_BuildingArea.SAVE,1000));
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("建筑物");
+        ExitMyData();
+    }
 }

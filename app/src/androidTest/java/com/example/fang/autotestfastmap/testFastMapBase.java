@@ -1,5 +1,4 @@
 package com.example.fang.autotestfastmap;
-
 import com.fastmap.ui.*;
 import com.fang.testAdapter.*;
 
@@ -7,7 +6,6 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 
 import java.util.HashMap;
-
 import static org.junit.Assert.assertEquals;
 
 /**

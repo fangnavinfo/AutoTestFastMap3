@@ -291,6 +291,9 @@ public class testadapter
             case "zhanglingling03655":
                 userPath = "/sdcard/" + dirName + "/Data/Collect/3655";
                 break;
+            case "yanghaifei01902":
+                userPath = "/sdcard/" + dirName + "/Data/Collect/1902";
+                break;
             default:
                 return;
         }
