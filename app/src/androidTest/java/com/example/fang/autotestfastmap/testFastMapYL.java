@@ -1963,10 +1963,10 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
 
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.DELETE);
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_RoadNameSign.Inst.ClickByText("确认");
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_RoadNameSign.Inst.ClickByText("确认");
+//        }
         
         Thread.sleep(3000);
 
@@ -2610,7 +2610,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(1000);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.DELETE);
-        Page_MainBoard.Inst.ClickbyText("确认");
+//        Page_MainBoard.Inst.ClickbyText("确认");
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("点限速"));
     }
@@ -2865,10 +2865,10 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("危险信息");
         Page_Dangerous.Inst.Click(Page_Dangerous.DELETE);
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_MainBoard.Inst.ClickbyText("确认");
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_MainBoard.Inst.ClickbyText("确认");
+//        }
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("危险信息"));
     }
@@ -3121,10 +3121,10 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("收费站");
         Thread.sleep(1000);
         Page_TollGate.Inst.Click(Page_TollGate.DELETE);
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_TollGate.Inst.ClickbyText("确认");
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_TollGate.Inst.ClickbyText("确认");
+//        }
         
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("收费站"));
@@ -3266,7 +3266,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.ClickbyText("确定");
         Thread.sleep(2000);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+        //Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
         ExitMyData();
     }
 
@@ -3647,10 +3647,10 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_TruckLimit.Inst.Click(Page_TruckLimit.DELETE);
         
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_TruckLimit.Inst.ClickbyText("确认");
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_TruckLimit.Inst.ClickbyText("确认");
+//        }
         
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("卡车限制"));
@@ -3745,10 +3745,10 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.SelectData("坡度");
         Thread.sleep(2000);
         Page_Gradient.Inst.Click(Page_Gradient.DELETE);
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_Gradient.Inst.ClickbyText("确认");
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_Gradient.Inst.ClickbyText("确认");
+//        }
         
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("坡度"));
@@ -4030,10 +4030,10 @@ public class testFastMapYL extends testFastMapBase
         
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
         
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+//        }
     }
 
     @Test
@@ -4247,10 +4247,10 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("通用禁停");
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
         Thread.sleep(2000);
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+//        }
         
         assertFalse(Page_MyData.Inst.isExistByName("通用禁停"));
     }
@@ -4596,10 +4596,10 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_IndoorMyData.Inst.ClickbyText("卡车禁停");
         Page_NoParking.Inst.Click(Page_NoParking.DELETE);
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
-        }
+//        if(!FastMapPage.IS_OS_TEST)
+//        {
+//        	Page_NoParking.Inst.Click(Page_NoParking.DELETE_CONFIRM);
+//        }
         
         assertFalse(Page_MyData.Inst.isExistByName("通用禁停"));
     }

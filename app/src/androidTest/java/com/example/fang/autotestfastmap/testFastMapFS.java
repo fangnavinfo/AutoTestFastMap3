@@ -301,8 +301,9 @@ public class testFastMapFS extends testFastMapBase
             
             Page_MyData.Inst.SelectData("电子眼");
             Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-            Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+            //Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
 
+            Thread.sleep(2000);
             Page_MyData.Inst.CheckNotExist(Page_MyData.TIPS_TYPE, "电子眼");
             
             Page_MyData.Inst.Click(Page_MyData.BACK);
@@ -336,7 +337,7 @@ public class testFastMapFS extends testFastMapBase
             Page_MyData.Inst.SelectData("电子眼");
 
             Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-            Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+            //Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
 
             Page_MyData.Inst.CheckNotExist(Page_MyData.TIPS_TYPE, "电子眼");
             Page_MyData.Inst.Click(Page_MyData.BACK);
@@ -371,7 +372,9 @@ public class testFastMapFS extends testFastMapBase
             Page_MyData.Inst.SelectData("电子眼");
 
             Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-            Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+            //Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+
+            Thread.sleep(2000);
 
             Page_MyData.Inst.CheckNotExist(Page_MyData.TIPS_TYPE, "电子眼");
             Page_MyData.Inst.Click(Page_MyData.BACK);
@@ -418,7 +421,7 @@ public class testFastMapFS extends testFastMapBase
             Page_MyData.Inst.SelectData("电子眼");
 
             Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-            Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
+            //Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
 
             Page_MyData.Inst.CheckNotExist(Page_MyData.TIPS_TYPE, "电子眼");
             Page_MyData.Inst.Click(Page_MyData.BACK);
@@ -519,7 +522,7 @@ public class testFastMapFS extends testFastMapBase
     public void test01307_IndoorCheck_FM_1504_5_1() throws Exception
     {
     	//跨越桥的几何长度要小于800m时，报log
-        int MAX_LEN = 790;
+        int MAX_LEN = 700;
 
         double Distance = GetDistance100Pixel();
 
@@ -556,7 +559,7 @@ public class testFastMapFS extends testFastMapBase
     public void test01308_IndoorCheck_FM_1505_5_1() throws Exception
     {
         //穿越地道的几何长度要小于800m时, 报log
-        int MAX_LEN = 790;
+        int MAX_LEN = 700;
 
         double Distance = GetDistance100Pixel();
 
@@ -738,7 +741,7 @@ public class testFastMapFS extends testFastMapBase
 
         Page_IndoorMyData.Inst.SelectResult("FM-1401-6-1");
         Page_DirectionBoard.Inst.Click(Page_DirectionBoard.DELETE);
-        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CONFIRM);
+        //Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CONFIRM);
 
         try
         {
