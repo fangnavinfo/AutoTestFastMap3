@@ -4,9 +4,7 @@ import com.fastmap.ui.*;
 
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -20,18 +18,6 @@ import java.io.IOException;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapFS extends testFastMapBase
 {
-
-    @BeforeClass
-    public static void setClassUp() throws Exception
-    {
-
-    }
-
-    @AfterClass
-    public static void setClassDown() throws Exception
-    {
-
-    }
 
     @Before
     public void setUp() throws Exception

@@ -26,17 +26,6 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapYL extends testFastMapBase
 {
-    @BeforeClass
-    public static void setClassUp() throws Exception
-    {
-        //testFastMapBase.setClassUp("collector1","123456");//"collector1","123456"
-    }
-
-    @AfterClass
-    public static void setClassDown() throws InterruptedException, IOException
-    {
-    }
-
     @Before
     public void setUp() throws Exception {
         testFastMapBase.setClassUp("collector1","123456");
