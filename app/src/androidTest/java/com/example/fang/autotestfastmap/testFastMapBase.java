@@ -2,9 +2,15 @@ package com.example.fang.autotestfastmap;
 import com.fastmap.ui.*;
 import com.fang.testAdapter.*;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
+import java.io.IOException;
 import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
@@ -14,6 +20,41 @@ import static org.junit.Assert.assertEquals;
 
 public class testFastMapBase
 {
+    @Rule
+    public TestRule testWatcher = new TestWatcher(){
+        @Override
+        protected void failed(Throwable e, Description description)
+        {
+            try
+            {
+                testadapter.CapScreen(description.getMethodName());
+            }
+            catch (IOException e1)
+            {
+                e1.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void succeeded(Description description)
+        {
+
+        }
+
+    };
+
+    @BeforeClass
+    public static void setClassUp() throws Exception
+    {
+        testadapter.ClearCap();
+    }
+
+    @AfterClass
+    public static void setClassDown() throws Exception
+    {
+
+    }
+
     protected  static void setClassUp(String userName, String passWord) throws Exception
     {
         setClassUp(userName, passWord, false);

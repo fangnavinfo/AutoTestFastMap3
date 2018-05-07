@@ -23,17 +23,6 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapZF extends testFastMapBase
 {
-    @BeforeClass
-    public static void setClassUp() throws Exception
-    {
-        //testFastMapBase.setClassUp("collector2","123456");
-    }
-
-    @AfterClass
-    public static void setClassDown() throws InterruptedException, IOException
-    {
-    }
-
     @Before
     public void setUp() throws Exception {
 

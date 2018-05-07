@@ -27,7 +27,7 @@ public class testFastMapYL extends testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
-        //testFastMapBase.setClassUp("yanghaifei01902","wy0190202815");//"collector1","123456"
+
         //testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
@@ -67,7 +67,6 @@ public class testFastMapYL extends testFastMapBase
 
         CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ１");
     }
-    //test
 
     @Test
     public void test00203_poi_add() throws Exception
@@ -2609,7 +2608,6 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("点限速");
         Thread.sleep(1000);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.DELETE);
-        Page_MainBoard.Inst.ClickbyText("确认");
         Thread.sleep(1000);
         assertFalse(Page_MyData.Inst.isExistByName("点限速"));
     }
@@ -3265,7 +3263,6 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.ClickbyText("确定");
         Thread.sleep(2000);
         Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
-        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE_CONFIRM);
         ExitMyData();
     }
 

@@ -244,6 +244,7 @@ public class testadapter
         InitUserPath(userName, isHK);
         Sqlitetools.initialize(userPath);
 
+        mDevice.executeShellCommand("mkdir  " +  testCapPath);
     }
 
     public static void CreateMainBoard() throws Exception
@@ -321,7 +322,7 @@ public class testadapter
     protected static UiDevice mDevice;
     protected static String packageName;
     protected static String userPath;
-
+    protected static String testCapPath = "/sdcard/testCap/";
     static
     {
         try
@@ -352,5 +353,15 @@ public class testadapter
     {
         UiObject obj = new UiObject(new UiSelector().className(clazz).instance(index));
         obj.click();
+    }
+
+    public static void ClearCap() throws IOException
+    {
+        mDevice.executeShellCommand("rm -rf" + testCapPath);
+    }
+
+    public static void CapScreen(String name) throws IOException
+    {
+        mDevice.executeShellCommand("screencap -p " + testCapPath + name + ".png");
     }
 }
