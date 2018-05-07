@@ -229,6 +229,8 @@ public class testadapter
         Process pmk = Runtime.getRuntime().exec("mkdir temp");
         pmk.waitFor();
 		
+        FASTMAP_URL = "http://" + driver.findElement(By.name("login_ipLabel")).getText().trim() + "/";
+        
         DownLoadFileFromFastMap(getUserId() + "_layout.plist", "layout.plist");
 	}
 	
@@ -427,14 +429,22 @@ public class testadapter
 	private static WebElement GetElement(String Text) throws InterruptedException
 	{
 		final String testRes = Text;
+		WebElement e = null;
 		
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement e = wait.until(new ExpectedCondition<WebElement>(){ 
-			@Override 
-			public WebElement apply(WebDriver d) { 
-				return driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes + "'" + "OR label CONTAINS '" + testRes + "'"));
-			}
-		});
+		try
+		{
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			e = wait.until(new ExpectedCondition<WebElement>(){ 
+				@Override 
+				public WebElement apply(WebDriver d) { 
+					return driver.findElement(MobileBy.iOSNsPredicateString("name == '" + testRes + "'"));
+				}
+			});
+		}
+		catch(Exception ex)
+		{
+			e = driver.findElement(MobileBy.iOSNsPredicateString("value CONTAINS '" + testRes + "'" + "OR label CONTAINS '" + testRes + "'"));
+		}
 		
 		return e;
 	}
@@ -508,8 +518,8 @@ public class testadapter
     	
     	Collections.reverse(RightList);
     	
-    	String value1="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeButton[%d]";
-    	String value2="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[3]/XCUIElementTypeImage[%d]/XCUIElementTypeButton[%d]";
+    	String value1="//XCUIElementTypeOther[@name=\"menu_container\"]/XCUIElementTypeButton[%d]";
+    	String value2="//XCUIElementTypeImage[@name=\"menu_sub_Container\"]/XCUIElementTypeButton[%d]";
     	
     	int index = 1;
     	for(int i=0; i<5; i++)
@@ -528,7 +538,7 @@ public class testadapter
 	            	{
 	                	for(int m=0; m<listmp.size(); m++)
 	                	{
-	                		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, 2, m+1)));
+	                		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
 	                	}
 	            	}	
             	}
@@ -548,7 +558,7 @@ public class testadapter
 	            	{
 		            	for(int m=0; m<listmp.size(); m++)
 		            	{
-		            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, 2, m+1)));
+		            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
 		            	}
 	            	}
             	}
@@ -571,7 +581,7 @@ public class testadapter
         	}
         	for(int m=0; m<listmp.size(); m++)
         	{
-        		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, 1, m+1)));
+        		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
         	}
     	}
     	
@@ -617,7 +627,7 @@ public class testadapter
 	private static HashMap<String, Pairs> mapKeyboardQc = new HashMap<String, Pairs>();
 	private static boolean isHmWorking;
 	private static String  userName;
-	private static final String FASTMAP_URL = "http://172.19.43.65/";
+	private static String FASTMAP_URL;
 	
 	private static int center_x;
 	private static int center_y;

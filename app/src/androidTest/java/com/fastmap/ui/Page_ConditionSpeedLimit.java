@@ -11,7 +11,7 @@ public class Page_ConditionSpeedLimit extends Page_Base_Tips
     @FindResource(Id="speed_limit_condition_school", ios_name="学校")
     public static String SCHOOL;
 
-    @FindResource(Id="btn_select_time3", ios_xpath="(//XCUIElementTypeButton[@name=\"clock\"])[1]")
+    @FindResource(Id="btn_select_time3", ios_name="conditionSL_clock1")
     public static String TIME;
 
     @FindResource(clazz="android.widget.ScrollView")

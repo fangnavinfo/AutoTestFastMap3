@@ -7,7 +7,7 @@ import com.fang.testAdapter.*;
  */
 public class Page_NoParkingTruck extends Page_Base_Tips
 {
-    @FindResource(Id="no_parking_desc")
+    @FindResource(Id="no_parking_desc", ios_name="NPHead_descInput")
     public static String DESC;
 
     public static Page_NoParkingTruck Inst;

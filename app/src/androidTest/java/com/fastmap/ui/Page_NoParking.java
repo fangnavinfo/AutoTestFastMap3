@@ -9,10 +9,10 @@ import com.fang.testAdapter.FindResource;
 
 public class Page_NoParking extends Page_Base_Tips
 {
-    @FindResource(Id="no_parking_time_button", ios_name="openTime")
+    @FindResource(Id="no_parking_time_button", ios_name="NPHead_timeBtn")
     public static String TIME;
 
-    @FindResource(Id="no_parking_desc", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeOther[4]/XCUIElementTypeTextView")
+    @FindResource(Id="no_parking_desc", ios_name="NPHead_descInput")
     public static String DESC;
 
     @FindResource(Id="elec_eye_adapter_checkbox", ios_name="login checkbox")
