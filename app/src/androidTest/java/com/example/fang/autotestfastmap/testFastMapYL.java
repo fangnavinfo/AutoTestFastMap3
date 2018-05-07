@@ -67,7 +67,7 @@ public class testFastMapYL extends testFastMapBase
 
         CheckMyData(Page_MyData.POI_TYPE, "测试ＰＯＩ１");
     }
-
+    //test
 
     @Test
     public void test00203_poi_add() throws Exception
