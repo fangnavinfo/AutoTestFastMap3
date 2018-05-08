@@ -88,7 +88,7 @@ public class testFastMapZF extends testFastMapBase
 
     // POI 联系方式去除手机号不能以19开头的限制
     @Test
-    public void test00102_poi_telnum_check() throws Exception
+    public void test00102_1_poi_telnum_check() throws Exception
     {
 
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
@@ -101,6 +101,25 @@ public class testFastMapZF extends testFastMapBase
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
         Page_POI.Inst.isExistByName("19012345678");
+    }
+
+    // POI 电话号码输入后自动隐藏输入法
+    @Test
+    public void test00102_2_poi_telnum_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.Click(Page_POI.TEL);
+
+        Page_POI.Inst.SetValue(Page_POI.TEL, "19012345678");
+
+        Page_POI.Inst.isExistByName("完成");
+
     }
 
     //采纳情报fid保存
