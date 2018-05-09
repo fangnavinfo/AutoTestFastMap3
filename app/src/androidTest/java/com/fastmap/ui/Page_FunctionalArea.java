@@ -27,7 +27,7 @@ public class Page_FunctionalArea extends Page_Base_Tips
     public static String HOSPITAL;
     @FindResource(Id="rbtn_stadium", ios_name="gridView_function_stadium.png")
     public static String STADIUM;
-    @FindResource(Id="rbtn_airport")
+    @FindResource(Id="rbtn_airport", ios_name="gridView_function_airport.png")
     public static String AIRPORT;
 
     @FindResource(Id="edit_name", Text="请输入名称")

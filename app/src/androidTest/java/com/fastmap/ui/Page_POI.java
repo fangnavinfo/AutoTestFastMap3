@@ -16,10 +16,10 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="tv_poi_brand", Text="请选择品牌")
     public static String SELECT_BRAND;
 
-    @FindResource(Id="fm_et_post_code_txt", Text="请输入邮编")
+    @FindResource(Id="fm_et_post_code_txt", ios_name="postcode")
     public static String POST_CODE;
 
-    @FindResource(Id="img_post_code")
+    @FindResource(Id="img_post_code", ios_name="poiCore_postCode")
     public static String IMA_POST_CODE;
 
     @FindResource(Id="filter_edit", Text="请输入搜索内容")
