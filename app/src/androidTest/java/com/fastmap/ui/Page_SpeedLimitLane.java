@@ -22,6 +22,8 @@ public class Page_SpeedLimitLane extends Page_Base_Tips
     public static String MAXNUM;
     @FindResource(Id="speed_limit_number_40")
     public static String NUM40;
+    @FindResource(Id="speed_limit_number_70")
+    public static String NUM70;
     @FindResource(Id="et_speed_limit_number_min")
     public static String MINNUM;
     @FindResource(Id="speed_limit_number_30")

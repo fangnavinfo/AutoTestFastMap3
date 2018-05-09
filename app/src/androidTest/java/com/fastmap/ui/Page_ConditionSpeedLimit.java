@@ -14,8 +14,17 @@ public class Page_ConditionSpeedLimit extends Page_Base_Tips
     @FindResource(Id="btn_select_time3", ios_name="conditionSL_clock1")
     public static String TIME;
 
+    @FindResource(Id="et_speed_limit_number")
+    public static String LIMIT_NUM;
+
     @FindResource(clazz="android.widget.ScrollView")
     public static String SCROLL;
+
+    @FindResource(Id="speed_limit_condition_snow")
+    public static String SNOW;
+
+    @FindResource(Id="speed_limit_condition_fog")
+    public static String FOG;
 
     public static Page_ConditionSpeedLimit Inst;
     static
