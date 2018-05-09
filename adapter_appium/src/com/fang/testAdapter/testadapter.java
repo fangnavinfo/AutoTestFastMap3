@@ -30,6 +30,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import net.sourceforge.htmlunit.cyberneko.parsers.SAXParser;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -39,6 +40,7 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -123,13 +125,30 @@ public class testadapter
     	MobileElement elem = (MobileElement)GetElement(annotation);
     	elem.clear();
     	elem.setValue(value);
-    	driver.hideKeyboard();
+    	try
+    	{
+    		driver.hideKeyboard();
+    	}
+    	catch(Exception e)
+    	{
+    		
+    	}
     }
     
     public static String GetValue(FindResource annotation) throws InterruptedException
     {
     	WebElement elem = GetElement(annotation);
-    	return elem.getText();
+    	String value = elem.getText();
+    	if(value == null)
+    	{
+    		elem = elem.findElement(By.className("XCUIElementTypeStaticText"));
+    		if(elem != null)
+    		{
+    			value = elem.getText();
+    		}
+    	}
+    	
+    	return value;
     }
     
     public static Boolean isExist(FindResource annotation) throws InterruptedException
@@ -228,6 +247,9 @@ public class testadapter
 		
         Process pmk = Runtime.getRuntime().exec("mkdir temp");
         pmk.waitFor();
+        
+        Process pmr = Runtime.getRuntime().exec("mkdir result");
+        pmr.waitFor();
 		
         FASTMAP_URL = "http://" + driver.findElement(By.name("login_ipLabel")).getText().trim() + "/";
         
@@ -518,77 +540,77 @@ public class testadapter
     	
     	Collections.reverse(RightList);
     	
-    	String value1="//XCUIElementTypeOther[@name=\"menu_container\"]/XCUIElementTypeButton[%d]";
+    	String value1="//XCUIElementTypeButton[@name=\"menu_button%d\"]";
     	String value2="//XCUIElementTypeImage[@name=\"menu_sub_Container\"]/XCUIElementTypeButton[%d]";
     	
-    	int index = 1;
-    	for(int i=0; i<5; i++)
+    	for(int i=0; i<leftList.size(); i++)
     	{
-    		if(leftList.get(i) != null)
+    		ArrayList<Object> listmp = (ArrayList<Object>)leftList.get(i);
+    		if(listmp == null || listmp.isEmpty())
     		{
-              	ArrayList<Object> listmp = (ArrayList<Object>)leftList.get(i);
-            	if(!listmp.isEmpty())
-            	{
-	            	String first = String.format(value1, index++);
-	            	if(listmp.size() == 1)
-	            	{
-	            		mapKeyboard.put((String)listmp.get(0), new Pairs(first, ""));
-	            	}
-	            	else
-	            	{
-	                	for(int m=0; m<listmp.size(); m++)
-	                	{
-	                		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
-	                	}
-	            	}	
-            	}
+    			continue;
     		}
-    		if(RightList.get(i) != null)
-    		{       	
-              	ArrayList<Object> listmp = (ArrayList<Object>)RightList.get(i);
-            	if(!listmp.isEmpty())
+    		
+        	String first = String.format(value1, i);
+        	if(listmp.size() == 1)
+        	{
+        		mapKeyboard.put((String)listmp.get(0), new Pairs(first, ""));
+        	}
+        	else
+        	{
+            	for(int m=0; m<listmp.size(); m++)
             	{
-	            	String first = String.format(value1, index++);
-	            	if(listmp.size() == 1)
-	            	{
-	            		mapKeyboard.put((String)listmp.get(0), new Pairs(first, ""));
-	            		continue;
-	            	}
-	            	else
-	            	{
-		            	for(int m=0; m<listmp.size(); m++)
-		            	{
-		            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
-		            	}
-	            	}
+            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
             	}
-    		}
+        	}
     	}
     	
     	for(int i=0; i<bottomList.size(); i++)
     	{
-          	ArrayList<Object> listmp = (ArrayList<Object>)bottomList.get(i);
-        	if(listmp.isEmpty())
-        	{
-        		continue;
-        	}
-        	
-        	String first = String.format(value1, index++);
+    		ArrayList<Object> listmp = (ArrayList<Object>)bottomList.get(i);
+    		if(listmp == null || listmp.isEmpty())
+    		{
+    			continue;
+    		}
+    		
+        	String first = String.format(value1, i+5);
         	if(listmp.size() == 1)
         	{
         		mapKeyboard.put((String)listmp.get(0), new Pairs(first, ""));
-        		continue;
         	}
-        	for(int m=0; m<listmp.size(); m++)
+        	else
         	{
-        		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
+            	for(int m=0; m<listmp.size(); m++)
+            	{
+            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
+            	}
         	}
     	}
     	
-
-    	mapKeyboard.put("StartEndPoint", mapKeyboard.get("1500"));
-    	
-    	
+    	Collections.reverse(RightList);
+    	for(int i=0; i<RightList.size(); i++)
+    	{
+    		ArrayList<Object> listmp = (ArrayList<Object>)RightList.get(i);
+    		if(listmp == null || listmp.isEmpty())
+    		{
+    			continue;
+    		}
+    		
+        	String first = String.format(value1, i+17);
+        	if(listmp.size() == 1)
+        	{
+        		mapKeyboard.put((String)listmp.get(0), new Pairs(first, ""));
+        	}
+        	else
+        	{
+            	for(int m=0; m<listmp.size(); m++)
+            	{
+            		mapKeyboard.put((String)listmp.get(m), new Pairs(first, String.format(value2, m+1)));
+            	}
+        	}
+    	}
+    
+    	mapKeyboard.put("StartEndPoint", mapKeyboard.get("1500"));   	
 	}
 
 	 static int getDisplayWidth() 
@@ -652,6 +674,38 @@ public class testadapter
 	public static void ClearWal()
 	{
 		// TODO Auto-generated method stub
+		
+	}
+
+	public static void CapScreen(String methodName) 
+	{
+		File screen = driver.getScreenshotAs(OutputType.FILE);
+		File screenFile = new File("./result/" + methodName + ".png");
+		try 
+		{
+		    FileUtils.copyFile(screen, screenFile); //commons-io-2.0.1.jar中的api
+		} 
+		catch (IOException e) 
+		{
+		    e.printStackTrace();
+		}	
+	}
+
+	public static void ClearCap() 
+	{
+        
+		try 
+		{
+			Process pmk;
+			pmk = Runtime.getRuntime().exec("rm -rf result");
+			pmk.waitFor();
+		} 
+		catch (Exception e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
 		
 	}
 }

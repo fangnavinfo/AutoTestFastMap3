@@ -29,7 +29,7 @@ public class testFastMapBase
             {
                 testadapter.CapScreen(description.getMethodName());
             }
-            catch (IOException e1)
+            catch (Exception e1)
             {
                 e1.printStackTrace();
             }

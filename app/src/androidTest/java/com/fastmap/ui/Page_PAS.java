@@ -8,13 +8,10 @@ import com.fang.testAdapter.*;
  */
 public class Page_PAS extends Page_Base_Tips
 {
-    @FindResource(Id="save_button")
-    public static String SAVE;
-
-    @FindResource(Id="fm_et_name_pas", ios_name="请输入小区名称")
+    @FindResource(Id="fm_et_name_pas", ios_name="pas_TFName")
     public static String NAME;
 
-    @FindResource(Id="fm_et_address_pas", ios_predicate="value CONTAINS '请输入楼栋号'")
+    @FindResource(Id="fm_et_address_pas", ios_name="pas_TFNumber")
     public static String ADDRESS;
 
     @FindResource(Id="ck_odd", ios_name="奇")
@@ -31,16 +28,16 @@ public class Page_PAS extends Page_Base_Tips
     public static String ADDRESS_PAS;
 
     // 框选点门牌按钮
-    @FindResource(Id="tv_marquee_frame_repaint")
+    @FindResource(Id="tv_marquee_frame_repaint", ios_name="last pen")
     public static String RE_PAINT;
-    @FindResource(Id="tv_marquee_frame_last_paint")
+    @FindResource(Id="tv_marquee_frame_last_paint", ios_name="redraw")
     public static String LAST_PAINT;
-    @FindResource(Id="tv_marquee_frame_complete")
+    @FindResource(Id="tv_marquee_frame_complete", ios_name="complec")
     public static String COMPLETE;
 
-    @FindResource(Id="move_points")
+    @FindResource(Id="move_points", ios_name="box move")
     public static String MOVE_POINTS;
-    @FindResource(Id="auto_link")
+    @FindResource(Id="auto_link", ios_name="box auto")
     public static String AUTO_LINK;
 
     public static Page_PAS Inst;

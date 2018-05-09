@@ -1982,11 +1982,7 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadName.Inst.Click(Page_RoadName.SAVE);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.ROADNAME_BACK);
-        
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-        }
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
     }
@@ -2009,11 +2005,7 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadName.Inst.Click(Page_RoadName.SAVE);
 
         Page_MainMenu.Inst.Click(Page_MainMenu.ROADNAME_BACK);
-        
-        if(!FastMapPage.IS_OS_TEST)
-        {
-        	Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-        }
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
         
         Thread.sleep(2000);
         CheckMyData(Page_MyData.TIPS_TYPE, "道路名");
