@@ -358,6 +358,7 @@ public class testadapter
     public static void ClearCap() throws IOException
     {
         mDevice.executeShellCommand("rm -rf" + testCapPath);
+        mDevice.executeShellCommand("mkdir " + testCapPath);
     }
 
     public static void CapScreen(String name) throws IOException

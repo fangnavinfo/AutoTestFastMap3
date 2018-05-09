@@ -60,7 +60,17 @@ public class Page_MyData extends FastMapPage
 	        Click(type);
 	        Click(SELECT_CONFIRM);
         }
-        Assert.assertFalse(isExistByName(name, null));
+
+        int Count = 0;
+        while (isExistByName(name, null))
+        {
+            if(Count++ == 5)
+            {
+                Assert.fail(name + " still exist");
+            }
+            Thread.sleep(1000);
+        }
+
         
         //assertNull(mDevice.wait(Until.findObject(By.text(name)), 500));
     }

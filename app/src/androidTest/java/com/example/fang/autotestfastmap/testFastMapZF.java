@@ -975,10 +975,12 @@ public class testFastMapZF extends testFastMapBase
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
         Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Thread.sleep(2000);
+        
         String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
         String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
-        assertTrue("请输入小区名称".equals(name));
-        assertTrue("请输入楼栋号".equals(address));
+        assertEquals("请输入小区名称", name);
+        assertEquals("请输入楼栋号", address);
     }
 
     @Test
@@ -988,8 +990,8 @@ public class testFastMapZF extends testFastMapBase
         Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
         String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
         String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
-        assertTrue("请输入小区名称".equals(name));
-        assertTrue("请输入楼栋号与楼门号".equals(address));
+        assertEquals("请输入小区名称", name);
+        assertEquals("请输入楼栋号与楼门号", address);
     }
 
     @Test
@@ -999,8 +1001,9 @@ public class testFastMapZF extends testFastMapBase
         Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
         String name = Page_PAS.Inst.GetValue(Page_PAS.NAME);
         String address = Page_PAS.Inst.GetValue(Page_PAS.ADDRESS);
-        assertTrue("请输入道路名称".equals(name));
-        assertTrue("请输入门牌号".equals(address));
+        
+        assertEquals("请输入道路名称", name);
+        assertEquals("请输入门牌号", address);        
     }
 
     // 室内整理工具增加量测工具

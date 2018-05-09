@@ -8,18 +8,6 @@ import com.fang.testAdapter.*;
 
 public class Page_LaneInfo extends Page_Base_Tips
 {
-    @FindResource(Id="tv_poi_fid_hd")
-    public static String FID;
-
-    @FindResource(Id="et_kind_search", Text="请输入搜索内容")
-    public static String SEARCH_TYPE;
-
-    @FindResource(Id="top_name_txtinfo")
-    public static String SEARCH_TYPE_RESULT;
-
-    @FindResource(Id="edt_contactItem_telNum")
-    public static String TEL;
-
     //单车道
     @FindResource(Id="rb_select_one_d", ios_name="1301 d")
     public static String D;
