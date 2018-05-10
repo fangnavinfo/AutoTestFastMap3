@@ -20,10 +20,10 @@ public class Page_ConditionSpeedLimit extends Page_Base_Tips
     @FindResource(clazz="android.widget.ScrollView")
     public static String SCROLL;
 
-    @FindResource(Id="speed_limit_condition_snow")
+    @FindResource(Id="speed_limit_condition_snow", ios_name="雪")
     public static String SNOW;
 
-    @FindResource(Id="speed_limit_condition_fog")
+    @FindResource(Id="speed_limit_condition_fog", ios_name="雾")
     public static String FOG;
 
     public static Page_ConditionSpeedLimit Inst;
