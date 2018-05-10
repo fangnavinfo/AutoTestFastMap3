@@ -116,9 +116,22 @@ public class testFastMapZF extends testFastMapBase
 
         Page_POI.Inst.Click(Page_POI.TEL);
 
-        Page_POI.Inst.SetValue(Page_POI.TEL, "19012345678");
+        Thread.sleep(1000);
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(1350,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
+        Page_POI.Inst.Click(new Point(685,975));
 
-        Page_POI.Inst.isExistByName("完成");
+        Page_POI.Inst.Click(new Point(1945,1480));
+
+        assertTrue(Page_POI.Inst.isExistByName("返回"));
 
     }
 
@@ -1075,6 +1088,43 @@ public class testFastMapZF extends testFastMapBase
         String height = Page_BuildingArea.Inst.GetValue(Page_BuildingArea.FLOOR_NUMBER);
 
         assertTrue("26".equals(height));
+
+    }
+
+    // POI：同点位多点增加按楼层筛选功能
+    @Test
+    public void test00121_poi_same_floor_check() throws Exception
+    {
+        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+                {Page_POI.SELECT_TYPE, "百货商场零售"}};
+
+        AddPOI(attrib1);
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid1 = AddPOI(attrib2);
+
+        String[][] attrib3 = {{Page_POI.NAME, "异国风味TEST1"},
+                {Page_POI.SELECT_TYPE, "异国风味"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid2 = AddPOI(attrib3);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updatePoiFloorInfo(fid1, fid2);
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        assertTrue(Page_MainBoard.Inst.isExistByName("１层"));
+        assertTrue(Page_MainBoard.Inst.isExistByName("２层"));
 
     }
     
