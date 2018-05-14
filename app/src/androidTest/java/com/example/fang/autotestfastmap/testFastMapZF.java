@@ -1082,6 +1082,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Drag(100,200,100,600,10);
 
         Page_MainBoard.Inst.ClickByText("确定");
+        Thread.sleep(2000);
 
         Page_MainBoard.Inst.ClickCenter();
 

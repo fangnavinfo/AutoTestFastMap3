@@ -44,7 +44,7 @@ public class Page_MainBoard extends FastMapPage
     public static String MODE; //场景设置
     @FindResource(Id="btn_close_pop", ios_name="gray close")
     public static String CLOSE;
-    @FindResource(Id="cb_refinement_layer", ios_name="rightBarSW_Refinement")
+    @FindResource(Id="cb_refinement_layer", ios_name="refinement")
     public static String REFINEMENT; //精细化图层
     
     @FindResource(Id="btn_distance_measure", ios_name="measure")
