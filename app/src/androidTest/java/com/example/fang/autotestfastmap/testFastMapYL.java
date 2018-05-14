@@ -4336,10 +4336,10 @@ public class testFastMapYL extends testFastMapBase
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SCHOOL);
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.TIME);
         Page_ConditionSpeedLimit.Inst.ClickbyText("确定");
-        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
-        Thread.sleep(1000);
-        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
-        Thread.sleep(1000);
+//        Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,1027,5);
+//        Thread.sleep(1000);
+//        Page_ConditionSpeedLimit.Inst.ClickbyText("50");
+//        Thread.sleep(1000);
         Page_ConditionSpeedLimit.Inst.Drag(1824,1290,1824,527,5);
         Page_ConditionSpeedLimit.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试");
         Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.SAVE);
