@@ -1,0 +1,1364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="AutotestFastmap">
+    <property environment="env"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="AppiumAdpater.location" value="../adapter_appium"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+    <path id="AppiumAdpater.classpath">
+        <pathelement location="${AppiumAdpater.location}/bin"/>
+        <pathelement location="${AppiumAdpater.location}/libs/java-client-6.0.0-BETA2.jar"/>
+        <pathelement location="${AppiumAdpater.location}/libs/selenium-java-3.8.1.zip"/>
+        <pathelement location="${AppiumAdpater.location}/libs/selenium-server-standalone-3.8.1.jar"/>
+        <pathelement location="${AppiumAdpater.location}/../../../Eclipse Workspace/AppiumAdpater/libs/sqlite-jdbc-3.21.0.1.jar"/>
+    </path>
+    <path id="AutotestFastmap.classpath">
+        <pathelement location="bin"/>
+        <path refid="AppiumAdpater.classpath"/>
+        <pathelement location="../../../Eclipse Workspace/AutotestFastmap/libs/hamcrest-core-1.3.rc2.jar"/>
+        <pathelement location="../../../Eclipse Workspace/AutotestFastmap/libs/hamcrest-library-1.3.rc2-sources.jar"/>
+        <pathelement location="libs/org.json.jar"/>
+        <pathelement location="libs/junit-4.12.jar"/>
+        <pathelement location="../adapter_appium/libs/selenium-server-standalone-3.8.1.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${AppiumAdpater.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${AppiumAdpater.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="AutotestFastmap">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="com.example.fang.autotestfastmap">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00101_poi_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00201_tips_point_TrafficLight_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00301_tips_line_DrawRoad_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00401_tips_releation_TrackLimit_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00501_QCTask_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00601_Precise_Pas_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00701_info_Point_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00801_info_Line_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test00901_info_Frame_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01201_tips_Eyes_SpeedType_Add_Modify_Del">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01202_tips_Eyes_TimeType_Add_Modify_Del">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01203_tips_Eyes_CarType_Add_Modify_Del">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01204_tips_Eyes_CommonType_Add_Modify_Del">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01301_IndoorCheck_FM_1401_7_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01302_IndoorCheck_FM_1401_6_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01302_IndoorCheck_FM_1401_6_1_2">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01302_IndoorCheck_FM_1401_6_1_3">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01302_IndoorCheck_FM_1401_6_1_4">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01305_IndoorCheck_FM_1401_6_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01306_IndoorCheck_FM_2001_6_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01307_IndoorCheck_FM_1504_5_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01307_IndoorCheck_FM_1504_5_2">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01308_IndoorCheck_FM_1505_5_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01308_IndoorCheck_FM_1505_5_2">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01309_IndoorCheck_FM_1509_6_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01310_IndoorCheck_FM_1509_6_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01311_IndoorCheck_FM_1509_6_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01314_IndoorCheck_FM_1109_6_7_3">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01315_IndoorCheck_FM_1109_6_7">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapFS.test01316_IndoorCheck_FM_1119_2_1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapFS" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00202_poi_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00203_poi_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00205_poi_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00206_poi_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00208_poi_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00209_poi_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00702_info_Point_testPath">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00802_info_Line_testPath">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test00902_info_Frame_testPath">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01003_info_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01004_info_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01008_info_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01008_tips_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01010_tips_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01012_tips_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01013_tips_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01014_tips_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01015_tips_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01016_tips_roadnamesign_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01042_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01043_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01044_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01045_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01046_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01047_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01048_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01049_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01050_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01052_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01053_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01054_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01055_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01056_data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01109_tips_CarInfo_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01203_tips_add_Click">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01401_diagram_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01410_diagram_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01411_diagram_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01602_tips_copy">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01701_tips_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01702_tips_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01703_tips_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01704_tips_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01724_gate_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01725_gate_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01726_gate_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01727_gate_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01728_gate_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01729_gate_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01802_tips_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01803_tips_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test01804_tips_add">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02101_note">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02106_note">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02107_note">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02110_note">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02501_electroniceye">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02503_electroniceye">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02504_electroniceye">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02505_electroniceye">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02506_electroniceye">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02507_electroniceye">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02508_electroniceye">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02609_trucklimit">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02706_gradient">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02801_conditionlimit">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02802_conditionlimit">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02803_conditionlimit">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02804_conditionlimit">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02905_noparking">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02906_noparking">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02908_noparking">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test02909_noparking">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03002_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03003_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03004_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03005_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03006_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03007_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03008_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test03009_noparkingtruck">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00101_licence_plate_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00102_poi_telnum_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00103_poi_report_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00104_tips_delete_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00105_1_poi_father_error_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00105_2_poi_father_error_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00106_poi_same_error_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00107_tips_true_sence_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00108_functionalarea_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00109_poi_picture_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00110_3rdParty_Data_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00111_hide_feature_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00117_2_pas_update_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00117_3_pas_update_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00118_measure_tool_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1207_6_2_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1208_2_1_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1301_6_4_1_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1301_6_4_2_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_1_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_2_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_3_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_4_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_5_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_6_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_7_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1304_6_2_8_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_1_1_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_1_2_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_2_1_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_2_2_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_2_3_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_2_5_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_2_6_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_2_7_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1305_6_2_8_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1503_6_1_1_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1503_6_1_2_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1503_6_1_3_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1503_6_1_4_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test_FM_1521_1_2_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF_hm.test00101_poi_hm_brand_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF_hm" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapZF.test00120_tips_copy_building_check">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapZF" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="testFastMapYL.test04001_PoiAddressHistory">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.fang.autotestfastmap.testFastMapYL" todir="${junit.output.dir}"/>
+            <classpath refid="AutotestFastmap.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
