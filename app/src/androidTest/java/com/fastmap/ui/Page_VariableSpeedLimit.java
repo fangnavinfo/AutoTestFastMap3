@@ -8,9 +8,6 @@ import com.fang.testAdapter.FindResource;
 
 public class Page_VariableSpeedLimit extends Page_Base_Tips
 {
-    @FindResource(Id="et_remark_txt")
-    public static String REMARK;
-
     public static Page_VariableSpeedLimit Inst;
     static
     {
