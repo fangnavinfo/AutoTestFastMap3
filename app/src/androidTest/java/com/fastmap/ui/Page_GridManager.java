@@ -35,7 +35,10 @@ public class Page_GridManager extends FastMapPage
     public static String CANCEL;
     @FindResource(Id="grid_sync_btn_positive", ios_name="确认")
     public static String GRID_SYNC_BTN_POSITIVE;
-
+    @FindResource(Id="grid_project_name")
+    public static String GRID_PRO_NAME;
+    @FindResource(Id="grid_project_sync_button")
+    public static String GRID_PRO_SYNC;
     public static Page_GridManager Inst;
     static
     {

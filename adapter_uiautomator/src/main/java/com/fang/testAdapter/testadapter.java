@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.StaleObjectException;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -26,6 +27,18 @@ public class testadapter
     public static void Click(int x, int y)
     {
         mDevice.click(x, y);
+    }
+
+    public static void CtrlFling(int x, int y,String Id)
+    {
+        UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 3000);
+        obj.longClick();
+        obj.fling(Direction.RIGHT);
+        //obj.fling(Direction.LEFT,3000);
+
+//        obj.swipe(Direction.RIGHT,0.5f, 3000);
+//        obj.setGestureMargin(100);
+//        obj.swipe(Direction.LEFT,0.5f, 3000);
     }
 
     public static void Click(String Id) throws InterruptedException

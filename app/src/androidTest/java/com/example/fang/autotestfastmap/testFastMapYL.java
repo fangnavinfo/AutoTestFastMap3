@@ -37,9 +37,9 @@ public class testFastMapYL extends testFastMapBase
 
     @Before
     public void setUp() throws Exception {
-        testFastMapBase.setClassUp("collector1","123456");
-        Page_MainBoard.Inst.ClickCenter();
-        //testFastMapBase.setClassUp("zhanglingling03655","036550");
+        //testFastMapBase.setClassUp("collector1","123456");
+        //Page_MainBoard.Inst.ClickCenter();
+        testFastMapBase.setClassUp("zhanglingling03655","036550");
     }
 
     @After
@@ -556,6 +556,199 @@ public class testFastMapYL extends testFastMapBase
 //        AssertIndoorCheck("车道限速","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","");//问题
 //    }
 //
+/*  此需求是web端修改，此版本web端还未改动
+    @Test
+    public void test010400_data_check() throws Exception
+    {
+        String[][] attrib= {
+                {Page_POI.NAME, "测试"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}
+        };
+
+        AddPOI(attrib);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+        Thread.sleep(2000);
+        String temp = "关\n" +
+                "闭\n" +
+                "任\n" +
+                "务";
+        Page_GridManager.Inst.ClickbyText(temp);
+        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+        assertEquals(rst,true);
+    }
+
+    @Test
+    public void test010401_data_check() throws Exception
+    {
+        //需要有精细化任务
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+        Thread.sleep(2000);
+        String temp = "关\n" +
+                "闭\n" +
+                "任\n" +
+                "务";
+        Page_GridManager.Inst.ClickbyText(temp);
+        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+        assertEquals(rst,true);
+    }
+
+    @Test
+    public void test010402_data_check() throws Exception
+    {
+        String[][] attrib= {
+                {Page_POI.NAME, "测试"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}
+        };
+        AddPOI(attrib);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+        Thread.sleep(2000);
+        String temp = "关\n" +
+                "闭\n" +
+                "任\n" +
+                "务";
+        Page_GridManager.Inst.ClickbyText(temp);
+        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+        assertEquals(rst,true);
+    }
+
+    @Test
+    public void test010403_data_check() throws Exception
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+        String[][] attrib= {
+                {Page_POI.NAME, "测试"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}
+        };
+        AddPOI(attrib);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
+        Page_GridManager.Inst.ClickByText("同步"); //同步
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+        Thread.sleep(2000);
+        String temp = "关\n" +
+                "闭\n" +
+                "任\n" +
+                "务";
+        Page_GridManager.Inst.ClickbyText(temp);
+        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+        assertEquals(rst,true);
+    }
+
+    @Test
+    public void test010404_data_check() throws Exception
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
+        Page_GridManager.Inst.ClickByText("同步"); //同步
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+        Thread.sleep(3000);
+        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+        Thread.sleep(2000);
+        String temp = "关\n" +
+                "闭\n" +
+                "任\n" +
+                "务";
+        Page_GridManager.Inst.ClickbyText(temp);
+        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+        assertEquals(rst,true);
+    }
+
+    @Test
+    public void test010405_data_check() throws Exception
+    {
+        //需要有精细化任务
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        String[][] attrib= {
+                {Page_POI.NAME, "测试"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}
+        };
+        AddPOI(attrib);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
+        Page_GridManager.Inst.ClickByText("同步"); //同步
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+        Thread.sleep(2000);
+        String temp = "关\n" +
+                "闭\n" +
+                "任\n" +
+                "务";
+        Page_GridManager.Inst.ClickbyText(temp);
+        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+        assertEquals(rst,true);
+    }
+*/
     @Test
     public void test01042_data_check() throws Exception
     {
