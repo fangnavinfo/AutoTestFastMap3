@@ -37,6 +37,16 @@ public class FastMapPage
         Thread.sleep(1000);
     }
 
+    public void CtrlFling(Point p,String findRes) throws NoSuchFieldException, ClassNotFoundException
+    {
+        Field field = GetField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.Id().isEmpty()) {
+            //testadapter.Click(annotation.Id());
+            testadapter.CtrlFling(p.x, p.y, annotation.Id());
+        }
+    }
     public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
         try

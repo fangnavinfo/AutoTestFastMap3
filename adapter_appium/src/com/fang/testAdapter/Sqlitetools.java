@@ -18,6 +18,15 @@ public class Sqlitetools
     //注意因为sqlite使用了wal缓存机制，所以每次对数据库做增删改操作后，需要调用此函数刷新数据到coremap.sqlite3中，才能从coremap.sqlite3获取对应数据
     public static void RefreshData() throws Exception
     {   
+    	if(isWrite)
+    	{
+    		isWrite = false;
+    		testadapter.ClearCollect();
+    		testadapter.UpLoadFileToFastMap("coremap.sqlite");
+
+    		return;
+    	}
+    	
         Class clazz = Class.forName("com.example.fang.autotestfastmap.testFastMapBase");
         
         testadapter.ReStartApp();
@@ -418,8 +427,80 @@ public class Sqlitetools
         }
 	}
 	
+	public static void UpdatePoiData(String infoFid, String colu, Object value) throws Exception
+	{
+      	Class.forName(Drivde);// 加载驱动,连接sqlite的jdbc
+    	Connection connection=DriverManager.getConnection("jdbc:sqlite:" + mDBPath +"/coremap.sqlite");
+
+        try
+        {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery( "PRAGMA table_info(\"edit_Pois\")" );
+            
+            if (!rs.next()) 
+            {
+            	throw new Exception();
+            }
+
+            do
+            {
+                TipsTableInfo.put(rs.getString(2),  rs.getString(3));
+            } while (rs.next());
+            
+            PreparedStatement prep = connection.prepareStatement("UPDATE edit_Pois SET " + colu + " = ? WHERE fid=" + "\"" + infoFid + "\"");
+            		
+            
+            switch (TipsTableInfo.get(colu))
+            {
+                case "integer":
+                	prep.setInt(1, (int)value);
+                    break;
+                case "text":
+                	prep.setString(1, (String)value);
+                    break;
+                case "blob":
+                	String str = (String) value;
+                	if(str == null)
+                	{
+                		throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
+                	}
+                	
+                	prep.setBytes(1, str.getBytes("UTF-8"));
+                    break;
+                default:
+                    throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
+            }
+            
+            prep.executeUpdate();
+            
+            Process prm1 = Runtime.getRuntime().exec("mv ./temp/coremap.shm ./temp/coremap.sqlite-shm");
+            prm1.waitFor();
+            
+            Process prm2 = Runtime.getRuntime().exec("mv ./temp/coremap.wal ./temp/coremap.sqlite-wal");
+            prm2.waitFor();
+            
+            Process psql = Runtime.getRuntime().exec("cd temp && sqlite3 coremap.sqlite VACUUM");
+            psql.waitFor();
+            
+            isWrite = true;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+        	connection.close();
+        }		
+	}
+	
     public static void updatePoiFloorInfo(String fid1, String fid2) throws Exception
     {
+    	UpdatePoiData(fid1, "indoor", "{\"type\":0,\"floor\":\"１层\"}");
+    	UpdatePoiData(fid2, "indoor", "{\"type\":0,\"floor\":\"２层\"}");
+    	
 //        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
 //
 //        boolean b = false;
@@ -450,5 +531,7 @@ public class Sqlitetools
 //            db.close();
 //        }
     }
+    
+    public static boolean isWrite = false;
 }
 
