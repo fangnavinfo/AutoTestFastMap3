@@ -437,7 +437,7 @@ public class testFastMapZF extends testFastMapBase
         Sqlitetools.RefreshData();
 
         GotoMyData(Page_MyData.INFO_TYPE);
-        Page_MyData.Inst.ClickbyText("自采集情报(POI)(点)");
+        Page_MyData.Inst.ClickbyText("测试上报情报TEST");
         String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
         Page_InfoPoint.Inst.ClickByText("取消");
         ExitMyData();
