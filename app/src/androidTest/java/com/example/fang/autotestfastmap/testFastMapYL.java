@@ -5646,36 +5646,155 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
-    public void test05003_test() throws Exception
+    public void test05101_trucklimitlane() throws Exception
     {
-        //Page_MainBoard.Inst.ClickbyText("稍后再说");
-        Thread.sleep(1000);
-        Page_MainBoard.Inst.Click(Page_MainBoard.GPS);
-        Thread.sleep(1000);
-        Page_MainBoard.Inst.Click(Page_MainBoard.GPS_START);
-        Thread.sleep(1000);
+        //卡车限速 默认1 开始限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
         Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.NUM40);
 
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车限速");
+        Thread.sleep(2000);
+        String rowkey = Page_TruckLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int sign = jsonObject.getInt("se");
+        JSONObject f = jsonObject.getJSONObject("f");
+        int type = f.getInt("type");
+        assertSame(type,1);
+        assertSame(sign,0);
+    }
+
+    @Test
+    public void test05102_trucklimitlane() throws Exception
+    {
+        //卡车限速 手绘测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.NUM40);
+
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车限速");
+        Thread.sleep(2000);
+        String rowkey = Page_TruckLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int sign = jsonObject.getInt("se");
+        JSONObject f = jsonObject.getJSONObject("f");
+        int type = f.getInt("type");
+        assertSame(type,2);
+        assertSame(sign,0);
+    }
+
+    @Test
+    public void test05103_trucklimitlane() throws Exception
+    {
+        //卡车限速 默认1 开始限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.NUM40);
+        Page_TruckLimitLane.Inst.ClickbyText("解除限速");
+        Page_TruckLimitLane.Inst.SetValue(Page_TruckLimitLane.EDIT,"测试卡车限速");
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车限速");
+        Thread.sleep(2000);
+        String rowkey = Page_TruckLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int se = jsonObject.getInt("se");
+        String desc = jsonObject.getString("desc");
+        JSONObject f = jsonObject.getJSONObject("f");
+        int type = f.getInt("type");
+        assertSame(type,1);
+        assertSame(se,1);
+        assertEquals(desc,"测试卡车限速");
+    }
+
+    @Test
+    public void test05104_trucklimitlane() throws Exception
+    {
+        //我的数据
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.NUM40);
+        Page_TruckLimitLane.Inst.ClickbyText("解除限速");
+        Page_TruckLimitLane.Inst.SetValue(Page_TruckLimitLane.EDIT,"测试卡车限速");
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车限速");
+        Thread.sleep(2000);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.CANCEL);
+        ExitMyData();
+    }
+
+    @Test
+    public void test05105_trucklimitlane() throws Exception
+    {
+        //我的数据
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.NUM40);
+        Page_TruckLimitLane.Inst.ClickbyText("解除限速");
+        Page_TruckLimitLane.Inst.SetValue(Page_TruckLimitLane.EDIT,"测试卡车限速");
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车限速");
+        Thread.sleep(2000);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.DELETE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test05106_trucklimitlane() throws Exception
+    {
+        //室内整理
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.NUM40);
+        Page_TruckLimitLane.Inst.ClickbyText("解除限速");
+        Page_TruckLimitLane.Inst.SetValue(Page_TruckLimitLane.EDIT,"测试卡车限速");
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"卡车限速");
+        Page_IndoorMyData.Inst.ClickbyText("卡车限速");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("卡车限速");
         Thread.sleep(1000);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
-        Page_MyData.Inst.Click(Page_MyData.SELECT_DATA_TYPE);
-        Page_MyData.Inst.Click(Page_MyData.TIPS_TYPE);
-        Page_MyData.Inst.Click(Page_MyData.SELECT_CONFIRM);
-        for (int i = 0;i<100000;i++)
-        {
-            Thread.sleep(1000);
-            Page_MyData.Inst.ClickbyText("道路名标牌");
-            Thread.sleep(1000);
-            Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
-            Thread.sleep(1000);
-        }
-
-//        SearchTips("111122001011111HXS00034");
-//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
-//        Page_MainBoard.Inst.ClickbyText("保存");//保存
-//        Thread.sleep(1000);
-
+        Page_IndoorMyData.Inst.ClickbyText("卡车限速");
+        Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
+        ExitIndoorTools();
     }
 }
