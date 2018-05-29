@@ -103,9 +103,60 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.isExistByName("19012345678");
     }
 
-    // POI 电话号码输入后自动隐藏输入法
+    // POI 联系方式去除手机号不能以146开头的限制
     @Test
     public void test00102_2_poi_telnum_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "14612345678"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("14612345678");
+    }
+
+    // POI 联系方式去除手机号不能以148开头的限制
+    @Test
+    public void test00102_3_poi_telnum_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "14812345678"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("14812345678");
+    }
+
+    // POI 联系方式去除手机号不能以166开头的限制
+    @Test
+    public void test00102_4_poi_telnum_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "16612345678"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ２");
+
+        Page_POI.Inst.isExistByName("16612345678");
+    }
+
+    // POI 电话号码输入后自动隐藏输入法
+    @Test
+    public void test00102_5_poi_telnum_check() throws Exception
     {
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
