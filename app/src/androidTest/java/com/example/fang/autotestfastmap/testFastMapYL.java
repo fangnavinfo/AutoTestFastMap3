@@ -37,9 +37,10 @@ public class testFastMapYL extends testFastMapBase
 
     @Before
     public void setUp() throws Exception {
-        //testFastMapBase.setClassUp("collector1","123456");
-        //Page_MainBoard.Inst.ClickCenter();
-        testFastMapBase.setClassUp("zhanglingling03655","036550");
+        testFastMapBase.setClassUp("collector1","123456");
+        Page_MainBoard.Inst.ClickCenter();
+        //testFastMapBase.setClassUp("zhanglingling03655","036550");
+        //testFastMapBase.setClassUp("wukunyu02074","wy0207402815");
     }
 
     @After
@@ -1794,11 +1795,18 @@ public class testFastMapYL extends testFastMapBase
     @Test @IMPORTANT
     public void test01705_gate_add() throws Exception
     {
-        //大门 PG默认值车辆和行人 取消勾选时间清空
+        //大门 PG默认值车辆和行人
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
-        Page_Gate.Inst.Click(Page_Gate.PG);
+        boolean isChecked = Page_Gate.Inst.isChecked("PG");
+        assertTrue(isChecked);
+        isChecked = Page_Gate.Inst.isChecked(Page_Gate.SINGLEGATE);
+        assertFalse(isChecked);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1809,11 +1817,15 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01706_gate_add() throws Exception
     {
-        //大门 KG默认值车辆和行人 取消勾选时间清空
+        //大门 KG默认值车辆和行人
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.KG);
+        boolean person = Page_Gate.Inst.isChecked(Page_Gate.PERSON);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(person);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1824,11 +1836,13 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01707_gate_add() throws Exception
     {
-        //大门 EG默认值车辆和行人 取消勾选时间清空
+        //大门 EG默认值车辆和行人
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
         Page_Gate.Inst.Click(Page_Gate.EG);
+        boolean car = Page_Gate.Inst.isChecked(Page_Gate.CAR);
+        assertTrue(car);
         Page_Gate.Inst.Click(Page_Gate.SAVE);//保存
         Thread.sleep(2000);
         //tipsNum++;
@@ -1839,7 +1853,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01708_gate_add() throws Exception
     {
-        //大门 PG默认值车辆和行人 取消勾选时间清空
+        //大门 PG默认值车辆和行人 勾选自行车
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -1855,7 +1869,7 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test01715_gate_add() throws Exception {
-        //大门 PG默认值车辆和行人 取消勾选时间清空
+        //大门 PG默认值车辆和行人 勾选时间
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -1871,7 +1885,7 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test01716_gate_add() throws Exception {
-        //大门 KG默认值车辆和行人 取消勾选时间清空
+        //大门 KG默认值车辆和行人 勾选时间
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -1887,7 +1901,7 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test01717_gate_add() throws Exception {
-        //大门 EG默认值车辆和行人 取消勾选时间清空
+        //大门 EG默认值车辆和行人 勾选时间
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -2014,7 +2028,7 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test01725_gate_add() throws Exception {
-        //大门 KG默认值车辆和行人 取消勾选时间清空
+        //大门 KG默认值车辆和行人 切换保存
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -2037,7 +2051,7 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test01726_gate_add() throws Exception {
-        //大门 EG默认值车辆和行人 取消勾选时间清空
+        //大门 EG默认值车辆和行人 切换保存
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -2085,7 +2099,7 @@ public class testFastMapYL extends testFastMapBase
 
     @Test
     public void test01728_gate_add() throws Exception {
-        //大门 KG默认值车辆和行人 取消勾选时间清空
+        //大门 KG默认值车辆和行人 切换保存
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -2109,7 +2123,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01729_gate_add() throws Exception
     {
-        //大门 EG默认值车辆和行人 取消勾选时间清空
+        //大门 EG默认值车辆和行人 切换保存
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
@@ -2132,6 +2146,16 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "大门");
     }
 
+    @Test
+    public void test01730_gate_add() throws Exception
+    {
+        //大门 默认PG
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        boolean isChecked = Page_Gate.Inst.isChecked("PG");
+        assertTrue(isChecked);
+    }
 
     @Test
     public void test01802_tips_add() throws Exception
@@ -5619,5 +5643,39 @@ public class testFastMapYL extends testFastMapBase
         GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
         Page_MyData.Inst.isExistByName("建筑物");
         ExitMyData();
+    }
+
+    @Test
+    public void test05003_test() throws Exception
+    {
+        //Page_MainBoard.Inst.ClickbyText("稍后再说");
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.GPS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.GPS_START);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.MY_DATA);
+        Page_MyData.Inst.Click(Page_MyData.SELECT_DATA_TYPE);
+        Page_MyData.Inst.Click(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.Click(Page_MyData.SELECT_CONFIRM);
+        for (int i = 0;i<100000;i++)
+        {
+            Thread.sleep(1000);
+            Page_MyData.Inst.ClickbyText("道路名标牌");
+            Thread.sleep(1000);
+            Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
+            Thread.sleep(1000);
+        }
+
+//        SearchTips("111122001011111HXS00034");
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
+//        Page_MainBoard.Inst.ClickbyText("保存");//保存
+//        Thread.sleep(1000);
+
     }
 }

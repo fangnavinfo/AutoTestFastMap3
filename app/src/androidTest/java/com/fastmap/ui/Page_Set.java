@@ -14,6 +14,8 @@ public class Page_Set extends FastMapPage
     @FindResource(Id = "checkBox_camera_fullView", ios_xpath="//XCUIElementTypeSwitch[@name=\"采集产品全貌照片\"]")
     public static String FULLVIEW;
 
+    @FindResource(Id = "checkBox_power_saving")
+    public static String POWER_SAVE;
     public static Page_Set Inst;
     static {
         Inst = new Page_Set();

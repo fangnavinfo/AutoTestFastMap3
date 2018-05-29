@@ -1,6 +1,27 @@
 package com.example.fang.autotestfastmap;
-import com.fastmap.ui.*;
-import com.fang.testAdapter.*;
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.Point;
+import com.fang.testAdapter.testadapter;
+import com.fastmap.ui.Page_Confirm;
+import com.fastmap.ui.Page_DistanceMeasure;
+import com.fastmap.ui.Page_ElecEye;
+import com.fastmap.ui.Page_ErrorList;
+import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_IndoorMyData;
+import com.fastmap.ui.Page_IndoorTools;
+import com.fastmap.ui.Page_Login;
+import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_POI;
+import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_RoadNameSign;
+import com.fastmap.ui.Page_RoundAbout;
+import com.fastmap.ui.Page_Search;
+import com.fastmap.ui.Page_SearchResultList;
+import com.fastmap.ui.Page_Set;
+import com.fastmap.ui.Page_StartEndPoint;
+import com.fastmap.ui.Page_SurveyLine;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -10,8 +31,6 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import java.io.IOException;
-import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 /**
