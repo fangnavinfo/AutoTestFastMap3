@@ -129,14 +129,9 @@ public class testadapter
     	MobileElement elem = (MobileElement)GetElement(annotation);
     	elem.clear();
     	elem.setValue(value);
-    	try
-    	{
-    		driver.hideKeyboard();
-    	}
-    	catch(Exception e)
-    	{
-    		
-    	}
+
+    	Click(driver.manage().window().getSize().width-50,driver.manage().window().getSize().height-50);
+
     }
     
     public static String GetValue(FindResource annotation) throws InterruptedException
