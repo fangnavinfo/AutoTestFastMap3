@@ -72,6 +72,10 @@ public class Page_MainBoard extends FastMapPage
     @FindResource(Id="info_pop_add_frame", ios_name="面情报")
     public static String FRAME_INFO;
 
+    @FindResource(Id="iv_map_gps_status")
+    public static String GPS;
+    @FindResource(Id="location_pop_check_location")
+    public static String GPS_START;
     public static Page_MainBoard Inst;
     static
     {

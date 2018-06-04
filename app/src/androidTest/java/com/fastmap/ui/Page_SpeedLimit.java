@@ -26,6 +26,9 @@ public class Page_SpeedLimit extends Page_Base_Tips
     @FindResource(Id="speed_limit_type_condition", ios_name="gridView_sl_condition.png")
     public static String CONDITIONLIMIT;
 
+    @FindResource(Id="card_speed_limit_type_truck")
+    public static String TRUCKLIMIT;
+
     public static Page_SpeedLimit Inst;
     static
     {
