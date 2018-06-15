@@ -76,6 +76,7 @@ public class Page_MainBoard extends FastMapPage
     public static String GPS;
     @FindResource(Id="location_pop_check_location")
     public static String GPS_START;
+
     public static Page_MainBoard Inst;
     static
     {

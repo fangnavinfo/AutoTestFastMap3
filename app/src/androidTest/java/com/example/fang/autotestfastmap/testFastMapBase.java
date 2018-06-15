@@ -1,5 +1,4 @@
 package com.example.fang.autotestfastmap;
-import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_Confirm;
@@ -868,7 +867,16 @@ public class testFastMapBase
 
         for (String[] attrib : attribs)
         {
-            Page_POI.Inst.SetValue(attrib[0], attrib[1]);
+            try {
+                Thread.sleep(1000);
+                Page_POI.Inst.SetValue(attrib[0], attrib[1]);
+            }
+            catch(Exception e)
+            {
+
+            }
+
+            Thread.sleep(1000);
         }
 
         String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
@@ -1150,10 +1158,10 @@ public class testFastMapBase
 
         Thread.sleep(1000);
 
-        if (!FastMapPage.IS_OS_TEST)
-        {
-            Page_MainBoard.Inst.ClickCenter();
-        }
+//        if (!FastMapPage.IS_OS_TEST)
+//        {
+//            Page_MainBoard.Inst.ClickCenter();
+//        }
     }
 
     protected void SearchTips(String rowkey) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
