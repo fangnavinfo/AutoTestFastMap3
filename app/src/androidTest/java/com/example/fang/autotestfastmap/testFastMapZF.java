@@ -1309,6 +1309,83 @@ public class testFastMapZF extends testFastMapBase
         assertEquals("20180619121212", fieldDateAfter);
 
     }
+
+    // t_fieldDate字段赋值原则（非室内整理，测线）
+    @Test
+    public void test00122_5_tips_t_filedDate_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 500));
+        Page_MainBoard.Inst.Click(new Point(1250, 800));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.updateFieldDate("20180619121212");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //打断测线
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1250, 650));
+        Page_MainBoard.Inst.Drag(1800,1000,1800,200,10);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.EDIT_BREAK);
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Sqlitetools.RefreshData();
+        int count = Sqlitetools.GetDataCount("20180619121212", "20180619121212");
+
+        assertEquals(0, count);
+
+    }
+
+    // t_fieldDate字段赋值原则（室内整理，测线）
+    @Test
+    public void test00122_6_tips_t_filedDate_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 500));
+        Page_MainBoard.Inst.Click(new Point(1250, 800));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
+        Page_MainBoard.Inst.ClickByText("测线");
+        Page_MainBoard.Inst.ClickByText("测线");
+        Page_MainBoard.Inst.Drag(1800,1000,1800,200,10);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.EDIT_BREAK);
+        Page_MainBoard.Inst.Click(new Point(704, 970));
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals(fieldDateBefore,fieldDateAfter);
+
+    }
+
+
     
 
     // FM_1113_2_1 车道限速

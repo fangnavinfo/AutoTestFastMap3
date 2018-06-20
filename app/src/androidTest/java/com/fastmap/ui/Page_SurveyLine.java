@@ -47,6 +47,9 @@ public class Page_SurveyLine extends Page_Base_Tips
     @FindResource(clazz = "android.widget.Button", Text="测线修形")
     public static String EDIT_SHAPE;
 
+    @FindResource(Id = "btn_break_testline", Text="测线打断")
+    public static String EDIT_BREAK;
+
     @FindResource(clazz="android.widget.ScrollView")
     public static String SCROLL;
 

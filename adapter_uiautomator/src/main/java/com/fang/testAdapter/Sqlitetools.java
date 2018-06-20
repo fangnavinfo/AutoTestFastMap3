@@ -312,6 +312,39 @@ public class Sqlitetools
         }
     }
 
+    public static int GetDataCount(String operateDate, String fieldDate) throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+
+        try
+        {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_tips\")", null);
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    TipsTableInfo.put(c.getString(1),  c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+
+            String sql = "select * from edit_tips where t_fieldDate = '" + fieldDate + "'";
+            Cursor cursor = db.rawQuery(sql, null);
+
+            return cursor.getCount();
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
+    }
+
+
     public static Object GetTipsDataByRowKey(String rowkey, String colu) throws Exception
     {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
