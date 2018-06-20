@@ -176,6 +176,37 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.POI_TYPE, "彩票投注站");
     }
 
+    @Test
+    public void test00210_poi_relationship() throws Exception
+    {
+        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
+        String infoFid =AddPOI(attrib1);
+
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+
+        AddPOI(attrib2);
+
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MultiList.Inst.ClickbyText("中餐馆ＴＥＳＴ１");
+
+        Page_POI.Inst.Click(Page_POI.TOTAL_NAME);
+        String temp = Page_POI.Inst.GetValue(Page_POI.NAME);
+        assertEquals(temp, "大厦TEST1_中餐馆TEST1");
+        Thread.sleep(3000);
+        Page_POI.Inst.Click(Page_POI.TOTAL_NAME);
+        temp = Page_POI.Inst.GetValue(Page_POI.NAME);
+        assertEquals(temp, "大厦TEST1_中餐馆TEST1");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+    }
+
     @Test @IMPORTANT
     public void test00702_info_Point_testPath() throws Exception
     {
@@ -6018,4 +6049,194 @@ public class testFastMapYL extends testFastMapBase
         Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.SAVE);
         ExitIndoorTools();
     }
+
+    @Test
+    public void test05401_conditionlimit() throws Exception
+    {
+        //卡车条件限速
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKCONDITION);
+        Page_TruckCondition.Inst.ClickbyText("开始限速");
+        Page_TruckCondition.Inst.ClickbyText("40");
+        Page_TruckCondition.Inst.ClickbyText("总轴数");
+        Page_TruckCondition.Inst.Drag(1824,1290,1824,527,5);
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.SetValue(Page_TruckCondition.REMARK,"测试");
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_TruckCondition.Inst.ClickbyText("解除限速");
+        Page_TruckCondition.Inst.ClickbyText("雪");
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车条件限速");
+        ExitMyData();
+    }
+
+    @Test
+    public void test05402_conditionlimit() throws Exception
+    {
+        //卡车条件限速 我的数据
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKCONDITION);
+        Page_TruckCondition.Inst.ClickbyText("开始限速");
+        Page_TruckCondition.Inst.ClickbyText("40");
+        Page_TruckCondition.Inst.ClickbyText("雨");
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+        CheckMyData(Page_MyData.TIPS_TYPE,"卡车条件限速");
+        Page_MyData.Inst.ClickbyText("卡车条件限速");
+        Thread.sleep(2000);
+        Page_TruckCondition.Inst.ClickbyText("调整箭头方向");
+        Page_TruckCondition.Inst.ClickbyText("解除限速");
+        Page_TruckCondition.Inst.ClickbyText("雪");
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.Drag(1824,1290,1824,1027,5);
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.ClickbyText("50");
+        Page_TruckCondition.Inst.Drag(1824,1290,1824,527,5);
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.SetValue(Page_TruckCondition.REMARK,"测试");
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test05403_conditionlimit() throws Exception
+    {
+        //卡车条件限速 室内整理工具
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKCONDITION);
+        Page_TruckCondition.Inst.ClickbyText("开始限速");
+        Page_TruckCondition.Inst.ClickbyText("40");
+        Page_TruckCondition.Inst.ClickbyText("雨");
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.FILTER);
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.SetValue(Page_IndoorMyData.FILTER_EDTOR,"卡车条件");
+        Page_IndoorMyData.Inst.ClickbyText("卡车条件限速");
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CONFIRM);
+        Page_IndoorMyData.Inst.ClickbyText("卡车条件限速");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("卡车条件限速");
+        Thread.sleep(2000);
+        Page_IndoorMyData.Inst.ClickbyText("移动点位");
+        Page_TruckCondition.Inst.ClickbyText("调整箭头方向");
+        Page_TruckCondition.Inst.ClickbyText("解除限速");
+        Page_TruckCondition.Inst.ClickbyText("雪");
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+        ExitIndoorTools();
+    }
+
+    @Test
+    public void test05404_conditionlimit() throws Exception
+    {
+        //卡车条件限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKCONDITION);
+        Page_TruckCondition.Inst.ClickbyText("时间限制");
+        Page_TruckCondition.Inst.ClickbyText("总重量");
+        Page_TruckCondition.Inst.ClickbyText("110");
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车条件限速");
+        Thread.sleep(2000);
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Page_TruckCondition.Inst.Drag(1824,1290,1824,1027,5);
+        Thread.sleep(1000);
+        Page_TruckCondition.Inst.isChecked(Page_TruckCondition.TOTALWEIGHT);
+        Page_TruckCondition.Inst.isChecked(Page_TruckCondition.TIMELIMIT);
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int se = jsonObject.getInt("se");
+        int value = jsonObject.getInt("value");
+        assertSame(type, 2);
+        assertSame(se, 0);
+        assertSame(value, 110);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车条件限速");
+        Thread.sleep(2000);
+        Page_ConditionSpeedLimit.Inst.Click(Page_ConditionSpeedLimit.DELETE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test05405_conditionlimit() throws Exception
+    {
+        //卡车条件限速
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKCONDITION);
+        Page_TruckCondition.Inst.ClickbyText("开始限速");
+        Page_TruckCondition.Inst.ClickbyText("60");
+        Page_TruckCondition.Inst.ClickbyText("雪");
+        Page_TruckCondition.Inst.Drag(1795,1200,1795,700,5);
+        Page_TruckCondition.Inst.SetValue(Page_ConditionSpeedLimit.REMARK,"测试卡车条件限速");
+        Page_TruckCondition.Inst.Click(Page_ConditionSpeedLimit.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车条件限速");
+        Thread.sleep(2000);
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Page_TruckCondition.Inst.ClickbyText("雾");
+        Page_TruckCondition.Inst.isChecked(Page_TruckCondition.FOG);
+        Page_TruckCondition.Inst.Drag(1795,1200,1795,700,5);
+        Page_TruckCondition.Inst.ClickbyText("80");
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getJSONObject("f").getInt("type");
+        int se = jsonObject.getInt("se");
+        int value = jsonObject.getInt("value");
+        assertSame(type, 1);
+        assertSame(se, 0);
+        assertSame(value, 80);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车条件限速");
+        Thread.sleep(2000);
+        Page_TruckCondition.Inst.Click(Page_TruckCondition.CANCEL);
+        ExitMyData();
+    }
+
 }

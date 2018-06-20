@@ -29,6 +29,8 @@ public class Page_SpeedLimit extends Page_Base_Tips
     @FindResource(Id="card_speed_limit_type_truck")
     public static String TRUCKLIMIT;
 
+    @FindResource(Id="speed_limit_type_truck_condition")
+    public static String TRUCKCONDITION;
     public static Page_SpeedLimit Inst;
     static
     {

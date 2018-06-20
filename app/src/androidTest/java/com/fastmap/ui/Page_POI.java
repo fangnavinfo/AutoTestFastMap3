@@ -69,6 +69,8 @@ public class Page_POI extends FastMapPage
     @FindResource(clazz="android.widget.TextView", Text = "多媒体")
     public static String MULIT_MEDIA;
 
+    @FindResource(Id="fm_iv_name")
+    public static String TOTAL_NAME;
     public static Page_POI Inst;
     static
     {
