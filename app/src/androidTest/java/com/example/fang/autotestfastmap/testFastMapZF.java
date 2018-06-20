@@ -1455,6 +1455,67 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // POI：充电站采集变更
+    @Test
+    public void test00123_3_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_PARKING_NO));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_SIGNBOARD_NO));
+
+    }
+
+    // POI：充电站采集变更
+    @Test
+    public void test00123_4_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGE_PARKING_YES);
+        Page_POI.Inst.Click(Page_POI.CHARGE_SIGNBOARD_YES);
+
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_PARKING_YES));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_SIGNBOARD_YES));
+
+    }
+
     
 
     // FM_1113_2_1 车道限速

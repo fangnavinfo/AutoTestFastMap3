@@ -69,11 +69,24 @@ public class Page_POI extends FastMapPage
     @FindResource(clazz="android.widget.TextView", Text = "多媒体")
     public static String MULIT_MEDIA;
 
+    //充电枪
     @FindResource(Id="rbtn_charge_stake_gun_0", Text="有")
     public static String CHARGE_GUN;
-
     @FindResource(Id="rbtn_charge_stake_gun_1", Text="无")
     public static String NO_CHARGE_GUN;
+
+    //停车管理
+    @FindResource(Id="rbtn_chargingStation_park_manager_no", Text="无")
+    public static String CHARGE_PARKING_NO;
+    @FindResource(Id="rbtn_chargingStation_park_manager_yes", Text="有")
+    public static String CHARGE_PARKING_YES;
+
+    //指示牌
+    @FindResource(Id="rbtn_chargingStation_park_signboard_no", Text="无")
+    public static String CHARGE_SIGNBOARD_NO;
+    @FindResource(Id="rbtn_chargingStation_park_signboard_yes", Text="有")
+    public static String CHARGE_SIGNBOARD_YES;
+
 
     @FindResource(Id="fmcard_et_charging_connectorId")
     public static String CHARGING_CONNECTOR_ID;
