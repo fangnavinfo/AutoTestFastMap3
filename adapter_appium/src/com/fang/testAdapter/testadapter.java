@@ -21,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -486,7 +487,8 @@ public class testadapter
 	
 	public static void Drag(int startX, int startY, int endX, int endY, int steps)
     {
-		new TouchAction(driver).press(startX, startY).moveTo(endX-startX, endY-startY).release().perform();
+		Duration duration=Duration.ofSeconds(1);
+		(new TouchAction(driver).press(startX,startY).waitAction(duration).moveTo(endX, endY).release()).perform();
     }
 	
 	private static WebElement GetElement(FindResource annotation) throws InterruptedException
