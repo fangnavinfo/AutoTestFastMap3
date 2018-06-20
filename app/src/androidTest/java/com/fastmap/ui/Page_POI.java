@@ -69,6 +69,15 @@ public class Page_POI extends FastMapPage
     @FindResource(clazz="android.widget.TextView", Text = "多媒体")
     public static String MULIT_MEDIA;
 
+    @FindResource(Id="rbtn_charge_stake_gun_0", Text="有")
+    public static String CHARGE_GUN;
+
+    @FindResource(Id="rbtn_charge_stake_gun_1", Text="无")
+    public static String NO_CHARGE_GUN;
+
+    @FindResource(Id="fmcard_et_charging_connectorId")
+    public static String CHARGING_CONNECTOR_ID;
+
     @FindResource(Id="fm_iv_name")
     public static String TOTAL_NAME;
     public static Page_POI Inst;

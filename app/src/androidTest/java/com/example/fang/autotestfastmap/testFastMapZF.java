@@ -1385,6 +1385,75 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // POI：充电桩采集变更
+    @Test
+    public void test00123_1_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.isExistByName("1234567890abcdefghijklmnopqrstuvwxyz");
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_GUN));
+
+    }
+
+    // POI：充电桩采集变更
+    @Test
+    public void test00123_2_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.isExistByName("1234567890abcdefghijklmnopqrstuvwxyz");
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.NO_CHARGE_GUN));
+
+    }
 
     
 
