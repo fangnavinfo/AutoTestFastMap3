@@ -1179,6 +1179,136 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_MainBoard.Inst.isExistByName("２层"));
 
     }
+
+    // t_fieldDate字段赋值原则（非室内整理界面，当天）
+    @Test
+    public void test00122_1_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals(fieldDateBefore,fieldDateAfter);
+
+    }
+
+    // t_fieldDate字段赋值原则（非室内整理界面，非当天）
+    @Test
+    public void test00122_2_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.updateFieldDate("20180619121212");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertNotEquals("20180619121212", fieldDateAfter);
+
+    }
+
+    // t_fieldDate字段赋值原则（室内整理界面，当天）
+    @Test
+    public void test00122_3_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals(fieldDateBefore,fieldDateAfter);
+
+    }
+
+    // t_fieldDate字段赋值原则（室内整理界面，非当天）
+    @Test
+    public void test00122_4_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.updateFieldDate("20180619121212");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals("20180619121212", fieldDateAfter);
+
+    }
     
 
     // FM_1113_2_1 车道限速

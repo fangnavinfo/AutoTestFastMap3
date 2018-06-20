@@ -161,6 +161,34 @@ public class Sqlitetools
         }
     }
 
+    public static void updateFieldDate(String newDate) throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+
+        boolean b = false;
+        try
+        {
+            ContentValues cv = new ContentValues();
+            cv.put("t_operateDate", newDate);
+            cv.put("t_fieldDate", newDate);
+            //String whereClause="globalId=?";
+
+            //String [] whereArgs = {globalId};
+
+            //db.execSQL("PRAGMA journal_mode=DELETE ");
+
+            db.update("edit_tips", cv, null, null);
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
+    }
+
 //    public static String GetRelateChildren(String infoFid) throws Exception
 //    {
 //        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
@@ -223,6 +251,55 @@ public class Sqlitetools
                     return cursor.getBlob(index);
                 default:
                     throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
+    }
+
+    public static Object GetFieldDate() throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+
+        try
+        {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_tips\")", null);
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    TipsTableInfo.put(c.getString(1),  c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+
+            String sql = "select * from edit_tips";
+            Cursor cursor = db.rawQuery(sql, null);
+            if (!cursor.moveToFirst())
+            {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            int index = cursor.getColumnIndex("t_fieldDate");
+            switch (TipsTableInfo.get("t_fieldDate"))
+            {
+                case "integer":
+                    return cursor.getInt(index);
+                case "text":
+                    return cursor.getString(index);
+                case "Text":
+                    return cursor.getString(index);
+                case "blob":
+                    return cursor.getBlob(index);
+                default:
+                    throw new UnsupportedOperationException("column:" + "t_fieldDate" + ", type:" + TipsTableInfo.get("t_fieldDate"));
             }
         }
         catch (Exception e)
