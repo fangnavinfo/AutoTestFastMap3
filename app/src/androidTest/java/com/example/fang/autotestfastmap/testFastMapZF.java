@@ -276,14 +276,14 @@ public class testFastMapZF extends testFastMapBase
     {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                               {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid =AddPOI(attrib1);
+        String infoFid =AddPOI(attrib1,"116.40557", "39.96121");
 
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                               {Page_POI.SELECT_TYPE, "中餐馆"},
                               {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
-        AddPOI(attrib2);
+        AddPOI(attrib2,"116.40557", "39.96121");
 
         Thread.sleep(1000);
 
@@ -297,7 +297,7 @@ public class testFastMapZF extends testFastMapBase
         
         //移动父POI
         Page_MultiList.Inst.Click(Page_MultiList.CHECK_LIST_ITEM);
-        Page_MultiList.Inst.Click(Page_MultiList.MOVE);
+        //Page_MultiList.Inst.Click(Page_MultiList.MOVE);
         Page_MultiList.Inst.Click(Page_MultiList.MOVE_POINT_AND_LINE);
 
         Page_MainBoard.Inst.Drag(1024, 816, 1024, 1160, 10);
