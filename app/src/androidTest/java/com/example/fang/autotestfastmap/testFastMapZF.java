@@ -313,6 +313,36 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    //采集端父冠子名时加“-”
+    @Test
+    public void test00105_3_poi_father_name_check() throws Exception
+    {
+
+        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
+
+        AddPOI(attrib1);
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+
+        AddPOI(attrib2);
+
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("中餐馆ＴＥＳＴ１");
+
+        Page_POI.Inst.Click(Page_POI.NAME_ICON);
+
+        assertEquals("大厦ＴＥＳＴ１-中餐馆ＴＥＳＴ１",Page_POI.Inst.GetValue(Page_POI.NAME));
+
+        Page_POI.Inst.Click(Page_POI.NAME_ICON);
+
+        assertEquals("中餐馆ＴＥＳＴ１",Page_POI.Inst.GetValue(Page_POI.NAME));
+    }
+
     // POI 错误列表增加父子关系、同一关系错误类型
     @Test
     public void test00106_poi_same_error_check() throws Exception

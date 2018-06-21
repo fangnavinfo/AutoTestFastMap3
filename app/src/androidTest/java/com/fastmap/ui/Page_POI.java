@@ -11,6 +11,9 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="fm_et_name", ios_name="请输入名称")
     public static String NAME;
 
+    @FindResource(Id="fm_iv_name")
+    public static String NAME_ICON;
+
     @FindResource(Id="tv_assort_type", Text="请选择分类", ios_name="请选择类别")
     public static String SELECT_TYPE;
     @FindResource(Id="tv_poi_brand", Text="请选择品牌")
