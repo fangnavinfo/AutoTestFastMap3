@@ -276,14 +276,14 @@ public class testFastMapZF extends testFastMapBase
     {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                               {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid =AddPOI(attrib1);
+        String infoFid =AddPOI(attrib1,"116.40557", "39.96121");
 
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                               {Page_POI.SELECT_TYPE, "中餐馆"},
                               {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
-        AddPOI(attrib2);
+        AddPOI(attrib2,"116.40557", "39.96121");
 
         Thread.sleep(1000);
 
@@ -297,7 +297,7 @@ public class testFastMapZF extends testFastMapBase
         
         //移动父POI
         Page_MultiList.Inst.Click(Page_MultiList.CHECK_LIST_ITEM);
-        Page_MultiList.Inst.Click(Page_MultiList.MOVE);
+        //Page_MultiList.Inst.Click(Page_MultiList.MOVE);
         Page_MultiList.Inst.Click(Page_MultiList.MOVE_POINT_AND_LINE);
 
         Page_MainBoard.Inst.Drag(1024, 816, 1024, 1160, 10);
@@ -311,6 +311,36 @@ public class testFastMapZF extends testFastMapBase
         String child = new String((byte[])Sqlitetools.GePoiDataByFid(infoFid, "relateChildren"));
         assertEquals(child, "[]");
 
+    }
+
+    //采集端父冠子名时加“-”
+    @Test
+    public void test00105_3_poi_father_name_check() throws Exception
+    {
+
+        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
+
+        AddPOI(attrib1);
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+
+        AddPOI(attrib2);
+
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+        Page_MyData.Inst.SelectData("中餐馆ＴＥＳＴ１");
+
+        Page_POI.Inst.Click(Page_POI.NAME_ICON);
+
+        assertEquals("大厦ＴＥＳＴ１-中餐馆ＴＥＳＴ１",Page_POI.Inst.GetValue(Page_POI.NAME));
+
+        Page_POI.Inst.Click(Page_POI.NAME_ICON);
+
+        assertEquals("中餐馆ＴＥＳＴ１",Page_POI.Inst.GetValue(Page_POI.NAME));
     }
 
     // POI 错误列表增加父子关系、同一关系错误类型
@@ -959,8 +989,10 @@ public class testFastMapZF extends testFastMapBase
         }catch (Exception e) {
 
         }
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("风景名胜售票点ＴＥＳＴ");
 
-        assertTrue(Page_TrueSence.Inst.isExistByName("保存")||Page_MainBoard.Inst.isExistByName("气泡"));
+        assertTrue(Page_TrueSence.Inst.isExistByName("同一关系"));
     }
     //补充同一关系原则
     //旅游观光（180403）可以和任意类型（除自身以及210304风景名胜售票点）做同一关系
@@ -1006,7 +1038,10 @@ public class testFastMapZF extends testFastMapBase
 
         }
 
-        assertTrue(Page_TrueSence.Inst.isExistByName("保存")||Page_MainBoard.Inst.isExistByName("气泡"));
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("风景名胜售票点ＴＥＳＴ");
+
+        assertTrue(Page_TrueSence.Inst.isExistByName("同一关系"));
     }
 
     //补充同一关系原则
@@ -1150,17 +1185,17 @@ public class testFastMapZF extends testFastMapBase
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "百货商场零售"}};
 
-        AddPOI(attrib1);
+        AddPOI(attrib1,"116.40557", "39.96121");
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid1 = AddPOI(attrib2);
+        String fid1 = AddPOI(attrib2,"116.40557", "39.96121");
 
         String[][] attrib3 = {{Page_POI.NAME, "异国风味TEST1"},
                 {Page_POI.SELECT_TYPE, "异国风味"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid2 = AddPOI(attrib3);
+        String fid2 = AddPOI(attrib3,"116.40557", "39.96121");
 
         Sqlitetools.RefreshData();
 
@@ -1173,12 +1208,351 @@ public class testFastMapZF extends testFastMapBase
 
         Sqlitetools.RefreshData();
 
+        SearchLocation("116.40557", "39.96121");
         Page_MainBoard.Inst.ClickCenter();
 
         assertTrue(Page_MainBoard.Inst.isExistByName("１层"));
         assertTrue(Page_MainBoard.Inst.isExistByName("２层"));
 
     }
+
+    // t_fieldDate字段赋值原则（非室内整理界面，当天）
+    @Test
+    public void test00122_1_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals(fieldDateBefore,fieldDateAfter);
+
+    }
+
+    // t_fieldDate字段赋值原则（非室内整理界面，非当天）
+    @Test
+    public void test00122_2_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.updateFieldDate("20180619121212");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertNotEquals("20180619121212", fieldDateAfter);
+
+    }
+
+    // t_fieldDate字段赋值原则（室内整理界面，当天）
+    @Test
+    public void test00122_3_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals(fieldDateBefore,fieldDateAfter);
+
+    }
+
+    // t_fieldDate字段赋值原则（室内整理界面，非当天）
+    @Test
+    public void test00122_4_tips_t_filedDate_check() throws Exception
+    {
+        //增加匝道
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_Ramp.Inst.Click(Page_Ramp.RAMP);
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.updateFieldDate("20180619121212");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_MainBoard.Inst.ClickByText("匝道");
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals("20180619121212", fieldDateAfter);
+
+    }
+
+    // t_fieldDate字段赋值原则（非室内整理，测线）
+    @Test
+    public void test00122_5_tips_t_filedDate_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 500));
+        Page_MainBoard.Inst.Click(new Point(1250, 800));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.updateFieldDate("20180619121212");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //打断测线
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1250, 650));
+        Page_MainBoard.Inst.Drag(1800,1000,1800,200,10);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.EDIT_BREAK);
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Sqlitetools.RefreshData();
+        int count = Sqlitetools.GetDataCount("20180619121212", "20180619121212");
+
+        assertEquals(0, count);
+
+    }
+
+    // t_fieldDate字段赋值原则（室内整理，测线）
+    @Test
+    public void test00122_6_tips_t_filedDate_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 500));
+        Page_MainBoard.Inst.Click(new Point(1250, 800));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateBefore = Sqlitetools.GetFieldDate().toString();
+
+        //修改
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
+        Page_MainBoard.Inst.ClickByText("测线");
+        Page_MainBoard.Inst.ClickByText("测线");
+        Page_MainBoard.Inst.Drag(1800,1000,1800,200,10);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.EDIT_BREAK);
+        Page_MainBoard.Inst.Click(new Point(704, 970));
+        Page_Ramp.Inst.Click(Page_Ramp.SAVE);
+
+        Sqlitetools.RefreshData();
+        String fieldDateAfter = Sqlitetools.GetFieldDate().toString();
+
+        assertEquals(fieldDateBefore,fieldDateAfter);
+
+    }
+
+    // POI：充电桩采集变更
+    @Test
+    public void test00123_1_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.isExistByName("1234567890abcdefghijklmnopqrstuvwxyz");
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_GUN));
+
+    }
+
+    // POI：充电桩采集变更
+    @Test
+    public void test00123_2_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.isExistByName("1234567890abcdefghijklmnopqrstuvwxyz");
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.NO_CHARGE_GUN));
+
+    }
+
+    // POI：充电站采集变更
+    @Test
+    public void test00123_3_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_PARKING_NO));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_SIGNBOARD_NO));
+
+    }
+
+    // POI：充电站采集变更
+    @Test
+    public void test00123_4_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGE_PARKING_YES);
+        Page_POI.Inst.Click(Page_POI.CHARGE_SIGNBOARD_YES);
+
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_PARKING_YES));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.CHARGE_SIGNBOARD_YES));
+
+    }
+
     
 
     // FM_1113_2_1 车道限速
