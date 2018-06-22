@@ -29,12 +29,17 @@ public class Page_FunctionalArea extends Page_Base_Tips
     public static String STADIUM;
     @FindResource(Id="rbtn_airport", ios_name="gridView_function_airport.png")
     public static String AIRPORT;
+    @FindResource(Id="rbtn_hotel")
+    public static String HOTEL;
+    @FindResource(Id="rbtn_logistics_park")
+    public static String PARK;
 
     @FindResource(Id="edit_name", Text="请输入名称")
     public static String NAME;
-
     @FindResource(clazz="android.widget.TextView", Text="名称")
     public static String NAME_STATIC;
+    @FindResource(Id="tv_complete")
+    public static String MODIFY_SAVE;
 
     public static Page_FunctionalArea Inst;
     static

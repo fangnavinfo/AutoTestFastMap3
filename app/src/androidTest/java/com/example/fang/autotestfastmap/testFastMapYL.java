@@ -1,6 +1,55 @@
 package com.example.fang.autotestfastmap;
-import com.fang.testAdapter.*;
-import com.fastmap.ui.*;
+
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.Point;
+import com.fang.testAdapter.Sqlitetools;
+import com.fastmap.ui.Page_AddPoint;
+import com.fastmap.ui.Page_BuildingArea;
+import com.fastmap.ui.Page_ConditionSpeedLimit;
+import com.fastmap.ui.Page_Dangerous;
+import com.fastmap.ui.Page_ElecEye;
+import com.fastmap.ui.Page_FunctionalArea;
+import com.fastmap.ui.Page_Gate;
+import com.fastmap.ui.Page_Gradient;
+import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_HighSpeedEntryPic;
+import com.fastmap.ui.Page_IndoorMyData;
+import com.fastmap.ui.Page_InfoAccept;
+import com.fastmap.ui.Page_InfoFrame;
+import com.fastmap.ui.Page_InfoLine;
+import com.fastmap.ui.Page_InfoPoint;
+import com.fastmap.ui.Page_LaneChangePoint;
+import com.fastmap.ui.Page_LaneInfo;
+import com.fastmap.ui.Page_Light;
+import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MilePost;
+import com.fastmap.ui.Page_MultiList;
+import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_NoParking;
+import com.fastmap.ui.Page_NormalCrossPic;
+import com.fastmap.ui.Page_Note;
+import com.fastmap.ui.Page_OfflineMap;
+import com.fastmap.ui.Page_POI;
+import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_RoadName;
+import com.fastmap.ui.Page_RoadNameSign;
+import com.fastmap.ui.Page_RoundAbout;
+import com.fastmap.ui.Page_Search;
+import com.fastmap.ui.Page_SearchResultList;
+import com.fastmap.ui.Page_Sketch;
+import com.fastmap.ui.Page_SpeedLimit;
+import com.fastmap.ui.Page_SpeedLimitLane;
+import com.fastmap.ui.Page_StartEndPoint;
+import com.fastmap.ui.Page_SurveyLine;
+import com.fastmap.ui.Page_TimeCtl;
+import com.fastmap.ui.Page_TollGate;
+import com.fastmap.ui.Page_TruckCondition;
+import com.fastmap.ui.Page_TruckLimit;
+import com.fastmap.ui.Page_TruckLimitLane;
+import com.fastmap.ui.Page_VariableSpeedLimit;
+import com.fastmap.ui.Page_VehicleLane;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
@@ -37,9 +86,9 @@ public class testFastMapYL extends testFastMapBase
 
     @Before
     public void setUp() throws Exception {
-        testFastMapBase.setClassUp("collector1","123456");
-        Page_MainBoard.Inst.ClickCenter();
-        //testFastMapBase.setClassUp("zhanglingling03655","036550");
+//        testFastMapBase.setClassUp("collector1","123456");
+//        Page_MainBoard.Inst.ClickCenter();
+        testFastMapBase.setClassUp("zhanglingling03655","036550");
         //testFastMapBase.setClassUp("wukunyu02074","wy0207402815");
     }
 
@@ -5677,6 +5726,112 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
+    public void test05003_FunctionalArea() throws Exception
+    {
+        //新增酒店
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.COMPLETE);
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.HOTEL);
+        Page_FunctionalArea.Inst.Drag(1634,1164,1634,600,5);
+        Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME,"测试");
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+        Page_FunctionalArea.Inst.Drag(1634,1164,1634,600,5);
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("功能面");
+        Page_MyData.Inst.ClickbyText("功能面");
+        Thread.sleep(2000);
+        String rowkey = Page_FunctionalArea.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int tp = jsonObject.getInt("tp");
+        assertSame(tp,51);
+    }
+
+    @Test
+    public void test05004_FunctionalArea() throws Exception
+    {
+        //新增酒店
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.COMPLETE);
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.HOTEL);
+        Page_FunctionalArea.Inst.Drag(1634,1164,1634,600,5);
+        Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME,"测试");
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("功能面");
+        Page_MyData.Inst.ClickbyText("功能面");
+        Thread.sleep(2000);
+        Page_FunctionalArea.Inst.ClickbyText("修改形状");
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.MODIFY_SAVE);
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+        ExitMyData();
+    }
+
+    @Test
+    public void test05005_FunctionalArea() throws Exception
+    {
+        //新增物流园
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.COMPLETE);
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.PARK);
+        Page_FunctionalArea.Inst.Drag(1634,1164,1634,600,5);
+        Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME,"测试");
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("功能面");
+        Page_MyData.Inst.ClickbyText("功能面");
+        Thread.sleep(2000);
+        String rowkey = Page_TruckLimitLane.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int tp = jsonObject.getInt("tp");
+        assertSame(tp,52);
+    }
+
+    @Test
+    public void test05006_FunctionalArea() throws Exception
+    {
+        //新增物流园
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(800,500));
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.COMPLETE);
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.PARK);
+        Page_FunctionalArea.Inst.Drag(1634,1164,1634,600,5);
+        Page_FunctionalArea.Inst.SetValue(Page_FunctionalArea.NAME,"测试");
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.isExistByName("功能面");
+        Page_MyData.Inst.ClickbyText("功能面");
+        Thread.sleep(2000);
+        Page_FunctionalArea.Inst.ClickbyText("修改形状");
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.MODIFY_SAVE);
+        Page_FunctionalArea.Inst.Click(Page_FunctionalArea.SAVE);
+        ExitMyData();
+    }
+
+    @Test
     public void test05101_trucklimitlane() throws Exception
     {
         //卡车限速 默认1 开始限速
@@ -5836,8 +5991,58 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
+        //6,6
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM6);
-        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM7);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM6);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("0",temp2);
+        //1,5
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM5);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("0",temp2);
+        //2,5
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("0",temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.LEFTCHANGE);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("2",temp1);
+        assertEquals("1",temp2);
+        //4,2
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM4);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("2",temp1);
+        assertEquals("1",temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.RIGHTHANGE);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("2",temp2);
+
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.RIGHTHANGE);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("1",temp1);
+        assertEquals("1",temp2);
+
         Page_LaneChangePoint.Inst.SetValue(Page_LaneChangePoint.REMARK,"测试");
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
 
@@ -5852,8 +6057,8 @@ public class testFastMapYL extends testFastMapBase
         int outNum = jsonObject.getInt("outNum");
         JSONObject f = jsonObject.getJSONObject("f");
         int type = f.getInt("type");
-        assertSame(inNum,6);
-        assertSame(outNum,7);
+        assertSame(inNum,4);
+        assertSame(outNum,2);
         assertSame(type,1);
     }
 
@@ -5872,6 +6077,11 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM6);
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM7);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("1",temp2);
+
         Page_LaneChangePoint.Inst.SetValue(Page_LaneChangePoint.REMARK,"测试2");
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
 
@@ -5897,14 +6107,32 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
-        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM6);
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM7);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM4);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("3",temp2);
        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("车道变化点");
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.CANCEL);
         ExitMyData();
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车道变化点");
+        String rowkey = Page_LaneChangePoint.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int inNum = jsonObject.getInt("inNum");
+        int outNum = jsonObject.getInt("outNum");
+        JSONObject f = jsonObject.getJSONObject("f");
+        int type = f.getInt("type");
+        assertSame(inNum,7);
+        assertSame(outNum,4);
+        assertSame(type,1);
     }
 
     @Test
@@ -5917,6 +6145,19 @@ public class testFastMapYL extends testFastMapBase
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM7);
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
 
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车道变化点");
+        String rowkey = Page_LaneChangePoint.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int inNum = jsonObject.getInt("inNum");
+        int outNum = jsonObject.getInt("outNum");
+        JSONObject f = jsonObject.getJSONObject("f");
+        int type = f.getInt("type");
+        assertSame(inNum,6);
+        assertSame(outNum,7);
+        assertSame(type,1);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("车道变化点");
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.DELETE);
@@ -5947,6 +6188,197 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
+    public void test05206_laneChangePoint() throws Exception
+    {
+        SearchLocation(LOC_K4);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        //2,2 4,2
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("0",temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM4);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.LEFTCHANGE);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车道变化点");
+        String rowkey = Page_LaneChangePoint.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int[] array = new int[4];
+        int i = 0;
+        for(;i<4;i++)
+        {
+            array[i] =  jsonObject.getJSONArray("Form").getInt(i);
+        }
+        assertSame(array[0],1);
+        assertSame(array[1],1);
+        assertSame(array[2],0);
+        assertSame(array[3],0);
+    }
+
+    @Test
+    public void test05207_laneChangePoint() throws Exception
+    {
+        SearchLocation(LOC_K4);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        //1,3
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM3);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0",temp1);
+        assertEquals("2",temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车道变化点");
+        String rowkey = Page_LaneChangePoint.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int[] array = new int[3];
+        int i = 0;
+        for(;i<3;i++)
+        {
+            array[i] =  jsonObject.getJSONArray("Form").getInt(i);
+        }
+        assertSame(array[0],0);
+        assertSame(array[1],1);
+        assertSame(array[2],1);
+
+    }
+
+    @Test
+    public void test05208_laneChangePoint() throws Exception {
+        SearchLocation(LOC_K4);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        //3,1
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM3);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0", temp1);
+        assertEquals("2", temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车道变化点");
+        String rowkey = Page_LaneChangePoint.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int[] array = new int[3];
+        int i = 0;
+        for (; i < 3; i++) {
+            array[i] = jsonObject.getJSONArray("Form").getInt(i);
+        }
+        assertSame(array[0], 0);
+        assertSame(array[1], 1);
+        assertSame(array[2], 1);
+    }
+
+    @Test
+    public void test05209_laneChangePoint() throws Exception {
+        SearchLocation(LOC_K4);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        //3,1
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM3);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0", temp1);
+        assertEquals("2", temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.LEFTCHANGE);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("1", temp1);
+        assertEquals("1", temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车道变化点");
+        String rowkey = Page_LaneChangePoint.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int[] array = new int[3];
+        int i = 0;
+        for (; i < 3; i++) {
+            array[i] = jsonObject.getJSONArray("Form").getInt(i);
+        }
+        assertSame(array[0], 1);
+        assertSame(array[1], 0);
+        assertSame(array[2], 1);
+    }
+
+    @Test
+    public void test05210_laneChangePoint() throws Exception {
+        SearchLocation(LOC_K4);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        //2,5
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.ENTRYNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.BACKNUM);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM5);
+        String temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        String temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("0", temp1);
+        assertEquals("3", temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.RIGHTHANGE);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM1);
+        temp1 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.LEFTCHANGE);
+        temp2 = Page_LaneChangePoint.Inst.GetValue(Page_LaneChangePoint.RIGHTHANGE);
+        assertEquals("2", temp1);
+        assertEquals("1", temp2);
+        Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车道变化点");
+        String rowkey = Page_LaneChangePoint.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+
+        int[] array = new int[5];
+        int i = 0;
+        for (; i < 5; i++) {
+            array[i] = jsonObject.getJSONArray("Form").getInt(i);
+        }
+        assertSame(array[0], 1);
+        assertSame(array[1], 1);
+        assertSame(array[2], 0);
+        assertSame(array[3], 0);
+        assertSame(array[4], 1);
+    }
+
+        @Test
     public void test05301_vehiclelane() throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.VEHICLE_LANE);
@@ -6238,5 +6670,172 @@ public class testFastMapYL extends testFastMapBase
         Page_TruckCondition.Inst.Click(Page_TruckCondition.CANCEL);
         ExitMyData();
     }
+
+    @Test
+    public void test05501_startendpoint() throws Exception
+    {
+        //起终点
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CAR_TEST_BT);
+        Page_MainBoard.Inst.Click(new Point(374,808));
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车辆测试路段");
+        Thread.sleep(2000);
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Thread.sleep(2000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Drag(1787,1285,1787,870,5);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        jsonObject = (JSONObject) jsonObject.getJSONArray("f_array").get(0);
+        int type = jsonObject.getInt("type");
+        assertSame(type, 1);
+    }
+
+    @Test
+    public void test05502_startendpoint() throws Exception
+    {
+        //起终点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CAR_TEST_BT);
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("车辆测试路段");
+        Thread.sleep(2000);
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Thread.sleep(2000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Drag(1787,1285,1787,870,5);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        jsonObject = (JSONObject) jsonObject.getJSONArray("f_array").get(0);
+        int type = jsonObject.getInt("type");
+        assertSame(type, 2);
+    }
+
+    @Test
+    public void test05503_startendpoint() throws Exception
+    {
+        //起终点
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.DRIVING_TEST_BT);
+        Page_StartEndPoint.Inst.SetValue(Page_StartEndPoint.REMARK,"测试测试车道");
+        Page_MainBoard.Inst.Click(new Point(374,808));
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("驾照考试路段");
+        Thread.sleep(2000);
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Thread.sleep(2000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Drag(1787,1285,1787,870,5);
+        String temp = Page_StartEndPoint.Inst.GetValue(Page_StartEndPoint.REMARK);
+        assertEquals("测试测试车道",temp);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        jsonObject = (JSONObject) jsonObject.getJSONArray("f_array").get(0);
+        int type = jsonObject.getInt("type");
+        assertSame(type, 1);
+    }
+
+    @Test
+    public void test05504_startendpoint() throws Exception
+    {
+        //起终点
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.DRIVING_TEST_BT);
+        Page_StartEndPoint.Inst.SetValue(Page_StartEndPoint.REMARK,"测试测试车道");
+        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("驾照考试路段");
+        Thread.sleep(2000);
+        String rowkey = Page_Dangerous.Inst.GetRowKey();
+        Thread.sleep(2000);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
+        Thread.sleep(1000);
+        Page_StartEndPoint.Inst.Drag(1787,1285,1787,870,5);
+        String temp = Page_StartEndPoint.Inst.GetValue(Page_StartEndPoint.REMARK);
+        assertEquals("测试测试车道",temp);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+        ExitMyData();
+
+        Sqlitetools.RefreshData();
+        temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        jsonObject = (JSONObject) jsonObject.getJSONArray("f_array").get(0);
+        int type = jsonObject.getInt("type");
+        assertSame(type, 2);
+    }
+
 
 }

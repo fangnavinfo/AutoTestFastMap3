@@ -46,7 +46,12 @@ public class Page_StartEndPoint extends Page_Base_Tips
     public static String BYPATH_BT;
     @FindResource(Id="traveling_bridge_bt", ios_name="gridView_sedoting_moveBrige.png")
     public static String TRAVELING_BRIDGE_BT;
-
+    @FindResource(Id="car_test_bt")
+    public static String CAR_TEST_BT;
+    @FindResource(Id="driving_test_bt")
+    public static String DRIVING_TEST_BT;
+    @FindResource(Id="change_start_end")
+    public static String CHANGE_START_END;
     public static Page_StartEndPoint Inst;
     static
     {

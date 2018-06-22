@@ -46,7 +46,6 @@ public class Page_BuildingArea extends Page_Base_Tips
     @FindResource(Id="rbtn_building_area_state_name_edit", ios_name="building_relation_2", Text="删除")
     public static String ASSOCIATE_DELETE;
 
-
     public static Page_BuildingArea Inst;
     static
     {

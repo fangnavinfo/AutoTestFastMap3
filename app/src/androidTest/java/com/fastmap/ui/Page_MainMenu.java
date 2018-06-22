@@ -17,7 +17,8 @@ public class Page_MainMenu extends FastMapPage
     public static String ERROR_LIST; //错误列表
     @FindResource(Id="fmcard_tv_sync_photos", ios_name="室内整理工具")
     public static String INDOOR_TOOL; //室内整理工具
-
+    @FindResource(Id="fmcard_tv_user_bg_map", ios_name="离线地图")
+    public static String OFFLINE_MAP; //离线地图
     @FindResource(Id="iv_road_name_back", ios_name="white arrow")
     public static String  ROADNAME_BACK; //退出道路名连线
     
