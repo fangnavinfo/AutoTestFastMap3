@@ -6837,5 +6837,98 @@ public class testFastMapYL extends testFastMapBase
         assertSame(type, 2);
     }
 
+    @Test
+    public void test05601_searchlink() throws Exception
+    {
+        //搜索,前提已经下载了北京 天津 河北省地图数据
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("Link");
+        //此时默认下载省市的全范围搜索，列表默认值北京市
+        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"590483");//天津6899091//北京590484
+        Page_Search.Inst.ClickbyText("精确匹配");
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
+        for (int i=0;i<5;i++)
+        {
+            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
+            {
+                break;
+            }
+            i++;
+        }
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
 
+    }
+
+    @Test
+    public void test05602_searchlink() throws Exception
+    {
+        //搜索,前提已经下载了北京 天津 河北省地图数据
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("Link");
+        //此时默认下载省市的全范围搜索，列表默认值北京市
+        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"6744114");//天津6744114//北京590484
+        Page_Search.Inst.ClickbyText("模糊匹配");
+        Page_Search.Inst.Click(Page_Search.SEARCH_RANGE);
+        Page_Search.Inst.ClickbyText("天津市");
+        Page_Search.Inst.ClickbyText("确定");
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
+        for (int i=0;i<5;i++)
+        {
+            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
+            {
+                break;
+            }
+            i++;
+        }
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+        //搜索天津市此link，历史记录为天津市
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("Link");
+        Page_Search.Inst.isChecked(Page_Search.BLURRY_FIND_LINK);
+        String temp = Page_Search.Inst.GetValue(Page_Search.SEARCH_RANGE);
+        assertEquals(temp,"天津市");
+
+    }
+
+    @Test
+    public void test05603_searchlink() throws Exception
+    {
+        //搜索,前提已经下载了北京 天津 河北省地图数据
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("Link");
+        //此时默认下载省市的全范围搜索，列表默认值天津市
+        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"590484");//天津6744114//北京590484
+        Page_Search.Inst.ClickbyText("精确匹配");
+        Page_Search.Inst.Click(Page_Search.SEARCH_RANGE);
+        Page_Search.Inst.ClickbyText("北京市");
+        Page_Search.Inst.ClickbyText("确定");
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
+        for (int i=0;i<5;i++)
+        {
+            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
+            {
+                break;
+            }
+            i++;
+        }
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+        //删除北京市，点击搜索历史记录为天津市
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.OFFLINE_MAP);
+        Page_OfflineMap.Inst.Click(Page_OfflineMap.MANAGER);
+        Page_OfflineMap.Inst.Click(Page_OfflineMap.GDB_SIZE);
+        Page_OfflineMap.Inst.CtrlFling(new Point(361,426),Page_OfflineMap.GDB_SIZE);
+        String temp = "删\n" + "除";
+        Page_OfflineMap.Inst.ClickbyText(temp);
+        Page_OfflineMap.Inst.ClickbyText("确认");
+        Page_OfflineMap.Inst.Click(Page_OfflineMap.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("Link");
+        Page_Search.Inst.isChecked(Page_Search.EXACT_FIND_LINK);
+        temp = Page_Search.Inst.GetValue(Page_Search.SEARCH_RANGE);
+        assertEquals(temp,"天津市");
+
+    }
 }

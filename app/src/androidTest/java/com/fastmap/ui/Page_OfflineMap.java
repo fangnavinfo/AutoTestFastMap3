@@ -17,8 +17,8 @@ public class Page_OfflineMap extends Page_Base_Tips
     @FindResource(Id="rb_manager")
     public static String MANAGER;
 
-    @FindResource(Id="btn_status_info")
-    public static String INFO;
+    @FindResource(Id="tv_gdb_size")
+    public static String GDB_SIZE;
 
     @FindResource(Id="btn_back")
     public static String BACK;

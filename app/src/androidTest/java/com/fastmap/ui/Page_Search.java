@@ -49,6 +49,11 @@ public class Page_Search extends FastMapPage
     @FindResource(Id="rbtn_search_link_exact", Text = "精确匹配")
     public static String EXACT_FIND_LINK;
 
+    @FindResource(Id="rbtn_search_link_blurry", Text = "模糊匹配")
+    public static String BLURRY_FIND_LINK;
+
+    @FindResource(Id="btn_search_range_link")
+    public static String SEARCH_RANGE;
 
     public static Page_Search Inst;
     static{
