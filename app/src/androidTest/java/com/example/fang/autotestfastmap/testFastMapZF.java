@@ -2002,6 +2002,65 @@ public class testFastMapZF extends testFastMapBase
         AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
     }
 
+    @Test
+    public void test_FM_1406_4_3_1_check() throws Exception
+    {
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(700,268));
+
+        //高速出口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_OUT);
+        //输入编号
+        Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        AssertIndoorCheck("实景图", "中", "FM-1406-4-3", "高速路口实景图的编号不能为空，且必须为8位，首位必须是6或9！","");
+    }
+    @Test
+    public void test_FM_1406_4_3_2_check() throws Exception
+    {
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(700,268));
+
+        //高速入口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_IN);
+        //输入编号
+        Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        AssertIndoorCheck("实景图", "中", "FM-1406-4-3", "高速路口实景图的编号不能为空，且必须为8位，首位必须是6或9！","");
+    }
+
     //FM-1503-6-1
     @Test
     public void test_FM_1503_6_1_1_check() throws Exception
@@ -2098,6 +2157,65 @@ public class testFastMapZF extends testFastMapBase
         ExitMyData();
 
         AssertIndoorCheck("移动式桥", "中", "FM-1521-1-2", "Tips没有关联道路或测线或Node","");
+    }
+
+    @Test
+    public void test_FM_1524_1_2_check() throws Exception
+    {
+        // 测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 530));
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 530));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 700));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CAR_TEST_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测线");
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        Page_MyData.Inst.ClickbyText("仅删除测线");
+        ExitMyData(); //退出我的数据
+
+
+        AssertIndoorCheck("车辆测试路段", "中", "FM-1524-1-2", "Tips没有关联道路或测线或Node","");
+    }
+
+    //FM-1521-1-2
+    @Test
+    public void test_FM_1525_1_2_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 530));
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 530));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 700));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.DRIVING_TEST_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测线");
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        Page_MyData.Inst.ClickbyText("仅删除测线");
+        ExitMyData(); //退出我的数据
+
+        AssertIndoorCheck("驾照考试路段", "中", "FM-1525-1-2", "Tips没有关联道路或测线或Node","");
     }
 
     // 上报情报
