@@ -2127,7 +2127,7 @@ public class testFastMapZF extends testFastMapBase
 
         //获取globalID
         GotoMyData(Page_MyData.INFO_TYPE); //进入我的数据,自采集情报
-        Page_MyData.Inst.ClickbyText("自采集情报(POI)(点)", "测试上报情报6");
+        Page_MyData.Inst.ClickbyText("测试上报情报6", "测试上报情报6");
         globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
         ExitMyData(); //退出我的数据
