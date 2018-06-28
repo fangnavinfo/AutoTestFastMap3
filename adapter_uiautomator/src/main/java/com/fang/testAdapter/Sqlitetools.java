@@ -128,6 +128,39 @@ public class Sqlitetools
         }
     }
 
+    //MS轨迹挖掘成果
+    public static void updateMSdata(String globalId) throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+
+        boolean b = false;
+        try
+        {
+            ContentValues cv = new ContentValues();
+            cv.put("b_sourceCode", 4);
+            //cv.put("i_varField", "[{\"属性的名称1\":\"属性内容1\",\"属性名称2\":\"属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2\"}]");
+            //cv.put("t_sync", 1);
+            //cv.put("b_reliability", 1);
+            //cv.put("i_level", 3);
+            //cv.put("t_isPublished", 1);
+            String whereClause="globalId=?";
+
+            String [] whereArgs = {globalId};
+
+            //db.execSQL("PRAGMA journal_mode=DELETE ");
+
+            db.update("edit_infos", cv, whereClause, whereArgs);
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        finally
+        {
+            db.close();
+        }
+    }
+
     public static void updatePoiFloorInfo(String fid1, String fid2) throws Exception
     {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
