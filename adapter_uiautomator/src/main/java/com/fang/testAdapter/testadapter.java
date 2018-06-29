@@ -301,7 +301,7 @@ public class testadapter
                 userPath = "/sdcard/" + dirName + "/Data/Collect/23";
                 break;
             case "collector2":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/24";
+                userPath = "/sdcard/" + dirName + "/Data/Collect/552803";
                 break;
             case "zhanglingling03655":
                 userPath = "/sdcard/" + dirName + "/Data/Collect/3655";

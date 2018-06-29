@@ -100,7 +100,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("19012345678");
+        assertTrue(Page_POI.Inst.isExistByName("19012345678"));
     }
 
     // POI 联系方式去除手机号不能以146开头的限制
@@ -117,7 +117,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("14612345678");
+        assertTrue(Page_POI.Inst.isExistByName("14612345678"));
     }
 
     // POI 联系方式去除手机号不能以148开头的限制
@@ -134,7 +134,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("14812345678");
+        assertTrue(Page_POI.Inst.isExistByName("14812345678"));
     }
 
     // POI 联系方式去除手机号不能以166开头的限制
@@ -151,7 +151,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("16612345678");
+        assertTrue(Page_POI.Inst.isExistByName("16612345678"));
     }
 
     // POI 电话号码输入后自动隐藏输入法
@@ -206,22 +206,29 @@ public class testFastMapZF extends testFastMapBase
     public void test00104_tips_delete_check() throws Exception
     {
         String[] LIGHT_LOC = {"116.40631", "39.91562"};
-        SearchLocation(LIGHT_LOC);
+
+        String infoRowkey = "";
 
         //添加红绿灯
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.ClickCenter();
+        for(int i=0; i<2; i++)
+        {
+            SearchLocation(LIGHT_LOC);
+            Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+            Page_MainBoard.Inst.ClickCenter();
 
-        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
-        Page_MyData.Inst.SelectData("红绿灯");
-        String infoRowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
-        Page_Light.Inst.Click(Page_Light.CANCEL);
-        ExitMyData();
+            GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+            Page_MyData.Inst.SelectData("红绿灯");
+            infoRowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
+            Page_Light.Inst.Click(Page_Light.CANCEL);
+            ExitMyData();
 
-        IndoorCheckConfirm("红绿灯");
+            IndoorCheckConfirm("红绿灯");
 
-        //同步数据
-        synchronize(Page_GridManager.TIPS_UPDATE);
+            //同步数据
+            synchronize(Page_GridManager.TIPS_UPDATE);
+        }
+
+
 
         //删除前定位红绿灯tips位置
         SearchLocation(LIGHT_LOC);
@@ -701,9 +708,10 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("非卡车");
+        assertTrue(Page_POI.Inst.isExistByName("非卡车"));
     }
     // POI 卡车标识验证
+    /*
     @Test
     public void test00113_2_poi_truck_check() throws Exception
     {
@@ -718,8 +726,9 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("仅卡车");
+        assertTrue(Page_POI.Inst.isExistByName("仅卡车"));
     }
+    */
     // POI 卡车标识验证
     @Test
     public void test00113_3_poi_truck_check() throws Exception
@@ -735,7 +744,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("卡车+小汽车");
+        assertTrue(Page_POI.Inst.isExistByName("卡车+小汽车"));
     }
 
     // POI 标记字段验证
@@ -753,7 +762,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("名称");
+        assertTrue(Page_POI.Inst.isExistByName("名称"));
     }
     // POI 标记字段验证
     @Test
@@ -770,7 +779,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("电话");
+        assertTrue(Page_POI.Inst.isExistByName("电话"));
     }
     // POI 标记字段验证
     @Test
@@ -787,7 +796,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("分类");
+        assertTrue(Page_POI.Inst.isExistByName("分类"));
     }
     // POI 标记字段验证
     @Test
@@ -804,7 +813,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("品牌");
+        assertTrue(Page_POI.Inst.isExistByName("品牌"));
     }
     // POI 标记字段验证
     @Test
@@ -821,7 +830,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("地址");
+        assertTrue(Page_POI.Inst.isExistByName("地址"));
     }
     // POI 标记字段验证
     @Test
@@ -838,7 +847,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("邮编");
+        assertTrue(Page_POI.Inst.isExistByName("邮编"));
     }
     // POI 标记字段验证
     @Test
@@ -855,7 +864,7 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
-        Page_POI.Inst.isExistByName("深度信息");
+        assertTrue(Page_POI.Inst.isExistByName("深度信息"));
     }
     //危险信息Tips修改实时控制条件
     @Test
@@ -876,7 +885,7 @@ public class testFastMapZF extends testFastMapBase
 
         GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
 
-        Page_POI.Inst.isExistByName("危险信息");
+        assertTrue(Page_POI.Inst.isExistByName("危险信息"));
 
     }
 
@@ -898,7 +907,7 @@ public class testFastMapZF extends testFastMapBase
 
         GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
 
-        Page_POI.Inst.isExistByName("危险信息");
+        assertTrue(Page_POI.Inst.isExistByName("危险信息"));
 
     }
 
@@ -920,7 +929,7 @@ public class testFastMapZF extends testFastMapBase
 
         GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
 
-        Page_POI.Inst.isExistByName("危险信息");
+        assertTrue(Page_POI.Inst.isExistByName("危险信息"));
 
     }
 
@@ -942,7 +951,7 @@ public class testFastMapZF extends testFastMapBase
 
         GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
 
-        Page_POI.Inst.isExistByName("危险信息");
+        assertTrue(Page_POI.Inst.isExistByName("危险信息"));
 
     }
 
@@ -1553,6 +1562,109 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // MS数据验证
+    @Test
+    public void test00124_1_MS_Data_check() throws Exception
+    {
+        SearchLocation("116.43615", "39.97134");
+
+        //同步情报
+        synchronize(Page_GridManager.INFO_UPDATE);
+
+        Sqlitetools.RefreshData();
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updateMSdata("150702a39a864c968f41c07edee98327");
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //检索情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, "150702a39a864c968f41c07edee98327");
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        //采纳情报
+        Page_InfoPoint.Inst.ClickbyText("舍弃"); //点击采纳
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("现场与挖掘结果不一致"));
+        assertTrue(Page_InfoPoint.Inst.isExistByName("现场与挖掘结果一致但不满足采集标准"));
+        assertTrue(Page_InfoPoint.Inst.isExistByName("其它"));
+
+    }
+
+    // MS数据验证
+    @Test
+    public void test00124_2_MS_Data_check() throws Exception
+    {
+        SearchLocation("116.43615", "39.97134");
+
+        //同步情报
+        synchronize(Page_GridManager.INFO_UPDATE);
+
+
+        //检索情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, "5a7d96391ac947ddbaec3cf8063ca446");
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        //采纳情报
+        Page_InfoPoint.Inst.ClickbyText("舍弃"); //点击采纳
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("现场与挖掘结果不一致"));
+        assertTrue(Page_InfoPoint.Inst.isExistByName("现场与挖掘结果一致但不满足采集标准"));
+        assertTrue(Page_InfoPoint.Inst.isExistByName("其它"));
+
+    }
+
+    // 卡车交限卡片验证
+    @Test
+    public void test00125_1_truck_limit_check() throws Exception
+    {
+        //交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_1);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片一"));
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ADD_VIEW);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片二"));
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ADD_VIEW);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片三"));
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+
+    }
+
+    @Test
+    public void test00125_2_truck_limit_check() throws Exception
+    {
+        //交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.NO_PULL_INTO);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片一"));
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ADD_VIEW);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片二"));
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ADD_VIEW);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片三"));
+
+        Page_TruckForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+    }
     
 
     // FM_1113_2_1 车道限速
@@ -1568,11 +1680,11 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
         Page_MainBoard.Inst.ClickCenter();
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
-        Page_MainBoard.Inst.Drag(85,514,90,514,5);
-        Page_SpeedLimit.Inst.Click(new Point(65,354));
-        Page_SpeedLimit.Inst.Click(new Point(65,435));
+        Page_MainBoard.Inst.Drag(85,445,155,445,5);
+        Page_SpeedLimit.Inst.Click(new Point(105,283));
+        Page_SpeedLimit.Inst.Click(new Point(105,362));
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
-        //Page_SpeedLimit.Inst.Click(new Point(155,553));
+        //Page_SpeedLimit.Inst.Click(new Point(195,362));
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
         AssertIndoorCheck("车道限速", "高", "FM-1113-2-1", "车道限速各车道的限速值一样时，不需采集", "忽略");
@@ -1728,10 +1840,11 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1304_6_2_5_check() throws Exception
     {
-    	SearchLocation("116.41738", "39.96387");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.CITY_HIGH_SPEED);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Page_MainBoard.Inst.ClickCenter();
@@ -1743,10 +1856,11 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1304_6_2_6_check() throws Exception
     {
-    	SearchLocation("116.41757", "39.96337");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Page_MainBoard.Inst.ClickCenter();
@@ -1923,10 +2037,11 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_5_check() throws Exception
     {
 
-    	SearchLocation("116.41738", "39.96387");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         //禁止驶入1级道路（测线且t_sync=1）
 
@@ -1942,10 +2057,11 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_6_check() throws Exception
     {
 
-    	SearchLocation("116.41757", "39.96337");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         //禁止驶入2级道路（测线且t_sync=1）
 
@@ -2000,6 +2116,65 @@ public class testFastMapZF extends testFastMapBase
         Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
         AssertIndoorCheck("禁止驶入", "低", "FM-1305-6-2", "高等级道路上（1级、2级、3级、4级）采集了禁止驶入属性，请确认是否正确。", "忽略");
+    }
+
+    @Test
+    public void test_FM_1406_4_3_1_check() throws Exception
+    {
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(700,268));
+
+        //高速出口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_OUT);
+        //输入编号
+        Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        AssertIndoorCheck("实景图", "中", "FM-1406-4-3", "高速路口实景图的编号不能为空，且必须为8位，首位必须是6或9！","");
+    }
+    @Test
+    public void test_FM_1406_4_3_2_check() throws Exception
+    {
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(700,268));
+
+        //高速入口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_IN);
+        //输入编号
+        Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        AssertIndoorCheck("实景图", "中", "FM-1406-4-3", "高速路口实景图的编号不能为空，且必须为8位，首位必须是6或9！","");
     }
 
     //FM-1503-6-1
@@ -2087,7 +2262,7 @@ public class testFastMapZF extends testFastMapBase
     {
         Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500)};
         DrawRoad(arrayPoint);
-        
+
         SetStartEndPoint(arrayPoint[0], arrayPoint[1], Page_StartEndPoint.TRAVELING_BRIDGE_BT);
 
         //删除测线
@@ -2098,6 +2273,65 @@ public class testFastMapZF extends testFastMapBase
         ExitMyData();
 
         AssertIndoorCheck("移动式桥", "中", "FM-1521-1-2", "Tips没有关联道路或测线或Node","");
+    }
+
+    @Test
+    public void test_FM_1524_1_2_check() throws Exception
+    {
+        // 测线
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 530));
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 530));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 700));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CAR_TEST_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测线");
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        Page_MyData.Inst.ClickbyText("仅删除测线");
+        ExitMyData(); //退出我的数据
+
+
+        AssertIndoorCheck("车辆测试路段", "中", "FM-1524-1-2", "Tips没有关联道路或测线或Node","");
+    }
+
+    //FM-1521-1-2
+    @Test
+    public void test_FM_1525_1_2_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+
+        Page_MainBoard.Inst.Click(new Point(1250, 530));
+        Page_MainBoard.Inst.Click(new Point(1250, 700));
+
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 530));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.Click(new Point(1260, 700));
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.DRIVING_TEST_BT);
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测线");
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        Page_MyData.Inst.ClickbyText("仅删除测线");
+        ExitMyData(); //退出我的数据
+
+        AssertIndoorCheck("驾照考试路段", "中", "FM-1525-1-2", "Tips没有关联道路或测线或Node","");
     }
 
     // 上报情报
@@ -2127,7 +2361,7 @@ public class testFastMapZF extends testFastMapBase
 
         //获取globalID
         GotoMyData(Page_MyData.INFO_TYPE); //进入我的数据,自采集情报
-        Page_MyData.Inst.ClickbyText("自采集情报(POI)(点)", "测试上报情报6");
+        Page_MyData.Inst.ClickbyText("测试上报情报6", "测试上报情报6");
         globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).substring(10);
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
         ExitMyData(); //退出我的数据
