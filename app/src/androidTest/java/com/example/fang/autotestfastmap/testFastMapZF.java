@@ -206,22 +206,29 @@ public class testFastMapZF extends testFastMapBase
     public void test00104_tips_delete_check() throws Exception
     {
         String[] LIGHT_LOC = {"116.40631", "39.91562"};
-        SearchLocation(LIGHT_LOC);
+
+        String infoRowkey = "";
 
         //添加红绿灯
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
-        Page_MainBoard.Inst.ClickCenter();
+        for(int i=0; i<2; i++)
+        {
+            SearchLocation(LIGHT_LOC);
+            Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+            Page_MainBoard.Inst.ClickCenter();
 
-        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
-        Page_MyData.Inst.SelectData("红绿灯");
-        String infoRowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
-        Page_Light.Inst.Click(Page_Light.CANCEL);
-        ExitMyData();
+            GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+            Page_MyData.Inst.SelectData("红绿灯");
+            infoRowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY);
+            Page_Light.Inst.Click(Page_Light.CANCEL);
+            ExitMyData();
 
-        IndoorCheckConfirm("红绿灯");
+            IndoorCheckConfirm("红绿灯");
 
-        //同步数据
-        synchronize(Page_GridManager.TIPS_UPDATE);
+            //同步数据
+            synchronize(Page_GridManager.TIPS_UPDATE);
+        }
+
+
 
         //删除前定位红绿灯tips位置
         SearchLocation(LIGHT_LOC);
@@ -704,6 +711,7 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_POI.Inst.isExistByName("非卡车"));
     }
     // POI 卡车标识验证
+    /*
     @Test
     public void test00113_2_poi_truck_check() throws Exception
     {
@@ -720,6 +728,7 @@ public class testFastMapZF extends testFastMapBase
 
         assertTrue(Page_POI.Inst.isExistByName("仅卡车"));
     }
+    */
     // POI 卡车标识验证
     @Test
     public void test00113_3_poi_truck_check() throws Exception
@@ -1671,11 +1680,11 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
         Page_MainBoard.Inst.ClickCenter();
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
-        Page_MainBoard.Inst.Drag(85,514,90,514,5);
-        Page_SpeedLimit.Inst.Click(new Point(65,354));
-        Page_SpeedLimit.Inst.Click(new Point(65,435));
+        Page_MainBoard.Inst.Drag(85,445,155,445,5);
+        Page_SpeedLimit.Inst.Click(new Point(105,283));
+        Page_SpeedLimit.Inst.Click(new Point(105,362));
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
-        //Page_SpeedLimit.Inst.Click(new Point(155,553));
+        //Page_SpeedLimit.Inst.Click(new Point(195,362));
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
         AssertIndoorCheck("车道限速", "高", "FM-1113-2-1", "车道限速各车道的限速值一样时，不需采集", "忽略");
@@ -1831,10 +1840,11 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1304_6_2_5_check() throws Exception
     {
-    	SearchLocation("116.41738", "39.96387");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.CITY_HIGH_SPEED);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Page_MainBoard.Inst.ClickCenter();
@@ -1846,10 +1856,11 @@ public class testFastMapZF extends testFastMapBase
     @Test
     public void test_FM_1304_6_2_6_check() throws Exception
     {
-    	SearchLocation("116.41757", "39.96337");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
         Page_MainBoard.Inst.ClickCenter();
@@ -2026,10 +2037,11 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_5_check() throws Exception
     {
 
-    	SearchLocation("116.41738", "39.96387");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         //禁止驶入1级道路（测线且t_sync=1）
 
@@ -2045,10 +2057,11 @@ public class testFastMapZF extends testFastMapBase
     public void test_FM_1305_6_2_6_check() throws Exception
     {
 
-    	SearchLocation("116.41757", "39.96337");
-    	
-        //同步tips
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         //禁止驶入2级道路（测线且t_sync=1）
 
