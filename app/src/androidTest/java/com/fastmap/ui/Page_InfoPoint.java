@@ -21,6 +21,12 @@ public class Page_InfoPoint extends FastMapPage
 
     @FindResource(Id="infor_report_level_1", ios_name="一级")
     public static String LEVEL_1;
+
+    @FindResource(Id="infor_report_proposal_delete", ios_name="删除")
+    public static String DELETE;
+
+    @FindResource(Id="infor_report_proposal_edit", ios_name="修改")
+    public static String EDIT;
     
     @FindResource(Id="tv_poiReport_time", Text="单击选择时间")
     public static String TIME;

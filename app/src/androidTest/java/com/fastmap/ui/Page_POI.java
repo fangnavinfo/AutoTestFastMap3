@@ -90,6 +90,9 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="rbtn_chargingStation_park_signboard_yes", Text="有")
     public static String CHARGE_SIGNBOARD_YES;
 
+    //燃油类型
+    @FindResource(Id="fm_cb_diesel", Text="柴油")
+    public static String DIESEL;
 
     @FindResource(Id="fmcard_et_charging_connectorId")
     public static String CHARGING_CONNECTOR_ID;

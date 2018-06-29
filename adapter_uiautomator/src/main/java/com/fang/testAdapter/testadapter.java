@@ -223,6 +223,7 @@ public class testadapter
         }
     }
 
+
     public static void ClearCollect()
     {
         try

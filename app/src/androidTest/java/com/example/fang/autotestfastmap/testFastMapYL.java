@@ -29,14 +29,11 @@ import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NoParking;
 import com.fastmap.ui.Page_NormalCrossPic;
 import com.fastmap.ui.Page_Note;
-import com.fastmap.ui.Page_OfflineMap;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_RoadName;
 import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_RoundAbout;
-import com.fastmap.ui.Page_Search;
-import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Sketch;
 import com.fastmap.ui.Page_SpeedLimit;
 import com.fastmap.ui.Page_SpeedLimitLane;
@@ -254,6 +251,149 @@ public class testFastMapYL extends testFastMapBase
         assertEquals(temp, "大厦TEST1_中餐馆TEST1");
 
         Page_POI.Inst.Click(Page_POI.SAVE);
+    }
+
+    @Test
+    public void test00211_poi_add() throws Exception
+    {
+        //卡车标识原则
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "收费站");
+        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
+        assertEquals("卡车+小汽车",strTruck);
+        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        strFid = strFid.replace("fid:", "");
+        strFid = strFid.replace("fid : ", "");
+        Sqlitetools.RefreshData();
+        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
+        assertSame(2,truck);
+    }
+
+//    @Test
+//    public void test00212_poi_add() throws Exception
+//    {
+//        //卡车标识原则 先在元数据库sc_point_truck中插入一条数据
+//        //insert into SC_POINT_TRUCK values(37,"中餐馆","110101","澳门豆捞","304D","0","NULL",3,1)
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
+//        Thread.sleep(3000);
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+//
+//        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
+//        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+//        Page_POI.Inst.SetValue(Page_POI.SELECT_BRAND,"澳门豆捞");
+//        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
+//        assertEquals("仅卡车",strTruck);
+//        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+//        Page_POI.Inst.Click(Page_POI.SAVE);
+//
+//        Sqlitetools.RefreshData();
+//        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
+//        assertSame(1,truck);
+//    }
+
+    @Test
+    public void test00213_poi_add() throws Exception
+    {
+        //卡车标识原则 加油站  柴油
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
+        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "加油站");
+        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
+        assertEquals("非卡车",strTruck);
+        Page_POI.Inst.Drag(1813,1272,1813,412,5);
+        Page_POI.Inst.Drag(1813,1272,1813,412,5);
+        Page_POI.Inst.Click(Page_POI.DIESEL);//柴油
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        strFid = strFid.replace("fid:", "");
+        strFid = strFid.replace("fid : ", "");
+        Sqlitetools.RefreshData();
+        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
+        assertSame(2,truck);
+    }
+
+    @Test
+    public void test00214_poi_add() throws Exception
+    {
+        //卡车标识原则 加油站  柴油
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ４");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "厂家一览表外汽车零售及修理");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_BRAND,"一汽解放");
+        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
+        assertEquals("仅卡车",strTruck);
+        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        strFid = strFid.replace("fid:", "");
+        strFid = strFid.replace("fid : ", "");
+        Sqlitetools.RefreshData();
+        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
+        assertSame(1,truck);
+    }
+
+    @Test
+    public void test00215_poi_add() throws Exception
+    {
+        //只选分类中餐  只选分类厂家一览表外汽车零售及修理  值域只有两（0.2）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ４");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "厂家一览表外汽车零售及修理");
+        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
+        assertEquals("非卡车",strTruck);
+        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        strFid = strFid.replace("fid:", "");
+        strFid = strFid.replace("fid : ", "");
+        Sqlitetools.RefreshData();
+        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
+        assertSame(2,truck);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.POI_TRUCK);
+        Page_POI.Inst.ClickbyText("非卡车");
+        strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        strFid = strFid.replace("fid:", "");
+        strFid = strFid.replace("fid : ", "");
+        Sqlitetools.RefreshData();
+        truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
+        assertSame(0,truck);
     }
 
     @Test @IMPORTANT
@@ -1097,6 +1237,316 @@ public class testFastMapYL extends testFastMapBase
         AssertIndoorCheck("区域内道路","低","FM-1604-1-3","新增区域内道路（pid：***，多个pid时，用逗号分割）上，已经具有区域内道路属性。不能重复增加属性。","可以忽略");
     }
 
+    @Test
+    public void test01059_data_check() throws Exception
+    {
+        //跨越桥长度大于800米，不需要采集！
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_StartEndPoint.Inst.ClickbyText("Overpass");
+        Page_MainBoard.Inst.Drag(1340,740,110,740,5);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        AssertIndoorCheck("道路形状及相关检查","低","FM-1504-5-1","跨越桥长度大于800米，不需要采集！","可以忽略");
+    }
+
+    @Test
+    public void test01060_data_check() throws Exception
+    {
+        //跨越桥长度大于800米，不需要采集！
+        SearchLocation(LOC_K1);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
+        Page_StartEndPoint.Inst.ClickbyText("UnderPass");
+        Page_MainBoard.Inst.Drag(1340,740,110,740,5);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);
+
+        AssertIndoorCheck("道路形状及相关检查","低","FM-1505-5-1","穿越地道长度大于800米，不需要采集！","可以忽略");
+    }
+
+    @Test
+    public void test01061_data_check() throws Exception
+    {
+        //左侧车道限速小于右侧车道限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(130,442,250,442,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 5);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 6);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        //Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 10);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","不能忽略");
+    }
+
+    @Test
+    public void test01062_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign(",,", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01063_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("..", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01064_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("??", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01065_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("$$", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01066_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("、、", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01067_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("，，", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01068_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("．．", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01069_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("？？", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01070_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("＄＄", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01071_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        AddRoadNameSign("、、", "116.42297", "39.96604");
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1122-2-4","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+    @Test
+    public void test01072_data_check() throws Exception
+    {
+        //左侧车道限速小于右侧车道限速
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(130,442,250,442,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 5);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 6);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        //Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 10);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","不能忽略");
+    }
+
+    @Test
+    public void test01073_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"$$");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01074_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,",,");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01075_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"..");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01076_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"、、");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01077_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"??");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01078_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"＄＄");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01079_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"，，");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01080_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"．．");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01081_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"、、");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01082_data_check() throws Exception
+    {
+        //道路名标牌中不能含 $，。？、字符（包含全半角）
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(1140,730));
+        Page_RoadName.Inst.SetValue(Page_RoadName.NAME,"？？");
+        Page_RoadName.Inst.Click(Page_RoadName.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
 
     @Test
     public void test01058_data_check() throws Exception
@@ -6837,98 +7287,99 @@ public class testFastMapYL extends testFastMapBase
         assertSame(type, 2);
     }
 
-    @Test
-    public void test05601_searchlink() throws Exception
-    {
-        //搜索,前提已经下载了北京 天津 河北省地图数据
-        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        Page_Search.Inst.ClickbyText("Link");
-        //此时默认下载省市的全范围搜索，列表默认值北京市
-        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"590483");//天津6899091//北京590484
-        Page_Search.Inst.ClickbyText("精确匹配");
-        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
-        for (int i=0;i<5;i++)
-        {
-            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
-            {
-                break;
-            }
-            i++;
-        }
-        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+//    @Test
+//    public void test05601_searchlink() throws Exception
+//    {
+//        //搜索,前提已经下载了北京 天津 河北省地图数据
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+//        Page_Search.Inst.ClickbyText("Link");
+//        //此时默认下载省市的全范围搜索，列表默认值北京市
+//        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"590483");//天津6899091//北京590484
+//        Page_Search.Inst.ClickbyText("精确匹配");
+//        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
+//        for (int i=0;i<5;i++)
+//        {
+//            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
+//            {
+//                break;
+//            }
+//            i++;
+//        }
+//        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+//
+//    }
+//
+//    @Test
+//    public void test05602_searchlink() throws Exception
+//    {
+//        //搜索,前提已经下载了北京 天津 河北省地图数据
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+//        Page_Search.Inst.ClickbyText("Link");
+//        //此时默认下载省市的全范围搜索，列表默认值北京市
+//        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"6744114");//天津6744114//北京590484
+//        Page_Search.Inst.ClickbyText("模糊匹配");
+//        Page_Search.Inst.Click(Page_Search.SEARCH_RANGE);
+//        Page_Search.Inst.ClickbyText("天津市");
+//        Page_Search.Inst.ClickbyText("确定");
+//        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
+//        for (int i=0;i<5;i++)
+//        {
+//            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
+//            {
+//                break;
+//            }
+//            i++;
+//        }
+//        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+//        //搜索天津市此link，历史记录为天津市
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+//        Page_Search.Inst.ClickbyText("Link");
+//        Page_Search.Inst.isChecked(Page_Search.BLURRY_FIND_LINK);
+//        String temp = Page_Search.Inst.GetValue(Page_Search.SEARCH_RANGE);
+//        assertEquals(temp,"天津市");
+//
+//    }
+//
+//    @Test
+//    public void test05603_searchlink() throws Exception
+//    {
+//        //搜索,前提已经下载了北京 天津 河北省地图数据
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+//        Page_Search.Inst.ClickbyText("Link");
+//        //此时默认下载省市的全范围搜索，列表默认值天津市
+//        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"590484");//天津6744114//北京590484
+//        Page_Search.Inst.ClickbyText("精确匹配");
+//        Page_Search.Inst.Click(Page_Search.SEARCH_RANGE);
+//        Page_Search.Inst.ClickbyText("北京市");
+//        Page_Search.Inst.ClickbyText("确定");
+//        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
+//        for (int i=0;i<5;i++)
+//        {
+//            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
+//            {
+//                break;
+//            }
+//            i++;
+//        }
+//        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+//        //删除北京市，点击搜索历史记录为天津市
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.OFFLINE_MAP);
+//        Page_OfflineMap.Inst.Click(Page_OfflineMap.MANAGER);
+//        Page_OfflineMap.Inst.Click(Page_OfflineMap.GDB_SIZE);
+//        Page_OfflineMap.Inst.CtrlFling(new Point(361,426),Page_OfflineMap.GDB_SIZE);
+//        String temp = "删\n" + "除";
+//        Page_OfflineMap.Inst.ClickbyText(temp);
+//        Page_OfflineMap.Inst.ClickbyText("确认");
+//        Page_OfflineMap.Inst.Click(Page_OfflineMap.BACK);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+//        Page_Search.Inst.ClickbyText("Link");
+//        Page_Search.Inst.isChecked(Page_Search.EXACT_FIND_LINK);
+//        temp = Page_Search.Inst.GetValue(Page_Search.SEARCH_RANGE);
+//        assertEquals(temp,"天津市");
+//    }
 
-    }
 
-    @Test
-    public void test05602_searchlink() throws Exception
-    {
-        //搜索,前提已经下载了北京 天津 河北省地图数据
-        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        Page_Search.Inst.ClickbyText("Link");
-        //此时默认下载省市的全范围搜索，列表默认值北京市
-        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"6744114");//天津6744114//北京590484
-        Page_Search.Inst.ClickbyText("模糊匹配");
-        Page_Search.Inst.Click(Page_Search.SEARCH_RANGE);
-        Page_Search.Inst.ClickbyText("天津市");
-        Page_Search.Inst.ClickbyText("确定");
-        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
-        for (int i=0;i<5;i++)
-        {
-            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
-            {
-                break;
-            }
-            i++;
-        }
-        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
-        //搜索天津市此link，历史记录为天津市
-        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        Page_Search.Inst.ClickbyText("Link");
-        Page_Search.Inst.isChecked(Page_Search.BLURRY_FIND_LINK);
-        String temp = Page_Search.Inst.GetValue(Page_Search.SEARCH_RANGE);
-        assertEquals(temp,"天津市");
-
-    }
-
-    @Test
-    public void test05603_searchlink() throws Exception
-    {
-        //搜索,前提已经下载了北京 天津 河北省地图数据
-        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        Page_Search.Inst.ClickbyText("Link");
-        //此时默认下载省市的全范围搜索，列表默认值天津市
-        Page_Search.Inst.SetValue(Page_Search.EDITLINK,"590484");//天津6744114//北京590484
-        Page_Search.Inst.ClickbyText("精确匹配");
-        Page_Search.Inst.Click(Page_Search.SEARCH_RANGE);
-        Page_Search.Inst.ClickbyText("北京市");
-        Page_Search.Inst.ClickbyText("确定");
-        Page_Search.Inst.Click(Page_Search.SEARCH_START_LINK);
-        for (int i=0;i<5;i++)
-        {
-            if (Page_SearchResultList.Inst.isExist(Page_SearchResultList.BACK,6000))
-            {
-                break;
-            }
-            i++;
-        }
-        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
-        //删除北京市，点击搜索历史记录为天津市
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.OFFLINE_MAP);
-        Page_OfflineMap.Inst.Click(Page_OfflineMap.MANAGER);
-        Page_OfflineMap.Inst.Click(Page_OfflineMap.GDB_SIZE);
-        Page_OfflineMap.Inst.CtrlFling(new Point(361,426),Page_OfflineMap.GDB_SIZE);
-        String temp = "删\n" + "除";
-        Page_OfflineMap.Inst.ClickbyText(temp);
-        Page_OfflineMap.Inst.ClickbyText("确认");
-        Page_OfflineMap.Inst.Click(Page_OfflineMap.BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        Page_Search.Inst.ClickbyText("Link");
-        Page_Search.Inst.isChecked(Page_Search.EXACT_FIND_LINK);
-        temp = Page_Search.Inst.GetValue(Page_Search.SEARCH_RANGE);
-        assertEquals(temp,"天津市");
-
-    }
 }

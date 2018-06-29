@@ -13,7 +13,9 @@ public class Page_InfoAccept extends FastMapPage
 
     @FindResource(Id = "",Text = "确定")
     public static String CONFRIM;
-    
+
+    @FindResource(Id = "save_button",Text = "采纳")
+    public static String ACCEPT;
     public static Page_InfoAccept Inst;
     static
     {

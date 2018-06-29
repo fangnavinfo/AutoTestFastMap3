@@ -15,17 +15,14 @@ import java.util.HashMap;
 /**
  * Created by fang on 18/1/29.
  */
-public class Sqlitetools
-{
-    public static void initialize(String strDBPath)
-    {
+public class Sqlitetools {
+    public static void initialize(String strDBPath) {
         mDBPath = strDBPath;
     }
 
 
     //注意因为sqlite使用了wal缓存机制，所以每次对数据库做增删改操作后，需要调用此函数刷新数据到coremap.sqlite3中，才能从coremap.sqlite3获取对应数据
-    public static void RefreshData() throws Exception
-    {
+    public static void RefreshData() throws Exception {
         testadapter.ReStartApp();
 
         Class clazz = Class.forName("com.example.fang.autotestfastmap.testFastMapBase");
@@ -34,16 +31,13 @@ public class Sqlitetools
         method.invoke(null);
     }
 
-    public String GetTipsDisplayText(String key) throws Exception
-    {
-        SQLiteDatabase db=SQLiteDatabase.openDatabase(mDBPath, null, SQLiteDatabase.OPEN_READONLY, null);
+    public String GetTipsDisplayText(String key) throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath, null, SQLiteDatabase.OPEN_READONLY, null);
 
-        try
-        {
+        try {
             String sql = "select * from tips_geo_component where tipsRowkey=" + "\"" + key + "\"" + "and geoTableName=\"tips_point\"";
             Cursor cursor = db.rawQuery(sql, null);
-            if (!cursor.moveToFirst())
-            {
+            if (!cursor.moveToFirst()) {
                 throw new Exception("query result is null, exec sql:" + sql);
             }
 
@@ -52,8 +46,7 @@ public class Sqlitetools
 
             sql = "select * from tips_point where uuid=" + "\"" + uuid + "\"";
             cursor = db.rawQuery(sql, null);
-            if (!cursor.moveToFirst())
-            {
+            if (!cursor.moveToFirst()) {
                 throw new Exception("can not find uuid:" + uuid + " in tips_geo_component");
             }
 
@@ -77,32 +70,25 @@ public class Sqlitetools
             }
 
             String rlst = "";
-            for (DISPLAY_TEXT test : textList)
-            {
+            for (DISPLAY_TEXT test : textList) {
                 rlst += test.name;
             }
 
             return rlst;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw e;
-        }
-        finally
-        {
+        } finally {
             db.close();
         }
 
 
     }
 
-    public static void update3rdPartyInfo(String globalId) throws Exception
-    {
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+    public static void update3rdPartyInfo(String globalId) throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
 
         boolean b = false;
-        try
-        {
+        try {
             ContentValues cv = new ContentValues();
             cv.put("b_sourceCode", 6);
             cv.put("i_varField", "[{\"属性的名称1\":\"属性内容1\",\"属性名称2\":\"属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2属性内容2\"}]");
@@ -117,57 +103,45 @@ public class Sqlitetools
             //db.execSQL("PRAGMA journal_mode=DELETE ");
 
             db.update("edit_infos", cv, null, null);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw e;
-        }
-        finally
-        {
+        } finally {
             db.close();
         }
     }
 
-    public static void updatePoiFloorInfo(String fid1, String fid2) throws Exception
-    {
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+    public static void updatePoiFloorInfo(String fid1, String fid2) throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
 
         boolean b = false;
-        try
-        {
+        try {
             ContentValues cv1 = new ContentValues();
             cv1.put("indoor", "{\"type\":0,\"floor\":\"１层\"}");
             ContentValues cv2 = new ContentValues();
             cv2.put("indoor", "{\"type\":0,\"floor\":\"２层\"}");
 
-            String whereClause="fid=?";
+            String whereClause = "fid=?";
 
-            String [] whereArgs1 = {fid1};
-            String [] whereArgs2 = {fid2};
+            String[] whereArgs1 = {fid1};
+            String[] whereArgs2 = {fid2};
 
             //db.execSQL("PRAGMA journal_mode=DELETE ");
 
             db.update("edit_pois", cv1, whereClause, whereArgs1);
 
             db.update("edit_pois", cv2, whereClause, whereArgs2);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw e;
-        }
-        finally
-        {
+        } finally {
             db.close();
         }
     }
 
-    public static void updateFieldDate(String newDate) throws Exception
-    {
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+    public static void updateFieldDate(String newDate) throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
 
         boolean b = false;
-        try
-        {
+        try {
             ContentValues cv = new ContentValues();
             cv.put("t_operateDate", newDate);
             cv.put("t_fieldDate", newDate);
@@ -178,13 +152,9 @@ public class Sqlitetools
             //db.execSQL("PRAGMA journal_mode=DELETE ");
 
             db.update("edit_tips", cv, null, null);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw e;
-        }
-        finally
-        {
+        } finally {
             db.close();
         }
     }
@@ -216,7 +186,107 @@ public class Sqlitetools
 //        }
 //    }
 
-    public static Object GePoiDataByFid(String fid, String colu) throws Exception
+    public static Object GePoiDataByFid(String fid, String colu) throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+
+        try {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_pois\")", null);
+            if (c.moveToFirst()) {
+                do {
+                    TipsTableInfo.put(c.getString(1), c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+
+            String sql = "select * from edit_pois where fid=" + "\"" + fid + "\"";
+            Cursor cursor = db.rawQuery(sql, null);
+            if (!cursor.moveToFirst()) {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            int index = cursor.getColumnIndex(colu);
+            switch (TipsTableInfo.get(colu)) {
+                case "integer":
+                    return cursor.getInt(index);
+                case "text":
+                    return cursor.getString(index);
+                case "blob":
+                    return cursor.getBlob(index);
+                default:
+                    throw new UnsupportedOperationException("column:" + colu + ", type:" + TipsTableInfo.get(colu));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            db.close();
+        }
+    }
+
+    public static Object GetFieldDate() throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+
+        try {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_tips\")", null);
+            if (c.moveToFirst()) {
+                do {
+                    TipsTableInfo.put(c.getString(1), c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+
+            String sql = "select * from edit_tips";
+            Cursor cursor = db.rawQuery(sql, null);
+            if (!cursor.moveToFirst()) {
+                throw new Exception("query result is null, exec sql:" + sql);
+            }
+
+            int index = cursor.getColumnIndex("t_fieldDate");
+            switch (TipsTableInfo.get("t_fieldDate")) {
+                case "integer":
+                    return cursor.getInt(index);
+                case "text":
+                    return cursor.getString(index);
+                case "Text":
+                    return cursor.getString(index);
+                case "blob":
+                    return cursor.getBlob(index);
+                default:
+                    throw new UnsupportedOperationException("column:" + "t_fieldDate" + ", type:" + TipsTableInfo.get("t_fieldDate"));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            db.close();
+        }
+    }
+
+    public static int GetDataCount(String operateDate, String fieldDate) throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
+
+        try {
+            HashMap<String, String> TipsTableInfo = new HashMap<>();
+            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_tips\")", null);
+            if (c.moveToFirst()) {
+                do {
+                    TipsTableInfo.put(c.getString(1), c.getString(2));
+                } while (c.moveToNext());
+            }
+            c.close();
+
+            String sql = "select * from edit_tips where t_fieldDate = '" + fieldDate + "'";
+            Cursor cursor = db.rawQuery(sql, null);
+
+            return cursor.getCount();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            db.close();
+        }
+    }
+
+    public static Object GetPoisDataByRowKey(String rowkey, String colu) throws Exception
     {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
 
@@ -233,7 +303,7 @@ public class Sqlitetools
             }
             c.close();
 
-            String sql = "select * from edit_pois where fid=" + "\"" + fid + "\"";
+            String sql = "select * from edit_pois where fid=" + "\"" + rowkey + "\"";
             Cursor cursor = db.rawQuery(sql, null);
             if (!cursor.moveToFirst())
             {
@@ -262,88 +332,6 @@ public class Sqlitetools
             db.close();
         }
     }
-
-    public static Object GetFieldDate() throws Exception
-    {
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
-
-        try
-        {
-            HashMap<String, String> TipsTableInfo = new HashMap<>();
-            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_tips\")", null);
-            if (c.moveToFirst())
-            {
-                do
-                {
-                    TipsTableInfo.put(c.getString(1),  c.getString(2));
-                } while (c.moveToNext());
-            }
-            c.close();
-
-            String sql = "select * from edit_tips";
-            Cursor cursor = db.rawQuery(sql, null);
-            if (!cursor.moveToFirst())
-            {
-                throw new Exception("query result is null, exec sql:" + sql);
-            }
-
-            int index = cursor.getColumnIndex("t_fieldDate");
-            switch (TipsTableInfo.get("t_fieldDate"))
-            {
-                case "integer":
-                    return cursor.getInt(index);
-                case "text":
-                    return cursor.getString(index);
-                case "Text":
-                    return cursor.getString(index);
-                case "blob":
-                    return cursor.getBlob(index);
-                default:
-                    throw new UnsupportedOperationException("column:" + "t_fieldDate" + ", type:" + TipsTableInfo.get("t_fieldDate"));
-            }
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            db.close();
-        }
-    }
-
-    public static int GetDataCount(String operateDate, String fieldDate) throws Exception
-    {
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
-
-        try
-        {
-            HashMap<String, String> TipsTableInfo = new HashMap<>();
-            Cursor c = db.rawQuery("PRAGMA table_info(\"edit_tips\")", null);
-            if (c.moveToFirst())
-            {
-                do
-                {
-                    TipsTableInfo.put(c.getString(1),  c.getString(2));
-                } while (c.moveToNext());
-            }
-            c.close();
-
-            String sql = "select * from edit_tips where t_fieldDate = '" + fieldDate + "'";
-            Cursor cursor = db.rawQuery(sql, null);
-
-            return cursor.getCount();
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            db.close();
-        }
-    }
-
 
     public static Object GetTipsDataByRowKey(String rowkey, String colu) throws Exception
     {
@@ -391,7 +379,6 @@ public class Sqlitetools
             db.close();
         }
     }
-
 //    public static int GetBLOBdeep(String rowkey) throws Exception
 //    {
 //        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);
