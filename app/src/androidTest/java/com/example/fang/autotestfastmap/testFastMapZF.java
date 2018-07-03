@@ -1665,6 +1665,50 @@ public class testFastMapZF extends testFastMapBase
         Page_TruckForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
 
     }
+
+    //公交车道、可逆车道支持起点移动
+    @Test
+    public void test00126_bus_line_check() throws Exception
+    {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUS_LINE);
+        Page_MainBoard.Inst.Click(new Point(950,750));
+        Page_BusLine.Inst.Click(Page_BusLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000,750));
+        Page_MainBoard.Inst.Drag(100,450,180,450,10);
+        Page_MainBoard.Inst.Click(new Point(100,300));
+        Page_BusLine.Inst.Click(Page_BusLine.SAVE);
+        Page_MainBoard.Inst.Click(new Point(705,745));
+        Page_BusLine.Inst.Click(Page_BusLine.MOVE);
+        Page_MainBoard.Inst.Drag(100,450,150,450,10);
+        Page_BusLine.Inst.Click(Page_BusLine.SAVE);
+        Page_MainBoard.Inst.Click(new Point(618,785));
+        Page_BusLine.Inst.Click(Page_BusLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1100,750));
+        Page_BusLine.Inst.Click(Page_BusLine.SAVE);
+    }
+
+    //公交车道、可逆车道支持起点移动
+    @Test
+    public void test00126_reverse_line_check() throws Exception
+    {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUS_LINE);
+        Page_MainBoard.Inst.Click(new Point(950,750));
+        Page_ReverseLine.Inst.Click(Page_ReverseLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000,750));
+        Page_MainBoard.Inst.Drag(100,450,180,450,10);
+        Page_MainBoard.Inst.Click(new Point(100,300));
+        Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
+        Page_MainBoard.Inst.Click(new Point(705,745));
+        Page_ReverseLine.Inst.Click(Page_ReverseLine.MOVE);
+        Page_MainBoard.Inst.Drag(100,450,150,450,10);
+        Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
+        Page_MainBoard.Inst.Click(new Point(618,785));
+        Page_ReverseLine.Inst.Click(Page_ReverseLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1100,750));
+        Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
+    }
     
 
     // FM_1113_2_1 车道限速
