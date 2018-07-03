@@ -20,7 +20,6 @@ import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_InfoPoint;
 import com.fastmap.ui.Page_LaneChangePoint;
 import com.fastmap.ui.Page_LaneInfo;
-import com.fastmap.ui.Page_Light;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MilePost;
@@ -44,6 +43,7 @@ import com.fastmap.ui.Page_TollGate;
 import com.fastmap.ui.Page_TruckCondition;
 import com.fastmap.ui.Page_TruckLimit;
 import com.fastmap.ui.Page_TruckLimitLane;
+import com.fastmap.ui.Page_TrueSence;
 import com.fastmap.ui.Page_VariableSpeedLimit;
 import com.fastmap.ui.Page_VehicleLane;
 
@@ -225,12 +225,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test00210_poi_relationship() throws Exception
     {
-        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+        String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
         String infoFid =AddPOI(attrib1);
 
 
-        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆ＴＥＳＴ１"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
@@ -244,11 +244,11 @@ public class testFastMapYL extends testFastMapBase
 
         Page_POI.Inst.Click(Page_POI.TOTAL_NAME);
         String temp = Page_POI.Inst.GetValue(Page_POI.NAME);
-        assertEquals(temp, "大厦TEST1_中餐馆TEST1");
+        assertEquals(temp, "大厦ＴＥＳＴ１-中餐馆ＴＥＳＴ１");
         Thread.sleep(3000);
         Page_POI.Inst.Click(Page_POI.TOTAL_NAME);
         temp = Page_POI.Inst.GetValue(Page_POI.NAME);
-        assertEquals(temp, "大厦TEST1_中餐馆TEST1");
+        assertEquals(temp, "中餐馆ＴＥＳＴ１");
 
         Page_POI.Inst.Click(Page_POI.SAVE);
     }
@@ -419,7 +419,7 @@ public class testFastMapYL extends testFastMapBase
 
         //查看我的数据
         GotoMyData(Page_MyData.INFO_TYPE);
-        Page_MyData.Inst.SelectData("自采集情报(道路)(点)", "测试点ＩＮＦＯ");
+        Page_MyData.Inst.SelectData("测试点ＩＮＦＯ", "测试点ＩＮＦＯ");
 
         String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID);
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
@@ -465,7 +465,7 @@ public class testFastMapYL extends testFastMapBase
 
         //查看我的数据
         GotoMyData(Page_MyData.INFO_TYPE);
-        Page_MyData.Inst.SelectData("自采集情报(道路)(线)", "测试线ＩＮＦＯ");
+        Page_MyData.Inst.SelectData("测试线ＩＮＦＯ", "测试线ＩＮＦＯ");
 
         String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).replace("globalId:", "");
         Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE);
@@ -509,7 +509,7 @@ public class testFastMapYL extends testFastMapBase
         Page_InfoLine.Inst.Click(Page_InfoLine.SAVE);
 
         GotoMyData(Page_MyData.INFO_TYPE);
-        Page_MyData.Inst.SelectData("自采集情报(道路)(面)", "测试面ＩＮＦＯ");
+        Page_MyData.Inst.SelectData("测试面ＩＮＦＯ", "测试面ＩＮＦＯ");
 
         String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).replace("globalId:", "");
         Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
@@ -2148,34 +2148,28 @@ public class testFastMapYL extends testFastMapBase
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
     }
 
-    @Test
-    public void test01602_tips_copy() throws Exception
-    {
-        //复制原库tips 查看inConfirm字段是否为1
-        SearchLocation("116.42218", "39.96087");
-
-        synchronize(Page_GridManager.TIPS_UPDATE);
-
-//        SearchTips("021102132D09A9A7F84495B83E09D30A55DAD1");
-//        Page_Light.Inst.Click(Page_Light.CANCEL);
-//        int width = testadapter.getCtrlWidth();
-//        Point p =  new Point((testadapter.getDisplayWidth()-width)/2,testadapter.getDisplayHeight()/2);
-//        Thread.sleep(1000);
-//        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
-//        Thread.sleep(1000);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(300,360));
-        //查数据库字段
-        GotoMyData(Page_MyData.TIPS_TYPE);
-        Page_MyData.Inst.ClickbyText("红绿灯");
-        String rowkey = Page_Light.Inst.GetRowKey();
-
-        
-        Sqlitetools.RefreshData();
-        int inConfirm = (Integer)Sqlitetools.GetTipsDataByRowKey(rowkey, "inConfirm");
-        assertSame(inConfirm,1);
-    }
+//    @Test
+//    public void test01602_tips_copy() throws Exception
+//    {
+//        //复制原库tips 查看inConfirm字段是否为1
+//        SearchLocation("116.42218", "38.96087");
+//
+//        synchronize(Page_GridManager.TIPS_UPDATE);
+//
+//        SearchLocation("116.42218", "38.96087");
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
+//        Page_MainBoard.Inst.ClickCenter();
+//        Page_MainBoard.Inst.Click(new Point(300,360));
+//        //查数据库字段
+//        GotoMyData(Page_MyData.TIPS_TYPE);
+//        Page_MyData.Inst.ClickbyText("红绿灯");
+//        String rowkey = Page_Light.Inst.GetRowKey();
+//
+//
+//        Sqlitetools.RefreshData();
+//        int inConfirm = (Integer)Sqlitetools.GetTipsDataByRowKey(rowkey, "inConfirm");
+//        assertSame(inConfirm,1);
+//    }
 
     @Test @IMPORTANT
     public void test01701_tips_add() throws Exception
@@ -3067,43 +3061,6 @@ public class testFastMapYL extends testFastMapBase
         JSONObject jsonObject = new JSONObject(temp);
         String str = jsonObject.getString("desc");
         assertEquals(str,"测试路段");
-    }
-
-    @Test
-    public void test02208_speedlimitlane() throws Exception
-    {
-        if (FastMapPage.IS_OS_TEST)
-        {
-            return;
-        }
-
-        //点限速 修改道路方向 顺时针 逆时针
-        String[] LOC = {"116.41701", "39.98345"};
-        SearchLocation(LOC);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
-        Page_MainBoard.Inst.ClickCenter();
-        Thread.sleep(2000);
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
-        GotoMyData(Page_MyData.TIPS_TYPE);
-        Page_MyData.Inst.ClickbyText("点限速");
-        Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
-        Sqlitetools.RefreshData();
-        String temp = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
-        JSONObject jsonObject = new JSONObject(temp);
-        double agl = jsonObject.getDouble("agl");
-        assertEquals(agl,270.0,10.0);
-        GotoMyData(Page_MyData.TIPS_TYPE);
-        Page_MyData.Inst.ClickbyText("点限速");
-        Thread.sleep(2000);
-        Page_SpeedLimitLane.Inst.ClickbyText("调整箭头方向");
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
-        Sqlitetools.RefreshData();
-        String temp1 = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
-        JSONObject jsonObject1 = new JSONObject(temp1);
-        double agl2 = jsonObject1.getInt("agl");
-        assertEquals(90.0,agl2,10.0);
     }
 
     @Test
@@ -4189,7 +4146,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
         Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
-        Page_MainBoard.Inst.Drag(138,488,318,488,5);
+        Page_MainBoard.Inst.Drag(138,417,318,417,5);
         Thread.sleep(2000);
         Page_TollGate.Inst.Click(Page_TollGate.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
@@ -4225,7 +4182,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
         Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
-        Page_MainBoard.Inst.Drag(123,488,318,488,5);
+        Page_MainBoard.Inst.Drag(138,417,318,417,5);
         Thread.sleep(2000);
         Page_TollGate.Inst.Click(Page_TollGate.SAVE);
         GotoIndoorTools();
@@ -4270,7 +4227,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
         Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
-        Page_MainBoard.Inst.Drag(138,488,318,488,5);
+        Page_MainBoard.Inst.Drag(138,417,318,417,5);
         Thread.sleep(2000);
         Page_TollGate.Inst.Click(Page_TollGate.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
@@ -6062,6 +6019,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.isExistByName("686700");
         Page_POI.Inst.ClickbyText("790621","790621");
         Page_POI.Inst.isExistByName("790621");
+        Page_MainBoard.Inst.Drag(1780,709,1780,300,5);
         Page_POI.Inst.Click(Page_POI.SAVE);
         ExitMyData();
     }
@@ -6952,6 +6910,7 @@ public class testFastMapYL extends testFastMapBase
         Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
 
         SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.ClickCenter();
         Page_TruckCondition.Inst.ClickbyText("解除限速");
         Page_TruckCondition.Inst.ClickbyText("雪");
         Page_TruckCondition.Inst.Click(Page_TruckCondition.SAVE);
@@ -7051,7 +7010,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("卡车条件限速");
         Thread.sleep(2000);
         String rowkey = Page_Dangerous.Inst.GetRowKey();
-        Page_TruckCondition.Inst.Drag(1824,1290,1824,1027,5);
+        Page_TruckCondition.Inst.Drag(1824,1290,1824,1127,5);
         Thread.sleep(1000);
         Page_TruckCondition.Inst.isChecked(Page_TruckCondition.TOTALWEIGHT);
         Page_TruckCondition.Inst.isChecked(Page_TruckCondition.TIMELIMIT);
@@ -7381,5 +7340,6 @@ public class testFastMapYL extends testFastMapBase
 //        assertEquals(temp,"天津市");
 //    }
 
+    
 
 }
