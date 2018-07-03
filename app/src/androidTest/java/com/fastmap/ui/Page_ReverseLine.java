@@ -16,6 +16,9 @@ public class Page_ReverseLine extends Page_Base_Tips
     @FindResource(Id = "only_button")
     public static String CHOOSE_END;
 
+    @FindResource(Id = "reverse_card_add_time")
+    public static String ADD_TIME;
+
     public static Page_ReverseLine Inst;
     static
     {
