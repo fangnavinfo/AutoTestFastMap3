@@ -375,7 +375,8 @@ public class testFastMapZF extends testFastMapBase
         CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
     }
 
-    // 高速实景图手动录入编号
+    // 高速实景图手动录入编号(需求取消)
+    /*
     @Test @IMPORTANT
     public void test00107_tips_true_sence_check() throws Exception
     {
@@ -421,7 +422,7 @@ public class testFastMapZF extends testFastMapBase
 
         assertTrue(Page_TrueSence.Inst.isExistByName("6bCD1234"));
     }
-
+    */
     // 功能面验证
     @Test @IMPORTANT
     public void test00108_1_functionalarea_check() throws Exception
