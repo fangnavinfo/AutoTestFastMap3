@@ -1,5 +1,7 @@
 package com.example.fang.autotestfastmap;
 
+import android.support.test.uiautomator.UiObject2;
+
 import com.fang.testAdapter.*;
 import com.fastmap.ui.*;
 
@@ -13,6 +15,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -372,7 +375,8 @@ public class testFastMapZF extends testFastMapBase
         CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
     }
 
-    // 高速实景图手动录入编号
+    // 高速实景图手动录入编号(需求取消)
+    /*
     @Test @IMPORTANT
     public void test00107_tips_true_sence_check() throws Exception
     {
@@ -418,7 +422,7 @@ public class testFastMapZF extends testFastMapBase
 
         assertTrue(Page_TrueSence.Inst.isExistByName("6bCD1234"));
     }
-
+    */
     // 功能面验证
     @Test @IMPORTANT
     public void test00108_1_functionalarea_check() throws Exception
@@ -1679,10 +1683,14 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(new Point(100,300));
         Page_BusLine.Inst.Click(Page_BusLine.SAVE);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(705,745));
         Page_BusLine.Inst.Click(Page_BusLine.MOVE);
         Page_MainBoard.Inst.Drag(100,450,150,450,10);
+        Page_BusLine.Inst.Click(Page_BusLine.MOVE);
         Page_BusLine.Inst.Click(Page_BusLine.SAVE);
+
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(618,785));
         Page_BusLine.Inst.Click(Page_BusLine.CHOOSE_END);
         Page_MainBoard.Inst.Click(new Point(1100,750));
@@ -1691,7 +1699,7 @@ public class testFastMapZF extends testFastMapBase
 
     //公交车道、可逆车道支持起点移动
     @Test
-    public void test00126_reverse_line_check() throws Exception
+    public void test00127_reverse_line_check() throws Exception
     {
         SearchLocation(LOC_K7);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.REVERSE);
@@ -1703,16 +1711,134 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.ClickByText("确定");
         Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
 
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(705,745));
         Page_ReverseLine.Inst.Click(Page_ReverseLine.MOVE);
         Page_MainBoard.Inst.Drag(100,450,150,450,10);
+        Page_BusLine.Inst.Click(Page_BusLine.MOVE);
         Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
+
+        Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(618,785));
         Page_ReverseLine.Inst.Click(Page_ReverseLine.CHOOSE_END);
         Page_MainBoard.Inst.Click(new Point(1100,750));
         Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
     }
-    
+
+    // POI：增加Tag子表
+    @Test
+    public void test00128_1_poi_category_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "医疗机构");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.ClickByText("医院内部设施");
+        Page_POI.Inst.ClickByText("医疗机构");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("fm_ll_poi_tag_layout","android.widget.CheckBox");
+
+        UiObject2 obj;
+
+        for(int i = 0; i<5; i++)
+        {
+            obj = lst.get(i);
+            if(i==0 || i==2)
+            {
+                assertTrue(obj.isChecked());
+            }
+            else
+            {
+                assertTrue(!obj.isChecked());
+            }
+        }
+
+    }
+
+    @Test
+    public void test00128_2_poi_category_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "医疗机构");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("fm_ll_poi_tag_layout","android.widget.CheckBox");
+
+        UiObject2 obj;
+        for(int i = 0; i<5; i++)
+        {
+            obj = lst.get(i);
+            assertTrue(!obj.isChecked());
+        }
+        Page_POI.Inst.Click(Page_POI.CANCEL);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.ClickByText("医院内部设施");
+        Page_POI.Inst.ClickByText("医疗机构");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        lst = testadapter.findAllObjectsByClass("fm_ll_poi_tag_layout","android.widget.CheckBox");
+
+        for(int i = 0; i<5; i++)
+        {
+            obj = lst.get(i);
+            if(i==0 || i==2)
+            {
+                assertTrue(obj.isChecked());
+            }
+            else
+            {
+                assertTrue(!obj.isChecked());
+            }
+        }
+
+    }
 
     // FM_1113_2_1 车道限速
     @Test

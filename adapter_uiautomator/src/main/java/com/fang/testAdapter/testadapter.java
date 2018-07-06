@@ -16,6 +16,7 @@ import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
 import java.io.IOException;
+import java.util.List;
 
 import static junit.framework.Assert.fail;
 
@@ -381,5 +382,13 @@ public class testadapter
     public static void CapScreen(String name) throws IOException
     {
         mDevice.executeShellCommand("screencap -p " + testCapPath + name + ".png");
+    }
+
+
+    public static List<UiObject2> findAllObjectsByClass(String upperId, String className)
+    {
+        UiObject2 obj2 = mDevice.wait(Until.findObject(By.res(packageName, upperId)), 500);
+        List<UiObject2> lst = obj2.findObjects(By.clazz(className));
+        return  lst;
     }
 }
