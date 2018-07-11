@@ -7,6 +7,9 @@ import com.fang.testAdapter.*;
  */
 public class Page_IndoorTools extends FastMapPage
 {
+    @FindResource(Id="tv_graphic_special", ios_name="图形专项作业")
+    public static String GRAPHIC_WORK;
+
     @FindResource(Id="tv_my_data", ios_name="我的数据")
     public static String MYDATA;
 

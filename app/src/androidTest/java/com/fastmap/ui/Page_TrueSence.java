@@ -17,6 +17,13 @@ public class Page_TrueSence extends Page_Base_Tips
     @FindResource(Id="et_img_number", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeTextField")
     public static String ET_IMG_NUMBER;
 
+    @FindResource(Id="direction_board_copy")
+    public static String COPY;
+    @FindResource(Id="direction_board_paste")
+    public static String PASTE;
+    @FindResource(Id="direction_board_request")
+    public static String REQUEST;
+
     public static Page_TrueSence Inst;
     static
     {

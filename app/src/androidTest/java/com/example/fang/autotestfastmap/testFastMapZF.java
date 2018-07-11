@@ -1840,6 +1840,72 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    //图形专项作业
+    @Test
+    public void test00129_1_indoor_data_check() throws Exception
+    {
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DIRECTION_BOARD);
+        Page_MainBoard.Inst.Click(new Point(850, 750));
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CAMERA);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_Info_Camera.TAKE_PIC);
+        Page_Info_Camera.Inst.Click(Page_Info_Camera.BACK);
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+        Page_MainBoard.Inst.Click(new Point(850, 760));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.GRAPHIC_WORK);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("方向看板"));
+
+    }
+
+    @Test
+    public void test00129_2_indoor_data_check() throws Exception
+    {
+        SearchLocation(LOC_K7);
+
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(850, 750));
+
+        //高速出口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_OUT);
+        //输入编号
+        Page_TrueSence.Inst.Click(Page_TrueSence.REQUEST);
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+        Page_MainBoard.Inst.Click(new Point(850, 760));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.GRAPHIC_WORK);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("实景图"));
+
+    }
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
