@@ -976,6 +976,10 @@ public class testFastMapZF extends testFastMapBase
 
         String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
 
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.ClickByText("已采集");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
         SearchLocation("116.40624", "39.95918");
         synchronize(Page_GridManager.POI_UPDATE);
 
@@ -993,6 +997,10 @@ public class testFastMapZF extends testFastMapBase
 
         AddPOI(attrib1, "116.40624", "39.95918");
 
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.ClickByText("已采集");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
         String[][] attrib2 = {{Page_POI.NAME, "风景名胜售票点TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜售票点"},
                 {Page_POI.POI_SAME, "风景名胜ＴＥＳＴ"}};
@@ -1002,6 +1010,7 @@ public class testFastMapZF extends testFastMapBase
         }catch (Exception e) {
 
         }
+
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
         Page_MyData.Inst.SelectData("风景名胜售票点ＴＥＳＴ");
 
@@ -1497,6 +1506,7 @@ public class testFastMapZF extends testFastMapBase
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
         Page_MyData.Inst.SelectData("测试ＰＯＩ");
 
+        Thread.sleep(1000);
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
 
