@@ -976,6 +976,10 @@ public class testFastMapZF extends testFastMapBase
 
         String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
 
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.ClickByText("已采集");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
         SearchLocation("116.40624", "39.95918");
         synchronize(Page_GridManager.POI_UPDATE);
 
@@ -993,6 +997,10 @@ public class testFastMapZF extends testFastMapBase
 
         AddPOI(attrib1, "116.40624", "39.95918");
 
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.ClickByText("已采集");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
         String[][] attrib2 = {{Page_POI.NAME, "风景名胜售票点TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜售票点"},
                 {Page_POI.POI_SAME, "风景名胜ＴＥＳＴ"}};
@@ -1002,6 +1010,7 @@ public class testFastMapZF extends testFastMapBase
         }catch (Exception e) {
 
         }
+
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
         Page_MyData.Inst.SelectData("风景名胜售票点ＴＥＳＴ");
 
@@ -1497,6 +1506,7 @@ public class testFastMapZF extends testFastMapBase
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
         Page_MyData.Inst.SelectData("测试ＰＯＩ");
 
+        Thread.sleep(1000);
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
 
@@ -1840,6 +1850,72 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    //图形专项作业
+    @Test
+    public void test00129_1_indoor_data_check() throws Exception
+    {
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DIRECTION_BOARD);
+        Page_MainBoard.Inst.Click(new Point(850, 750));
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CAMERA);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_Info_Camera.TAKE_PIC);
+        Page_Info_Camera.Inst.Click(Page_Info_Camera.BACK);
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+        Page_MainBoard.Inst.Click(new Point(850, 760));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.GRAPHIC_WORK);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("方向看板"));
+
+    }
+
+    @Test
+    public void test00129_2_indoor_data_check() throws Exception
+    {
+        SearchLocation(LOC_K7);
+
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(850, 750));
+
+        //高速出口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_OUT);
+        //输入编号
+        Page_TrueSence.Inst.Click(Page_TrueSence.REQUEST);
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+        Page_MainBoard.Inst.Click(new Point(850, 760));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.GRAPHIC_WORK);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("实景图"));
+
+    }
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
