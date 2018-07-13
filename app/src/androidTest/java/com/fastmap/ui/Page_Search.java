@@ -54,6 +54,8 @@ public class Page_Search extends FastMapPage
 
     @FindResource(Id="btn_search_range_link")
     public static String SEARCH_RANGE;
+    @FindResource(Id="tv_item")
+    public static String HISTORY;
 
     public static Page_Search Inst;
     static{

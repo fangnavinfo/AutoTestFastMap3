@@ -35,6 +35,16 @@ public class Page_SpeedLimitLane extends Page_Base_Tips
     @FindResource(Id="et_speed_limit_desc")
     public static String EDIT;
 
+    @FindResource(Id="history_item_height")
+    public static String HEIGHT;
+
+    @FindResource(Id="history_item_low")
+    public static String LOW;
+
+    @FindResource(Id="history_item_point_limit")
+    public static String POINT;
+
+
     public static Page_SpeedLimitLane Inst;
     static
     {

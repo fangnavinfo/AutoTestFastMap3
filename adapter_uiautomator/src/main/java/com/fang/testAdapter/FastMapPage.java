@@ -1,5 +1,7 @@
 package com.fang.testAdapter;
 
+import android.support.test.uiautomator.UiObjectNotFoundException;
+
 import java.lang.reflect.Field;
 
 
@@ -184,6 +186,16 @@ public class FastMapPage
         throw new RuntimeException("can not find id of " + findRes);
     }
 
+    public boolean isCheckedbyIndex(String findRes,int index) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException {
+        Field field = GetField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.clazz().isEmpty())
+        {
+            return testadapter.isCheckedbyIndex(annotation.clazz(), index);
+        }
+        throw new RuntimeException("can not find id of " + findRes);
+    }
     public boolean isExist(String findRes, int time) throws NoSuchFieldException
     {
         Field field = GetField(findRes);
@@ -225,7 +237,6 @@ public class FastMapPage
 
     }
 
-
     public void ScrollOneStep()
     {
         testadapter.ScrollOneStep();
@@ -245,6 +256,20 @@ public class FastMapPage
         }
     }
 
+
+    public String GetValuebyIndex(String findRes,int index) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException {
+        Field field = GetField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.clazz().isEmpty())
+        {
+            return testadapter.GetValuebyIndex(annotation.clazz(), index);
+        }
+        else
+        {
+            return "";
+        }
+    }
 //    protected void CheckResource(UiObject2 object, ArrayList<UiObject2> listResult)
 //    {
 //        List<UiObject2> lst = object.getChildren();

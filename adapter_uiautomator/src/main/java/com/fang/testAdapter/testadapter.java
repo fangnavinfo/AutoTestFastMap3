@@ -96,6 +96,13 @@ public class testadapter
         return obj.getText();
     }
 
+
+    public static String GetValuebyIndex(String findRes, int index) throws UiObjectNotFoundException
+    {
+        UiObject obj = new UiObject(new UiSelector().className(findRes).instance(index));
+         return obj.getText();
+    }
+
     public static int getCtrlWidth()
     {
         //UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, id)), 500);
@@ -136,6 +143,19 @@ public class testadapter
         {
             UiObject2 hm = mDevice.findObject(By.res(packageName, id));
             return hm.isChecked();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean isCheckedbyIndex(String findRes, int index) throws UiObjectNotFoundException
+    {
+        try
+        {
+            UiObject obj = new UiObject(new UiSelector().className(findRes).instance(index));
+            return obj.isChecked();
         }
         catch (Exception e)
         {
@@ -373,6 +393,11 @@ public class testadapter
         obj.click();
     }
 
+    public static void ByIndex(String clazz, int index) throws UiObjectNotFoundException
+    {
+        UiObject obj = new UiObject(new UiSelector().className(clazz).instance(index));
+        obj.getText();
+    }
     public static void ClearCap() throws IOException
     {
         mDevice.executeShellCommand("rm -rf" + testCapPath);

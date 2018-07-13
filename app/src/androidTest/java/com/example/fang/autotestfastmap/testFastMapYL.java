@@ -533,6 +533,8 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
     }
 
+
+
     @Test @IMPORTANT
     public void test00702_info_Point_testPath() throws Exception
     {
@@ -3425,7 +3427,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,252,510,10);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3455,7 +3457,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,452,510,10);
+        Page_MainBoard.Inst.Drag(82,460,452,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3489,7 +3491,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,352,510,10);
+        Page_MainBoard.Inst.Drag(82,460,352,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3519,7 +3521,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,252,510,10);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3562,7 +3564,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,252,510,10);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3596,7 +3598,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,252,510,10);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3630,7 +3632,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,252,510,10);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3671,7 +3673,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,252,510,10);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3714,7 +3716,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
         Thread.sleep(1000);
 
-        Page_MainBoard.Inst.Drag(82,510,252,510,10);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -3734,6 +3736,114 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.CANCEL);
         ExitIndoorTools();
+    }
+
+    @Test
+    public void test02224_roadlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 7);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(82,460,452,460,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM70);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM70);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 7);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(82,460,352,460,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 7);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM70);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByText("高:40/0/0");
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 7);
+
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+
+//        //查看历史记录
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+//        Page_MainBoard.Inst.ClickCenter();
+//        Thread.sleep(2000);
+//        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+//        Thread.sleep(1000);
+//
+//        Page_MainBoard.Inst.Drag(82,460,252,460,10);
+//        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+//        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+//        Thread.sleep(1000);
+//        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+//        Thread.sleep(1000);
+//        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+//        Thread.sleep(1000);
+//
+//        Page_MainBoard.Inst.Drag(1822,951,1822,444,10);
+//        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+//        Thread.sleep(1000);
+//        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+//        Thread.sleep(1000);
+//        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+//        Thread.sleep(1000);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+//        Thread.sleep(1000);
+//
+//        GotoIndoorTools();
+//        Page_IndoorMyData.Inst.ClickbyText("车道限速");
+//        Thread.sleep(2000);
+//        Page_IndoorMyData.Inst.ClickbyText("车道限速");
+//        Thread.sleep(1000);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.CANCEL);
+//        ExitIndoorTools();
     }
 
     @Test
@@ -6914,7 +7024,7 @@ public class testFastMapYL extends testFastMapBase
         int[] array = new int[5];
         int i = 0;
         for (; i < 5; i++) {
-            array[i] = jsonObject.getJSONArray("orm").getInt(i);
+            array[i] = jsonObject.getJSONArray("form").getInt(i);
         }
         assertSame(array[0], 1);
         assertSame(array[1], 1);
@@ -6929,7 +7039,9 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.VEHICLE_LANE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        //Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        Page_MainBoard.Inst.Drag(137,382,252,382,10);
+
         //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
         Page_VehicleLane.Inst.ClickByIndex(Page_VehicleLane.LIMIT_EDIT, 1);
         Thread.sleep(1000);
@@ -6954,7 +7066,9 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.VEHICLE_LANE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        //Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        Page_MainBoard.Inst.Drag(137,382,252,382,10);
+
         Page_VehicleLane.Inst.ClickByIndex(Page_VehicleLane.LIMIT_EDIT, 2);
         Page_VehicleLane.Inst.Click(Page_VehicleLane.NUM7);
         Thread.sleep(1000);
@@ -6972,7 +7086,9 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.VEHICLE_LANE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        //Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        Page_MainBoard.Inst.Drag(137,382,252,382,10);
+
         Page_VehicleLane.Inst.ClickByIndex(Page_VehicleLane.LIMIT_EDIT, 2);
         Page_VehicleLane.Inst.Click(Page_VehicleLane.NUM7);
         Thread.sleep(1000);
@@ -6990,7 +7106,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.VEHICLE_LANE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        //Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        Page_MainBoard.Inst.Drag(137,382,252,382,10);
         Page_VehicleLane.Inst.ClickByIndex(Page_VehicleLane.LIMIT_EDIT, 2);
         Page_VehicleLane.Inst.Click(Page_VehicleLane.NUM7);
         Thread.sleep(1000);
@@ -7008,7 +7125,8 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.VEHICLE_LANE);
         Page_MainBoard.Inst.ClickCenter();
         Thread.sleep(2000);
-        Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        //Page_MainBoard.Inst.Drag(82,437,252,437,10);
+        Page_MainBoard.Inst.Drag(137,382,252,382,10);
         Page_VehicleLane.Inst.ClickByIndex(Page_VehicleLane.LIMIT_EDIT, 2);
         Page_VehicleLane.Inst.Click(Page_VehicleLane.NUM7);
         Thread.sleep(1000);
@@ -7550,6 +7668,559 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("实景图");
         assertFalse(Page_TrueSence.Inst.isExistByName(Page_TrueSence.HIGHWAY_LOAD_OUT));
     }
+    @Test
+    public void test05701_roadlimitlane() throws Exception
+    {
+        if (FastMapPage.IS_OS_TEST)
+        {
+            return;
+        }
+
+        //车道限速 历史记录
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM70);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM90);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM70);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 5);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(82,460,252,460,10);
+        //Page_MainBoard.Inst.Click(new Point(65,481));//点限速必选一个
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 1);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.ClickByIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM30);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.ROADLIMIT);
+        Thread.sleep(1000);
+        Page_SpeedLimitLane.Inst.Drag(1789,1066,1789,566,5);
+
+        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.HEIGHT);
+        String strHeight = Page_SpeedLimitLane.Inst.GetValuebyIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        String strHeight1 = Page_SpeedLimitLane.Inst.GetValuebyIndex(Page_SpeedLimitLane.LIMIT_EDIT, 6);
+        String strLow = Page_SpeedLimitLane.Inst.GetValuebyIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+        //boolean bTemp = Page_SpeedLimitLane.Inst.isCheckedbyIndex(Page_SpeedLimitLane.LIMIT_EDIT,1);
+
+        assertEquals("40",strHeight);
+        assertEquals("40",strHeight1);
+        assertEquals("30",strLow);
+        //assertTrue(bTemp);
+
+        Page_SpeedLimitLane.Inst.ClickbyText("高:90/0/0");
+        strHeight = Page_SpeedLimitLane.Inst.GetValuebyIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        strLow = Page_SpeedLimitLane.Inst.GetValuebyIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+        //boolean bTemp = Page_SpeedLimitLane.Inst.isCheckedbyIndex(Page_SpeedLimitLane.LIMIT_EDIT,1);
+
+        assertEquals("90",strHeight);
+        assertEquals("70",strLow);
+        //assertTrue(bTemp);
+
+        Page_SpeedLimitLane.Inst.ClickbyText("高:70/0/0");
+        strHeight = Page_SpeedLimitLane.Inst.GetValuebyIndex(Page_SpeedLimitLane.LIMIT_EDIT, 2);
+        strLow = Page_SpeedLimitLane.Inst.GetValuebyIndex(Page_SpeedLimitLane.LIMIT_EDIT, 3);
+        //boolean bTemp = Page_SpeedLimitLane.Inst.isCheckedbyIndex(Page_SpeedLimitLane.LIMIT_EDIT,1);
+
+        assertEquals("70",strHeight);
+        assertEquals("30",strLow);
+        //assertTrue(bTemp);
+    }
 
 
+
+
+
+
+    @Test
+    public void test00222_poi_relationship_Tag() throws Exception
+    {
+        //查看默认值
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.ClickbyText("已采集");
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(2,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+    }
+
+    @Test
+    public void test00223_poi_relationship_Tag() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        //新增是切换tag页
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK4);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        Page_POI.Inst.isChecked(Page_POI.FEEDBACK0);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK1);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.isChecked(Page_POI.FEEDBACK4);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        Page_POI.Inst.isChecked(Page_POI.FEEDBACK1);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(1,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(4,fineFeedback);
+    }
+
+    @Test
+    public void test00224_poi_relationship_Tag() throws Exception
+    {
+        //编辑时切换tag页
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Thread.sleep(2000);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK7);
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        //Page_POI.Inst.Click(Page_POI.TAG1);
+        //Page_POI.Inst.Click(Page_POI.FEEDBACK4);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        Page_POI.Inst.Click(Page_POI.FEEDBACK0);
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        Page_POI.Inst.Click(Page_POI.FEEDBACK1);
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK1));
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK4);
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK4));
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(1,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(4,fineFeedback);
+    }
+
+    @Test
+    public void test00225_poi_relationship_Tag() throws Exception
+    {
+        //小区有父无子 不展示精细化卡片
+        String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
+                {Page_POI.SELECT_TYPE, "120202"}};
+        AddPOI(attrib1);
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Thread.sleep(2000);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+        Page_POI.Inst.ClickbyText("     建立父POI     ");
+        Page_POI.Inst.ClickbyText("住宅楼");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+    }
+
+
+
+    @Test
+    public void test00226_poi_relationship_Tag() throws Exception
+    {
+        //有子无父
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Thread.sleep(2000);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        String[][] attribs = {{Page_POI.NAME, "中餐馆"},
+                {Page_POI.SELECT_TYPE, "110101"},
+                {Page_POI.POI_FATHER, "小区"}};
+        AddPOI(attribs);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Drag(1759,1259,1759,600,5);
+        //Page_MainBoard.Inst.Drag(1759,1259,1759,600,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK2);
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        Thread.sleep(1000);
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(1,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(2,fineFeedback);
+    }
+
+    @Test
+    public void test00227_poi_relationship_Tag() throws Exception
+    {
+        //有子有父
+        String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
+                {Page_POI.SELECT_TYPE, "120202"}};
+        AddPOI(attrib1);
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Thread.sleep(2000);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+        Page_POI.Inst.ClickbyText("     建立父POI     ");
+        Page_POI.Inst.ClickbyText("住宅楼");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+
+        String[][] attribs3 = {{Page_POI.NAME, "中餐馆"},
+                {Page_POI.SELECT_TYPE, "110101"},
+                {Page_POI.POI_FATHER, "小区"}};
+        AddPOI(attribs3);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK5);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(1,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(5,fineFeedback);
+    }
+
+    @Test
+    public void test00228_poi_relationship_Tag() throws Exception
+    {
+        //有子有父删除子
+        String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
+                {Page_POI.SELECT_TYPE, "120202"}};
+        AddPOI(attrib1);
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Thread.sleep(2000);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+        Page_POI.Inst.ClickbyText("     建立父POI     ");
+        Page_POI.Inst.ClickbyText("住宅楼");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+
+        String[][] attribs3 = {{Page_POI.NAME, "中餐馆"},
+                {Page_POI.SELECT_TYPE, "110101"},
+                {Page_POI.POI_FATHER, "小区"}};
+        AddPOI(attribs3);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK5);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(1,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(5,fineFeedback);
+
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("中餐馆");
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+        Page_POI.Inst.ClickbyText("删除父子关系");
+        Page_POI.Inst.ClickbyText("是");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Drag(1759,1259,1759,600,5);
+        //Page_MainBoard.Inst.Drag(1759,1259,1759,600,5);
+        assertFalse(Page_POI.Inst.isExistByName("未采集"));
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+    }
+
+    @Test
+    public void test00229_poi_relationship_Tag() throws Exception
+    {
+        //复制poi
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(2,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("复制信息新增");
+            Page_MainBoard.Inst.ClickbyText("确定");
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String Fid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1759,1259,1759,600,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK8);
+        Fid = Fid.replace("fid:", "");
+        Fid = Fid.replace("fid : ", "");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+
+        Sqlitetools.RefreshData();
+        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(Fid,"fineFlag");
+        assertSame(1,fineFlag);
+        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(Fid,"fineFeedback");
+        assertSame(8,fineFeedback);
+    }
+
+    @Test
+    public void test00230_poi_relationship_Tag() throws Exception
+    {
+        //框选子
+        String[][] attrib1 = {{Page_POI.NAME, "中餐馆"},
+                {Page_POI.SELECT_TYPE, "110101"}};
+        AddPOI(attrib1);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String Fid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+        Page_POI.Inst.ClickbyText("框选子POI");
+        Page_POI.Inst.Drag(1759,1259,1759,600,5);
+        //Page_MainBoard.Inst.Drag(1759,1259,1759,600,5);
+        Page_POI.Inst.ClickbyText("已采集");
+        Fid = Fid.replace("fid:", "");
+        Fid = Fid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(Fid,"fineFlag");
+        assertSame(2,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(Fid,"fineFeedback");
+        assertSame(0,fineFeedback);
+    }
 }

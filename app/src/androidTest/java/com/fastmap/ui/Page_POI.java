@@ -99,6 +99,30 @@ public class Page_POI extends FastMapPage
 
     @FindResource(Id="fm_iv_name")
     public static String TOTAL_NAME;
+
+    @FindResource(Id="rbtn_poi_fine_tag_1",Text="未采集")
+    public static String TAG1;
+    @FindResource(Id="rbtn_poi_fine_tag_2",Text="已采集")
+    public static String TAG2;
+    @FindResource(Id="rbtn_poi_fine_feedback_0",Text="无")
+    public static String FEEDBACK0;
+    @FindResource(Id="rbtn_poi_fine_feedback_1",Text="无采集内容")
+    public static String FEEDBACK1;
+    @FindResource(Id="rbtn_poi_fine_feedback_2",Text="现场无法进入")
+    public static String FEEDBACK2;
+    @FindResource(Id="rbtn_poi_fine_feedback_3",Text="已拆除")
+    public static String FEEDBACK3;
+    @FindResource(Id="rbtn_poi_fine_feedback_4",Text="现场找不到")
+    public static String FEEDBACK4;
+    @FindResource(Id="rbtn_poi_fine_feedback_5",Text="非指定分类")
+    public static String FEEDBACK5;
+    @FindResource(Id="rbtn_poi_fine_feedback_6",Text="在建中，无法作业")
+    public static String FEEDBACK6;
+    @FindResource(Id="rbtn_poi_fine_feedback_7",Text="不符合采集标准")
+    public static String FEEDBACK7;
+    @FindResource(Id="rbtn_poi_fine_feedback_8",Text="其它")
+    public static String FEEDBACK8;
+
     public static Page_POI Inst;
     static
     {
