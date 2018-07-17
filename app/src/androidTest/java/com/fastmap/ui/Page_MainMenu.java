@@ -27,7 +27,7 @@ public class Page_MainMenu extends FastMapPage
 
     @FindResource(Id="fmcard_tv_user_settings", clazz = "android.widget.TextView", Text="设置")
     public static String SET;
-    @FindResource(Id="fmcard_btn_user_exit",Text="退出登录", clazz="android.widget.Button")
+    @FindResource(Id="fmcard_tv_user_exit",Text="退出登录", clazz="android.widget.TextView")
     public static String EXIT;
 
     @FindResource(clazz="android.widget.ScrollView")
