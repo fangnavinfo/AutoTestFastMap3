@@ -123,6 +123,14 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="rbtn_poi_fine_feedback_8",Text="其它")
     public static String FEEDBACK8;
 
+    @FindResource(Id="cb_door_type")
+    public static String DOOR;
+
+    @FindResource(Id="img_father_pop_close")
+    public static String POPCLOSE;
+    @FindResource(Id="fail_name")
+    public static String FAILNAME;
+
     public static Page_POI Inst;
     static
     {

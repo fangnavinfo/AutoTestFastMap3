@@ -330,6 +330,9 @@ public class testadapter
             case "yanghaifei01902":
                 userPath = "/sdcard/" + dirName + "/Data/Collect/1902";
                 break;
+            case "duxuejun01540":
+                userPath = "/sdcard/" + dirName + "/Data/Collect/1540";
+                break;
             case "wukunyu02074":
                 userPath = "/sdcard/" + dirName + "/Data/Collect/2074";
                 break;
