@@ -502,7 +502,7 @@ public class testFastMapYL extends testFastMapBase
 
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "充电桩");
-        Page_POI.Inst.Drag(1800,1300,1800,750,4);
+        Page_POI.Inst.Drag(1800,1120,1800,800,4);
         Thread.sleep(2000);
         //Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
         Page_POI.Inst.ClickbyText("无");
@@ -8201,7 +8201,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
         Page_POI.Inst.Drag(1790,1095,1790,800,5);
         Page_POI.Inst.Click(Page_POI.POST_CODE);
-        Thread.sleep(2000);
+        Page_POI.Inst.Click(Page_POI.POST_CODE);
         Page_POI.Inst.ClickbyText("786700","786700");
         Page_POI.Inst.Drag(1764,790,1764,375,5);
         Page_POI.Inst.Click(Page_POI.SAVE);
@@ -8323,6 +8323,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.SelectData("测试ＰＯＩ１");
         Page_POI.Inst.Drag(1790,1095,1790,800,5);
         Page_POI.Inst.isExistByName("686700");
+        Page_POI.Inst.Click(Page_POI.POST_CODE);
         Page_POI.Inst.ClickbyText("790621","790621");
         Page_POI.Inst.isExistByName("790621");
         Page_POI.Inst.Drag(1764,790,1764,375,5);
