@@ -1612,6 +1612,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // MS数据验证
+    /*
     @Test
     public void test00124_2_MS_Data_check() throws Exception
     {
@@ -1636,6 +1637,7 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_InfoPoint.Inst.isExistByName("其它"));
 
     }
+    */
 
     // 卡车交限卡片验证
     @Test
