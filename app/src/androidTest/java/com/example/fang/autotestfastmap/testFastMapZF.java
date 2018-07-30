@@ -1202,7 +1202,7 @@ public class testFastMapZF extends testFastMapBase
 
     // POI：同点位多点增加按楼层筛选功能
     @Test
-    public void test00121_poi_same_floor_check() throws Exception
+    public void test00121_1_poi_same_floor_check() throws Exception
     {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "百货商场零售"}};
@@ -1225,6 +1225,55 @@ public class testFastMapZF extends testFastMapBase
 
         testadapter.ClearWal();
         Sqlitetools.updatePoiFloorInfo(fid1, fid2);
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        SearchLocation("116.40557", "39.96121");
+        Page_MainBoard.Inst.ClickCenter();
+
+        assertTrue(Page_MainBoard.Inst.isExistByName("１层"));
+        assertTrue(Page_MainBoard.Inst.isExistByName("２层"));
+
+    }
+
+    // POI：同点位多点POI按楼层筛选优化
+    @Test
+    public void test00121_2_poi_same_floor_check() throws Exception
+    {
+        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+                {Page_POI.SELECT_TYPE, "百货商场零售"}};
+
+        AddPOI(attrib1,"116.40557", "39.96121");
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid1 = AddPOI(attrib2,"116.40557", "39.96121");
+
+        String[][] attrib3 = {{Page_POI.NAME, "异国风味TEST1"},
+                {Page_POI.SELECT_TYPE, "异国风味"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid2 = AddPOI(attrib3,"116.40557", "39.96121");
+
+        String[][] attrib4 = {{Page_POI.NAME, "酒吧TEST1"},
+                {Page_POI.SELECT_TYPE, "酒吧"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid3 = AddPOI(attrib4,"116.40557", "39.96121");
+
+        String[][] attrib5 = {{Page_POI.NAME, "冷饮店TEST1"},
+                {Page_POI.SELECT_TYPE, "冷饮店"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid4 = AddPOI(attrib5,"116.40557", "39.96121");
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updatePoiFloorInfo(fid1, fid2);
+        Sqlitetools.updatePoiFloorInfo2(fid3, fid4);
 
         testadapter.ClearWal();
 
@@ -1576,6 +1625,61 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // POI：采集端充电站开放时间默认值设定
+    @Test
+    public void test00123_5_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        assertEquals("00:00-23:59", Page_POI.Inst.GetValue(Page_POI.CHARGINGSTATION_OPEN_HOUR));
+
+    }
+
+    // POI：采集端充电桩插孔类型改善
+    @Test
+    public void test00123_6_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("保存"));
+
+    }
+
     // MS数据验证
     @Test
     public void test00124_1_MS_Data_check() throws Exception
@@ -1918,6 +2022,26 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_InfoPoint.Inst.isExistByName("实景图"));
 
     }
+
+    // POI：停车场深度信息增加界面提示
+    @Test
+    public void test00130_parking_deep_info_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "停车场");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("保存"));
+    }
+
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception

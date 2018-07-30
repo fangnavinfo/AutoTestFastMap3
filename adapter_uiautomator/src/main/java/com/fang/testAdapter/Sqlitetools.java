@@ -186,6 +186,38 @@ public class Sqlitetools {
         }
     }
 
+    public static void updatePoiFloorInfo2(String fid1, String fid2) throws Exception
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+
+
+        boolean b = false;
+
+        try {
+            ContentValues cv1 = new ContentValues();
+            cv1.put("indoor", "{\"type\":0,\"floor\":\"１楼\"}");
+            ContentValues cv2 = new ContentValues();
+            cv2.put("indoor", "{\"type\":0,\"floor\":\"２楼\"}");
+
+
+            String whereClause = "fid=?";
+
+            String[] whereArgs1 = {fid1};
+            String[] whereArgs2 = {fid2};
+
+            //db.execSQL("PRAGMA journal_mode=DELETE ");
+
+            db.update("edit_pois", cv1, whereClause, whereArgs1);
+
+            db.update("edit_pois", cv2, whereClause, whereArgs2);
+
+        } catch (Exception e) {
+            throw e;
+
+        } finally {
+            db.close();
+        }
+    }
 
     public static void updateFieldDate(String newDate) throws Exception {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
