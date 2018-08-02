@@ -135,6 +135,19 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="fail_name")
     public static String FAILNAME;
 
+    @FindResource(clazz="android.widget.CheckBox", Text="交流3孔家用")
+    public static String AC_3;
+    @FindResource(clazz="android.widget.CheckBox", Text="国标交流7孔")
+    public static String GB_7;
+    @FindResource(clazz="android.widget.CheckBox", Text="国标直流9孔")
+    public static String GB_9;
+    @FindResource(clazz="android.widget.CheckBox", Text="特斯拉专用")
+    public static String TESLA;
+    @FindResource(clazz="android.widget.CheckBox", Text="其它")
+    public static String OTHER;
+    @FindResource(clazz="android.widget.CheckBox", Text="无法采集")
+    public static String NO_COLLECT;
+
     public static Page_POI Inst;
     static
     {

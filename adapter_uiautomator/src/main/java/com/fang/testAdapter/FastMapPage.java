@@ -66,7 +66,7 @@ public class FastMapPage
 
             if (!annotation.Text().isEmpty())
             {
-                testadapter.ClickByText(annotation.Id());
+                testadapter.ClickByText(annotation.Text());
 
                 return;
             }

@@ -1514,6 +1514,9 @@ public class testFastMapZF extends testFastMapBase
 
         Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
 
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.Click(Page_POI.AC_3);
+
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
@@ -1549,6 +1552,9 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
 
         Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.Click(Page_POI.AC_3);
 
         Page_POI.Inst.Click(Page_POI.SAVE);
 
@@ -1863,7 +1869,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
 
         Page_POI.Inst.ClickByText("医院内部设施");
-        Page_POI.Inst.ClickByText("医疗机构");
+        Page_POI.Inst.ClickByText("专科医院");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
@@ -1878,7 +1884,7 @@ public class testFastMapZF extends testFastMapBase
         for(int i = 0; i<5; i++)
         {
             obj = lst.get(i);
-            if(i==0 || i==2)
+            if(i==0 || i==4)
             {
                 assertTrue(obj.isChecked());
             }
@@ -1933,7 +1939,7 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(1000);
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
         Page_POI.Inst.ClickByText("医院内部设施");
-        Page_POI.Inst.ClickByText("医疗机构");
+        Page_POI.Inst.ClickByText("专科医院");
         Page_POI.Inst.Click(Page_POI.SAVE);
         ExitMyData();
 
@@ -1948,7 +1954,7 @@ public class testFastMapZF extends testFastMapBase
         for(int i = 0; i<5; i++)
         {
             obj = lst.get(i);
-            if(i==0 || i==2)
+            if(i==0 || i==4)
             {
                 assertTrue(obj.isChecked());
             }
