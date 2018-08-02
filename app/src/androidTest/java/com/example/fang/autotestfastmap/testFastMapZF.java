@@ -1641,14 +1641,18 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
 
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGINGSTATION_OPEN_HOUR);
+        Page_TimeCtl.Inst.Click(Page_TimeCtl.CONFIRM);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
         Page_MyData.Inst.SelectData("测试ＰＯＩ");
 
+        Thread.sleep(1000);
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
 
-        assertEquals("00:00-23:59", Page_POI.Inst.GetValue(Page_POI.CHARGINGSTATION_OPEN_HOUR));
+        assertTrue(Page_InfoPoint.Inst.isExistByName("00:00-23:59"));
 
     }
 
@@ -2042,6 +2046,22 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_InfoPoint.Inst.isExistByName("保存"));
     }
 
+    //卡车限制
+    @Test
+    public void test_FM_1110_2_3_check() throws Exception
+    {
+        SearchLocation(LOC_K8);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.WEIGHT);
+        Page_TruckLimit.Inst.ClickByText("10");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+
+        AssertIndoorCheck("卡车限制", "中", "FM-1110-2-3", "卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。", "");
+    }
+
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
@@ -2064,6 +2084,37 @@ public class testFastMapZF extends testFastMapBase
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
         AssertIndoorCheck("车道限速", "高", "FM-1113-2-1", "车道限速各车道的限速值一样时，不需采集", "忽略");
     }
+
+    //卡车限速
+    @Test
+    public void test_FM_1114_2_1_check() throws Exception
+    {
+        SearchLocation(LOC_K8);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_SpeedLimit.Inst.ClickByText("30");
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.SAVE);
+
+
+        AssertIndoorCheck("卡车限制", "中", "FM-1114-2-1", "卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。", "");
+    }
+
+    //卡车禁停
+    @Test
+    public void test_FM_1120_2_2_check() throws Exception
+    {
+        SearchLocation(LOC_K8);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+
+        AssertIndoorCheck("卡车限制", "中", "FM-1120-2-2", "卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。", "");
+    }
+
 
     // FM-1207-6-2
     @Test
