@@ -148,6 +148,25 @@ public class Page_POI extends FastMapPage
     @FindResource(clazz="android.widget.CheckBox", Text="无法采集")
     public static String NO_COLLECT;
 
+    //框选POI按钮
+    @FindResource(Id="tv_marquee_frame_repaint")
+    public static String REPAINT;
+    @FindResource(Id="tv_marquee_frame_last_paint")
+    public static String LAST_PAINT;
+    @FindResource(Id="tv_marquee_frame_complete")
+    public static String COMPLETE;
+
+    @FindResource(Id="move_points")
+    public static String MOVE_POINT;
+    @FindResource(Id="move_one_point")
+    public static String COMBINE_POINT;
+    @FindResource(Id="auto_link")
+    public static String AUTO_LINK;
+    @FindResource(Id="manual_link")
+    public static String MANUAL_LINK;
+    @FindResource(Id="select_link")
+    public static String SELECT_LINK;
+
     public static Page_POI Inst;
     static
     {
