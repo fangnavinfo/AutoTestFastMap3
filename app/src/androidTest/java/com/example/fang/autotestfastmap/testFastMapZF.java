@@ -1202,7 +1202,7 @@ public class testFastMapZF extends testFastMapBase
 
     // POI：同点位多点增加按楼层筛选功能
     @Test
-    public void test00121_poi_same_floor_check() throws Exception
+    public void test00121_1_poi_same_floor_check() throws Exception
     {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "百货商场零售"}};
@@ -1225,6 +1225,55 @@ public class testFastMapZF extends testFastMapBase
 
         testadapter.ClearWal();
         Sqlitetools.updatePoiFloorInfo(fid1, fid2);
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        SearchLocation("116.40557", "39.96121");
+        Page_MainBoard.Inst.ClickCenter();
+
+        assertTrue(Page_MainBoard.Inst.isExistByName("１层"));
+        assertTrue(Page_MainBoard.Inst.isExistByName("２层"));
+
+    }
+
+    // POI：同点位多点POI按楼层筛选优化
+    @Test
+    public void test00121_2_poi_same_floor_check() throws Exception
+    {
+        String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
+                {Page_POI.SELECT_TYPE, "百货商场零售"}};
+
+        AddPOI(attrib1,"116.40557", "39.96121");
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid1 = AddPOI(attrib2,"116.40557", "39.96121");
+
+        String[][] attrib3 = {{Page_POI.NAME, "异国风味TEST1"},
+                {Page_POI.SELECT_TYPE, "异国风味"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid2 = AddPOI(attrib3,"116.40557", "39.96121");
+
+        String[][] attrib4 = {{Page_POI.NAME, "酒吧TEST1"},
+                {Page_POI.SELECT_TYPE, "酒吧"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid3 = AddPOI(attrib4,"116.40557", "39.96121");
+
+        String[][] attrib5 = {{Page_POI.NAME, "冷饮店TEST1"},
+                {Page_POI.SELECT_TYPE, "冷饮店"},
+                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
+        String fid4 = AddPOI(attrib5,"116.40557", "39.96121");
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updatePoiFloorInfo(fid1, fid2);
+        Sqlitetools.updatePoiFloorInfo2(fid3, fid4);
 
         testadapter.ClearWal();
 
@@ -1465,6 +1514,9 @@ public class testFastMapZF extends testFastMapBase
 
         Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
 
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.Click(Page_POI.AC_3);
+
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
@@ -1500,6 +1552,9 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
 
         Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.Click(Page_POI.AC_3);
 
         Page_POI.Inst.Click(Page_POI.SAVE);
 
@@ -1576,6 +1631,65 @@ public class testFastMapZF extends testFastMapBase
 
     }
 
+    // POI：采集端充电站开放时间默认值设定
+    @Test
+    public void test00123_5_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGINGSTATION_OPEN_HOUR);
+        Page_TimeCtl.Inst.Click(Page_TimeCtl.CONFIRM);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("00:00-23:59"));
+
+    }
+
+    // POI：采集端充电桩插孔类型改善
+    @Test
+    public void test00123_6_poi_charge_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("保存"));
+
+    }
+
     // MS数据验证
     @Test
     public void test00124_1_MS_Data_check() throws Exception
@@ -1612,6 +1726,7 @@ public class testFastMapZF extends testFastMapBase
     }
 
     // MS数据验证
+    /*
     @Test
     public void test00124_2_MS_Data_check() throws Exception
     {
@@ -1636,6 +1751,7 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_InfoPoint.Inst.isExistByName("其它"));
 
     }
+    */
 
     // 卡车交限卡片验证
     @Test
@@ -1753,7 +1869,7 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
 
         Page_POI.Inst.ClickByText("医院内部设施");
-        Page_POI.Inst.ClickByText("医疗机构");
+        Page_POI.Inst.ClickByText("专科医院");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
@@ -1768,7 +1884,7 @@ public class testFastMapZF extends testFastMapBase
         for(int i = 0; i<5; i++)
         {
             obj = lst.get(i);
-            if(i==0 || i==2)
+            if(i==0 || i==4)
             {
                 assertTrue(obj.isChecked());
             }
@@ -1823,7 +1939,7 @@ public class testFastMapZF extends testFastMapBase
         Thread.sleep(1000);
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
         Page_POI.Inst.ClickByText("医院内部设施");
-        Page_POI.Inst.ClickByText("医疗机构");
+        Page_POI.Inst.ClickByText("专科医院");
         Page_POI.Inst.Click(Page_POI.SAVE);
         ExitMyData();
 
@@ -1838,7 +1954,7 @@ public class testFastMapZF extends testFastMapBase
         for(int i = 0; i<5; i++)
         {
             obj = lst.get(i);
-            if(i==0 || i==2)
+            if(i==0 || i==4)
             {
                 assertTrue(obj.isChecked());
             }
@@ -1916,6 +2032,510 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_InfoPoint.Inst.isExistByName("实景图"));
 
     }
+
+    // POI：停车场深度信息增加界面提示
+    @Test
+    public void test00130_parking_deep_info_check() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "停车场");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("保存"));
+    }
+
+    // 框选POI-跨道路批量关联功能
+    @Test
+    public void test00131_poi_select_check() throws Exception
+    {
+
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"}};
+        AddPOI(attrib);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MARQUEE_POI_9002);
+        Page_MainBoard.Inst.Click(new Point(500,500));
+        Page_MainBoard.Inst.Click(new Point(500,1000));
+        Page_MainBoard.Inst.Click(new Point(1500,1000));
+        Page_MainBoard.Inst.Click(new Point(1500,500));
+
+        Page_POI.Inst.Click(Page_POI.COMPLETE);
+
+        Page_POI.Inst.Click(Page_POI.SELECT_LINK);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1000,640));
+        Thread.sleep(1000);
+        Page_POI.Inst.Click(Page_POI.SELECT_LINK);
+
+        Page_POI.Inst.ClickByText("是");
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("框选POI"));
+    }
+
+
+    //ASCII   @:64 A:65    Z:90 [:91
+    //        ':96 a:97    z:122 {:123
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00132_1_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号1");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 425));
+        Thread.sleep(1000);
+        assertTrue(!Page_PAS.Inst.isExistByName("楼栋号０"));
+        assertTrue(!Page_PAS.Inst.isExistByName("楼栋号-１"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号１"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号２"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00132_2_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号a");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ａ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｂ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00132_3_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号A");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ａ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｂ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00132_4_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号Z");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｚ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｙ"));
+
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00132_5_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号z");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｚ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｙ"));
+
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00132_6_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号E");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 425));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｅ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｄ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｆ"));
+
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00132_7_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号e");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 425));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｅ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｄ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｆ"));
+    }
+
+    @Test
+    public void test00133_1_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号1");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 425));
+        Thread.sleep(1000);
+        assertTrue(!Page_PAS.Inst.isExistByName("楼栋号０"));
+        assertTrue(!Page_PAS.Inst.isExistByName("楼栋号-１"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号１"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号２"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00133_2_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号a");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ａ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｂ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00133_3_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号A");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ａ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｂ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00133_4_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号Z");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｚ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｙ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00133_5_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号z");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｚ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｙ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00133_6_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号E");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 425));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｅ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｄ"));
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号Ｆ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00133_7_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "小区名称TEST");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "楼栋号e");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 425));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｅ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 500));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｄ"));
+
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(1725, 595));
+        Thread.sleep(1000);
+        assertTrue(Page_PAS.Inst.isExistByName("楼栋号ｆ"));
+    }
+
+    // 点门牌：门牌录入方式优化
+    @Test
+    public void test00134_pas_input_update_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        assertTrue(Page_PAS.Inst.isExistByName("别墅"));
+    }
+
+    //卡车限制
+    @Test
+    public void test_FM_1110_2_3_check() throws Exception
+    {
+        SearchLocation(LOC_K8);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_LIMIT);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.WEIGHT);
+        Page_TruckLimit.Inst.ClickByText("10");
+        Page_TruckLimit.Inst.Click(Page_TruckLimit.SAVE);
+
+
+        AssertIndoorCheck("卡车限制", "中", "FM-1110-2-3", "卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。", "");
+    }
+
     // FM_1113_2_1 车道限速
     @Test
     public void test_FM_1113_2_1_check() throws Exception
@@ -1938,6 +2558,37 @@ public class testFastMapZF extends testFastMapBase
         Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
         AssertIndoorCheck("车道限速", "高", "FM-1113-2-1", "车道限速各车道的限速值一样时，不需采集", "忽略");
     }
+
+    //卡车限速
+    @Test
+    public void test_FM_1114_2_1_check() throws Exception
+    {
+        SearchLocation(LOC_K8);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
+        Page_SpeedLimit.Inst.ClickByText("30");
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.SAVE);
+
+
+        AssertIndoorCheck("卡车限制", "中", "FM-1114-2-1", "卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。", "");
+    }
+
+    //卡车禁停
+    @Test
+    public void test_FM_1120_2_2_check() throws Exception
+    {
+        SearchLocation(LOC_K8);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+
+        AssertIndoorCheck("卡车限制", "中", "FM-1120-2-2", "卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。", "");
+    }
+
 
     // FM-1207-6-2
     @Test

@@ -90,6 +90,10 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="rbtn_chargingStation_park_signboard_yes", Text="有")
     public static String CHARGE_SIGNBOARD_YES;
 
+    //充电站营业时间
+    @FindResource(Id="tv_chargingStation_openHour_start", Text="有")
+    public static String CHARGINGSTATION_OPEN_HOUR;
+
     //燃油类型
     @FindResource(Id="fm_cb_diesel", Text="柴油")
     public static String DIESEL;
@@ -130,6 +134,38 @@ public class Page_POI extends FastMapPage
     public static String POPCLOSE;
     @FindResource(Id="fail_name")
     public static String FAILNAME;
+
+    @FindResource(clazz="android.widget.CheckBox", Text="交流3孔家用")
+    public static String AC_3;
+    @FindResource(clazz="android.widget.CheckBox", Text="国标交流7孔")
+    public static String GB_7;
+    @FindResource(clazz="android.widget.CheckBox", Text="国标直流9孔")
+    public static String GB_9;
+    @FindResource(clazz="android.widget.CheckBox", Text="特斯拉专用")
+    public static String TESLA;
+    @FindResource(clazz="android.widget.CheckBox", Text="其它")
+    public static String OTHER;
+    @FindResource(clazz="android.widget.CheckBox", Text="无法采集")
+    public static String NO_COLLECT;
+
+    //框选POI按钮
+    @FindResource(Id="tv_marquee_frame_repaint")
+    public static String REPAINT;
+    @FindResource(Id="tv_marquee_frame_last_paint")
+    public static String LAST_PAINT;
+    @FindResource(Id="tv_marquee_frame_complete")
+    public static String COMPLETE;
+
+    @FindResource(Id="move_points")
+    public static String MOVE_POINT;
+    @FindResource(Id="move_one_point")
+    public static String COMBINE_POINT;
+    @FindResource(Id="auto_link")
+    public static String AUTO_LINK;
+    @FindResource(Id="manual_link")
+    public static String MANUAL_LINK;
+    @FindResource(Id="select_link")
+    public static String SELECT_LINK;
 
     public static Page_POI Inst;
     static
