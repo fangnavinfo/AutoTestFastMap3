@@ -36,6 +36,10 @@ public class Page_IndoorMyData extends FastMapPage
     @FindResource(Id="edt_indoor_mydata_filter_type", ios_xpath="//XCUIElementTypeApplication[@name=\"FastMap-18秋\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeTextField")
     public static String FILTER_EDTOR;
 
+    @FindResource(Id="btn_indoor_mode")
+    public static String INDOOR_MODE;
+    @FindResource(Id="rb_screen_mode_one")
+    public static String INDOOR_MODE_ONE;
     public static Page_IndoorMyData Inst;
     static
     {

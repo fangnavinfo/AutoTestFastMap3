@@ -42,6 +42,8 @@ public class Page_MainBoard extends FastMapPage
 
     @FindResource(Id="btn_mode", ios_name="scene integrated")
     public static String MODE; //场景设置
+    @FindResource(Id="rb_screen_mode_one")
+    public static String MODE_ONE; //资三
     @FindResource(Id="btn_close_pop", ios_name="gray close")
     public static String CLOSE;
     @FindResource(Id="cb_refinement_layer", ios_name="refinement")

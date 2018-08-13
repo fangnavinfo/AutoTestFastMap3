@@ -34,6 +34,8 @@ public class Page_MyData extends FastMapPage
     @FindResource(Id="iv_my_data_back", ios_name="white arrow")
     public static String BACK;
 
+    @FindResource(Id="tv_my_data_snap_list_item_index")
+    public static String INDEX;
     public static Page_MyData Inst;
     static
     {

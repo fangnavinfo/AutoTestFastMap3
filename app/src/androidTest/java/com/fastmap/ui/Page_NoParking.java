@@ -21,6 +21,9 @@ public class Page_NoParking extends Page_Base_Tips
     @FindResource(Id="btn_fm_confirm")
     public static String DELETE_CONFIRM;
 
+    @FindResource(Id="all_sections_quick_input")
+    public static String ALL_SECTION;
+
     @FindResource(Id="no_parking_virt_yes", ios_name="是")
     public static String IS_VIRTUAL;
     

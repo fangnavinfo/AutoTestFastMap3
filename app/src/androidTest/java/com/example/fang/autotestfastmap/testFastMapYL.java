@@ -7,17 +7,21 @@ import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_BuildingArea;
 import com.fastmap.ui.Page_ConditionSpeedLimit;
 import com.fastmap.ui.Page_Dangerous;
+import com.fastmap.ui.Page_DirectionBoard;
 import com.fastmap.ui.Page_ElecEye;
 import com.fastmap.ui.Page_FunctionalArea;
 import com.fastmap.ui.Page_Gate;
 import com.fastmap.ui.Page_Gradient;
 import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_HighSpeedDivider;
 import com.fastmap.ui.Page_HighSpeedEntryPic;
 import com.fastmap.ui.Page_IndoorMyData;
+import com.fastmap.ui.Page_IndoorTools;
 import com.fastmap.ui.Page_InfoAccept;
 import com.fastmap.ui.Page_InfoFrame;
 import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_InfoPoint;
+import com.fastmap.ui.Page_Kind;
 import com.fastmap.ui.Page_LaneChangePoint;
 import com.fastmap.ui.Page_LaneInfo;
 import com.fastmap.ui.Page_MainBoard;
@@ -26,10 +30,12 @@ import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MultiList;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NoParking;
+import com.fastmap.ui.Page_NoParkingTruck;
 import com.fastmap.ui.Page_NormalCrossPic;
 import com.fastmap.ui.Page_Note;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_RealSign;
 import com.fastmap.ui.Page_RoadName;
 import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_RoundAbout;
@@ -40,7 +46,9 @@ import com.fastmap.ui.Page_StartEndPoint;
 import com.fastmap.ui.Page_SurveyLine;
 import com.fastmap.ui.Page_TimeCtl;
 import com.fastmap.ui.Page_TollGate;
+import com.fastmap.ui.Page_TrafficForbidden;
 import com.fastmap.ui.Page_TruckCondition;
+import com.fastmap.ui.Page_TruckForbidden;
 import com.fastmap.ui.Page_TruckLimit;
 import com.fastmap.ui.Page_TruckLimitLane;
 import com.fastmap.ui.Page_TrueSence;
@@ -59,10 +67,10 @@ import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by fang on 17/11/21.
@@ -86,8 +94,8 @@ public class testFastMapYL extends testFastMapBase
     public void setUp() throws Exception {
 //        testFastMapBase.setClassUp("collector1","123456");
 //        Page_MainBoard.Inst.ClickCenter();
-        testFastMapBase.setClassUp("zhanglingling03655","036550");
-       // testFastMapBase.setClassUp("duxuejun01540","015400");
+        //testFastMapBase.setClassUp("zhanglingling03655","036550");
+       testFastMapBase.setClassUp("duxuejun01540","015400");
         //testFastMapBase.setClassUp("wukunyu02074","wy0207402815");
     }
 
@@ -262,14 +270,15 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "收费站");
         String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
-        assertEquals("卡车+小汽车",strTruck);
+        //assertEquals("卡车+小汽车",strTruck);
+        assertEquals("非卡车",strTruck);
         String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
         Page_POI.Inst.Click(Page_POI.SAVE);
         strFid = strFid.replace("fid:", "");
         strFid = strFid.replace("fid : ", "");
         Sqlitetools.RefreshData();
         int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
-        assertSame(2,truck);
+        assertSame(0,truck);
     }
 
 //    @Test
@@ -319,7 +328,7 @@ public class testFastMapYL extends testFastMapBase
         strFid = strFid.replace("fid : ", "");
         Sqlitetools.RefreshData();
         int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
-        assertSame(2,truck);
+        assertSame(1,truck);
     }
 
     @Test
@@ -458,8 +467,10 @@ public class testFastMapYL extends testFastMapBase
 
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "充电桩");
-        Page_POI.Inst.Drag(1800,1300,1800,400,4);
-        Thread.sleep(2000);
+//        Page_POI.Inst.Drag(1737,1183,1800,750,5);
+//        Thread.sleep(2000);
+
+        //Page_POI.Inst.ScrollClick(Page_POI.NO_CHARGE_GUN);
         //Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
         Page_POI.Inst.ClickbyText("无");
         Page_POI.Inst.Click(Page_POI.SAVE);
@@ -485,29 +496,6 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         synchronize(Page_GridManager.POI_UPDATE);
-        GotoMyData(Page_MyData.POI_TYPE);
-        Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
-        assertFalse(Page_POI.Inst.isExistByName(Page_POI.SELECT_TYPE));
-        Page_POI.Inst.Click(Page_POI.SAVE);
-    }
-
-    @Test
-    public void test00220_poi_add() throws Exception
-    {
-        //充电桩 充电站不允许跨大分类
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
-        Thread.sleep(3000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "充电桩");
-        Page_POI.Inst.Drag(1800,1120,1800,800,4);
-        Thread.sleep(2000);
-        //Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
-        Page_POI.Inst.ClickbyText("无");
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
         assertFalse(Page_POI.Inst.isExistByName(Page_POI.SELECT_TYPE));
@@ -561,39 +549,39 @@ public class testFastMapYL extends testFastMapBase
         assertSame(0,fineFeedback);
     }
 
-    @Test
-    public void test00223_poi_relationship_Tag() throws Exception
-    {
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        //新增是切换tag页
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
-        Thread.sleep(3000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
-        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
-        Page_POI.Inst.Drag(1796,1241,1796,336,5);
-        Page_POI.Inst.Click(Page_POI.TAG1);
-        Page_POI.Inst.Click(Page_POI.FEEDBACK4);
-        Page_POI.Inst.Click(Page_POI.TAG2);
-        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
-        Page_POI.Inst.Click(Page_POI.FEEDBACK1);
-        Page_POI.Inst.Click(Page_POI.TAG1);
-        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK4));
-        Page_POI.Inst.Click(Page_POI.TAG2);
-        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK1));
-        Page_POI.Inst.Click(Page_POI.TAG1);
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        infoFid = infoFid.replace("fid:", "");
-        infoFid = infoFid.replace("fid : ", "");
-
-        Sqlitetools.RefreshData();
-        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
-        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(4,fineFeedback);
-    }
+//    @Test
+//    public void test00223_poi_relationship_Tag() throws Exception
+//    {
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+//        //新增是切换tag页
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+//        Thread.sleep(3000);
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+//        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+//        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+//        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+//        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+//        Page_POI.Inst.Click(Page_POI.TAG1);
+//        Page_POI.Inst.Click(Page_POI.FEEDBACK4);
+//        Page_POI.Inst.Click(Page_POI.TAG2);
+//        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+//        Page_POI.Inst.Click(Page_POI.FEEDBACK1);
+//        Page_POI.Inst.Click(Page_POI.TAG1);
+//        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK4));
+//        Page_POI.Inst.Click(Page_POI.TAG2);
+//        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK1));
+//        Page_POI.Inst.Click(Page_POI.TAG1);
+//        Page_POI.Inst.Click(Page_POI.SAVE);
+//
+//        infoFid = infoFid.replace("fid:", "");
+//        infoFid = infoFid.replace("fid : ", "");
+//
+//        Sqlitetools.RefreshData();
+//        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+//        assertSame(1,fineFlag);
+//        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+//        assertSame(4,fineFeedback);
+//    }
 
     @Test
     public void test00224_poi_relationship_Tag() throws Exception
@@ -630,7 +618,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.FEEDBACK4);
         assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK4));
         Page_POI.Inst.Click(Page_POI.TAG2);
-        assertFalse(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK1));
         Page_POI.Inst.Click(Page_POI.TAG1);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
@@ -1780,7 +1768,6 @@ public class testFastMapYL extends testFastMapBase
         infoFid = infoFid.replace("fid : ", "");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
-
         Sqlitetools.RefreshData();
         fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
         assertSame(1,fineFlag);
@@ -2116,88 +2103,88 @@ public class testFastMapYL extends testFastMapBase
         assertSame(0,fineFeedback);
     }
 
-    @Test
-    public void test00250_poi_relationship_Tag() throws Exception
-    {
-        //综合医院 有父有子删除子
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-
-        //拍照并返回
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
-        Thread.sleep(3000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        Page_POI.Inst.SetValue(Page_POI.NAME,"高等教育");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "160105");
-        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
-        Page_POI.Inst.Drag(1796,1241,1796,336,5);
-        Page_POI.Inst.ClickbyText("已采集");
-        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        infoFid = infoFid.replace("fid:", "");
-        infoFid = infoFid.replace("fid : ", "");
-
-        String[][] attrib1 = {{Page_POI.NAME, "教学楼１"},
-                {Page_POI.SELECT_TYPE, "160106"}};
-        AddPOI(attrib1);
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        try
-        {
-            Thread.sleep(1000);
-            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
-        }
-        catch (Exception e)
-        {
-
-        }
-        //拍照并返回
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
-        Thread.sleep(3000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        Thread.sleep(2000);
-        Page_POI.Inst.SetValue(Page_POI.NAME,"教学楼２");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "110101");
-        Page_POI.Inst.Click(Page_POI.POI_FATHER);
-        Page_POI.Inst.ClickbyText("高等教育");
-        assertEquals("高等教育",Page_POI.Inst.GetValue(Page_POI.POI_FATHER));
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        GotoMyData(Page_MyData.POI_TYPE);
-        Page_MyData.Inst.ClickbyText("高等教育");
-        Page_POI.Inst.Click(Page_POI.POI_FATHER);
-        Page_POI.Inst.ClickbyText("     建立父POI     ");
-        Page_POI.Inst.ClickbyText("教学楼１");
-        Page_POI.Inst.Drag(1796,1241,1796,336,5);
-        Page_POI.Inst.Click(Page_POI.TAG1);
-        Page_POI.Inst.Click(Page_POI.FEEDBACK5);
-        Page_POI.Inst.Click(Page_POI.SAVE);
-        Thread.sleep(1000);
-
-        Sqlitetools.RefreshData();
-        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
-        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(5,fineFeedback);
-
-        GotoMyData(Page_MyData.POI_TYPE);
-        Page_MyData.Inst.ClickbyText("教学楼２");
-        Page_POI.Inst.Click(Page_POI.POI_FATHER);
-        Page_POI.Inst.ClickbyText("删除父子关系");
-        Page_POI.Inst.ClickbyText("是");
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        Page_MyData.Inst.ClickbyText("高等教育");
-        Page_POI.Inst.Drag(1759,1259,1759,600,5);
-        //Page_MainBoard.Inst.Drag(1759,1259,1759,600,5);
-        assertFalse(Page_POI.Inst.isExistByName("未采集"));
-        Page_POI.Inst.Click(Page_POI.SAVE);
-        Sqlitetools.RefreshData();
-        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(0,fineFlag);
-        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(0,fineFeedback);
-    }
+//    @Test
+//    public void test00250_poi_relationship_Tag() throws Exception
+//    {
+//        //综合医院 有父有子删除子
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+//
+//        //拍照并返回
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+//        Thread.sleep(3000);
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+//        Page_POI.Inst.SetValue(Page_POI.NAME,"高等教育");
+//        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "160105");
+//        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+//        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+//        Page_POI.Inst.ClickbyText("已采集");
+//        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+//        Page_POI.Inst.Click(Page_POI.SAVE);
+//
+//        infoFid = infoFid.replace("fid:", "");
+//        infoFid = infoFid.replace("fid : ", "");
+//
+//        String[][] attrib1 = {{Page_POI.NAME, "教学楼１"},
+//                {Page_POI.SELECT_TYPE, "160106"}};
+//        AddPOI(attrib1);
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+//        try
+//        {
+//            Thread.sleep(1000);
+//            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+//        }
+//        catch (Exception e)
+//        {
+//
+//        }
+//        //拍照并返回
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+//        Thread.sleep(3000);
+//        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+//        Thread.sleep(2000);
+//        Page_POI.Inst.SetValue(Page_POI.NAME,"教学楼２");
+//        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "110101");
+//        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+//        Page_POI.Inst.ClickbyText("高等教育");
+//        assertEquals("高等教育",Page_POI.Inst.GetValue(Page_POI.POI_FATHER));
+//        Page_POI.Inst.Click(Page_POI.SAVE);
+//
+//        GotoMyData(Page_MyData.POI_TYPE);
+//        Page_MyData.Inst.ClickbyText("高等教育");
+//        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+//        Page_POI.Inst.ClickbyText("     建立父POI     ");
+//        Page_POI.Inst.ClickbyText("教学楼１");
+//        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+//        Page_POI.Inst.Click(Page_POI.TAG1);
+//        Page_POI.Inst.Click(Page_POI.FEEDBACK5);
+//        Page_POI.Inst.Click(Page_POI.SAVE);
+//        Thread.sleep(1000);
+//
+//        Sqlitetools.RefreshData();
+//        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+//        assertSame(1,fineFlag);
+//        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+//        assertSame(5,fineFeedback);
+//
+//        GotoMyData(Page_MyData.POI_TYPE);
+//        Page_MyData.Inst.ClickbyText("教学楼２");
+//        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+//        Page_POI.Inst.ClickbyText("删除父子关系");
+//        Page_POI.Inst.ClickbyText("是");
+//        Page_POI.Inst.Click(Page_POI.SAVE);
+//
+//        Page_MyData.Inst.ClickbyText("高等教育");
+//        Page_POI.Inst.Drag(1759,1259,1759,600,5);
+//        //Page_MainBoard.Inst.Drag(1759,1259,1759,600,5);
+//        assertFalse(Page_POI.Inst.isExistByName("未采集"));
+//        Page_POI.Inst.Click(Page_POI.SAVE);
+//        Sqlitetools.RefreshData();
+//        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+//        assertSame(0,fineFlag);
+//        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+//        assertSame(0,fineFeedback);
+//    }
 
 //    @Test
 //    public void test00251_poi_relationship_Tag() throws Exception
@@ -2927,14 +2914,11 @@ public class testFastMapYL extends testFastMapBase
     public void test01014_tips_roadnamesign_add() throws Exception
     {
         //新增道路名标牌关联手绘测线
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1310, 1410));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.HIGH_SPEED);
+
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ROAD_NAME_SIGN);
-        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME, "qwe");
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE);
@@ -3027,199 +3011,199 @@ public class testFastMapYL extends testFastMapBase
 //        AssertIndoorCheck("车道限速","中","FM-1113-2-2","左侧车道限速小于右侧车道限速","");//问题
 //    }
 //
-/*  此需求是web端修改，此版本web端还未改动
-    @Test
-    public void test010400_data_check() throws Exception
-    {
-        String[][] attrib= {
-                {Page_POI.NAME, "测试"},
-                {Page_POI.SELECT_TYPE, "中餐馆"}
-        };
+// 此需求是web端修改，此版本web端还未改动
+//    @Test
+//    public void test010400_data_check() throws Exception
+//    {
+//        String[][] attrib= {
+//                {Page_POI.NAME, "测试"},
+//                {Page_POI.SELECT_TYPE, "中餐馆"}
+//        };
+//
+//        AddPOI(attrib);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+//        Thread.sleep(2000);
+//        String temp = "关\n" +
+//                "闭\n" +
+//                "任\n" +
+//                "务";
+//        Page_GridManager.Inst.ClickbyText(temp);
+//        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+//        assertEquals(rst,true);
+//    }
+//
+//    @Test
+//    public void test010401_data_check() throws Exception
+//    {
+//        //需要有精细化任务
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+//        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+//        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+//        Page_PAS.Inst.Click(Page_PAS.ODD);
+//        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+//        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+//        Page_PAS.Inst.Click(Page_PAS.SAVE);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+//        Thread.sleep(2000);
+//        String temp = "关\n" +
+//                "闭\n" +
+//                "任\n" +
+//                "务";
+//        Page_GridManager.Inst.ClickbyText(temp);
+//        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+//        assertEquals(rst,true);
+//    }
+//
+//    @Test
+//    public void test010402_data_check() throws Exception
+//    {
+//        String[][] attrib= {
+//                {Page_POI.NAME, "测试"},
+//                {Page_POI.SELECT_TYPE, "中餐馆"}
+//        };
+//        AddPOI(attrib);
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+//        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+//        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+//        Page_PAS.Inst.Click(Page_PAS.ODD);
+//        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+//        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+//        Page_PAS.Inst.Click(Page_PAS.SAVE);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+//        Thread.sleep(2000);
+//        String temp = "关\n" +
+//                "闭\n" +
+//                "任\n" +
+//                "务";
+//        Page_GridManager.Inst.ClickbyText(temp);
+//        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+//        assertEquals(rst,true);
+//    }
+//
+//    @Test
+//    public void test010403_data_check() throws Exception
+//    {
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+//        String[][] attrib= {
+//                {Page_POI.NAME, "测试"},
+//                {Page_POI.SELECT_TYPE, "中餐馆"}
+//        };
+//        AddPOI(attrib);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
+//        Page_GridManager.Inst.ClickByText("同步"); //同步
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+//        Thread.sleep(1000);
+//        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+//        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+//        Thread.sleep(2000);
+//        String temp = "关\n" +
+//                "闭\n" +
+//                "任\n" +
+//                "务";
+//        Page_GridManager.Inst.ClickbyText(temp);
+//        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+//        assertEquals(rst,true);
+//    }
+//
+//    @Test
+//    public void test010404_data_check() throws Exception
+//    {
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+//        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+//        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+//        Page_PAS.Inst.Click(Page_PAS.ODD);
+//        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+//        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+//        Page_PAS.Inst.Click(Page_PAS.SAVE);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
+//        Page_GridManager.Inst.ClickByText("同步"); //同步
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+//        Thread.sleep(3000);
+//        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+//        Thread.sleep(2000);
+//        String temp = "关\n" +
+//                "闭\n" +
+//                "任\n" +
+//                "务";
+//        Page_GridManager.Inst.ClickbyText(temp);
+//        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+//        assertEquals(rst,true);
+//    }
+//
+//    @Test
+//    public void test010405_data_check() throws Exception
+//    {
+//        //需要有精细化任务
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+//
+//        String[][] attrib= {
+//                {Page_POI.NAME, "测试"},
+//                {Page_POI.SELECT_TYPE, "中餐馆"}
+//        };
+//        AddPOI(attrib);
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+//        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+//        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+//        Page_PAS.Inst.Click(Page_PAS.ODD);
+//        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+//        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+//        Page_PAS.Inst.Click(Page_PAS.SAVE);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
+//        Page_GridManager.Inst.ClickByText("同步"); //同步
+//        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+//        Thread.sleep(1000);
+//        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+//        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
+//        Thread.sleep(2000);
+//        String temp = "关\n" +
+//                "闭\n" +
+//                "任\n" +
+//                "务";
+//        Page_GridManager.Inst.ClickbyText(temp);
+//        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
+//        assertEquals(rst,true);
+//    }
 
-        AddPOI(attrib);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
-        Thread.sleep(2000);
-        String temp = "关\n" +
-                "闭\n" +
-                "任\n" +
-                "务";
-        Page_GridManager.Inst.ClickbyText(temp);
-        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
-        assertEquals(rst,true);
-    }
-
-    @Test
-    public void test010401_data_check() throws Exception
-    {
-        //需要有精细化任务
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
-        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
-        Page_PAS.Inst.Click(Page_PAS.ODD);
-        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
-        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
-        Page_PAS.Inst.Click(Page_PAS.SAVE);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
-        Thread.sleep(2000);
-        String temp = "关\n" +
-                "闭\n" +
-                "任\n" +
-                "务";
-        Page_GridManager.Inst.ClickbyText(temp);
-        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
-        assertEquals(rst,true);
-    }
-
-    @Test
-    public void test010402_data_check() throws Exception
-    {
-        String[][] attrib= {
-                {Page_POI.NAME, "测试"},
-                {Page_POI.SELECT_TYPE, "中餐馆"}
-        };
-        AddPOI(attrib);
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
-        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
-        Page_PAS.Inst.Click(Page_PAS.ODD);
-        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
-        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
-        Page_PAS.Inst.Click(Page_PAS.SAVE);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
-        Thread.sleep(2000);
-        String temp = "关\n" +
-                "闭\n" +
-                "任\n" +
-                "务";
-        Page_GridManager.Inst.ClickbyText(temp);
-        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
-        assertEquals(rst,true);
-    }
-
-    @Test
-    public void test010403_data_check() throws Exception
-    {
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.Click(Page_GridManager.BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-        String[][] attrib= {
-                {Page_POI.NAME, "测试"},
-                {Page_POI.SELECT_TYPE, "中餐馆"}
-        };
-        AddPOI(attrib);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
-        Page_GridManager.Inst.ClickByText("同步"); //同步
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
-        Thread.sleep(1000);
-        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
-        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
-        Thread.sleep(2000);
-        String temp = "关\n" +
-                "闭\n" +
-                "任\n" +
-                "务";
-        Page_GridManager.Inst.ClickbyText(temp);
-        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
-        assertEquals(rst,true);
-    }
-
-    @Test
-    public void test010404_data_check() throws Exception
-    {
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.Click(Page_GridManager.BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
-        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
-        Page_PAS.Inst.Click(Page_PAS.ODD);
-        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
-        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
-        Page_PAS.Inst.Click(Page_PAS.SAVE);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
-        Page_GridManager.Inst.ClickByText("同步"); //同步
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
-        Thread.sleep(3000);
-        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
-        Thread.sleep(2000);
-        String temp = "关\n" +
-                "闭\n" +
-                "任\n" +
-                "务";
-        Page_GridManager.Inst.ClickbyText(temp);
-        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
-        assertEquals(rst,true);
-    }
-
-    @Test
-    public void test010405_data_check() throws Exception
-    {
-        //需要有精细化任务
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.Click(Page_GridManager.BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-
-        String[][] attrib= {
-                {Page_POI.NAME, "测试"},
-                {Page_POI.SELECT_TYPE, "中餐馆"}
-        };
-        AddPOI(attrib);
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
-        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
-        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
-        Page_PAS.Inst.Click(Page_PAS.ODD);
-        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
-        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
-        Page_PAS.Inst.Click(Page_PAS.SAVE);
-
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SYNC);
-        Page_GridManager.Inst.ClickByText("同步"); //同步
-        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
-        Thread.sleep(1000);
-        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
-        Page_GridManager.Inst.CtrlFling(new Point(1912,270),Page_GridManager.GRID_PRO_NAME);
-        Thread.sleep(2000);
-        String temp = "关\n" +
-                "闭\n" +
-                "任\n" +
-                "务";
-        Page_GridManager.Inst.ClickbyText(temp);
-        boolean rst = Page_GridManager.Inst.isExistByName("粗编作业未完成，不能关闭");
-        assertEquals(rst,true);
-    }
-*/
     @Test
     public void test01042_data_check() throws Exception
     {
@@ -3795,6 +3779,361 @@ public class testFastMapYL extends testFastMapBase
         Page_RoadName.Inst.Click(Page_RoadName.SAVE);
 
         AssertIndoorCheck("Tips内容值域检查","高","FM-1901-2-5","道路名中不能含 $，。？、字符（包含全半角）","不能忽略");
+    }
+
+    @Test
+    public void test01083_data_check() throws Exception
+    {
+        //检查区间测速电子眼如果没有存在配对关系，则报LOG
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_END);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("电子眼");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
+        Sqlitetools.RefreshData();
+        String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(str);
+        int pair = jsonObject.getInt("pair");
+        assertSame(0,pair);
+
+        AssertIndoorCheck("共存关系检查","中","FM-1109-6-8","区间测速应该存在配对关系","不能忽略");
+    }
+
+    @Test
+    public void test01084_data_check() throws Exception
+    {
+        //时间段禁止左转处应该采集时间段理论禁止调头
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A2);
+        Thread.sleep(1000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.TIME_BUTTON);
+        Page_TrafficForbidden.Inst.ClickbyText("确定");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_B4);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("共存关系检查","低","FM-1302-6-3","时间段禁止左转处应该采集时间段禁止调头","可以忽略");
+    }
+
+    @Test
+    public void test01085_data_check() throws Exception
+    {
+        //link只关联时间段禁止左转
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A2);
+        Thread.sleep(1000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.TIME_BUTTON);
+        Page_TrafficForbidden.Inst.ClickbyText("确定");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("共存关系检查","低","FM-1302-6-3","时间段禁止左转处应该采集时间段禁止调头","可以忽略");
+    }
+
+    @Test
+    public void test01086_data_check() throws Exception
+    {
+        //时间段禁止左转处应该采集时间段理论禁止调头
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A5);
+        Thread.sleep(1000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.TIME_BUTTON);
+        Page_TrafficForbidden.Inst.ClickbyText("确定");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_B4);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("共存关系检查","低","FM-1302-6-3","时间段禁止左转处应该采集时间段禁止调头","可以忽略");
+    }
+
+    @Test
+    public void test01087_data_check() throws Exception
+    {
+        //时间段禁止左转处应该采集时间段理论禁止调头
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A5);
+        Thread.sleep(1000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.TIME_BUTTON);
+        Page_TrafficForbidden.Inst.ClickbyText("确定");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("共存关系检查","低","FM-1302-6-3","时间段禁止左转处应该采集时间段禁止调头","可以忽略");
+    }
+
+    @Test
+    public void test01088_data_check() throws Exception
+    {
+        //link只关联时间段禁止左转
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A6);
+        Thread.sleep(1000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.TIME_BUTTON);
+        Page_TrafficForbidden.Inst.ClickbyText("确定");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_B4);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("共存关系检查","低","FM-1302-6-3","时间段禁止左转处应该采集时间段禁止调头","可以忽略");
+    }
+
+    @Test
+    public void test01089_data_check() throws Exception
+    {
+        //时间段禁止左转处应该采集时间段理论禁止调头
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A6);
+        Thread.sleep(1000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.TIME_BUTTON);
+        Page_TrafficForbidden.Inst.ClickbyText("确定");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("共存关系检查","低","FM-1302-6-3","时间段禁止左转处应该采集时间段禁止调头","可以忽略");
+    }
+
+    @Test
+    public void test01090_data_check() throws Exception
+    {
+        //link只关联时间段禁止左转
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A6);
+        Thread.sleep(1000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.TIME_BUTTON);
+        Page_TrafficForbidden.Inst.ClickbyText("确定");
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.ICON_A2);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("共存关系检查","低","FM-1302-6-3","时间段禁止左转处应该采集时间段禁止调头","可以忽略");
+    }
+
+    @Test
+    public void test01091_data_check() throws Exception
+    {
+        //卡车交限 种别8
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Kind.Inst.Click(Page_Kind.OTHER_RD);
+        Thread.sleep(1000);
+
+        Thread.sleep(1000);
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_1);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1303-2-1","卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。","不能忽视");
+    }
+
+    @Test
+    public void test01092_data_check() throws Exception
+    {
+        //卡车交限 测线9
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.NINE_RD);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Thread.sleep(2000);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_1);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1303-2-1","卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。","不能忽视");
+    }
+
+    @Test
+    public void test01093_data_check() throws Exception
+    {
+        //卡车交限 测11 种别6
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        //DrawRoad(LinePoints, Page_SurveyLine.PEOPLE_CROSS_RD);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Page_MainBoard.Inst.Click(LinePoints[1]);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEOPLE_CROSS_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(LinePoints[1]);
+        Thread.sleep(2000);
+        Page_Kind.Inst.Click(Page_Kind.COUNTY_RD);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Thread.sleep(2000);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_1);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1303-2-1","卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。","不能忽视");
+    }
+
+    @Test
+    public void test01094_data_check() throws Exception
+    {
+        //禁止卡车驶入 种别13
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_Kind.Inst.Click(Page_Kind.FERRY_RD);
+        Thread.sleep(1000);
+
+        Thread.sleep(1000);
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.NO_PULL_INTO);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1308-2-1","卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。","不能忽视");
+    }
+
+    @Test
+    public void test01095_data_check() throws Exception
+    {
+        //卡车交限 测线10
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Page_MainBoard.Inst.Click(LinePoints[1]);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEDESTRIAN_RD);
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Thread.sleep(2000);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.NO_PULL_INTO);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1308-2-1","卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。","不能忽视");
+    }
+
+    @Test
+    public void test01096_data_check() throws Exception
+    {
+        //卡车交限 测10 种别4
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
+        Page_MainBoard.Inst.Click(LinePoints[1]);
+        Thread.sleep(2000);
+        Page_Kind.Inst.Click(Page_Kind.PROVINCIAL_RD);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Thread.sleep(2000);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.NO_PULL_INTO);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        AssertIndoorCheck("Tips内容值域检查","中","FM-1308-2-1","卡车地图采集7级及以上等级道路上的卡车地图内容，其他等级道路不采集卡车地图内容。","不能忽视");
     }
 
     @Test
@@ -4482,19 +4821,14 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01702_tips_add() throws Exception
     {
- //   	SearchLocation(LOC_K8);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.Click(new Point(426,1185));
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.HIGH_SPEED);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
         Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
         Thread.sleep(2000);
 
-        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO,"S479");//此时道路名编号应为空
         Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
@@ -6688,6 +7022,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         Thread.sleep(1000);
 
+
         SearchLocation(EYE_LOC);
 
         Page_MainBoard.Inst.Drag(900,800,1100,800,5);
@@ -6703,6 +7038,7 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)", "区间结束(10公里内)");
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
         Page_MyData.Inst.SelectData("电子眼");
         Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
@@ -6730,6 +7066,17 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         Thread.sleep(1000);
 
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("电子眼");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
+        Sqlitetools.RefreshData();
+        String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(str);
+        String pair = jsonObject.getString("pair");
+        assertEquals("0",pair);
+
         SearchLocation(EYE_LOC);
 
         Page_MainBoard.Inst.Drag(900,800,1100,800,5);
@@ -6745,15 +7092,38 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.ClickbyText("1 测速结束(10km内)", "区间结束(10公里内)");
         Thread.sleep(1000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.ClickCenter();
+        String rowkey1 = Page_ElecEye.Inst.GetRowKey();
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
+        Sqlitetools.RefreshData();
+        str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject1 = new JSONObject(str);
+        pair = jsonObject1.getString("pair");
+        assertEquals(pair,rowkey1);
+
+
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
-        Page_MyData.Inst.SelectData("电子眼");
-        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Page_MyData.Inst.ClickByText("电子眼");
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Drag(1824,1290,1824,210,5);
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Page_ElecEye.Inst.ClickbyText("确定");
         //Thread.sleep(3000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
+
+        Sqlitetools.RefreshData();
+        str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject2 = new JSONObject(str);
+        pair = jsonObject2.getString("pair");
+        assertEquals("0",pair);
+
+        AssertIndoorCheck("共存关系检查","中","FM-1109-6-8","区间测速应该存在配对关系","不能忽略");
     }
 
     @Test
@@ -6771,6 +7141,17 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         Thread.sleep(1000);
 
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("电子眼");
+        String rowkey = Page_ElecEye.Inst.GetRowKey();
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
+        Sqlitetools.RefreshData();
+        String str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(str);
+        String pair = jsonObject.getString("pair");
+        assertEquals("0",pair);
+
         SearchLocation(EYE_LOC);
 
         Page_MainBoard.Inst.Drag(900,800,800,800,5);
@@ -6784,14 +7165,36 @@ public class testFastMapYL extends testFastMapBase
         Page_ElecEye.Inst.ClickbyText("建立配对关系");
         Thread.sleep(15000);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,800,800,5);
+        Page_MainBoard.Inst.ClickCenter();
+        String rowkey1 = Page_ElecEye.Inst.GetRowKey();
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+
+        Sqlitetools.RefreshData();
+        str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey1,"deep"));
+        JSONObject jsonObject1 = new JSONObject(str);
+        pair = jsonObject1.getString("pair");
+        assertEquals(pair,rowkey);
+
         CheckMyData(Page_MyData.TIPS_TYPE, "电子眼");
-        Page_MyData.Inst.SelectData("电子眼");
-        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Page_MyData.Inst.ClickByText("电子眼");
         Thread.sleep(2000);
+        Page_ElecEye.Inst.Drag(1824,1290,1824,210,5);
+        Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Page_ElecEye.Inst.ClickbyText("确定");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
+
+        Sqlitetools.RefreshData();
+        str = new String((byte[])Sqlitetools.GetTipsDataByRowKey(rowkey1,"deep"));
+        JSONObject jsonObject2 = new JSONObject(str);
+        pair = jsonObject2.getString("pair");
+        assertEquals("0",pair);
+
+        AssertIndoorCheck("共存关系检查","中","FM-1109-6-8","区间测速应该存在配对关系","不能忽略");
     }
 
     @Test
@@ -7475,16 +7878,12 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test02902_noparking() throws Exception
     {
-        //禁停   测线 数据库赋值
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        //禁停  测线 数据库赋值
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PROVINCIAL_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
-        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Thread.sleep(2000);
         Page_NoParking.Inst.ClickbyText("禁停结束");
         Thread.sleep(1000);
@@ -7788,6 +8187,138 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
+    public void test02910_noparking() throws Exception
+    {
+        //禁停  全路段
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        //Page_NoParking.Inst.ClickbyText("全路段");
+        Page_NoParking.Inst.Click(Page_NoParking.ALL_SECTION);
+        String strTemp = Page_NoParking.Inst.GetValue(Page_NoParking.DESC);
+        assertEquals(strTemp,"全路段");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.ALL_SECTION);
+        Thread.sleep(500);
+        Page_NoParking.Inst.Click(Page_NoParking.ALL_SECTION);
+        Thread.sleep(500);
+        //Page_NoParking.Inst.Click(Page_NoParking.ALL_SECTION);
+         strTemp = Page_NoParking.Inst.GetValue(Page_NoParking.DESC);
+        assertEquals(strTemp,"全路段,全路段,全路段");
+        Page_NoParking.Inst.SetValue(Page_NoParking.REMARK,"备注信息");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickByText("通用禁停");
+        String rowkey = Page_NoParking.Inst.GetRowKey();
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String desc = jsonObject.getString("desc");
+        assertEquals(desc,"全路段,全路段,全路段");
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("通用禁停");
+        Thread.sleep(500);
+        Page_NoParking.Inst.Click(Page_NoParking.ALL_SECTION);
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+        Sqlitetools.RefreshData();
+        temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject1 = new JSONObject(temp);
+        desc = jsonObject1.getString("desc");
+        assertEquals(desc,"全路段,全路段,全路段,全路段");
+    }
+
+    @Test
+    public void test02911_noparking() throws Exception
+    {
+        //禁停  全路段历史记录
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC,"测全路段");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC,"历史记录");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC,"全路段测试");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.SetValue(Page_NoParking.DESC,"全路段测试");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParking.Inst.Click(Page_NoParking.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParking.Inst.Click(Page_NoParking.DESC);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("全路段测试");
+        Thread.sleep(500);
+        Page_NoParking.Inst.Click(Page_NoParking.DESC);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("测全路段");
+        Thread.sleep(500);
+        Page_NoParking.Inst.Click(Page_NoParking.DESC);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("历史记录");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_NoParking.Inst.ClickCenter();
+        String rowkey = Page_NoParking.Inst.GetRowKey();
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String desc = jsonObject.getString("desc").trim();
+        assertEquals(desc,"历史记录");
+    }
+
+    @Test
     public void test03001_noparkingtruck() throws Exception
     {
         //卡车禁停  道路 数据库赋值
@@ -7833,15 +8364,11 @@ public class testFastMapYL extends testFastMapBase
     public void test03002_noparkingtruck() throws Exception
     {
         //卡车禁停   测线 数据库赋值
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
-        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Thread.sleep(2000);
         Page_NoParking.Inst.ClickbyText("禁停结束");
         Thread.sleep(1000);
@@ -8141,6 +8668,137 @@ public class testFastMapYL extends testFastMapBase
     }
 
     @Test
+    public void test03010_noparkingtruck() throws Exception
+    {
+        //禁停  全路段
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.TIME);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.ALL_SECTION);
+        //Page_NoParking.Inst.Click(Page_NoParking.ALL_SECTION);
+        String strTemp = Page_NoParkingTruck.Inst.GetValue(Page_NoParkingTruck.DESC);
+        assertEquals(strTemp,"全路段");
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.ALL_SECTION);
+        Thread.sleep(500);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.ALL_SECTION);
+        Thread.sleep(500);
+        //Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.ALL_SECTION);
+        strTemp = Page_NoParkingTruck.Inst.GetValue(Page_NoParkingTruck.DESC);
+        assertEquals(strTemp,"全路段,全路段,全路段");
+        Page_NoParkingTruck.Inst.SetValue(Page_NoParkingTruck.REMARK,"备注信息");
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.ClickCenter();
+        String rowkey = Page_NoParkingTruck.Inst.GetRowKey();
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String desc = jsonObject.getString("desc");
+        assertEquals(desc,"全路段,全路段,全路段");
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("卡车禁停");
+        Thread.sleep(500);
+        Page_NoParking.Inst.ClickbyText("全路段");
+        Page_NoParking.Inst.Click(Page_NoParking.SAVE);
+        ExitMyData();
+        Sqlitetools.RefreshData();
+        temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject1 = new JSONObject(temp);
+        desc = jsonObject1.getString("desc");
+        assertEquals(desc,"全路段,全路段,全路段,全路段");
+    }
+
+    @Test
+    public void test03011_noparkingtruck() throws Exception
+    {
+        //禁停  全路段历史记录
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING_TRUCK);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.TIME);
+        Thread.sleep(1000);
+        Page_NoParking.Inst.ClickbyText("确定");
+        Thread.sleep( 1000);
+        Page_NoParkingTruck.Inst.SetValue(Page_NoParkingTruck.DESC,"测全路段");
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.TIME);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.SetValue(Page_NoParkingTruck.DESC,"历史记录");
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.TIME);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.SetValue(Page_NoParkingTruck.DESC,"测全路段");
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.TIME);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.SetValue(Page_NoParkingTruck.DESC,"全路段测试");
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PARKING);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.TIME);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.DESC);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("全路段测试");
+        Thread.sleep(500);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.DESC);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("测全路段");
+        Thread.sleep(500);
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.DESC);
+        Thread.sleep(1000);
+        Page_NoParkingTruck.Inst.ClickbyText("历史记录");
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.ClickCenter();
+        String rowkey = Page_NoParkingTruck.Inst.GetRowKey();
+        Page_NoParkingTruck.Inst.Click(Page_NoParkingTruck.SAVE);
+        Sqlitetools.RefreshData();
+        String temp = new String((byte [])Sqlitetools.GetTipsDataByRowKey(rowkey,"deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        String desc = jsonObject.getString("desc").trim();
+        assertEquals(desc,"历史记录");
+    }
+
+    @Test
     public void test04001_PoiAddressHistory() throws Exception
     {
         //新增多个poi 查看邮编历史记录
@@ -8201,8 +8859,9 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
         Page_POI.Inst.Drag(1790,1095,1790,800,5);
         Page_POI.Inst.Click(Page_POI.POST_CODE);
-        Page_POI.Inst.Click(Page_POI.POST_CODE);
+        //Page_POI.Inst.Click(Page_POI.POST_CODE);
         Page_POI.Inst.ClickbyText("786700","786700");
+        Thread.sleep(2000);
         Page_POI.Inst.Drag(1764,790,1764,375,5);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
@@ -8216,72 +8875,33 @@ public class testFastMapYL extends testFastMapBase
         ExitMyData();
     }
 
-    @Test
-    public void test04002_PoiAddressHistory() throws Exception
-{
-    //邮编icon赋值 查看邮编历史记录
-    Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-    Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-    Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
-    Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
-    Page_POI.Inst.Drag(1790,1095,1790,800,5);
-    Page_POI.Inst.SetValue(Page_POI.POST_CODE, "001837");
-    Page_POI.Inst.Click(Page_POI.SAVE);
-
-    Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-    try
+        @Test
+        public void test04002_PoiAddressHistory() throws Exception
     {
-        Thread.sleep(1000);
-        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
-    }
-    catch (Exception e)
-    {
-
-    }
-    Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-    Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
-    Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "星级酒店");
-    Page_POI.Inst.Drag(1790,1095,1790,800,5);
-    Page_POI.Inst.SetValue(Page_POI.POST_CODE, "100983");
-    Page_POI.Inst.Click(Page_POI.SAVE);
-
-    Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-    try
-    {
-        Thread.sleep(1000);
-        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
-    }
-    catch (Exception e)
-    {
-
-    }
-    Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-    Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
-    Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
-    Page_POI.Inst.Drag(1790,1095,1790,800,5);
-    Page_POI.Inst.SetValue(Page_POI.POST_CODE, "786700");
-    Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);//点击邮编icon赋值
-    Page_POI.Inst.Click(Page_POI.SAVE);
-
-    GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
-    Page_MyData.Inst.SelectData("测试ＰＯＩ１");
-    Page_POI.Inst.Drag(1790,1095,1790,800,5);
-    Page_POI.Inst.isExistByName("100983");
-    Page_POI.Inst.Click(Page_POI.SAVE);
-    ExitMyData();
-}
-
-    @Test
-    public void test04003_PoiAddressHistory() throws Exception
-    {
-        //poi点击邮编icon 我的数据选择历史邮编
+        //邮编icon赋值 查看邮编历史记录
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
         Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        //Page_POI.Inst.Click(Page_POI.POST_CODE);//复制默认邮编
-        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"790621");
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "001837");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ２");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "星级酒店");
+        Page_POI.Inst.Drag(1790,1095,1790,800,5);
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "100983");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -8298,85 +8918,124 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
         Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "686700");
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        try
-        {
-            Thread.sleep(1000);
-            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
-        }
-        catch (Exception e)
-        {
-
-        }
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
-        Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "586700");
+        Page_POI.Inst.SetValue(Page_POI.POST_CODE, "786700");
         Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);//点击邮编icon赋值
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
         Page_MyData.Inst.SelectData("测试ＰＯＩ１");
         Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        Page_POI.Inst.isExistByName("686700");
-        Page_POI.Inst.Click(Page_POI.POST_CODE);
-        Page_POI.Inst.ClickbyText("790621","790621");
-        Page_POI.Inst.isExistByName("790621");
-        Page_POI.Inst.Drag(1764,790,1764,375,5);
+        Page_POI.Inst.isExistByName("100983");
         Page_POI.Inst.Click(Page_POI.SAVE);
         ExitMyData();
     }
 
-    @Test
-    public void test04004_PoiAddressHistory() throws Exception
-    {
-        //poi点击邮编icon 我的数据编辑复制邮编
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
-        Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"353332");
-        Page_POI.Inst.Click(Page_POI.SAVE);
+        @Test
+        public void test04003_PoiAddressHistory() throws Exception
+        {
+            //poi点击邮编icon 我的数据选择历史邮编
+            Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+            Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+            Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+            Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            //Page_POI.Inst.Click(Page_POI.POST_CODE);//复制默认邮编
+            Page_POI.Inst.SetValue(Page_POI.POST_CODE,"790621");
+            Page_POI.Inst.Click(Page_POI.SAVE);
 
-        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+            Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+            try
+            {
+                Thread.sleep(1000);
+                Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+            }
+            catch (Exception e)
+            {
 
-        Page_MyData.Inst.SelectData("测试ＰＯＩ１");
-        Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        Page_POI.Inst.isExistByName("353332");
-        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"034489");
-        Page_POI.Inst.isExistByName("034489");
-        Page_POI.Inst.Click(Page_POI.SAVE);
-        ExitMyData();
-    }
+            }
+            Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+            Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
+            Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            Page_POI.Inst.SetValue(Page_POI.POST_CODE, "686700");
+            Page_POI.Inst.Click(Page_POI.SAVE);
 
-    @Test
-    public void test04005_PoiAddressHistory() throws Exception
-    {
-        //poi点击邮编icon 我的数据点击邮编
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
-        Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"353332");
-        Page_POI.Inst.Click(Page_POI.SAVE);
+            Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+            try
+            {
+                Thread.sleep(1000);
+                Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+            }
+            catch (Exception e)
+            {
 
-        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+            }
+            Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+            Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
+            Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "日杂店");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            Page_POI.Inst.SetValue(Page_POI.POST_CODE, "586700");
+            Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);//点击邮编icon赋值
+            Page_POI.Inst.Click(Page_POI.SAVE);
 
-        Page_MyData.Inst.SelectData("测试ＰＯＩ１");
-        Page_POI.Inst.Drag(1790,1095,1790,800,5);
-        Page_POI.Inst.isExistByName("353332");
-        Page_POI.Inst.SetValue(Page_POI.POST_CODE,"134489");//013445
-        Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);
-        Page_POI.Inst.isExistByName("353332");
-        Page_POI.Inst.Click(Page_POI.SAVE);
-        ExitMyData();
-    }
+            GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+            Page_MyData.Inst.SelectData("测试ＰＯＩ１");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            Page_POI.Inst.isExistByName("686700");
+            Page_POI.Inst.Click(Page_POI.POST_CODE);
+            Page_POI.Inst.ClickbyText("790621","790621");
+            Page_POI.Inst.isExistByName("790621");
+//            Page_POI.Inst.Drag(1764,790,1764,375,5);
+//            Page_POI.Inst.Click(Page_POI.SAVE);
+//            ExitMyData();
+        }
+
+        @Test
+        public void test04004_PoiAddressHistory() throws Exception
+        {
+            //poi点击邮编icon 我的数据编辑复制邮编
+            Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+            Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+            Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+            Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            Page_POI.Inst.SetValue(Page_POI.POST_CODE,"353332");
+            Page_POI.Inst.Click(Page_POI.SAVE);
+
+            GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+            Page_MyData.Inst.SelectData("测试ＰＯＩ１");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            Page_POI.Inst.isExistByName("353332");
+            Page_POI.Inst.SetValue(Page_POI.POST_CODE,"034489");
+            Page_POI.Inst.isExistByName("034489");
+            Page_POI.Inst.Click(Page_POI.SAVE);
+            ExitMyData();
+        }
+
+        @Test
+        public void test04005_PoiAddressHistory() throws Exception
+        {
+            //poi点击邮编icon 我的数据点击邮编
+            Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+            Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+            Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+            Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            Page_POI.Inst.SetValue(Page_POI.POST_CODE,"353332");
+            Page_POI.Inst.Click(Page_POI.SAVE);
+
+            GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+
+            Page_MyData.Inst.SelectData("测试ＰＯＩ１");
+            Page_POI.Inst.Drag(1790,1095,1790,800,5);
+            Page_POI.Inst.isExistByName("353332");
+            Page_POI.Inst.SetValue(Page_POI.POST_CODE,"134489");//013445
+            Page_POI.Inst.Click(Page_POI.IMA_POST_CODE);
+            Page_POI.Inst.isExistByName("353332");
+            Page_POI.Inst.Click(Page_POI.SAVE);
+            ExitMyData();
+        }
 
     @Test
     public void test05001_FunctionalArea() throws Exception
@@ -8576,15 +9235,11 @@ public class testFastMapYL extends testFastMapBase
     public void test05102_trucklimitlane() throws Exception
     {
         //卡车限速 手绘测线
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
-        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Thread.sleep(2000);
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKLIMIT);
         Page_TruckLimitLane.Inst.Click(Page_TruckLimitLane.NUM40);
@@ -8780,15 +9435,11 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test05202_laneChangePoint() throws Exception
     {
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LANE_CHANGE_POINT);
-        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Thread.sleep(2000);
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM6);
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.NUM7);
@@ -9305,15 +9956,11 @@ public class testFastMapYL extends testFastMapBase
     public void test05404_conditionlimit() throws Exception
     {
         //卡车条件限速
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
-        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(LinePoints[0]);
 
         Page_SpeedLimit.Inst.Click(Page_SpeedLimit.TRUCKCONDITION);
         Page_TruckCondition.Inst.ClickbyText("时间限制");
@@ -9437,20 +10084,16 @@ public class testFastMapYL extends testFastMapBase
     public void test05502_startendpoint() throws Exception
     {
         //起终点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.Click(new Point(426,1185));
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
-        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Thread.sleep(1000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
 
         Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CAR_TEST_BT);
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_MainBoard.Inst.Click(LinePoints[1]);
         Thread.sleep(1000);
         Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
         Thread.sleep(1000);
@@ -9520,21 +10163,17 @@ public class testFastMapYL extends testFastMapBase
     public void test05504_startendpoint() throws Exception
     {
         //起终点
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);//手绘测线
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PROVINCIAL_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_MainBoard.Inst.Click(new Point(426,1185));
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
-        Page_MainBoard.Inst.Click(new Point(426,1185));
+        Page_MainBoard.Inst.Click(LinePoints[0]);
         Thread.sleep(1000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
 
         Page_StartEndPoint.Inst.Click(Page_StartEndPoint.DRIVING_TEST_BT);
         Page_StartEndPoint.Inst.SetValue(Page_StartEndPoint.REMARK,"测试测试车道");
-        Page_MainBoard.Inst.Click(new Point(1000,1185));
+        Page_MainBoard.Inst.Click(LinePoints[1]);
         Thread.sleep(1000);
         Page_StartEndPoint.Inst.Click(Page_StartEndPoint.CHANGE_START_END);
         Thread.sleep(1000);
@@ -9728,6 +10367,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.ClickbyText("实景图");
         assertFalse(Page_TrueSence.Inst.isExistByName(Page_TrueSence.HIGHWAY_LOAD_OUT));
     }
+
     @Test
     public void test05701_roadlimitlane() throws Exception
     {
@@ -9854,14 +10494,156 @@ public class testFastMapYL extends testFastMapBase
         //assertTrue(bTemp);
     }
 
+//    @Test
+//    public void test05801_truescene() throws Exception
+//    {
+//        //高速分歧
+//        SearchLocation(LOC_K8);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_DIVIDER);
+//        Page_MainBoard.Inst.ClickCenter();
+//        String strClass = "android.widget.RadioButton";
+//        Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass,6);
+//        Page_TrueSence.Inst.ClickbyText("其他模式图");
+//        Thread.sleep(2000);
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.EXTRLANE_L,"3");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.EXTRALANE_R,"0");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.CROSSLANE_L,"2");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.CROSSLANE_M,"1");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.CROSSLANE_R,"2");
+//        Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.GERNERATECODE);
+//        String strResult = Page_HighSpeedDivider.Inst.GetValue(Page_HighSpeedDivider.IMAG_NUM);
+//        assertEquals("8036NaNcb2",strResult);
+//        Page_HighSpeedDivider.Inst.ClickbyText("无编号");
+//        strResult = Page_HighSpeedDivider.Inst.GetValue(Page_HighSpeedDivider.IMAG_NUM);
+//        assertEquals("无",strResult);
+//        Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.SAVE);
+//
+//    }
 
+    @Test
+    public void test05801_highspeeddivider() throws Exception {
+          //高速分歧
+          SearchLocation(LOC_K8);
+          Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_DIVIDER);
+          Page_MainBoard.Inst.ClickCenter();
+          String strClass = "android.widget.RadioButton";
+          Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass, 6);
+          Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.SAVE);
+      }
 
+    @Test
+    public void test05802_realsign() throws Exception {
+        //Real Sign
+        //SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.REAL_SIGN);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_RealSign.Inst.Click(Page_RealSign.SAVE);
+    }
 
+    @Test
+    public void test05803_directionboard() throws Exception {
+        //Real Sign
+        //SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DIRECTION_BOARD);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.SAVE);
+    }
 
+//    @Test
+//    public void test05805_truescene() throws Exception
+//    {
+//        //高速分歧 其他模式图为html页
+//        SearchLocation(LOC_K8);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_DIVIDER);
+//        Page_MainBoard.Inst.ClickCenter();
+//        String strClass = "android.widget.RadioButton";
+//        Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass,6);
+//        Page_TrueSence.Inst.ClickbyText("其他模式图");
+//        Thread.sleep(2000);
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.EXTRLANE_L,"3");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.EXTRALANE_R,"0");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.CROSSLANE_L,"2");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.CROSSLANE_M,"1");
+//        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.CROSSLANE_R,"2");
+//        Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.GERNERATECODE);
+//        String strResult = Page_HighSpeedDivider.Inst.GetValue(Page_HighSpeedDivider.IMAG_NUM);
+//        assertEquals("8036NaNcb2",strResult);
+//        Page_HighSpeedDivider.Inst.ClickbyText("无编号");
+//        strResult = Page_HighSpeedDivider.Inst.GetValue(Page_HighSpeedDivider.IMAG_NUM);
+//        assertEquals("无",strResult);
+//        Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.SAVE);
+//
+//    }
 
+    @Test
+    public void test05806_truescene() throws Exception
+    {
+        //高速分歧
+        SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_DIVIDER);
+        Page_MainBoard.Inst.ClickCenter();
+        String strClass = "android.widget.RadioButton";
+        Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass,6);
+        //Page_TrueSence.Inst.ClickbyText("其他模式图");
+        Thread.sleep(2000);
+        Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass,3);
+        String strResult = Page_HighSpeedDivider.Inst.GetValue(Page_HighSpeedDivider.IMAG_NUM);
+        assertEquals("80222011",strResult);
+        Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass,0);
+        Page_TrueSence.Inst.ClickbyText("其他模式图");
+        Thread.sleep(2000);
+        Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass,2);
+        Page_HighSpeedDivider.Inst.ClickbyText("无编号");
+        strResult = Page_HighSpeedDivider.Inst.GetValue(Page_HighSpeedDivider.IMAG_NUM);
+        assertEquals("无",strResult);
+        Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.SAVE);
+    }
 
+    @Test
+    public void test05807_truescene() throws Exception
+    {
+        //高速分歧
+        SearchLocation(LOC_K4);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGH_SPEED_DIVIDER);
+        Page_MainBoard.Inst.ClickCenter();
+        String strClass = "android.widget.RadioButton";
+        Page_HighSpeedDivider.Inst.ClickByClassIndex(strClass,6);
 
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.Click(new Point(453,623));
+        Page_MainBoard.Inst.Click(new Point(626,256));
+        Page_MainBoard.Inst.Click(new Point(383,739));
+        Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.DELETE_CARD);
+        //Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.DELETE_CARD);
+        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.ROAD_NAME,"路名");
+        Page_HighSpeedDivider.Inst.SetValue(Page_HighSpeedDivider.ROAD_NUM,"编号");
+        Page_HighSpeedDivider.Inst.Click(Page_HighSpeedDivider.SAVE);
+    }
 
+    @Test
+    public void test05808_mode() throws Exception {
+        //资三  必须有任务
+        Page_MainBoard.Inst.Click(Page_MainBoard.MODE);//进入场景
+        assertTrue(Page_MainBoard.Inst.isExist(Page_MainBoard.MODE_ONE,500));
+        Page_MainBoard.Inst.ClickCenter();
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.INDOOR_MODE);
+        assertTrue(Page_IndoorMyData.Inst.isExist(Page_IndoorMyData.INDOOR_MODE_ONE,500));
+        Page_MainBoard.Inst.ClickCenter();
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.BACK);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_NAME);
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_PRO_SATELLITE);
+        Thread.sleep(3000);
+        Page_GridManager.Inst.ClickbyText("资三影像");
+        Thread.sleep(3000);
+        Page_GridManager.Inst.ClickByText("取消");
+    }
 
 
 

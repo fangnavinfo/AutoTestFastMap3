@@ -237,6 +237,16 @@ public class FastMapPage
 
     }
 
+
+    public  void ClickByClassIndex(String findRes, int index) throws Exception
+    {
+
+        testadapter.ClickByIndex(findRes, index);
+
+
+    }
+
+
     public void ScrollOneStep()
     {
         testadapter.ScrollOneStep();
