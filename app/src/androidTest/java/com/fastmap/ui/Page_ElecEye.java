@@ -126,7 +126,9 @@ public class Page_ElecEye extends Page_Base_Tips
     
     @FindResource(Id="electronic_eye_interval_start", ios_name="elecEye 20")
     public static String EYE_INTERVAL_START; //区间开始
-    
+    @FindResource(Id="electronic_eye_delete_pair", ios_name="删除配对关系")
+    public static String DELETE_PAIR;
+
     @FindResource(Id="elec_eye_adapter_checkbox", ios_name="login checkbox")
     public static String EYE_ADAPTER_CHECKBOX;
     

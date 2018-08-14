@@ -7285,6 +7285,10 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
         Page_ElecEye.Inst.ClickbyText("删除配对关系");
         Page_ElecEye.Inst.ClickbyText("确定");
+        Thread.sleep(1000);
+        boolean result = true;
+        result = Page_ElecEye.Inst.isChecked(Page_ElecEye.DELETE_PAIR);
+        assertFalse(result);
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitMyData();
     }
@@ -7305,6 +7309,56 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("电子眼");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
         ExitIndoorTools();
+    }
+
+    @Test
+    public void test02510_electroniceye() throws Exception
+    {
+        //电子眼  建立配对关系多选项列表
+        String[] EYE_LOC = {"116.40653", "39.91529"};
+        SearchLocation(EYE_LOC);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_END);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POINT_ELECTRONIC_EYE);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_INTERVAL_START);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Page_ElecEye.Inst.ClickbyText("建立配对关系");
+        Thread.sleep(15000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.EYE_ADAPTER_CHECKBOX);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        Thread.sleep(1000);
+
+        SearchLocation(EYE_LOC);
+        Page_MainBoard.Inst.Drag(900,800,1100,800,5);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.DELETE);
+        Page_ElecEye.Inst.ClickbyText("确定");
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickByText("电子眼");
+        Page_ElecEye.Inst.Drag(1824,1290,1824,727,5);
+        Thread.sleep(1000);
+        boolean result = true;
+        result = Page_ElecEye.Inst.isChecked(Page_ElecEye.DELETE_PAIR);
+
+        assertFalse(result);
+        Thread.sleep(1000);
+        Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
+        ExitMyData();
     }
 
     @Test
