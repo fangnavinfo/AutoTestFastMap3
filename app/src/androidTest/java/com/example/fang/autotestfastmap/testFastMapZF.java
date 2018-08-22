@@ -2520,6 +2520,287 @@ public class testFastMapZF extends testFastMapBase
         assertTrue(Page_PAS.Inst.isExistByName("别墅"));
     }
 
+    // 一级情报增加反馈照片功能
+    @Test
+    public void test00135_1_info_feedback_picture_update_check() throws Exception
+    {
+        // 上报情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(900,500)); //点击情报位置
+
+        Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME, "测试上报情报"); //输入情报名称
+        Page_InfoLine.Inst.Click(Page_InfoLine.ROAD_TYPE);
+        Page_InfoLine.Inst.Click(Page_InfoLine.LEVEL_1);
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME); //点击选择时间
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.SAVE); //点击保存
+
+        //获取globalID
+        GotoMyData(Page_MyData.INFO_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测试上报情报", "测试上报情报");
+        globalId = Page_InfoLine.Inst.GetValue(Page_InfoLine.GLOBAL_ID).substring(10);
+        Page_InfoLine.Inst.Click(Page_InfoLine.CANCEL);
+        ExitMyData(); //退出我的数据
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updateInfoData(0);
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //采纳
+        //检索情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, globalId);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        //采纳情报
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.ACCEPT); //点击采纳
+        Thread.sleep(3000);
+        assertTrue(Page_InfoLine.Inst.isExistByName("采纳"));
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC); //点击拍照
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.BACK); //点击返回
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.ACCEPT); //点击采纳
+        assertTrue(Page_InfoLine.Inst.isExistByName("测试上报情报"));
+
+    }
+
+    // 一级情报增加反馈照片功能
+    @Test
+    public void test00135_2_info_feedback_picture_update_check() throws Exception
+    {
+        // 上报情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(900,500)); //点击情报位置
+
+        Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME, "测试上报情报"); //输入情报名称
+        Page_InfoLine.Inst.Click(Page_InfoLine.ROAD_TYPE);
+        Page_InfoLine.Inst.Click(Page_InfoLine.LEVEL_1);
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME); //点击选择时间
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.SAVE); //点击保存
+
+        //获取globalID
+        GotoMyData(Page_MyData.INFO_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测试上报情报", "测试上报情报");
+        globalId = Page_InfoLine.Inst.GetValue(Page_InfoLine.GLOBAL_ID).substring(10);
+        Page_InfoLine.Inst.Click(Page_InfoLine.CANCEL);
+        ExitMyData(); //退出我的数据
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updateInfoData(0);
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //部分采纳
+        //检索情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, globalId);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        //部分采纳情报
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.PART_ACCEPT); //点击采纳
+        Thread.sleep(3000);
+        assertTrue(Page_InfoLine.Inst.isExistByName("部分采纳"));
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC); //点击拍照
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.BACK); //点击返回
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.PART_ACCEPT); //点击采纳
+        assertTrue(Page_MainBoard.Inst.isExistByName("点情报"));
+        assertTrue(Page_MainBoard.Inst.isExistByName("线情报"));
+        assertTrue(Page_MainBoard.Inst.isExistByName("面情报"));
+
+    }
+
+    // 一级情报增加反馈照片功能
+    @Test
+    public void test00135_3_info_feedback_picture_update_check() throws Exception
+    {
+        // 上报情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(900,500)); //点击情报位置
+
+        Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME, "测试上报情报"); //输入情报名称
+        Page_InfoLine.Inst.Click(Page_InfoLine.ROAD_TYPE);
+        Page_InfoLine.Inst.Click(Page_InfoLine.LEVEL_1);
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME); //点击选择时间
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.SAVE); //点击保存
+
+        //获取globalID
+        GotoMyData(Page_MyData.INFO_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测试上报情报", "测试上报情报");
+        globalId = Page_InfoLine.Inst.GetValue(Page_InfoLine.GLOBAL_ID).substring(10);
+        Page_InfoLine.Inst.Click(Page_InfoLine.CANCEL);
+        ExitMyData(); //退出我的数据
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updateInfoData(1);
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //舍弃-现场未发生变化
+        //检索情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, globalId);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        //舍弃
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.DELETE); //舍弃
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.NO_CHANGE);
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.SAVE);
+        Thread.sleep(3000);
+        assertTrue(Page_InfoLine.Inst.isExistByName("保存"));
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.CAMERA);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC); //点击拍照
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.BACK); //点击返回
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.SAVE);
+
+        assertTrue(Page_InfoLine.Inst.isExistByName("测试上报情报"));
+
+    }
+
+    // 一级情报增加反馈照片功能
+    @Test
+    public void test00135_4_info_feedback_picture_update_check() throws Exception
+    {
+        // 上报情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(900,500)); //点击情报位置
+
+        Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME, "测试上报情报"); //输入情报名称
+        Page_InfoLine.Inst.Click(Page_InfoLine.ROAD_TYPE);
+        Page_InfoLine.Inst.Click(Page_InfoLine.LEVEL_1);
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME); //点击选择时间
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.SAVE); //点击保存
+
+        //获取globalID
+        GotoMyData(Page_MyData.INFO_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测试上报情报", "测试上报情报");
+        globalId = Page_InfoLine.Inst.GetValue(Page_InfoLine.GLOBAL_ID).substring(10);
+        Page_InfoLine.Inst.Click(Page_InfoLine.CANCEL);
+        ExitMyData(); //退出我的数据
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+        Sqlitetools.updateInfoData(1);
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        //舍弃-未开通
+        //检索情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, globalId);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        //舍弃
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.DELETE); //舍弃
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.NOT_OPEN);
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.SAVE);
+        Thread.sleep(3000);
+        assertTrue(Page_InfoLine.Inst.isExistByName("保存"));
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.CAMERA);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC); //点击拍照
+        Page_Info_Camera.Inst.Click(Page_POI_Camera.BACK); //点击返回
+        Page_InfoDelete.Inst.Click(Page_InfoDelete.SAVE);
+
+        assertTrue(Page_InfoLine.Inst.isExistByName("测试上报情报"));
+
+    }
+
+    // 室内整理工具（pad）：快速切出切回功能
+    @Test
+    public void test00136_indoor_tool_switch_check() throws Exception
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.MYDATA);
+        Page_MainBoard.Inst.Click(Page_MainBoard.INDOOR_CHANGE_WORK);
+        Page_MainBoard.Inst.Click(Page_MainBoard.POI_MARQUESS);
+        assertTrue(Page_MainBoard.Inst.isExistByName("框选POI"));
+
+    }
+
     //卡车限制
     @Test
     public void test_FM_1110_2_3_check() throws Exception

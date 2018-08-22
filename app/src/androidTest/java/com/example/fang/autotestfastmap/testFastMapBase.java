@@ -1029,20 +1029,14 @@ public class testFastMapBase
         ExitIndoorTools();
     }
     
-    void synchronize(String syncType, Point... syncGridPositon) throws NoSuchFieldException, ClassNotFoundException, InterruptedException 
+    void synchronize(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
         Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
         Thread.sleep(1000);
-        if(syncGridPositon.length > 0) 
-        {
-            Page_MainBoard.Inst.Click(syncGridPositon[0]);
-        }
-        else 
-        {
-            Page_MainBoard.Inst.ClickCenter();
-        }
+
+        Page_MainBoard.Inst.ClickCenter();
         
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(syncType); //情报数据

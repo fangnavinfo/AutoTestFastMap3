@@ -244,6 +244,53 @@ public class Sqlitetools {
         }
     }
 
+    public static void updateInfoData(int isPublishhed) throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+
+        boolean b = false;
+
+        try {
+            ContentValues cv = new ContentValues();
+            cv.putNull("g_guide");
+            cv.put("t_status", 0);
+            cv.put("c_userId", 0);
+            cv.putNull("i_poi");
+            cv.putNull("i_road");
+            cv.putNull("attachments");
+            cv.put("t_sync", 1);
+            cv.put("t_isPublished", isPublishhed);
+            cv.put("t_expectDate", "2017-08-21");
+            if(isPublishhed == 1) {
+                cv.put("i_poi", "null");
+                cv.put("i_road", "{\"roadkind\":8,\"endPoint\":\"\",\"passPoint\":\"\",\"length\":\"\",\"startPoint\":\"\"}");
+                cv.put("b_reliability", 1);
+//                cv.put("i_confirmMode", "轨迹确认");
+//                cv.put("i_confirmResult", "已确认");
+                cv.put("i_precision", "精确到路");
+                cv.put("i_serviceStatus", "投入使用");
+                cv.put("t_publishDate", "20170811163400");
+                cv.put("i_proposal", 2);
+                cv.put("i_varField", "[]");
+                cv.put("attachments", "[]");
+                cv.put("g_guide", "");
+                cv.put("display_style", "0_info4_1_1");
+            }
+            //String whereClause="globalId=?";
+
+            //String [] whereArgs = {globalId};
+
+            //db.execSQL("PRAGMA journal_mode=DELETE ");
+
+            db.update("edit_infos", cv, null, null);
+
+        } catch (Exception e) {
+            throw e;
+
+        } finally {
+            db.close();
+        }
+    }
+
 //    public static String GetRelateChildren(String infoFid) throws Exception
 //    {
 //        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);

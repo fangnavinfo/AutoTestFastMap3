@@ -8,6 +8,9 @@ import com.fang.testAdapter.*;
  */
 public class Page_InfoLine extends FastMapPage
 {
+    @FindResource(Id="et_title", ios_predicate="value MATCHES '^[0-9a-fA-F]{10,}$'")
+    public static String GLOBAL_ID;
+
     @FindResource(Id="draw_line_over", ios_name="完成")
     public static String DRAW_FINISH;
 
@@ -34,6 +37,9 @@ public class Page_InfoLine extends FastMapPage
 
     @FindResource(Id="save_button", Text="保存")
     public static String SAVE;
+
+    @FindResource(Id="cancel_button", Text="取消")
+    public static String CANCEL;
 
     public static Page_InfoLine Inst;
     static
