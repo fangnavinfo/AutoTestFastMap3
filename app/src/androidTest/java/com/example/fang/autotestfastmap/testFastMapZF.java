@@ -3309,7 +3309,7 @@ public class testFastMapZF extends testFastMapBase
         //高速出口
         Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_OUT);
         //输入编号
-        Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
+        //Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
 
         //拍照5张并返回
         Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
@@ -3338,7 +3338,7 @@ public class testFastMapZF extends testFastMapBase
         //高速入口
         Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_IN);
         //输入编号
-        Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
+        //Page_TrueSence.Inst.SetValue(Page_TrueSence.ET_IMG_NUMBER, "7bCD1234");
 
         //拍照5张并返回
         Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);

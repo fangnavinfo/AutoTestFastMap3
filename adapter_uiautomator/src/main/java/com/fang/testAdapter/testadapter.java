@@ -46,7 +46,7 @@ public class testadapter
     {
         while(true)
         {
-            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 3000);
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 5000);
             try
             {
                 if (!obj.isEnabled())
