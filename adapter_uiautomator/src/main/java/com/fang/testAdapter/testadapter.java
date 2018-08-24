@@ -58,6 +58,11 @@ public class testadapter
                 obj.click();
                 break;
             }
+            catch(NullPointerException e)
+            {
+                Thread.sleep(500);
+                continue;
+            }
             catch(StaleObjectException e)
             {
                 Thread.sleep(500);
