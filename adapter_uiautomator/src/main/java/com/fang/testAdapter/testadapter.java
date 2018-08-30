@@ -44,6 +44,8 @@ public class testadapter
 
     public static void Click(String Id) throws InterruptedException
     {
+        int retryFlag = 0;
+
         while(true)
         {
             UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 5000);
@@ -60,8 +62,12 @@ public class testadapter
             }
             catch(NullPointerException e)
             {
-                Thread.sleep(500);
-                continue;
+                if(retryFlag == 0)
+                {
+                    Thread.sleep(500);
+                    retryFlag++;
+                    continue;
+                }
             }
             catch(StaleObjectException e)
             {

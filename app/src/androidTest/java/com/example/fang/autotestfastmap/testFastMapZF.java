@@ -57,6 +57,8 @@ public class testFastMapZF extends testFastMapBase
 
         String carNum;
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainBoard.Inst.Drag(100,600,100,200,10);
+        Thread.sleep(1000);
         Page_MainMenu.Inst.Click(Page_MainMenu.EXIT);
 
         Page_Confirm.Inst.Click(Page_Confirm.OK);
@@ -2798,6 +2800,83 @@ public class testFastMapZF extends testFastMapBase
         Page_MainBoard.Inst.Click(Page_MainBoard.INDOOR_CHANGE_WORK);
         Page_MainBoard.Inst.Click(Page_MainBoard.POI_MARQUESS);
         assertTrue(Page_MainBoard.Inst.isExistByName("框选POI"));
+
+    }
+
+    // POI：增加照片类型
+    @Test
+    public void test00137_poi_picture_type_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Thread.sleep(3000);
+        assertTrue(Page_MainBoard.Inst.isExistByName("地铁站平面图"));
+
+    }
+
+    // POI：景点增加等级字段
+    @Test
+    public void test00138_1_poi_scenery_level_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "风景名胜");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        //景区等级
+        Page_POI.Inst.Click(Page_POI.A1);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.A1));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.TAG2));
+
+    }
+    // POI：景点增加等级字段
+    @Test
+    public void test00138_2_poi_scenery_level_check() throws Exception
+    {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "风景名胜");
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        //景区等级
+        Page_POI.Inst.Click(Page_POI.A5);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.A5));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.TAG2));
 
     }
 
