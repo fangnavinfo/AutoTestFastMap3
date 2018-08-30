@@ -44,13 +44,15 @@ public class testadapter
 
     public static void Click(String Id) throws InterruptedException
     {
-        int retryFlag = 0;
-
         while(true)
         {
             UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 5000);
             try
             {
+                if (null == obj)
+                {
+                    obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 5000);
+                }
                 if (!obj.isEnabled())
                 {
                     Thread.sleep(500);
@@ -59,15 +61,6 @@ public class testadapter
 
                 obj.click();
                 break;
-            }
-            catch(NullPointerException e)
-            {
-                if(retryFlag == 0)
-                {
-                    Thread.sleep(500);
-                    retryFlag++;
-                    continue;
-                }
             }
             catch(StaleObjectException e)
             {
