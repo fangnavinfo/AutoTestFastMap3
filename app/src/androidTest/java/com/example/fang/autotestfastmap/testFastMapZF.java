@@ -490,6 +490,8 @@ public class testFastMapZF extends testFastMapBase
 
         Page_MyData.Inst.SelectData("测试ＰＯＩ２");
 
+        Page_POI.Inst.Click(Page_POI.HIDE_POI_NAME);
+
         Page_POI.Inst.ScrollClick(Page_POI.MULIT_MEDIA);
 
         Page_POI.Inst.Click(Page_POI.PICTURE);

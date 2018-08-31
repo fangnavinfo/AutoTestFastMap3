@@ -179,6 +179,10 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="fmcard_cb_attraction_5",Text="5A")
     public static String A5;
 
+    @FindResource(Id="img_poi_name_list_hide")
+    public static String HIDE_POI_NAME;
+
+
     public static Page_POI Inst;
     static
     {
