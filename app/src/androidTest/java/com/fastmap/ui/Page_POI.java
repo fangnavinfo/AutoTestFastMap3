@@ -10,10 +10,25 @@ public class Page_POI extends FastMapPage
 {
     @FindResource(Id="fm_et_name", ios_name="请输入名称")
     public static String NAME;
+    @FindResource(Id="fm_et_name_alias", ios_name="请输入别名")
+    public static String ALIAS_NAME;
+    @FindResource(Id="fm_et_name_before", ios_name="请输入曾用名")
+    public static String BEFORE_NAME;
+
+    @FindResource(Id="img_name_alias_add")
+    public static String ALIAS_ADD;
+    @FindResource(Id="img_name_list_alias_del")
+    public static String ALIAS_DEL;
+    @FindResource(Id="img_name_before_add")
+    public static String BEFORE_ADD;
+    @FindResource(Id="img_name_list_before_del")
+    public static String BEFORE_DEL;
 
     @FindResource(Id="fm_iv_name")
     public static String NAME_ICON;
 
+    @FindResource(Id="tv_name_list_relative_station")
+    public static String SUBWAY_STATION;
     @FindResource(Id="tv_assort_type", Text="请选择分类", ios_name="请选择类别")
     public static String SELECT_TYPE;
     @FindResource(Id="tv_poi_brand", Text="请选择品牌")
@@ -48,6 +63,8 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="tv_poi_fid_hd", Text="fid : ")
     public static String FID;
 
+    @FindResource(Id="cb_open_24h")
+    public static String H24;
     @FindResource(Id="et_kind_search", Text="请输入搜索内容", ios_name="请输入分类名或kindCode")
     public static String SEARCH_TYPE;
 
@@ -93,6 +110,10 @@ public class Page_POI extends FastMapPage
     //充电站营业时间
     @FindResource(Id="tv_chargingStation_openHour_start", Text="有")
     public static String CHARGINGSTATION_OPEN_HOUR;
+    @FindResource(Id="fm_edit_start_time", Text="请选择营业时间")
+    public static String START_TIME;
+    @FindResource(Id="btn_select_time")
+    public static String SELECT_TIME;
 
     //燃油类型
     @FindResource(Id="fm_cb_diesel", Text="柴油")

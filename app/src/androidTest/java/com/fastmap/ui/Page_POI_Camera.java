@@ -16,6 +16,9 @@ public class Page_POI_Camera extends FastMapPage
     @FindResource(Id="mingcheng_btn", Text="名称")
     public static String NAME_TYPE;
 
+    @FindResource(Id="plan_of_subway_station_btn", Text="地铁站平面图")
+    public static String SUBWAY_TYPE;
+
     @FindResource(Id="radio_revolution1", Text="低")
     public static String RADIO_LOW; //低分辨率
 
