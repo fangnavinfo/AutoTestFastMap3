@@ -8,6 +8,9 @@ import com.fang.testAdapter.*;
 
 public class Page_InfoAccept extends FastMapPage
 {
+    @FindResource(Id = "delete_button",Text = "舍弃")
+    public static String DELETE;
+
     @FindResource(Id = "other_button",Text = "部分采纳")
     public static String PART_ACCEPT;
 

@@ -53,6 +53,10 @@ public class Page_MainBoard extends FastMapPage
     public static String DISTANCE_MEASURE;	//测量距离
     @FindResource(Id="btn_distance_measure_left_top", ios_name="measure")
     public static String DISTANCE_MEASURE_LEFT_TOP;
+    @FindResource(Id="btn_change_work")
+    public static String INDOOR_CHANGE_WORK;
+    @FindResource(Id="iv_poi_marquess")
+    public static String POI_MARQUESS;
 
     @FindResource(Id="iv_zoom_out", ios_name="sign minus")
     public static String ZOOM_OUT;

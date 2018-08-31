@@ -188,6 +188,22 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="select_link")
     public static String SELECT_LINK;
 
+    //景区等级
+    @FindResource(Id="fmcard_cb_attraction_1",Text="1A")
+    public static String A1;
+    @FindResource(Id="fmcard_cb_attraction_2",Text="2A")
+    public static String A2;
+    @FindResource(Id="fmcard_cb_attraction_3",Text="3A")
+    public static String A3;
+    @FindResource(Id="fmcard_cb_attraction_4",Text="4A")
+    public static String A4;
+    @FindResource(Id="fmcard_cb_attraction_5",Text="5A")
+    public static String A5;
+
+    @FindResource(Id="img_poi_name_list_hide")
+    public static String HIDE_POI_NAME;
+
+
     public static Page_POI Inst;
     static
     {
