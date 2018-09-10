@@ -76,6 +76,12 @@ public class testadapter
         obj.click();
     }
 
+    public static boolean GetIsEnableByName(String text)
+    {
+        UiObject2 obj = mDevice.wait(Until.findObject(By.text(text)), 5000);
+        return obj.isEnabled();
+    }
+
     public static void SetValue(String id, String value) throws InterruptedException
     {
         while (true)
@@ -142,6 +148,19 @@ public class testadapter
     }
 
     public static boolean isChecked(String id)
+    {
+        try
+        {
+            UiObject2 hm = mDevice.findObject(By.res(packageName, id));
+            return hm.isChecked();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean GetIsEnable(String id)
     {
         try
         {

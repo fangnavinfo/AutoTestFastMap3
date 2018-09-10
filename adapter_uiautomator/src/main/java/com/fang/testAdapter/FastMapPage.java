@@ -186,6 +186,19 @@ public class FastMapPage
         throw new RuntimeException("can not find id of " + findRes);
     }
 
+    public boolean GetIsEnable(String findRes) throws NoSuchFieldException
+    {
+        Field field = GetField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.Id().isEmpty())
+        {
+            return testadapter.GetIsEnable(annotation.Id());
+        }
+
+        throw new RuntimeException("can not find id of " + findRes);
+    }
+
     public boolean isCheckedbyIndex(String findRes,int index) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException {
         Field field = GetField(findRes);
 
@@ -217,6 +230,11 @@ public class FastMapPage
     public void ClickByText(String value)
     {
         testadapter.ClickByText(value);
+    }
+
+    public boolean GetIsEnableByName(String value)
+    {
+        return testadapter.GetIsEnableByName(value);
     }
 
     public void Drag(int startX, int startY, int endX, int endY, int steps) throws InterruptedException

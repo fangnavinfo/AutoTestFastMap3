@@ -94,7 +94,7 @@ public class testFastMapBase
         
         testadapter.Initialize(userName, isHmWorking);
 
-        testadapter.ClearCollect();
+       // testadapter.ClearCollect();
 
         loginProcess();
 
