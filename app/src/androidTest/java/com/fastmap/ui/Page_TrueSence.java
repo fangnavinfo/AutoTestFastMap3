@@ -23,7 +23,8 @@ public class Page_TrueSence extends Page_Base_Tips
     public static String PASTE;
     @FindResource(Id="direction_board_request")
     public static String REQUEST;
-
+    @FindResource(Id="tv_screenshot")
+    public static String SCREENSHOT;
     public static Page_TrueSence Inst;
     static
     {

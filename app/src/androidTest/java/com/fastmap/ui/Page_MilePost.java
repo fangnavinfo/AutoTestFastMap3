@@ -36,6 +36,8 @@ public class Page_MilePost extends Page_Base_Tips
     @FindResource(Id="tv_milepost_road_name_one")
     public static String ROADNAME;
 
+    @FindResource(Id="copy_different_direction_road_point_cb")
+    public static String COPY;
     public static Page_MilePost Inst;
     static
     {

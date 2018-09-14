@@ -1,6 +1,8 @@
 package com.fastmap.ui;
 
-import com.fang.testAdapter.*;
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.FindResource;
+import com.fang.testAdapter.testadapter;
 
 /**
  * Created by fang on 18/1/19.
@@ -80,6 +82,8 @@ public class Page_MainBoard extends FastMapPage
 
     @FindResource(Id="iv_map_gps_status")
     public static String GPS;
+    @FindResource(Id="iv_adas_status")
+    public static String ADAS;
     @FindResource(Id="location_pop_check_location")
     public static String GPS_START;
 
