@@ -16,6 +16,11 @@ public class Page_Set extends FastMapPage
 
     @FindResource(Id = "checkBox_power_saving")
     public static String POWER_SAVE;
+
+    @FindResource(Id = "main_pas_default_style")
+    public static String PAS_DEFAULT_SET;
+
+
     public static Page_Set Inst;
     static {
         Inst = new Page_Set();
