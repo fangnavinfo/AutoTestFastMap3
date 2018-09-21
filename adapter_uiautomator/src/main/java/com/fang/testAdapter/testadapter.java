@@ -413,6 +413,11 @@ public class testadapter
         }
     }
 
+    public static String  GetItemValue(String clazz, int index,String findRes) throws UiObjectNotFoundException
+    {
+        UiObject obj = new UiObject(new UiSelector().className(clazz));
+        return obj.getChild(new UiSelector().instance(index).resourceId(findRes)).getText();
+    }
 
     public static void ClickByIndex(String clazz, int index) throws UiObjectNotFoundException
     {
@@ -420,11 +425,7 @@ public class testadapter
         obj.click();
     }
 
-    public static void ByIndex(String clazz, int index) throws UiObjectNotFoundException
-    {
-        UiObject obj = new UiObject(new UiSelector().className(clazz).instance(index));
-        obj.getText();
-    }
+
     public static void ClearCap() throws IOException
     {
         mDevice.executeShellCommand("rm -rf" + testCapPath);

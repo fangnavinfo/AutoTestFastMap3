@@ -550,7 +550,7 @@ public class testFastMapYL extends testFastMapBase
         //Page_POI.Inst.Click(Page_POI.TAG1);
         //Page_POI.Inst.Click(Page_POI.FEEDBACK4);
         Page_POI.Inst.Click(Page_POI.TAG2);
-        assertFalse(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
         Page_POI.Inst.Click(Page_POI.FEEDBACK0);
         assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
         Page_POI.Inst.Click(Page_POI.FEEDBACK1);
@@ -559,15 +559,14 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.FEEDBACK4);
         assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK4));
         Page_POI.Inst.Click(Page_POI.TAG2);
-        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK1));
-        Page_POI.Inst.Click(Page_POI.TAG1);
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         Sqlitetools.RefreshData();
         int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
+        assertSame(2,fineFlag);
         int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(4,fineFeedback);
+        assertSame(0,fineFeedback);
     }
 
     @Test
@@ -1796,7 +1795,9 @@ public class testFastMapYL extends testFastMapBase
         String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
         Page_POI.Inst.Drag(1796,1241,1796,336,5);
         Page_POI.Inst.ClickbyText("已采集");
-        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        Thread.sleep(1000);
+        boolean b  = Page_POI.Inst.isChecked(Page_POI.FEEDBACK0);
+        assertTrue(b);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         infoFid = infoFid.replace("fid:", "");
@@ -1924,7 +1925,8 @@ public class testFastMapYL extends testFastMapBase
         String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
         Page_POI.Inst.Drag(1796,1241,1796,336,5);
         Page_POI.Inst.ClickbyText("已采集");
-        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        boolean b= Page_POI.Inst.isChecked(Page_POI.FEEDBACK0);
+        assertTrue(b);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         infoFid = infoFid.replace("fid:", "");
@@ -2627,6 +2629,7 @@ public class testFastMapYL extends testFastMapBase
 
         Page_InfoLine.Inst.Click(Page_InfoLine.DRAW_FINISH);
         Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME,"测试线ＩＮＦＯ");
+        Thread.sleep(1000);
         Page_InfoLine.Inst.Click(Page_InfoLine.ROAD_TYPE);
         Page_InfoLine.Inst.Click(Page_InfoLine.TIME);
         Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
@@ -4139,6 +4142,7 @@ public class testFastMapYL extends testFastMapBase
     public void test01093_data_check() throws Exception
     {
         //卡车交限 测11 种别6
+        SearchLocation(LOC_K1);
         Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
         //DrawRoad(LinePoints, Page_SurveyLine.PEOPLE_CROSS_RD);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
@@ -4153,6 +4157,7 @@ public class testFastMapYL extends testFastMapBase
         Page_Kind.Inst.Click(Page_Kind.COUNTY_RD);
         Thread.sleep(1000);
 
+        SearchLocation(LOC_K1);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
         Page_MainBoard.Inst.Click(LinePoints[0]);
         Thread.sleep(2000);
@@ -11338,6 +11343,223 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.SelectData("风景名胜售票点ＴＥＳＴ");
 
         assertTrue(Page_TrueSence.Inst.isExistByName("同一关系"));
+    }
+
+    @Test
+    public void test06001_poi_relationship_father() throws Exception
+    {
+        //查看默认值
+        String[][] attrib1 = {{Page_POI.NAME, "驾校"},
+                {Page_POI.SELECT_TYPE, "驾校"}};
+        AddPOI(attrib1, "116.40624", "39.95918");
+
+        String[][] attrib2 = {{Page_POI.NAME, "百货"},
+                {Page_POI.SELECT_TYPE, "百货商场零售"}};
+        AddPOI(attrib2, "116.40624", "39.95918");
+
+        String[][] attrib4 = {{Page_POI.NAME, "公司"},
+                {Page_POI.SELECT_TYPE, "公司"}};
+        AddPOI(attrib4, "116.40624", "39.95918");
+
+        String[][] attrib5 = {{Page_POI.NAME, ""},
+                {Page_POI.SELECT_TYPE, "公司"}};
+        AddPOI(attrib5, "116.40624", "39.95918");
+
+        String[][] attrib7 = {{Page_POI.NAME, "大厦/写字楼"},
+                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
+        AddPOI(attrib7, "116.40624", "39.95918");
+        SearchLocation("116.40624", "39.95918");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        }
+        catch (Exception e)
+        {
+
+        }
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE,"中餐馆");
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+        Page_POI.Inst.ClickbyText("大厦／写字楼(多点)");
+        Thread.sleep(1000);
+        String str = Page_POI.Inst.GetValuebyIndex(Page_POI.TEXTVIEW,1);
+        assertEquals("百货",str);
+        str = Page_POI.Inst.GetValuebyIndex(Page_POI.TEXTVIEW,3);
+        assertEquals("大厦／写字楼",str);
+        str = Page_POI.Inst.GetValuebyIndex(Page_POI.TEXTVIEW,5);
+        assertEquals("公司",str);
+        str = Page_POI.Inst.GetValuebyIndex(Page_POI.TEXTVIEW,7);
+        assertEquals("",str);
+//        str = Page_POI.Inst.GetItemValue(Page_POI.LISTCLASS,1,Page_POI.FAILNAME);
+//        assertEquals("公司",str);
+
+    }
+    @Test
+    public void test06101_poi_Tag() throws Exception
+    {
+        //编辑时切换tag页 新增未采集
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Thread.sleep(2000);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK7);
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(1,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(7,fineFeedback);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.FEEDBACK0));
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        assertFalse(Page_POI.Inst.isChecked(Page_POI.FEEDBACK7));
+        Page_POI.Inst.Click(Page_POI.TAG0);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+    }
+
+    @Test
+    public void test06102_poi_Tag() throws Exception
+    {
+        //复制poi
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+        Thread.sleep(1000);
+        Page_POI.Inst.Click(Page_POI.TAG0);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        try
+        {
+            Thread.sleep(1000);
+            Page_MainBoard.Inst.ClickbyText("复制信息新增");
+            Page_MainBoard.Inst.ClickbyText("确定");
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME,"小区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "120201");
+        String Fid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1759,1259,1759,600,5);
+        Page_POI.Inst.Click(Page_POI.TAG1);
+        Page_POI.Inst.Click(Page_POI.FEEDBACK8);
+        Fid = Fid.replace("fid:", "");
+        Fid = Fid.replace("fid : ", "");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+
+        Sqlitetools.RefreshData();
+        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(Fid,"fineFlag");
+        assertSame(1,fineFlag);
+        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(Fid,"fineFeedback");
+        assertSame(8,fineFeedback);
+    }
+
+    @Test
+    public void test06103_poi_Tag() throws Exception
+    {
+        //查看默认值
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"高等");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "160105");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.ClickbyText("未作业");
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.TAG0));
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+    }
+
+    @Test
+    public void test06104_poi_Tag() throws Exception
+    {
+        //查看默认值
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_POI.Inst.SetValue(Page_POI.NAME,"工业园区");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "220300");
+        String infoFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.ClickbyText("未作业");
+        assertTrue(Page_POI.Inst.isChecked(Page_POI.TAG0));
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        infoFid = infoFid.replace("fid:", "");
+        infoFid = infoFid.replace("fid : ", "");
+
+        Sqlitetools.RefreshData();
+        int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
     }
 ///////////以下注释用例均为月基线功能用例开始///////////////////
 //    //品牌

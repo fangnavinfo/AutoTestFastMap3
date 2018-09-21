@@ -125,6 +125,8 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="fm_iv_name")
     public static String TOTAL_NAME;
 
+    @FindResource(Id="rbtn_poi_fine_tag_0",Text="未作业")
+    public static String TAG0;
     @FindResource(Id="rbtn_poi_fine_tag_1",Text="未采集")
     public static String TAG1;
     @FindResource(Id="rbtn_poi_fine_tag_2",Text="已采集")
@@ -199,7 +201,10 @@ public class Page_POI extends FastMapPage
     public static String A4;
     @FindResource(Id="fmcard_cb_attraction_5",Text="5A")
     public static String A5;
-
+    @FindResource(clazz="android.widget.LinearLayout")
+    public static String LISTCLASS;
+    @FindResource(clazz="android.widget.TextView")
+    public static String TEXTVIEW;
     @FindResource(Id="img_poi_name_list_hide")
     public static String HIDE_POI_NAME;
 

@@ -863,6 +863,7 @@ public class testFastMapBase
 
         //拍照并返回
         Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(2000);
         Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
 
         for (String[] attrib : attribs)

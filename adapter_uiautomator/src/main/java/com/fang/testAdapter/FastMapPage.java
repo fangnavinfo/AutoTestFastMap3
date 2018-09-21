@@ -260,10 +260,20 @@ public class FastMapPage
     {
 
         testadapter.ClickByIndex(findRes, index);
-
-
     }
 
+    public  String GetItemValue(String cls, int index,String findRes) throws Exception
+    {
+        Field field = GetField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+        if (!annotation.clazz().isEmpty())
+        {
+            return testadapter.GetItemValue(annotation.clazz(), index,findRes);
+        }
+
+        return  testadapter.GetItemValue(cls, index,findRes);
+    }
 
     public void ScrollOneStep()
     {
@@ -286,6 +296,7 @@ public class FastMapPage
 
 
     public String GetValuebyIndex(String findRes,int index) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException {
+        //方法一
         Field field = GetField(findRes);
 
         FindResource annotation = field.getAnnotation(FindResource.class);
@@ -297,6 +308,8 @@ public class FastMapPage
         {
             return "";
         }
+        //方法二
+//        UiObject obj1 = new UiObject(new UiSelector().className(cls).instance(index).childSelector(new UiSelector().resourceId(findRes)));
     }
 //    protected void CheckResource(UiObject2 object, ArrayList<UiObject2> listResult)
 //    {
