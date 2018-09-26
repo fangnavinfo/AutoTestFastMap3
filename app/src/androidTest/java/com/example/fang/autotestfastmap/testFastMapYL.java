@@ -81,11 +81,13 @@ public class testFastMapYL extends testFastMapBase
     @BeforeClass    public static void setClassUp() throws Exception
     {
         //testFastMapBase.setClassUp("zhanglingling03655","036550");
+        CPUMonitor.Start();
     }
 
     @AfterClass
-    public static void setClassDown() throws InterruptedException, IOException
+    public static void setClassDown() throws Exception
     {
+        CPUMonitor.End();
     }
 
     @Before
@@ -101,6 +103,7 @@ public class testFastMapYL extends testFastMapBase
     public  void setAfter() //throws IOException, InterruptedException
     {
         //super.setAfter();
+        CPUMonitor.Assert();
     }
 
     @Test

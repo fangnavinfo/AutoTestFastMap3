@@ -26,6 +26,21 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapZF extends testFastMapBase
 {
+    @BeforeClass
+    public static void setClassUp() throws Exception
+    {
+        CPUMonitor.Start();
+
+        //testFastMapBase.setClassUp("zhanglingling03655","036550");
+    }
+
+    @AfterClass
+    public static void setClassDown() throws Exception
+    {
+        CPUMonitor.End();
+    }
+
+
     @Before
     public void setUp() throws Exception {
 
@@ -48,6 +63,7 @@ public class testFastMapZF extends testFastMapBase
     {
 
         //super.setAfter();
+        CPUMonitor.Assert();
     }
 
     // 车牌录入校验

@@ -30,6 +30,8 @@ public class CPUMonitor
 
     static void End() throws Exception
     {
+        infoOverload = "";
+
         endFlag = true;
         thrMonitor.join();
         outStream.close();
@@ -37,14 +39,11 @@ public class CPUMonitor
 
     static void Assert()
     {
-        if (userCPUOverload.length() != 0)
+        if (infoOverload.length() != 0)
         {
-            assertFalse(userCPUOverload, true);
-        }
-
-        if (thrdCPUOverload.length() != 0)
-        {
-            assertFalse(thrdCPUOverload, true);
+            String temp = infoOverload;
+            infoOverload = "";
+            assertFalse(temp, true);
         }
     }
 
@@ -116,31 +115,22 @@ public class CPUMonitor
                 }
 
                 int percent = Integer.parseInt(temp);
-                if (outputLine.contains("User"))
+
+                if (outputLine.contains("User") && percent > 30)
                 {
-                    if (percent > 30 && maxUserCPUPercent < percent)
-                    {
-                        userCPUOverload = outputArray[0] + " " + outputLine;
-                    }
+                    infoOverload = "CPU OVERLOAD!!! \n" + cmdOutput;
                     break;
                 }
-                else
+                else if (percent > 10)
                 {
-                    if (percent > 10 && maxThrdCPUPercent < percent)
-                    {
-                        thrdCPUOverload = outputArray[0] + " " + outputLine;
-                    }
-                    break;
+                    infoOverload = "CPU OVERLOAD!!! \n" + cmdOutput;
                 }
             }
         }
     }
 
-    static int  maxUserCPUPercent = 0;
-    static String userCPUOverload = "";
 
-    static int  maxThrdCPUPercent = 0;
-    static String thrdCPUOverload = "";
+    static String infoOverload = "";
 
     static Thread thrMonitor;
     static OutputStream outStream;
