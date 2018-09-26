@@ -1,15 +1,30 @@
 package com.example.fang.autotestfastmap;
+import android.util.Log;
+
 import com.fang.testAdapter.Point;
 import com.fastmap.ui.*;
 
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.FileOutputStream;
 
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.File;
+import android.os.Environment;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by fang on 17/11/21.
@@ -18,6 +33,20 @@ import java.io.IOException;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class testFastMapFS extends testFastMapBase
 {
+
+    @BeforeClass
+    public static void setClassUp() throws Exception
+    {
+        CPUMonitor.Start();
+
+        //testFastMapBase.setClassUp("zhanglingling03655","036550");
+    }
+
+    @AfterClass
+    public static void setClassDown() throws Exception
+    {
+        CPUMonitor.End();
+    }
 
     @Before
     public void setUp() throws Exception
@@ -30,6 +59,7 @@ public class testFastMapFS extends testFastMapBase
     public  void setAfter() throws IOException, InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
 
+        CPUMonitor.Assert();
         //super.setAfter();
     }
 
