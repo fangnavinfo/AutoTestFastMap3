@@ -78,9 +78,6 @@ public class CPUMonitor
 
                     String normalOutput = new String(bytesNormal,"UTF-8");
                     CheckCPUOverload(normalOutput);
-
-
-
                 }
             }
             catch (Exception e)
@@ -115,13 +112,7 @@ public class CPUMonitor
                 }
 
                 int percent = Integer.parseInt(temp);
-
-                if (outputLine.contains("User") && percent > 30)
-                {
-                    infoOverload = "CPU OVERLOAD!!! \n" + cmdOutput;
-                    break;
-                }
-                else if (percent > 10)
+                if (outputLine.contains("fastmap") && percent > 10)
                 {
                     infoOverload = "CPU OVERLOAD!!! \n" + cmdOutput;
                 }
