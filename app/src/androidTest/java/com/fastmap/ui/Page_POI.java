@@ -53,7 +53,10 @@ public class Page_POI extends FastMapPage
     public static String POI_TRUCK;
     @FindResource(Id="tv_poi_remark", Text="标记字段")
     public static String POI_REMARK;
-
+    @FindResource(Id="tv_marquee_frame_complete")
+    public static String FRAME_COMPLETE;
+    @FindResource(Id="cb_snap_check_list_item")
+    public static String LIST_ITEM;
     @FindResource(Id="delete_button", ios_name="operate_deletelBtn")
     public static String DELETE;
     @FindResource(Id="cancel_button", ios_name="operate_cancelBtn")

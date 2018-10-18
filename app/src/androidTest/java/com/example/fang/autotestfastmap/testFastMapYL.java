@@ -815,6 +815,16 @@ public class testFastMapYL extends testFastMapBase
         assertSame(1,fineFlag);
         fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
         assertSame(5,fineFeedback);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
     }
 
     @Test
@@ -1074,6 +1084,16 @@ public class testFastMapYL extends testFastMapBase
         assertSame(1,fineFlag);
         int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
         assertSame(5,fineFeedback);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("小区");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
     }
 
     @Test
@@ -1141,13 +1161,17 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.TAG1);
         Page_POI.Inst.Click(Page_POI.FEEDBACK5);
         Page_POI.Inst.Click(Page_POI.SAVE);
+        Thread.sleep(2000);
+        Page_MyData.Inst.ClickbyText("高等");
+        Page_POI.Inst.Drag(1796,1241,1796,336,5);
+        Page_POI.Inst.Click(Page_POI.TAG0);
+        Page_POI.Inst.Click(Page_POI.SAVE);
 
         Sqlitetools.RefreshData();
         int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
         assertSame(1,fineFlag);
         int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
         assertSame(5,fineFeedback);
-
 
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("中餐馆");
@@ -1162,11 +1186,12 @@ public class testFastMapYL extends testFastMapBase
         assertFalse(Page_POI.Inst.isExistByName("未采集"));
         Page_POI.Inst.Click(Page_POI.SAVE);
 
+        //首先判断是否无精细化卡片，没有保存之后的操作都是0,0
         Sqlitetools.RefreshData();
         fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
+        assertSame(0,fineFlag);
         fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(5,fineFeedback);
+        assertSame(0,fineFeedback);
     }
 
     @Test
@@ -1355,7 +1380,7 @@ public class testFastMapYL extends testFastMapBase
         infoFid = infoFid.replace("fid:", "");
         infoFid = infoFid.replace("fid : ", "");
         Page_POI.Inst.Drag(1759,1259,1759,600,5);
-        Page_POI.Inst.ClickbyText("已采集");
+        Page_POI.Inst.Click(Page_POI.TAG0);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -1389,8 +1414,18 @@ public class testFastMapYL extends testFastMapBase
 
         Sqlitetools.RefreshData();
         int fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(2,fineFlag);
+        assertSame(0,fineFlag);
         int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
+        assertSame(0,fineFeedback);
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("工业园区");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Sqlitetools.RefreshData();
+        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
+        assertSame(0,fineFlag);
+        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
         assertSame(0,fineFeedback);
     }
 
@@ -1800,8 +1835,6 @@ public class testFastMapYL extends testFastMapBase
         infoFid = infoFid.replace("fid:", "");
         infoFid = infoFid.replace("fid : ", "");
 
-
-
         String[][] attrib1 = {{Page_POI.NAME, "医疗机构"},
                 {Page_POI.SELECT_TYPE, "170100"}};
         AddPOI(attrib1);
@@ -1849,22 +1882,28 @@ public class testFastMapYL extends testFastMapBase
         assertSame(5,fineFeedback);
 
         GotoMyData(Page_MyData.POI_TYPE);
-        Page_MyData.Inst.ClickbyText("中餐馆");
+        Page_MyData.Inst.ClickbyText("综合医院");
         Page_POI.Inst.Click(Page_POI.POI_FATHER);
-        Page_POI.Inst.ClickbyText("删除父子关系");
-        Page_POI.Inst.ClickbyText("是");
+        Page_POI.Inst.ClickbyText("框选子");
+        Thread.sleep(1000);
+        Page_POI.Inst.Click(new Point(920,670));
+        Thread.sleep(1000);
+        Page_POI.Inst.Click(new Point(920,899));
+        Thread.sleep(1000);
+        Page_POI.Inst.Click(new Point(1259,899));
+        Thread.sleep(1000);
+        Page_POI.Inst.Click(new Point(1259,670));
+        Page_POI.Inst.Click(Page_POI.FRAME_COMPLETE);
+        Page_POI.Inst.Click(Page_POI.LIST_ITEM);
+        Page_POI.Inst.ClickByText("保存");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
-        Page_MyData.Inst.ClickbyText("综合医院");
-        Page_POI.Inst.Drag(1759,1259,1759,600,5);
-        //Page_MainBoard.Inst.Drag(1759,1259,1759,600,5);
-        assertFalse(Page_POI.Inst.isExistByName("未采集"));
-        Page_POI.Inst.Click(Page_POI.SAVE);
         Sqlitetools.RefreshData();
         fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
+        assertSame(0,fineFlag);
         fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(5,fineFeedback);
+        assertSame(0,fineFeedback);
+
     }
 
     @Test
