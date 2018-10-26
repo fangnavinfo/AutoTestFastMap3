@@ -44,6 +44,8 @@ public class Page_MainBoard extends FastMapPage
 
     @FindResource(Id="btn_mode", ios_name="scene integrated")
     public static String MODE; //场景设置
+    @FindResource(Id="btn_setting")
+    public static String SETTING; //设置
     @FindResource(Id="rb_screen_mode_one")
     public static String MODE_ONE; //资三
     @FindResource(Id="btn_close_pop", ios_name="gray close")
@@ -86,7 +88,10 @@ public class Page_MainBoard extends FastMapPage
     public static String ADAS;
     @FindResource(Id="location_pop_check_location")
     public static String GPS_START;
-
+    @FindResource(Id="ck_upload_data_sync")
+    public static String DATA_SYNC;
+    @FindResource(Id="tv_data_count")
+    public static String DATA_COUNT;
     public static Page_MainBoard Inst;
     static
     {

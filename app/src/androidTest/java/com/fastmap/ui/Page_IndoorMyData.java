@@ -23,7 +23,8 @@ public class Page_IndoorMyData extends FastMapPage
     
     @FindResource(Id="progress_btn_positive", ios_name="确定")
     public static String CHECK_CONFIRM;
-    
+    @FindResource(Id="list")
+    public static String LIST;
     @FindResource(Id="iv_indoor_check_back", ios_name="icon user back nor")
     public static String CHECK_RESULT_BACK;
 

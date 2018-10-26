@@ -3,6 +3,7 @@ package com.example.fang.autotestfastmap;
 import com.fang.testAdapter.FastMapPage;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
+import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_BuildingArea;
 import com.fastmap.ui.Page_ConditionSpeedLimit;
@@ -732,7 +733,6 @@ public class testFastMapYL extends testFastMapBase
                 {Page_POI.SELECT_TYPE, "120202"}};
         AddPOI(attrib1);
 
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
         {
@@ -812,19 +812,10 @@ public class testFastMapYL extends testFastMapBase
 
         Sqlitetools.RefreshData();
         fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
-        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(5,fineFeedback);
-
-        GotoMyData(Page_MyData.POI_TYPE);
-        Page_MyData.Inst.ClickbyText("小区");
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        Sqlitetools.RefreshData();
-        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
         assertSame(0,fineFlag);
         fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
         assertSame(0,fineFeedback);
+
     }
 
     @Test
@@ -1022,7 +1013,6 @@ public class testFastMapYL extends testFastMapBase
                 {Page_POI.SELECT_TYPE, "120202"}};
         AddPOI(attrib1);
 
-
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
         {
@@ -1085,15 +1075,6 @@ public class testFastMapYL extends testFastMapBase
         int fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
         assertSame(5,fineFeedback);
 
-        GotoMyData(Page_MyData.POI_TYPE);
-        Page_MyData.Inst.ClickbyText("小区");
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        Sqlitetools.RefreshData();
-        fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(0,fineFlag);
-        fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(0,fineFeedback);
     }
 
     @Test
@@ -2029,9 +2010,9 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
         Sqlitetools.RefreshData();
         fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
+        assertSame(0,fineFlag);
         fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(5,fineFeedback);
+        assertSame(0,fineFeedback);
     }
     @Test
     public void test00249_poi_relationship_Tag() throws Exception
@@ -2281,9 +2262,9 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
         Sqlitetools.RefreshData();
         fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
+        assertSame(0,fineFlag);
         fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(5,fineFeedback);
+        assertSame(0,fineFeedback);
     }
     @Test
     public void test00253_poi_relationship_Tag() throws Exception
@@ -2445,9 +2426,9 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
         Sqlitetools.RefreshData();
         fineFlag = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFlag");
-        assertSame(1,fineFlag);
+        assertSame(0,fineFlag);
         fineFeedback = (int)Sqlitetools.GetPoisDataByRowKey(infoFid,"fineFeedback");
-        assertSame(5,fineFeedback);
+        assertSame(0,fineFeedback);
     }
     @Test
     public void test00255_poi_relationship_Tag() throws Exception
@@ -3330,14 +3311,17 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01042_data_check() throws Exception
     {
-    	Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        for(Point p : LinePoints)
-        {
-            Page_MainBoard.Inst.Click(p);
-        }
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.FERRY_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+//    	Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+//        for(Point p : LinePoints)
+//        {
+//            Page_MainBoard.Inst.Click(p);
+//        }
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.FERRY_RD);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.FERRY_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(LinePoints[0]);
@@ -3352,14 +3336,17 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test01043_data_check() throws Exception
     {
+//        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+//        for(Point p : LinePoints)
+//        {
+//            Page_MainBoard.Inst.Click(p);
+//        }
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEOPLE_CROSS_RD);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
         Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        for(Point p : LinePoints)
-        {
-            Page_MainBoard.Inst.Click(p);
-        }
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEOPLE_CROSS_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        DrawRoad(LinePoints, Page_SurveyLine.PEOPLE_CROSS_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.GATETYPE);
         Page_MainBoard.Inst.Click(LinePoints[0]);
@@ -3575,15 +3562,17 @@ public class testFastMapYL extends testFastMapBase
         Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.StartEndPoint);
         Page_StartEndPoint.Inst.Click(Page_StartEndPoint.TUNNEL_BT);//隧道位置（起终点的）
-        Page_MainBoard.Inst.Click(new Point(1280, 560));
+        //Page_MainBoard.Inst.Click(new Point(1280, 560));
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2+200, testadapter.getDisplayHeight()/2));
         Page_StartEndPoint.Inst.Click(Page_StartEndPoint.SAVE);//起终点
 
+        Thread.sleep(1000);
         SearchLocation(LOC_K7);
 
         //绘制测线与含有隧道的link相交
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1310, 1410));
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2+100, testadapter.getDisplayHeight()/2+300));
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2+100, testadapter.getDisplayHeight()/2-100));
         Page_SurveyLine.Inst.Click(Page_SurveyLine.HIGH_SPEED);
         Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
@@ -4154,14 +4143,17 @@ public class testFastMapYL extends testFastMapBase
     public void test01092_data_check() throws Exception
     {
         //卡车交限 测线9
+//        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+//        for(Point p : LinePoints)
+//        {
+//            Page_MainBoard.Inst.Click(p);
+//        }
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.NINE_RD);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
         Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        for(Point p : LinePoints)
-        {
-            Page_MainBoard.Inst.Click(p);
-        }
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.NINE_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        DrawRoad(LinePoints, Page_SurveyLine.NINE_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
         Page_MainBoard.Inst.Click(LinePoints[0]);
@@ -4178,14 +4170,17 @@ public class testFastMapYL extends testFastMapBase
     public void test01093_data_check() throws Exception
     {
         //卡车交限 测11 种别6
-        SearchLocation(LOC_K1);
+          SearchLocation(LOC_K1);
+//        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+//        //DrawRoad(LinePoints, Page_SurveyLine.PEOPLE_CROSS_RD);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+//        Page_MainBoard.Inst.Click(LinePoints[0]);
+//        Page_MainBoard.Inst.Click(LinePoints[1]);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEOPLE_CROSS_RD);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+
         Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
-        //DrawRoad(LinePoints, Page_SurveyLine.PEOPLE_CROSS_RD);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        Page_MainBoard.Inst.Click(LinePoints[0]);
-        Page_MainBoard.Inst.Click(LinePoints[1]);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEOPLE_CROSS_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        DrawRoad(LinePoints, Page_SurveyLine.PEOPLE_CROSS_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
         Page_MainBoard.Inst.Click(LinePoints[1]);
@@ -4236,13 +4231,16 @@ public class testFastMapYL extends testFastMapBase
     public void test01095_data_check() throws Exception
     {
         //卡车交限 测线10
-        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+//        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+//        Page_MainBoard.Inst.Click(LinePoints[0]);
+//        Page_MainBoard.Inst.Click(LinePoints[1]);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEDESTRIAN_RD);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
 
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        Page_MainBoard.Inst.Click(LinePoints[0]);
-        Page_MainBoard.Inst.Click(LinePoints[1]);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEDESTRIAN_RD);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PEDESTRIAN_RD);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
         Page_MainBoard.Inst.Click(LinePoints[0]);
@@ -10729,6 +10727,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(2000);
         Page_TrueSence.Inst.Click(Page_TrueSence.SCREENSHOT);
         Thread.sleep(5000);
+        Page_MainBoard.Inst.ClickCenter();//新增检查项，必须标记退出线
         Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
 
         GotoIndoorTools();
@@ -12030,8 +12029,249 @@ public class testFastMapYL extends testFastMapBase
 ////////////////月基线功能用例结束////////////////////////////////
 
 
+    @Test
+    public void test06201_MilePost_add() throws Exception
+    {
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PROVINCIAL_RD);
 
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
 
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickByText("里程桩");
+        String value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("请选取道路编号",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("请选取道路名",value);
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO,"S479");//此时道路名编号应为空
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        Page_MyData.Inst.ClickByText("里程桩");
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("Ｓ４７９",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("手绘道路",value);
+        Page_MilePost.Inst.Click(Page_MilePost.CANCEL);
+    }
+
+    @Test
+    public void test06202_MilePost_add() throws Exception
+    {
+        Point[] LinePoints = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(LinePoints, Page_SurveyLine.PROVINCIAL_RD);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(LinePoints[0]);
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO,"S479");//此时道路名编号应为空
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
+        String value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("S479",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("手绘道路",value);
+        Page_MilePost.Inst.Click(Page_MilePost.NUM_CLEAR);
+        Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.NAME_CLEAR);
+        Thread.sleep(1000);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("请选取道路编号",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("请选取道路名",value);
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO,"S479");//此时道路名编号应为空
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickByText("里程桩");
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("Ｓ４７９",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("手绘道路",value);
+        Page_MilePost.Inst.Click(Page_MilePost.NUM_CLEAR);
+        Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.NAME_CLEAR);
+        Thread.sleep(1000);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("请选取道路编号",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("请选取道路名",value);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+    }
+
+    @Test
+    public void test06203_MilePost_add() throws Exception
+    {
+        SearchLocation(LOC_K3);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO,"S479");//此时道路名编号应为空
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("里程桩");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.START_CHECK);
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CHECK_CONFIRM);
+        Thread.sleep(1000);
+        String str = "里程桩的道路名称或道路编号在所关联link的道路名称中不存在，请确认！";
+        Page_IndoorMyData.Inst.ClickbyText(str);
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("忽略");
+        ExitIndoorTools();
+
+        synchronize(Page_GridManager.TIPS_UPDATE);
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickByText("里程桩");
+        String value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("Ｓ４７９",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("手绘道路",value);
+        Page_MilePost.Inst.Click(Page_MilePost.NUM_CLEAR);
+        Thread.sleep(1000);
+        Page_MilePost.Inst.Click(Page_MilePost.NAME_CLEAR);
+        Thread.sleep(1000);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
+        assertEquals("请选取道路编号",value);
+        value = Page_MilePost.Inst.GetValue(Page_MilePost.NAME);//此时道路名称号应为空
+        assertEquals("请选取道路名",value);
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+    }
+
+    @Test
+    public void test06204_MilePost_add() throws Exception
+    {
+        SearchLocation(LOC_K3);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO,"S479");//此时道路名编号应为空
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME,"手绘道路");//此时道路名称号应为空
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickByText("里程桩");
+        String rowkey = Page_MilePost.Inst.GetRowKey();
+        Sqlitetools.RefreshData();
+        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        JSONObject jsonObject = new JSONObject(temp);
+        int type = jsonObject.getInt("src");
+        assertSame(type, 1);
+
+        GotoIndoorTools();
+        Page_IndoorMyData.Inst.ClickbyText("里程桩");
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.START_CHECK);
+        Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CHECK_CONFIRM);
+        Thread.sleep(1000);
+        String str = "里程桩的道路名称或道路编号在所关联link的道路名称中不存在，请确认！";
+        Page_IndoorMyData.Inst.ClickbyText(str);
+        Thread.sleep(1000);
+        Page_IndoorMyData.Inst.ClickbyText("忽略");
+        ExitIndoorTools();
+
+        synchronize(Page_GridManager.TIPS_UPDATE);
+        Sqlitetools.RefreshData();
+        temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        jsonObject = new JSONObject(temp);
+         type = jsonObject.getInt("src");
+        assertSame(type, 1);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickByText("里程桩");
+        Page_MilePost.Inst.ClickbyText("内插里程桩");
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        Sqlitetools.RefreshData();
+        temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+        jsonObject = new JSONObject(temp);
+        type = jsonObject.getInt("src");
+        assertSame(type, 2);
+    }
+
+    @Test
+    public void test06301_poi_sync() throws Exception
+    {
+        //开启数据同步
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SETTING);
+//        Page_MainBoard.Inst.Drag(1837,1150,1837,420,5);
+//        Page_MainBoard.Inst.Click(Page_MainBoard.DATA_SYNC);
+//        Thread.sleep(5000);
+//        Page_MainBoard.Inst.ClickCenter();
+        //有POI Tips数据的时候
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);//打点
+        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);//打点
+        Page_MainBoard.Inst.ClickCenter();
+        String[][] attrib1 = {{Page_POI.NAME, "中餐馆TEST"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}};
+        AddPOI(attrib1);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.ClickCenter();
+        Thread.sleep(1000);
+        Page_GridManager.Inst.ClickByText("下载数据"); //同步
+        String str = Page_MainBoard.Inst.GetValue(Page_MainBoard.DATA_COUNT);
+        String temp = "未上传数量：\n" + "Tips：2 POI：1 情报：0";
+        assertEquals(temp,str);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+
+        Page_GridManager.Inst.Click(Page_GridManager.POI_UPDATE); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.ClickByText("下载数据"); //同步
+        Thread.sleep(1000);
+        str = Page_MainBoard.Inst.GetValue(Page_MainBoard.DATA_COUNT);
+        temp = "未上传数量：\n" + " POI：1 情报：0";
+        assertEquals(temp,str);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+
+        Page_GridManager.Inst.Click(Page_GridManager.TIPS_UPDATE); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.ClickByText("下载数据"); //同步
+        Thread.sleep(1000);
+        str = Page_MainBoard.Inst.GetValue(Page_MainBoard.DATA_COUNT);
+        temp = "未上传数量：\n" + "Tips：2 情报：0";
+        assertEquals(temp,str);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        downloaddata(Page_GridManager.INFO_UPDATE);
+    }
+
+    @Test
+    public void test06302_poi_sync() throws Exception
+    {
+        //无数据的时候
+        downloaddata(Page_GridManager.INFO_UPDATE);
+        downloaddata(Page_GridManager.INFO_UPDATE);
+        downloaddata(Page_GridManager.TIPS_UPDATE);
+        downloaddata(Page_GridManager.POI_UPDATE);
+        downloaddata(Page_GridManager.INTEGRATE_UPDATE);
+        //开启数据同步
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SETTING);
+//        Page_MainBoard.Inst.Drag(1837,1150,1837,420,5);
+//        Page_MainBoard.Inst.Click(Page_MainBoard.DATA_SYNC);
+//        Thread.sleep(5000);
+//        Page_MainBoard.Inst.ClickCenter();
+
+    }
 
 
 

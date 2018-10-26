@@ -903,6 +903,7 @@ public class testFastMapBase
         for(Point p : pointArray)
         {
         	Page_MainBoard.Inst.Click(p);
+        	Thread.sleep(1500);
         }
         
         Page_SurveyLine.Inst.Click(type);
@@ -1107,6 +1108,25 @@ public class testFastMapBase
         //Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
     }
 
+    void downloaddata(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(syncType); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.ClickByText("下载数据"); //同步
+        Thread.sleep(10000);
+        Page_GridManager.Inst.ClickbyText("确认");
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
 //    void synchronize(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException 
 //    {
 //        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);

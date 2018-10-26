@@ -1,14 +1,18 @@
 package com.fastmap.ui;
 
-import java.lang.reflect.Field;
+import com.fang.testAdapter.FastMapPage;
+import com.fang.testAdapter.FindResource;
 
-import com.fang.testAdapter.*;
+import java.lang.reflect.Field;
 
 public class Page_Base_Tips extends FastMapPage
 {
     @FindResource(Id="et_title", ios_predicate="value MATCHES '^[0-9a-fA-F]{10,}$'")
     public static String ROWKEY;
-    
+    @FindResource(Id="tv_left_change_num_clear")
+    public static String NUM_CLEAR;
+    @FindResource(Id="tv_left_change_name_clear")
+    public static String NAME_CLEAR;
     @FindResource(Id="delete_button", ios_name="operate_deletelBtn")
     public static String DELETE;
     @FindResource(Id="cancel_button", ios_name="operate_cancelBtn")
