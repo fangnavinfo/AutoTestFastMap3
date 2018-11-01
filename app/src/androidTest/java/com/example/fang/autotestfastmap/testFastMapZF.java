@@ -3817,8 +3817,648 @@ public class testFastMapZF extends testFastMapBase
 
         Sqlitetools.RefreshData();
 
-        AssertIndoorCheck("驾照考试路段", "中", "FM-1525-1-2", "Tips没有关联道路或测线或Node","");
+        AssertIndoorCheck("驾照考试路段", "中", null, "Tips没有关联道路或测线或Node","");
     }
+
+    //里程桩tips的道路名称，全部都是字母和阿拉伯数字，则报错
+    @Test
+    public void test_FM_1707_2_2_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "Road001");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-2", "里程桩道路名称不能只存在字母和阿拉伯数字","");
+    }
+
+    //检查里程桩tips的道路名称是否含有英文字母（含大写和小写），存在则报错误
+    @Test
+    public void test_FM_1707_2_3_1_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "ROAD");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-2", "里程桩道路名称不能只存在字母和阿拉伯数字","忽略");
+    }
+
+    //里程桩tips的道路名称，全部都是字母和阿拉伯数字，则报错
+    @Test
+    public void test_FM_1707_2_2_1_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "1234");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-2", "里程桩道路名称不能只存在字母和阿拉伯数字","忽略");
+    }
+
+    //里程桩tips的道路名称，全部都是字母和阿拉伯数字，则报错
+    @Test
+    public void test_FM_1707_2_2_2_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "road1234");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-2", "名称中含有字母，请确认是否正确","忽略");
+    }
+
+    //检查里程桩tips的道路名称是否含有英文字母（含大写和小写），存在则报错误
+    @Test
+    public void test_FM_1707_2_3_2_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "road");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-3", "名称中含有字母，请确认是否正确","忽略");
+    }
+
+    //里程桩tips的道路名称，不能含有“/”或“|”（不区分全半角），否则报log1
+    @Test
+    public void test_FM_1707_2_4_1_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路/");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-4", "里程桩道路名称不能含有“/”或“|”","");
+    }
+
+    //里程桩tips的道路名称，不能含有“/”或“|”（不区分全半角），否则报log1
+    @Test
+    public void test_FM_1707_2_4_2_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路|");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-4", "里程桩道路名称不能含有“/”或“|”","");
+    }
+
+    //.里程桩tips的道路编号，不能含有“/”或“|”（不区分全半角），否则报log2
+    @Test
+    public void test_FM_1707_2_4_3_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001/");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-4", "里程桩道路编号不能含有“/”或“|”","");
+    }
+
+    //.里程桩tips的道路编号，不能含有“/”或“|”（不区分全半角），否则报log2
+    @Test
+    public void test_FM_1707_2_4_4_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001|");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-4", "里程桩道路编号不能含有“/”或“|”","");
+    }
+
+    //.里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_1_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路$");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_2_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路,");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_3_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路，");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_4_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路.");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_5_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路。");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_6_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路?");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+    //.里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_7_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路？");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路名称含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log1
+    @Test
+    public void test_FM_1707_2_5_8_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路、");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路名称不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_9_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001$");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_10_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001,");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_11_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001，");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_12_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001.");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_13_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001。");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_14_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001?");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+    //.里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_15_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001？");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //.里程桩tips的道路编号含‘$’，‘，’，‘。’，‘？’，‘、’字符（包含全半角）的，报log2
+    @Test
+    public void test_FM_1707_2_5_16_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001、");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "高", "FM-1707-2-5", "里程桩道路编号不能含有$，。？、字符（包含全半角）","");
+    }
+
+    //里程桩tips的道路名称字段前后和中间，含有空格（不区分全半角），报log1
+    @Test
+    public void test_FM_1707_2_6_1_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, " 测 试 路 ");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-6", "里程桩道路名称含有空格信息，请确认是否正确","忽略");
+    }
+
+    //里程桩tips的道路名称字段前后和中间，含有空格（不区分全半角），报log1
+    @Test
+    public void test_FM_1707_2_6_2_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "　测　试　路　");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-6", "里程桩道路名称含有空格信息，请确认是否正确","忽略");
+    }
+
+    //里程桩tips的道路编号字段前后和中间，含有空格（不区分全半角），报log2
+    @Test
+    public void test_FM_1707_2_6_3_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S 0 0 1 ");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-6", "里程桩道路编号含有空格信息，请确认是否正确","忽略");
+    }
+
+    //里程桩tips的道路编号字段前后和中间，含有空格（不区分全半角），报log2
+    @Test
+    public void test_FM_1707_2_6_4_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S　0　0　1　");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-6", "里程桩道路编号含有空格信息，请确认是否正确","忽略");
+    }
+
+    //里程桩tips的道路名称和道路编号不能完全一致，忽略全半角差异。（忽略道路名和道路编号都为空的情况）
+    @Test
+    public void test_FM_1707_2_7_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "S001");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "Ｓ00１");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-7", "里程桩道路名称和道路编号一致，请删除其中之一","");
+    }
+
+    //里程桩tips的道路编号，如果不为空，则必须同时存在字母和阿拉伯数字。
+    @Test
+    public void test_FM_1707_2_8_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "SsABCD");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "测试路");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-1707-2-8", "里程桩tips的道路编号，只能存在且必须同时存在字母和阿拉伯数字","");
+    }
+
+    //里程桩tips的道路名称和道路编号都为空，需要报错
+    @Test
+    public void test_FM_1707_2_9_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "");
+        Page_MilePost.Inst.SetValue(Page_MilePost.NAME, "");
+
+        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+
+        AssertIndoorCheck("Tips内容值域检查", "低", "FM-1707-2-9", "请确认里程桩道路名称和道路编号是否都为空","");
+    }
+
+
 
     // 上报情报
     public void addReport(String infoType) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
