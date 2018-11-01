@@ -3788,6 +3788,38 @@ public class testFastMapZF extends testFastMapBase
         AssertIndoorCheck("驾照考试路段", "中", "FM-1525-1-2", "Tips没有关联道路或测线或Node","");
     }
 
+    //（不查gdb数据）点限速
+    @Test
+    public void test_FM_1101_1_2_check() throws Exception
+    {
+        SearchLocation("116.41939", "39.96208");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.MAX_SPEED);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.SPEED_120);
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.MIN_SPEED);
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.SPEED_60);
+
+        Page_SpeedLimit.Inst.Click(Page_SpeedLimit.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        testadapter.StopApp();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.updateLinkId();
+
+        testadapter.ClearWal();
+
+        Sqlitetools.RefreshData();
+
+        AssertIndoorCheck("驾照考试路段", "中", "FM-1525-1-2", "Tips没有关联道路或测线或Node","");
+    }
+
     // 上报情报
     public void addReport(String infoType) throws InterruptedException, NoSuchFieldException, ClassNotFoundException
     {
