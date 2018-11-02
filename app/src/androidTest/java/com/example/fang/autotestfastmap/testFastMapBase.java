@@ -1043,7 +1043,10 @@ public class testFastMapBase
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(syncType); //情报数据
         Thread.sleep(1000);
-        Page_GridManager.Inst.ClickByText("同步数据"); //同步
+        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步
+        Thread.sleep(1000);
+        Page_GridManager.Inst.SetValue(Page_GridManager.INFO_ID, "123456");//工单号
+        Page_GridManager.Inst.Click(Page_GridManager.OK);
         Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);

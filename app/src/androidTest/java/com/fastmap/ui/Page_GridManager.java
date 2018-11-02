@@ -43,6 +43,11 @@ public class Page_GridManager extends FastMapPage
     public static String GRID_PRO_DOWN;
     @FindResource(Id="grid_project_sync_satellite")
     public static String GRID_PRO_SATELLITE;
+    @FindResource(Id="dialog_unit_info_id_edit")
+    public static String INFO_ID;
+    @FindResource(Id="btn_fm_cancel")
+    public static String OK;
+
     public static Page_GridManager Inst;
     static
     {
