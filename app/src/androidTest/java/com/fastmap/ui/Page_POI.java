@@ -210,7 +210,8 @@ public class Page_POI extends FastMapPage
     public static String TEXTVIEW;
     @FindResource(Id="img_poi_name_list_hide")
     public static String HIDE_POI_NAME;
-
+    @FindResource(Id="fmdialog_tv_snap_point_add")
+    public static String SELECTSON;
 
     public static Page_POI Inst;
     static

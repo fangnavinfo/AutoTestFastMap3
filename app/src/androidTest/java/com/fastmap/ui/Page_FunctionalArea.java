@@ -40,7 +40,28 @@ public class Page_FunctionalArea extends Page_Base_Tips
     public static String NAME_STATIC;
     @FindResource(Id="tv_complete")
     public static String MODIFY_SAVE;
-
+    @FindResource(Id="btn_functional_surface_height_poi_relatePoi")
+    public static String RELATIEPOI;
+    @FindResource(Id="fmdialog_tv_title")
+    public static String TITLE;
+    @FindResource(Id="fmdialog_tv_text")
+    public static String TEXT;
+    @FindResource(Id="fmdialog_tv_snap_point_add")
+    public static String REBUILDREL;
+    @FindResource(Id="fmdialog_tv_copy_info_add")
+    public static String DELELEREL;
+    @FindResource(Id="fmdialog_tv_ignore_add")
+    public static String CANCLEADDREL;
+    @FindResource(Id="tv_title")
+    public static String TVTITLE;
+    @FindResource(Id="tv_snap_check_list_done")
+    public static String LIST_SAVE;
+    @FindResource(Id="tv_marquee_frame_complete")
+    public static String FRAME_COMPLETE;
+    @FindResource(Id="cb_snap_check_list_item")
+    public static String LIST_ITEM;
+    @FindResource(Id="tv_poi_father")
+    public static String POI_FATHER;
     public static Page_FunctionalArea Inst;
     static
     {

@@ -339,25 +339,25 @@ public class testadapter
         switch (userName)
         {
             case "collector":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/21";
+                userPath = "/sdcard/" + dirName + "/data/collect/21";
                 break;
             case "collector1":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/23";
+                userPath = "/sdcard/" + dirName + "/data/collect/23";
                 break;
             case "collector2":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/552803";
+                userPath = "/sdcard/" + dirName + "/data/collect/552803";
                 break;
             case "zhanglingling03655":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/3655";
+                userPath = "/sdcard/" + dirName + "/data/collect/3655";
                 break;
             case "yanghaifei01902":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/1902";
+                userPath = "/sdcard/" + dirName + "/data/collect/1902";
                 break;
             case "duxuejun01540":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/1540";
+                userPath = "/sdcard/" + dirName + "/data/collect/1664";
                 break;
             case "wukunyu02074":
-                userPath = "/sdcard/" + dirName + "/Data/Collect/2074";
+                userPath = "/sdcard/" + dirName + "/data/collect/2074";
                 break;
             default:
                 return;
@@ -399,7 +399,7 @@ public class testadapter
             for (int i=0; i<array.length; i++)
             {
                 //com.fastmap.hd
-                if (array[i].contains("package:com.fastmap.hd"))
+                if (array[i].contains("package:com.fastmap.hd.mbl"))
                 {
                     packageName = array[i].substring("package:".length());
                 }

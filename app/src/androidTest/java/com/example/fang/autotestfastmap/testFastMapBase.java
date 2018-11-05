@@ -854,7 +854,7 @@ public class testFastMapBase
         try
         {
         	Thread.sleep(1000);
-        	Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        	Page_MainBoard.Inst.ClickbyText("捕捉点位新增");
         }
         catch (Exception e)
         {
@@ -1031,7 +1031,7 @@ public class testFastMapBase
         ExitIndoorTools();
     }
     
-    void synchronize(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    void synchronize1(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
@@ -1097,6 +1097,66 @@ public class testFastMapBase
 
         }
         
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+
+//        UiObject2 object = findObjectByResourceId("btn_fm_confirm");
+//        if(null != object) {
+//            object.click();
+//            Thread.sleep(1000);
+//        }
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+        //Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+    }
+
+    void synchronize(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(syncType); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.ClickByText("同步数据"); //同步
+        Page_GridManager.Inst.SetValue(Page_GridManager.IDEDIT,"1");
+        Page_GridManager.Inst.ClickbyText("确定");
+        Thread.sleep(3000);
+        Page_GridManager.Inst.ClickbyText("确认");
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
+//        Page_GridManager.Inst.Click(Page_GridManager.SYNC_RESULT_CONFIRM);
+//        int count = 0;
+//        while (true)
+//        {
+//            try
+//            {
+//                UiObject2 confirmObj = findObjectByResourceId("grid_sync_btn_positive");
+//                if (confirmObj.isEnabled())
+//                {
+//                    Thread.sleep(5000);
+//                    break;
+//                }
+//            }
+//            catch (Exception e)
+//            {
+//                continue;
+//            }
+//            finally
+//            {
+//                if (count == 500)
+//                {
+//                    break;
+//                }
+//
+//                Thread.sleep(1000);
+//                count++;
+//            }
+//        }
+
+
         Page_GridManager.Inst.Click(Page_GridManager.BACK);
 
 //        UiObject2 object = findObjectByResourceId("btn_fm_confirm");
