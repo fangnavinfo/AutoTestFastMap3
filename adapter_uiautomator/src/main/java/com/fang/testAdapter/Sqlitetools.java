@@ -291,6 +291,26 @@ public class Sqlitetools {
         }
     }
 
+    public static void updateLinkId() throws Exception {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath + "coremap.sqlite", null, SQLiteDatabase.OPEN_READWRITE);
+
+        boolean b = false;
+
+        try {
+            ContentValues cv = new ContentValues();
+            cv.put("deep", "replace(deep,'607944','607900')");
+
+            String sql = "update edit_tips set deep=replace(deep,'607944','607900')";
+            db.execSQL(sql);
+
+        } catch (Exception e) {
+            throw e;
+
+        } finally {
+            db.close();
+        }
+    }
+
 //    public static String GetRelateChildren(String infoFid) throws Exception
 //    {
 //        SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath+"coremap.sqlite", null, SQLiteDatabase.OPEN_READONLY, null);

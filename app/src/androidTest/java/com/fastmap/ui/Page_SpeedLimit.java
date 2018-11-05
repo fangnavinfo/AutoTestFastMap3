@@ -32,6 +32,29 @@ public class Page_SpeedLimit extends Page_Base_Tips
     @FindResource(Id="speed_limit_type_truck_condition")
     public static String TRUCKCONDITION;
 
+    @FindResource(Id="speed_limit_number_30")
+    public static String SPEED_30;
+    @FindResource(Id="speed_limit_number_40")
+    public static String SPEED_40;
+    @FindResource(Id="speed_limit_number_50")
+    public static String SPEED_50;
+    @FindResource(Id="speed_limit_number_60")
+    public static String SPEED_60;
+    @FindResource(Id="speed_limit_number_70")
+    public static String SPEED_70;
+    @FindResource(Id="speed_limit_number_80")
+    public static String SPEED_80;
+    @FindResource(Id="speed_limit_number_90")
+    public static String SPEED_90;
+    @FindResource(Id="speed_limit_number_100")
+    public static String SPEED_100;
+    @FindResource(Id="speed_limit_number_110")
+    public static String SPEED_110;
+    @FindResource(Id="speed_limit_number_120")
+    public static String SPEED_120;
+
+
+
 
     public static Page_SpeedLimit Inst;
     static

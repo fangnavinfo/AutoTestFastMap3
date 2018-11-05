@@ -142,6 +142,10 @@ public class FastMapPage
 
     public boolean isExistByName(String name, String ios_name)
     {
+        if( null == name )
+        {
+            return true;
+        }
         return testadapter.isExistByName(name);
     }
 
