@@ -343,7 +343,32 @@ public class testadapter
         //月基线版本
         if("FastMapMBL".equals(dirName))
         {
-            userPath = "/sdcard/" + dirName + "/data/Collect/1664";
+            switch (userName)
+            {
+                case "collector":
+                    userPath = "/sdcard/" + dirName + "/Data/Collect/21";
+                    break;
+                case "collector1":
+                    userPath = "/sdcard/" + dirName + "/Data/Collect/23";
+                    break;
+                case "collector2":
+                    userPath = "/sdcard/" + dirName + "/Data/Collect/552803";
+                    break;
+                case "zhanglingling03655":
+                    userPath = "/sdcard/" + dirName + "/Data/Collect/3655";
+                    break;
+                case "yanghaifei01902":
+                    userPath = "/sdcard/" + dirName + "/Data/Collect/1902";
+                    break;
+                case "duxuejun01540":
+                    userPath = "/sdcard/" + dirName + "/Data/Collect/1540";
+                    break;
+                case "wukunyu02074":
+                    userPath = "/sdcard/" + dirName + "/Data/Collect/2074";
+                    break;
+                default:
+                    return;
+            }
         }
         else
         {
