@@ -21,6 +21,10 @@ public class Page_InfoAccept extends FastMapPage
 
     @FindResource(Id = "save_button",Text = "采纳")
     public static String ACCEPT;
+    @FindResource(clazz = "android.widget.EditText")
+    public static String REMARKTXT;
+    @FindResource(Id = "iv_search_result_list_back")
+    public static String BACK;
     public static Page_InfoAccept Inst;
     static
     {

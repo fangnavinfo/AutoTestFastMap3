@@ -94,7 +94,8 @@ public class testFastMapYL extends testFastMapBase
 //        testFastMapBase.setClassUp("collector1","123456");
 //        Page_MainBoard.Inst.ClickCenter();
         //testFastMapBase.setClassUp("zhanglingling03655","036550");
-       testFastMapBase.setClassUp("duxuejun01540","015400");
+       //testFastMapBase.setClassUp("duxuejun01540","015400");
+        testFastMapBase.setClassUp("1","1");
         //testFastMapBase.setClassUp("wukunyu02074","wy0207402815");
     }
 
@@ -420,7 +421,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
         strFid = strFid.replace("fid:", "");
         strFid = strFid.replace("fid : ", "");
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize1(Page_GridManager.POI_UPDATE);
 
         Sqlitetools.RefreshData();
         int commitHisStatus = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"commitHisStatus");
@@ -451,7 +452,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.ClickbyText("无");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize1(Page_GridManager.POI_UPDATE);
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
         assertFalse(Page_POI.Inst.isExistByName(Page_POI.SELECT_TYPE));
@@ -471,7 +472,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "充电站");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize1(Page_GridManager.POI_UPDATE);
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
         assertFalse(Page_POI.Inst.isExistByName(Page_POI.SELECT_TYPE));
@@ -2621,7 +2622,7 @@ public class testFastMapYL extends testFastMapBase
         globalId = globalId.replace("globalId:", "");
         ExitMyData();
 
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize1(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2668,7 +2669,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize1(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2711,7 +2712,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize1(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2753,7 +2754,7 @@ public class testFastMapYL extends testFastMapBase
         globalId = globalId.replace("globalId:", "");
         ExitMyData();
 
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize1(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
         Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
@@ -2798,7 +2799,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize1(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2839,7 +2840,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize1(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
         Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
@@ -4905,7 +4906,7 @@ public class testFastMapYL extends testFastMapBase
 //        //复制原库tips 查看inConfirm字段是否为1
 //        SearchLocation("116.42218", "38.96087");
 //
-//        synchronize(Page_GridManager.TIPS_UPDATE);
+//        synchronize1(Page_GridManager.TIPS_UPDATE);
 //
 //        SearchLocation("116.42218", "38.96087");
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
@@ -6764,7 +6765,7 @@ public class testFastMapYL extends testFastMapBase
         Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
         Thread.sleep(2000);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DANGEROUS_INFO);
-        Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1038,200));
         Thread.sleep(2000);
         Page_Dangerous.Inst.Click(Page_Dangerous.ICON_1);
         Page_Dangerous.Inst.Click(Page_Dangerous.SAVE);
@@ -10707,7 +10708,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CHECK_CONFIRM);
         ExitIndoorTools();
 
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        synchronize1(Page_GridManager.TIPS_UPDATE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickByText("实景图");
@@ -10755,7 +10756,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CHECK_CONFIRM);
         ExitIndoorTools();
 
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        synchronize1(Page_GridManager.TIPS_UPDATE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("实景图");
@@ -11274,7 +11275,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         SearchLocation("116.40624", "39.95918");
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize1(Page_GridManager.POI_UPDATE);
 
         CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
     }
@@ -11599,7 +11600,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(3000);
         Page_POI.Inst.Click(Page_POI.SAVE);
         ExitMyData();
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize1(Page_GridManager.POI_UPDATE);
 
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickByText("北京汉庭酒店");
@@ -12195,7 +12196,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.SELECT_TYPE, "紧急停车带"}};
 //        String infoFid3 =AddPOI(attrib3);
 //
-//        synchronize(Page_GridManager.POI_UPDATE);
+//        synchronize1(Page_GridManager.POI_UPDATE);
 //        //新增物流园
 //        SearchLocation(LOC_K3);
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12420,7 +12421,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.SELECT_TYPE, "紧急停车带"}};
 //        String infoFid3 =AddPOI(attrib3);
 //
-//        synchronize(Page_GridManager.POI_UPDATE);
+//        synchronize1(Page_GridManager.POI_UPDATE);
 //        //新增物流园
 //        SearchLocation(LOC_K3);
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12808,7 +12809,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("忽略");
         ExitIndoorTools();
 
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        synchronize1(Page_GridManager.TIPS_UPDATE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickByText("里程桩");
         String value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
@@ -12860,7 +12861,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("忽略");
         ExitIndoorTools();
 
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        synchronize1(Page_GridManager.TIPS_UPDATE);
         Sqlitetools.RefreshData();
         temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
         jsonObject = new JSONObject(temp);
@@ -12950,7 +12951,157 @@ public class testFastMapYL extends testFastMapBase
 //
 //    }
 
+    @Test @IMPORTANT
+    public void test06401_info_Point_test() throws Exception
+    {
+        //添加点情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO);
+        Thread.sleep(2000);
+        Page_MainBoard.Inst.ClickCenter();
 
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.NAME);
+        Page_InfoPoint.Inst.SetValue(Page_InfoPoint.NAME,"测试点ＩＮＦＯ");
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.ROAD_TYPE);
+        Page_InfoPoint.Inst.ClickbyText("一级");
+        Page_InfoPoint.Inst.ClickbyText("新增");
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.TIME_CONFIRM);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE);
+
+        synchronize(Page_GridManager.INFO_UPDATE);
+
+        //查看我的数据
+        GotoMyData(Page_MyData.INFO_TYPE);
+        Page_MyData.Inst.SelectData("测试点ＩＮＦＯ", "测试点ＩＮＦＯ");
+        Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
+        String str = Page_InfoAccept.Inst.GetValuebyIndex(Page_InfoAccept.REMARKTXT,1);
+        assertEquals(str,"请输入备注...");
+        Page_InfoAccept.Inst.SetValuebyIndex(Page_InfoAccept.REMARKTXT,1,"备注");
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.ACCEPT);
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.BACK);
+
+        Page_MyData.Inst.ClickbyText("测试点ＩＮＦＯ");
+        Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
+        str = Page_InfoAccept.Inst.GetValuebyIndex(Page_InfoAccept.REMARKTXT,1);
+        assertEquals(str,"备注");
+    }
+
+    @Test @IMPORTANT
+    public void test06402_info_Line_test() throws Exception
+    {
+        //添加线情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.LINE_INFO);
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 1000));
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(500, 1000));
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.DRAW_FINISH);
+        Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME,"测试线");
+        Page_InfoLine.Inst.Click(Page_InfoLine.POI_TYPE);
+        Page_InfoPoint.Inst.ClickbyText("一级");
+        Page_InfoPoint.Inst.ClickbyText("修改");
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME);
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
+        Thread.sleep(1000);
+        Page_InfoLine.Inst.Click(Page_InfoLine.LEVEL_1);
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_InfoLine.Inst.Click(Page_InfoLine.SAVE);
+
+        //查看我的数据
+        GotoMyData(Page_MyData.INFO_TYPE);
+        Page_MyData.Inst.ClickbyText("测试线");
+
+        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).replace("globalId:", "");
+        Thread.sleep(2000);
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.SAVE);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        //同步数据
+        synchronize1(Page_GridManager.INFO_UPDATE);
+
+        SearchInfos(globalId);
+        Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
+        Thread.sleep(2000);
+        String str = Page_InfoAccept.Inst.GetValuebyIndex(Page_InfoAccept.REMARKTXT,1);
+        assertEquals(str,"请输入备注...");
+        Page_InfoAccept.Inst.SetValuebyIndex(Page_InfoAccept.REMARKTXT,1,"备注");
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.ACCEPT);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        SearchInfos(globalId);
+        Page_MultiList.Inst.ClickbyText("测试线ＩＮＦＯ");
+        Thread.sleep(2000);
+        Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
+        str = Page_InfoAccept.Inst.GetValuebyIndex(Page_InfoAccept.REMARKTXT,1);
+        assertEquals(str,"备注");
+    }
+
+    @Test @IMPORTANT
+    public void test06403_info_Frame_test() throws Exception
+    {
+        //添加面情报
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT);
+        Page_MainBoard.Inst.Click(Page_MainBoard.FRAME_INFO);
+        Thread.sleep(2000);
+        //Page_MainBoard.Inst.ClickCenter();
+        Page_MainBoard.Inst.Click(new Point(1000, 1000));
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(500, 1000));
+        Page_InfoFrame.Inst.Click(Page_InfoFrame.DRAW_FINISH);
+        Page_InfoFrame.Inst.SetValue(Page_InfoFrame.NAME,"测试面ＩＮＦＯ");
+        Page_InfoFrame.Inst.Click(Page_InfoFrame.ROAD_TYPE);
+        Page_InfoPoint.Inst.ClickbyText("三级");
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.DELETE);
+        Page_InfoFrame.Inst.Click(Page_InfoFrame.TIME);
+        Page_InfoFrame.Inst.Click(Page_InfoFrame.TIME_CONFIRM);
+        Page_InfoFrame.Inst.Click(Page_InfoFrame.CAMERA);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        Page_InfoLine.Inst.Click(Page_InfoLine.SAVE);
+
+        GotoMyData(Page_MyData.INFO_TYPE);
+        Page_MyData.Inst.SelectData("测试面ＩＮＦＯ", "测试面ＩＮＦＯ");
+
+        String globalId = Page_InfoPoint.Inst.GetValue(Page_InfoPoint.GLOBAL_ID).replace("globalId:", "");
+        Page_InfoPoint.Inst.Click(Page_InfoPoint.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        synchronize1(Page_GridManager.INFO_UPDATE);
+
+        SearchInfos(globalId);
+        Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
+        String str = Page_InfoAccept.Inst.GetValuebyIndex(Page_InfoAccept.REMARKTXT,1);
+        assertEquals(str,"请输入备注...");
+        Page_InfoAccept.Inst.SetValuebyIndex(Page_InfoAccept.REMARKTXT,1,"备注");
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.ACCEPT);
+        Page_InfoAccept.Inst.Click(Page_InfoAccept.BACK);
+
+        SearchInfos(globalId);
+        Thread.sleep(2000);
+        str = Page_InfoAccept.Inst.GetValuebyIndex(Page_InfoAccept.REMARKTXT,1);
+        assertEquals(str,"备注");
+    }
 
 
 

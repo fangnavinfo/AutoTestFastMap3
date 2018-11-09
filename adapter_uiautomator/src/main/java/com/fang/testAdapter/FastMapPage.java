@@ -297,9 +297,13 @@ public class FastMapPage
             return this.getClass().getSuperclass().getDeclaredField(findRes);
         }
     }
+    public String GetValuebyclassIndex(String findRes, String id,int index) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException {
 
+        return testadapter.GetValuebyIndex(findRes, id, index);
+    }
 
-    public String GetValuebyIndex(String findRes,int index) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException {
+    public String GetValuebyIndex(String findRes,int index) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException
+    {
         //方法一
         Field field = GetField(findRes);
 
@@ -312,8 +316,14 @@ public class FastMapPage
         {
             return "";
         }
-        //方法二
-//        UiObject obj1 = new UiObject(new UiSelector().className(cls).instance(index).childSelector(new UiSelector().resourceId(findRes)));
+    }
+    public void SetValuebyIndex(String findRes,int index,String value) throws NoSuchFieldException, ClassNotFoundException, InterruptedException, UiObjectNotFoundException {
+        Field field = GetField(findRes);
+
+        FindResource annotation = field.getAnnotation(FindResource.class);
+
+       testadapter.SetValuebyIndex(annotation.clazz(), index,value);
+
     }
 //    protected void CheckResource(UiObject2 object, ArrayList<UiObject2> listResult)
 //    {
@@ -331,4 +341,4 @@ public class FastMapPage
 //    }
 //    protected static UiDevice mDevice;
 //    protected static String  packageName;
-}
+    }

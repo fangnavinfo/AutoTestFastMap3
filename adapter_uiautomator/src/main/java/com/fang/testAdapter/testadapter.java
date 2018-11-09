@@ -111,12 +111,23 @@ public class testadapter
     }
 
 
-    public static String GetValuebyIndex(String findRes, int index) throws UiObjectNotFoundException
+    public static String GetValuebyIndex(String findRes, String id,int index) throws UiObjectNotFoundException
     {
-        UiObject obj = new UiObject(new UiSelector().className(findRes).instance(index));
+        UiObject obj = new UiObject(new UiSelector().className(findRes).resourceId(id).instance(index));
          return obj.getText();
     }
 
+    public static String GetValuebyIndex(String findRes,int index) throws UiObjectNotFoundException
+    {
+        UiObject obj = new UiObject(new UiSelector().className(findRes).instance(index));
+        return obj.getText();
+    }
+
+    public static void SetValuebyIndex(String clazz, int index,String value) throws UiObjectNotFoundException
+    {
+        UiObject obj = new UiObject(new UiSelector().className(clazz).instance(index));
+        obj.setText(value);
+    }
     public static int getCtrlWidth()
     {
         //UiObject2 object = mDevice.wait(Until.findObject(By.res(packageName, id)), 500);
@@ -346,25 +357,28 @@ public class testadapter
             switch (userName)
             {
                 case "collector":
-                    userPath = "/sdcard/" + dirName + "/Data/Collect/21";
+                    userPath = "/sdcard/" + dirName + "/data/collect/21";
                     break;
                 case "collector1":
-                    userPath = "/sdcard/" + dirName + "/Data/Collect/23";
+                    userPath = "/sdcard/" + dirName + "/data/collect/23";
                     break;
                 case "collector2":
-                    userPath = "/sdcard/" + dirName + "/Data/Collect/552803";
+                    userPath = "/sdcard/" + dirName + "/data/collect/552803";
                     break;
                 case "zhanglingling03655":
-                    userPath = "/sdcard/" + dirName + "/Data/Collect/3655";
+                    userPath = "/sdcard/" + dirName + "/data/collect/3655";
                     break;
                 case "yanghaifei01902":
-                    userPath = "/sdcard/" + dirName + "/Data/Collect/1902";
+                    userPath = "/sdcard/" + dirName + "/data/collect/1902";
                     break;
                 case "duxuejun01540":
-                    userPath = "/sdcard/" + dirName + "/Data/Collect/1540";
+                    userPath = "/sdcard/" + dirName + "/data/collect/1664";
                     break;
                 case "wukunyu02074":
-                    userPath = "/sdcard/" + dirName + "/Data/Collect/2074";
+                    userPath = "/sdcard/" + dirName + "/data/collect/2074";
+                    break;
+                case "1":
+                    userPath = "/sdcard/" + dirName + "/data/collect/1";
                     break;
                 default:
                     return;
