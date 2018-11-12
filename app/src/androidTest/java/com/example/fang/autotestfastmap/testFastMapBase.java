@@ -1171,6 +1171,52 @@ public class testFastMapBase
         //Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
     }
 
+    void synchronize_zhou(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(syncType); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步
+        Thread.sleep(1000);
+        Page_GridManager.Inst.SetValue(Page_GridManager.INFO_ID, "123456");//工单号
+        Page_GridManager.Inst.Click(Page_GridManager.OK);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
+
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+
+        Thread.sleep(1000);
+
+        try
+        {
+            Page_GridManager.Inst.Click(Page_GridManager.UPDATA_RSLT_CONFIRM);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            Page_GridManager.Inst.ClickByText("确定"); //入库结果
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+    }
+
     void downloaddata(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);

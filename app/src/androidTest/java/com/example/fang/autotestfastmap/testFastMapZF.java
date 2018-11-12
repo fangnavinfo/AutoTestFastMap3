@@ -17,6 +17,7 @@ import org.junit.runners.MethodSorters;
 import java.io.IOException;
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 /**
@@ -214,7 +215,7 @@ public class testFastMapZF extends testFastMapBase
         // 上报情报
         addReport(Page_InfoPoint.POI_TYPE);
         // 同步情报
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize_zhou(Page_GridManager.INFO_UPDATE);
         // 采纳情报
         accept();
         // 检查情报fid
@@ -229,7 +230,7 @@ public class testFastMapZF extends testFastMapBase
         // 上报情报
         addReport(Page_InfoPoint.POI_TYPE);
         // 同步情报
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize_zhou(Page_GridManager.INFO_UPDATE);
         // 采纳情报
         accept();
 
@@ -259,7 +260,7 @@ public class testFastMapZF extends testFastMapBase
             IndoorCheckConfirm("红绿灯");
 
             //同步数据
-            synchronize(Page_GridManager.TIPS_UPDATE);
+            synchronize_zhou(Page_GridManager.TIPS_UPDATE);
         }
 
 
@@ -275,7 +276,7 @@ public class testFastMapZF extends testFastMapBase
         IndoorCheckConfirm("红绿灯");
 
         //同步数据
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
 
         //确认
         GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
@@ -307,7 +308,7 @@ public class testFastMapZF extends testFastMapBase
         String infoFid = AddPOI(attrib2, "116.40667", "39.96115");
 
         SearchLocation("116.40557", "39.96121");
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
 
         CheckErrorList("Poi", "子(fid:" + infoFid + ")不存在", "POI");
     }
@@ -401,7 +402,7 @@ public class testFastMapZF extends testFastMapBase
         String infoFid = AddPOI(attrib2, "116.40628", "39.96918");
 
         SearchLocation("116.40624", "39.96918");
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
 
         CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
     }
@@ -446,7 +447,7 @@ public class testFastMapZF extends testFastMapBase
         //确认数据
         IndoorCheckConfirm("实景图");
 
-        synchronize(Page_GridManager.TIPS_UPDATE);
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
 
         //根据rowkey查找该实景图
         SearchTips(rowkey);
@@ -1018,7 +1019,7 @@ public class testFastMapZF extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         SearchLocation("116.40624", "39.95918");
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
 
         CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
     }
@@ -1071,7 +1072,7 @@ public class testFastMapZF extends testFastMapBase
         String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
 
         SearchLocation("116.40624", "39.95918");
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
 
         CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
     }
@@ -1770,7 +1771,7 @@ public class testFastMapZF extends testFastMapBase
         SearchLocation("116.43615", "39.97134");
 
         //同步情报
-        synchronize(Page_GridManager.INFO_UPDATE);
+        synchronize_zhou(Page_GridManager.INFO_UPDATE);
 
 
         //检索情报
@@ -3073,6 +3074,118 @@ public class testFastMapZF extends testFastMapBase
 
         assertEquals("道路情报",Page_InfoFrame.Inst.GetValue(Page_InfoFrame.NAME));
     }
+
+    // 月基线点门牌采集端需求-关联POI
+    @Test
+    public void test00111_1_pas_farther_check() throws Exception
+    {
+        //POI
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
+                {Page_POI.SELECT_TYPE, "小区"},
+                {Page_POI.TEL, "19012345678"}};
+        AddPOI(attrib);
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.ClickByText("已采集");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,1300,100);
+        // 创建点门牌
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试ＰＡＳ");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+
+
+    }
+
+    @Test
+    public void test00111_2_pas_farther_check() throws Exception
+    {
+        //POI
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"}};
+        AddPOI(attrib);
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
+        Page_POI.Inst.ClickByText("已采集");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Drag(1800,1400,1800,1300,100);
+        // 创建点门牌
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试ＰＡＳ");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+
+
+    }
+
+    //月基线采集端需求--POI曾用名业务需求
+    @Test
+    public void test00112_before_name_check() throws Exception
+    {
+        List<UiObject2> beforeNameList;
+
+        UiObject2 beforeName;
+
+        //POI
+        String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.TEL, "19012345678"}};
+        AddPOI(attrib);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+        Page_POI.Inst.SetValue(Page_POI.BEFORE_NAME,"曾用名测试1");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before","android.widget.EditText");
+        beforeName = beforeNameList.get(1);
+        beforeName.setText("曾用名测试2");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before","android.widget.EditText");
+        beforeName = beforeNameList.get(2);
+        beforeName.setText("曾用名测试3");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before","android.widget.EditText");
+        beforeName = beforeNameList.get(3);
+        beforeName.setText("曾用名测试4");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before","android.widget.EditText");
+        beforeName = beforeNameList.get(4);
+        beforeName.setText("曾用名测试5");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before","android.widget.EditText");
+        beforeName = beforeNameList.get(5);
+        beforeName.setText("曾用名测试6");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before","android.widget.EditText");
+        assertEquals(6, beforeNameList.size());
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MyData.Inst.SelectData("测试ＰＯＩ");
+
+    }
+
 
     //卡车限制
     @Test
