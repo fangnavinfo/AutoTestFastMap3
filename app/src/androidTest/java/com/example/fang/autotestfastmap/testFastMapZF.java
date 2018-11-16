@@ -3000,7 +3000,7 @@ public class testFastMapZF extends testFastMapBase {
 
     // 月基线点门牌采集端需求-关联POI
     @Test
-    public void test00141_1_pas_farther_check() throws Exception {
+    public void test00141_1_pas_poi_check() throws Exception {
         //POI
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
                 {Page_POI.SELECT_TYPE, "小区"},
@@ -3022,20 +3022,24 @@ public class testFastMapZF extends testFastMapBase {
         Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
         Page_PAS.Inst.Click(Page_PAS.SAVE);
 
+        GotoMyData(Page_MyData.PAS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＡＳ１０１");
+        Page_PAS.Inst.Click(Page_PAS.RELATE_POI);
+        Page_MainBoard.Inst.ClickByText("测试ＰＯＩ");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        Page_MyData.Inst.SelectData("测试ＰＡＳ１０１");
+        Assert.assertTrue(Page_MyData.Inst.isExistByName("测试ＰＯＩ"));
 
     }
 
     @Test
-    public void test00141_2_pas_farther_check() throws Exception {
+    public void test00141_2_pas_poi_check() throws Exception {
         //POI
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"}};
         AddPOI(attrib);
-
-        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
-        Page_POI.Inst.ClickByText("已采集");
-        Page_POI.Inst.Click(Page_POI.SAVE);
 
         Page_MainBoard.Inst.Drag(1800, 1400, 1800, 1300, 100);
         // 创建点门牌
@@ -3048,7 +3052,11 @@ public class testFastMapZF extends testFastMapBase {
         Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
         Page_PAS.Inst.Click(Page_PAS.SAVE);
 
+        GotoMyData(Page_MyData.PAS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试ＰＡＳ１０１");
+        Page_PAS.Inst.Click(Page_PAS.RELATE_POI);
 
+        Assert.assertTrue(!Page_MyData.Inst.isExistByName("测试ＰＯＩ"));
     }
 
     //月基线采集端需求--POI曾用名业务需求
@@ -3060,7 +3068,7 @@ public class testFastMapZF extends testFastMapBase {
 
         //POI
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
-                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.SELECT_TYPE, "银行"},
                 {Page_POI.TEL, "19012345678"}};
         AddPOI(attrib);
 
@@ -3096,7 +3104,17 @@ public class testFastMapZF extends testFastMapBase {
 
         Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
         beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before", "android.widget.EditText");
-        assertEquals(6, beforeNameList.size());
+        beforeName = beforeNameList.get(6);
+        beforeName.setText("曾用名测试7");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before", "android.widget.EditText");
+        beforeName = beforeNameList.get(7);
+        beforeName.setText("曾用名测试8");
+
+        Page_POI.Inst.Click(Page_POI.BEFORE_ADD);
+        beforeNameList = testadapter.findAllObjectsByClass("layer_name_list_before", "android.widget.EditText");
+        assertEquals(8, beforeNameList.size());
 
         Page_POI.Inst.Click(Page_POI.SAVE);
 
