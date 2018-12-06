@@ -74,10 +74,50 @@ public class testadapter
         }
     }
 
+    public static void Click(String Id, int time) throws InterruptedException
+    {
+        while(true)
+        {
+            UiObject2 obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 5000);
+            try
+            {
+                if (null == obj)
+                {
+                    obj = mDevice.wait(Until.findObject(By.res(packageName, Id)), 5000);
+                }
+                if (!obj.isEnabled())
+                {
+                    Thread.sleep(500);
+                    continue;
+                }
+
+                mDevice.swipe(obj.getVisibleBounds().left, obj.getVisibleBounds().centerY(),
+                        obj.getVisibleBounds().right, obj.getVisibleBounds().centerY(), time/25);
+                break;
+            }
+            catch(StaleObjectException e)
+            {
+                Thread.sleep(500);
+                continue;
+            }
+            catch(NullPointerException e)
+            {
+                break;
+            }
+        }
+    }
+
     public static void ClickByText(String text)
     {
         UiObject2 obj = mDevice.wait(Until.findObject(By.text(text)), 5000);
         obj.click();
+    }
+
+    public static void ClickByText(String text, int time)
+    {
+        UiObject2 obj = mDevice.wait(Until.findObject(By.text(text)), 5000);
+        mDevice.swipe(obj.getVisibleBounds().centerX(), obj.getVisibleBounds().centerY(),
+                obj.getVisibleBounds().centerX(), obj.getVisibleBounds().centerY(), time/25);
     }
 
     public static boolean GetIsEnableByName(String text)

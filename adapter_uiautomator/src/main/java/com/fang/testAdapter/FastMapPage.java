@@ -49,6 +49,48 @@ public class FastMapPage
             testadapter.CtrlFling(p.x, p.y, annotation.Id());
         }
     }
+    public void LongClick(String findRes, int time) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
+        try
+        {
+
+            Field field = GetField(findRes);
+
+            FindResource annotation = field.getAnnotation(FindResource.class);
+            if (!annotation.Id().isEmpty())
+            {
+                testadapter.Click(annotation.Id(), time);
+
+                return;
+            }
+
+            if (!annotation.Text().isEmpty())
+            {
+                testadapter.ClickByText(annotation.Text(), time);
+
+                return;
+            }
+
+            throw new RuntimeException("can not find id of " + findRes);
+        }
+        catch (NullPointerException e)
+        {
+            try
+            {
+                this.getClass().getDeclaredField("SCROLL");
+            }
+            catch (Exception e1)
+            {
+                throw e;
+            }
+
+            ScrollClick(findRes);
+        }
+
+
+        Thread.sleep(1000);
+    }
+
     public void Click(String findRes) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
         try

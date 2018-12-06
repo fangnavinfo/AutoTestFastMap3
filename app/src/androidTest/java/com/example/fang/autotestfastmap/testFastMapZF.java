@@ -3122,6 +3122,61 @@ public class testFastMapZF extends testFastMapBase {
 
     }
 
+    // POI：语音附件上传入库（月基线需求）
+    @Test
+    public void test00143_1_poi_record_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        //拍照并返回
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试123456");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "风景名胜");
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        //景区等级
+        Page_POI.Inst.Click(Page_POI.A5);
+        Page_POI.Inst.Click(Page_POI.TAG2);
+
+        //录音：10000ms
+        Page_POI.Inst.LongClick(Page_POI.RECORD, 10000);
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("测试１２３４５６");
+
+        Thread.sleep(1000);
+
+        infoFid = Page_POI.Inst.GetValue(Page_POI.FID).substring(4);
+
+        Page_POI.Inst.Click(Page_POI.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
+
+        Sqlitetools.CleanDataAndRestart();
+
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("POI");
+        Page_Search.Inst.SetValue(Page_Search.EDITPOI, infoFid);
+        Page_Search.Inst.Click(Page_Search.FID);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_POI);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        String time = Page_POI.Inst.GetValue(Page_POI.RECORD_TIME);
+
+        assertEquals(time, "10");
+    }
+
 
     //卡车限制
     @Test

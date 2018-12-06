@@ -37,11 +37,24 @@ public class Page_Search extends FastMapPage
     @FindResource(Id = "tv_search_link_btn", Text="搜 索")
     public static String LINKSEARCH;
 
+    @FindResource(Id = "edt_search_poi_input")
+    public static String EDITPOI;
+
+    @FindResource(Id="rbtn_search_poi_name", Text = "name")
+    public static String NAME;
+    @FindResource(Id="rbtn_search_poi_pid", Text = "pid")
+    public static String PID;
+    @FindResource(Id="rbtn_search_poi_fid", Text = "fid")
+    public static String FID;
+
     @FindResource(Id = "edt_search_info_input", ios_name="Info_search")
     public static String EDITINFO;
 
     @FindResource(Id="tv_search_info_btn",  Text="搜 索")
     public static String SEARCH_START_INFO;
+
+    @FindResource(Id="tv_search_poi_btn",  Text="搜 索")
+    public static String SEARCH_START_POI;
 
     @FindResource(Text = "精确匹配")
     public static String EXACT_FIND;
