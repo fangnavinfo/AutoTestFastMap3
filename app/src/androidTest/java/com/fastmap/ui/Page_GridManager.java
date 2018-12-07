@@ -12,6 +12,8 @@ public class Page_GridManager extends FastMapPage
     public static String POI_UPDATE;
     @FindResource(Id="rb_tips_update", ios_name="Tips数据")
     public static String TIPS_UPDATE;
+    @FindResource(Id="rb_pas_update", ios_name="点门牌数据")
+    public static String PAS_UPDATE;
     @FindResource(Id="rb_integrate_update")
     public static String INTEGRATE_UPDATE;
     @FindResource(Id="rb_info_update", ios_name="情报数据")
@@ -47,7 +49,8 @@ public class Page_GridManager extends FastMapPage
     public static String INFO_ID;
     @FindResource(Id="btn_fm_cancel")
     public static String OK;
-
+    @FindResource(Id="tv_data_count")
+    public static String SHOWDATA;
     public static Page_GridManager Inst;
     static
     {

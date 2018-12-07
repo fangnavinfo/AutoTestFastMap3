@@ -291,7 +291,7 @@ public class testadapter
             mDevice.executeShellCommand("rm -rf " + userPath + "coremap.sqlite-journal");
             mDevice.executeShellCommand("rm -rf " + userPath + "coremap.shm");
             mDevice.executeShellCommand("rm -rf " + userPath + "coremap.wal");
-        }
+             }
         catch (Exception e)
         {
             throw new RuntimeException(e);

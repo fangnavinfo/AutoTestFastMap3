@@ -33,6 +33,7 @@ import com.fastmap.ui.Page_NoParking;
 import com.fastmap.ui.Page_NoParkingTruck;
 import com.fastmap.ui.Page_NormalCrossPic;
 import com.fastmap.ui.Page_Note;
+import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_RealSign;
@@ -109,7 +110,7 @@ public class testFastMapYL extends testFastMapBase
     @Test
     public void test00202_poi_add() throws Exception
     {
-        //产品全貌开关关，新增POI点查看相机设置
+        //产品全貌开关关（默认），新增POI点查看相机设置
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Page_POI_Camera.Inst.Click(Page_POI_Camera.NAME_TYPE);//名称
@@ -421,7 +422,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
         strFid = strFid.replace("fid:", "");
         strFid = strFid.replace("fid : ", "");
-        synchronize1(Page_GridManager.POI_UPDATE);
+        synchronize(Page_GridManager.POI_UPDATE);
 
         Sqlitetools.RefreshData();
         int commitHisStatus = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"commitHisStatus");
@@ -452,7 +453,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.ClickbyText("无");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
-        synchronize1(Page_GridManager.POI_UPDATE);
+        synchronize(Page_GridManager.POI_UPDATE);
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
         assertFalse(Page_POI.Inst.isExistByName(Page_POI.SELECT_TYPE));
@@ -472,7 +473,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "充电站");
         Page_POI.Inst.Click(Page_POI.SAVE);
 
-        synchronize1(Page_GridManager.POI_UPDATE);
+        synchronize(Page_GridManager.POI_UPDATE);
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
         assertFalse(Page_POI.Inst.isExistByName(Page_POI.SELECT_TYPE));
@@ -2622,7 +2623,7 @@ public class testFastMapYL extends testFastMapBase
         globalId = globalId.replace("globalId:", "");
         ExitMyData();
 
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2669,7 +2670,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2712,7 +2713,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2754,7 +2755,7 @@ public class testFastMapYL extends testFastMapBase
         globalId = globalId.replace("globalId:", "");
         ExitMyData();
 
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
         Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
@@ -2799,7 +2800,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
 
@@ -2840,7 +2841,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
         Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
@@ -2952,7 +2953,6 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(1000);
 
         Page_RoadNameSign.Inst.SetValue(Page_RoadNameSign.NAME,"");
-
 
         Page_RoadNameSign.Inst.Click(Page_RoadNameSign.SAVE); //保存按键ID
 
@@ -4906,7 +4906,7 @@ public class testFastMapYL extends testFastMapBase
 //        //复制原库tips 查看inConfirm字段是否为1
 //        SearchLocation("116.42218", "38.96087");
 //
-//        synchronize1(Page_GridManager.TIPS_UPDATE);
+//        synchronize(Page_GridManager.TIPS_UPDATE);
 //
 //        SearchLocation("116.42218", "38.96087");
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_COPY_TIPS);
@@ -10708,7 +10708,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CHECK_CONFIRM);
         ExitIndoorTools();
 
-        synchronize1(Page_GridManager.TIPS_UPDATE);
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickByText("实景图");
@@ -10756,7 +10756,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.Click(Page_IndoorMyData.CHECK_CONFIRM);
         ExitIndoorTools();
 
-        synchronize1(Page_GridManager.TIPS_UPDATE);
+        synchronize(Page_GridManager.TIPS_UPDATE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("实景图");
@@ -11275,7 +11275,7 @@ public class testFastMapYL extends testFastMapBase
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         SearchLocation("116.40624", "39.95918");
-        synchronize1(Page_GridManager.POI_UPDATE);
+        synchronize(Page_GridManager.POI_UPDATE);
 
         CheckErrorList("Poi", "同一poi(" + "fid:"+infoFid + ")在库中不存在", "POI");
     }
@@ -11600,7 +11600,7 @@ public class testFastMapYL extends testFastMapBase
         Thread.sleep(3000);
         Page_POI.Inst.Click(Page_POI.SAVE);
         ExitMyData();
-        synchronize1(Page_GridManager.POI_UPDATE);
+        synchronize(Page_GridManager.POI_UPDATE);
 
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickByText("北京汉庭酒店");
@@ -12196,7 +12196,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.SELECT_TYPE, "紧急停车带"}};
 //        String infoFid3 =AddPOI(attrib3);
 //
-//        synchronize1(Page_GridManager.POI_UPDATE);
+//        synchronize(Page_GridManager.POI_UPDATE);
 //        //新增物流园
 //        SearchLocation(LOC_K3);
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12421,7 +12421,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.SELECT_TYPE, "紧急停车带"}};
 //        String infoFid3 =AddPOI(attrib3);
 //
-//        synchronize1(Page_GridManager.POI_UPDATE);
+//        synchronize(Page_GridManager.POI_UPDATE);
 //        //新增物流园
 //        SearchLocation(LOC_K3);
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12544,6 +12544,128 @@ public class testFastMapYL extends testFastMapBase
         String pFid = jsonObject.getString("pFid");
         assertEquals(pFid,infoFid);
     }
+
+    @Test
+    public void test06501_poi_father_add() throws Exception
+    {//poi父子关系 上传两个POI 删除数据库 下载子
+        String[][] attrib2 = {{Page_POI.NAME, "级酒店"},
+                {Page_POI.SELECT_TYPE, "星级酒店"}};
+        String infoFid = AddPOI(attrib2, "116.40728", "39.95918");
+
+        String[][] attrib1 = {{Page_POI.NAME, "餐馆TES"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.POI_FATHER,"级酒店"}};
+        AddPOI(attrib1, "116.40528", "39.95918");
+
+
+        synchronize(Page_GridManager.POI_UPDATE);
+        SearchLocation("116.40728", "39.95918");
+        synchronize(Page_GridManager.POI_UPDATE);
+
+        testFastMapBase.ClearData();
+        SearchLocation("116.40528", "39.95918");
+        synchronize(Page_GridManager.POI_UPDATE);
+        Thread.sleep(2000);
+        Page_POI.Inst.ClickCenter();
+        Thread.sleep(2000);
+        Page_POI.Inst.ClickByText("餐馆ＴＥＳ");
+        String str = Page_POI.Inst.GetValue(Page_POI.POI_FATHER);
+        assertEquals(infoFid,str);
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+        Thread.sleep(2000);
+        Page_POI.Inst.ClickByText("定位父POI");
+        Thread.sleep(3000);
+        str = Page_POI.Inst.GetValue(Page_POI.POPNAME);
+        assertEquals("级酒店",str);
+    }
+
+    @Test
+    public void test06502_pas_father_add() throws Exception
+    {
+        //只能手动建立父子关系
+        SearchLocation("116.40828", "39.95918");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        String strFid = Page_PAS.Inst.GetValue(Page_PAS.FID);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "102");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        SearchLocation("116.40628", "39.95918");
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "103");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+        Page_PAS.Inst.Click(Page_PAS.PAS_FATHER);
+        Thread.sleep(2000);
+        Page_PAS.Inst.ClickbyText("测试点门牌１０２");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        synchronize(Page_GridManager.POI_UPDATE);
+        SearchLocation("116.40628", "39.95918");
+        Page_PAS.Inst.ClickCenter();
+        String str = Page_PAS.Inst.GetValue(Page_PAS.PAS_FATHER);
+        assertEquals(strFid,str);
+        Page_PAS.Inst.Click(Page_PAS.PAS_FATHER);
+        Thread.sleep(2000);
+        Page_PAS.Inst.ClickByText("定位父POI");
+        Thread.sleep(3000);
+//        str = Page_PAS.Inst.GetValue(Page_PAS.POPNAME);
+//        assertEquals("测试点门牌１０１",str);
+    }
+
+//    @Test
+//    public void test06601_GridAddPas() throws Exception
+//    {
+//        //Grid无任务模式下下载点门牌
+//        noTaskDownload(Page_GridManager.PAS_UPDATE);
+//    }
+//
+//    @Test
+//    public void test06602_GridAddPas() throws Exception
+//    {
+//        //Grid无任务模式下增加点门牌
+//        String[][] attrib= {
+//                {Page_POI.NAME, "测试"},
+//                {Page_POI.SELECT_TYPE, "中餐馆"}
+//        };
+//        AddPOI(attrib);
+//
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+//        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
+//        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "101");
+//        Page_PAS.Inst.Click(Page_PAS.ODD);
+//        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+//        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+//        Page_PAS.Inst.Click(Page_PAS.SAVE);
+//
+//        noTaskUploadCheck_yang(Page_GridManager.POI_UPDATE);
+//        String str = Page_GridManager.Inst.GetValue(Page_GridManager.SHOWDATA);
+//        assertEquals(" POI：1 情报：0",str);
+//        Page_GridManager.Inst.ClickByText("确定"); //入库结果
+//        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+//
+//        noTaskUploadCheck_yang(Page_GridManager.INTEGRATE_UPDATE);
+//        str = Page_GridManager.Inst.GetValue(Page_GridManager.SHOWDATA);
+//        assertEquals(" Tips：0 POI：1 点门牌：1 情报：0",str);
+//        Page_GridManager.Inst.ClickByText("确定"); //入库结果
+//        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+//
+//        noTaskUploadCheck_yang(Page_GridManager.PAS_UPDATE);
+//        str = Page_GridManager.Inst.GetValue(Page_GridManager.SHOWDATA);
+//        assertEquals(" 点门牌：1 情报：0",str);
+//        Page_GridManager.Inst.ClickByText("确定"); //入库结果
+//        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+//        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+//    }
+
+
 //////////////月基线功能用例结束////////////////////////////////
     @Test
     public void test00256_poi_relationship_Tag() throws Exception
@@ -12809,7 +12931,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("忽略");
         ExitIndoorTools();
 
-        synchronize1(Page_GridManager.TIPS_UPDATE);
+        synchronize(Page_GridManager.TIPS_UPDATE);
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickByText("里程桩");
         String value = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_NO);//此时道路名编号应为空
@@ -12861,7 +12983,7 @@ public class testFastMapYL extends testFastMapBase
         Page_IndoorMyData.Inst.ClickbyText("忽略");
         ExitIndoorTools();
 
-        synchronize1(Page_GridManager.TIPS_UPDATE);
+        synchronize(Page_GridManager.TIPS_UPDATE);
         Sqlitetools.RefreshData();
         temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
         jsonObject = new JSONObject(temp);
@@ -13029,7 +13151,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         //同步数据
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
         Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);
@@ -13087,7 +13209,7 @@ public class testFastMapYL extends testFastMapBase
         Page_MyData.Inst.Click(Page_MyData.BACK);
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
-        synchronize1(Page_GridManager.INFO_UPDATE);
+        synchronize(Page_GridManager.INFO_UPDATE);
 
         SearchInfos(globalId);
         Page_InfoAccept.Inst.Drag(1800,1200,1800,700,5);

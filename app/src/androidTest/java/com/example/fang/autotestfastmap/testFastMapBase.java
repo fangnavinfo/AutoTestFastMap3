@@ -1,4 +1,5 @@
 package com.example.fang.autotestfastmap;
+
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_Confirm;
@@ -29,6 +30,8 @@ import org.junit.rules.TestName;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
 
@@ -82,6 +85,14 @@ public class testFastMapBase
         testFastMapBase.licence = licence;
         setClassUp(userName, passWord, false);
         testFastMapBase.licence = "";
+    }
+    protected  static void ClearData() throws Exception {
+        testadapter.ClearCollect();
+        testadapter.ReStartApp();
+        Class clazz = Class.forName("com.example.fang.autotestfastmap.testFastMapBase");
+
+        Method method = clazz.getMethod("loginProcess");
+        method.invoke(null);
     }
 
     protected  static void setClassUp(String userName, String passWord, boolean isHmWorking) throws Exception
@@ -1123,11 +1134,11 @@ public class testFastMapBase
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(syncType); //情报数据
         Thread.sleep(1000);
-        Page_GridManager.Inst.ClickByText("同步数据"); //同步
-        Page_GridManager.Inst.SetValue(Page_GridManager.INFO_ID,"1");
-        Page_GridManager.Inst.ClickbyText("确定");
-        Thread.sleep(3000);
-        Page_GridManager.Inst.ClickbyText("确认");
+        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步
+        Thread.sleep(1000);
+        Page_GridManager.Inst.SetValue(Page_GridManager.INFO_ID, "123456");//工单号
+        Page_GridManager.Inst.Click(Page_GridManager.OK);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
 //        Page_GridManager.Inst.Click(Page_GridManager.SYNC_RESULT_CONFIRM);
@@ -1158,7 +1169,27 @@ public class testFastMapBase
 //                count++;
 //            }
 //        }
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
 
+        Thread.sleep(1000);
+
+        try
+        {
+            Page_GridManager.Inst.Click(Page_GridManager.UPDATA_RSLT_CONFIRM);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            Page_GridManager.Inst.ClickByText("确定"); //入库结果
+        }
+        catch (Exception e)
+        {
+
+        }
 
         Page_GridManager.Inst.Click(Page_GridManager.BACK);
 
@@ -1169,6 +1200,95 @@ public class testFastMapBase
 //        }
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
         //Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+    }
+
+    void noTaskDownload(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(syncType); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //下载
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
+//        Page_GridManager.Inst.Click(Page_GridManager.SYNC_RESULT_CONFIRM);
+//        int count = 0;
+//        while (true)
+//        {
+//            try
+//            {
+//                UiObject2 confirmObj = findObjectByResourceId("grid_sync_btn_positive");
+//                if (confirmObj.isEnabled())
+//                {
+//                    Thread.sleep(5000);
+//                    break;
+//                }
+//            }
+//            catch (Exception e)
+//            {
+//                continue;
+//            }
+//            finally
+//            {
+//                if (count == 500)
+//                {
+//                    break;
+//                }
+//
+//                Thread.sleep(1000);
+//                count++;
+//            }
+//        }
+        Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
+
+        Thread.sleep(1000);
+
+        try
+        {
+            Page_GridManager.Inst.Click(Page_GridManager.UPDATA_RSLT_CONFIRM);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        try
+        {
+            Page_GridManager.Inst.ClickByText("确定"); //入库结果
+        }
+        catch (Exception e)
+        {
+
+        }
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+    }
+
+    void noTaskUploadCheck_yang(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(syncType); //情报数据
+        Thread.sleep(1000);
+        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步,下载
+        Thread.sleep(1000);
+
     }
 
     void downloaddata(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException

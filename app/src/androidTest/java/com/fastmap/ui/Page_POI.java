@@ -212,7 +212,8 @@ public class Page_POI extends FastMapPage
     public static String HIDE_POI_NAME;
     @FindResource(Id="fmdialog_tv_snap_point_add")
     public static String SELECTSON;
-
+    @FindResource(Id="tv_father_popmsg_name")
+    public static String POPNAME;
     public static Page_POI Inst;
     static
     {

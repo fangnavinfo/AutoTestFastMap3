@@ -39,7 +39,10 @@ public class Page_PAS extends Page_Base_Tips
     public static String MOVE_POINTS;
     @FindResource(Id="auto_link", ios_name="box auto")
     public static String AUTO_LINK;
-
+    @FindResource(Id="tv_pas_father")
+    public static String PAS_FATHER;
+    @FindResource(Id="tv_poi_fid_hd")
+    public static String FID;
     public static Page_PAS Inst;
     static
     {
