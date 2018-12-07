@@ -33,6 +33,19 @@ public class Sqlitetools {
         method.invoke(null);
     }
 
+    public static void CleanDataAndRestart() throws Exception {
+
+        testadapter.ReStartApp();
+
+        testadapter.ClearCollect();
+        testadapter.ClearWal();
+
+        Class clazz = Class.forName("com.example.fang.autotestfastmap.testFastMapBase");
+
+        Method method = clazz.getMethod("loginProcess");
+        method.invoke(null);
+    }
+
     public String GetTipsDisplayText(String key) throws Exception {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(mDBPath, null, SQLiteDatabase.OPEN_READONLY, null);
 

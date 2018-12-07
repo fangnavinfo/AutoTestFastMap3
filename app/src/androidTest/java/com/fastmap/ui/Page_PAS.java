@@ -26,6 +26,10 @@ public class Page_PAS extends Page_Base_Tips
     public static String DOOR_PAS;
     @FindResource(Id="fm_rb_address_card", ios_name="地址门牌")
     public static String ADDRESS_PAS;
+    @FindResource(Id="tv_pas_father", ios_name="父子关系")
+    public static String FATHER;
+    @FindResource(Id="tv_pas_relate", ios_name="关联POI")
+    public static String RELATE_POI;
 
     // 框选点门牌按钮
     @FindResource(Id="tv_marquee_frame_repaint", ios_name="last pen")

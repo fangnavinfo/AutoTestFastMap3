@@ -1202,7 +1202,7 @@ public class testFastMapBase
         //Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
     }
 
-    void noTaskDownload(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
+    void synchronize_zhou(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
     {
         Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
         Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
@@ -1214,39 +1214,14 @@ public class testFastMapBase
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(syncType); //情报数据
         Thread.sleep(1000);
-        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //下载
+        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步
         Thread.sleep(1000);
+        Page_GridManager.Inst.SetValue(Page_GridManager.INFO_ID, "123456");//工单号
+        Page_GridManager.Inst.Click(Page_GridManager.OK);
         Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
-//        Page_GridManager.Inst.Click(Page_GridManager.SYNC_RESULT_CONFIRM);
-//        int count = 0;
-//        while (true)
-//        {
-//            try
-//            {
-//                UiObject2 confirmObj = findObjectByResourceId("grid_sync_btn_positive");
-//                if (confirmObj.isEnabled())
-//                {
-//                    Thread.sleep(5000);
-//                    break;
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//                continue;
-//            }
-//            finally
-//            {
-//                if (count == 500)
-//                {
-//                    break;
-//                }
-//
-//                Thread.sleep(1000);
-//                count++;
-//            }
-//        }
+
         Page_GridManager.Inst.Click(Page_GridManager.GRID_SYNC_BTN_POSITIVE);
 
         Thread.sleep(1000);
@@ -1268,27 +1243,9 @@ public class testFastMapBase
         {
 
         }
+
         Page_GridManager.Inst.Click(Page_GridManager.BACK);
-
         Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-
-    }
-
-    void noTaskUploadCheck_yang(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
-    {
-        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
-        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
-        Page_GridManager.Inst.Click(Page_GridManager.PROJECT_BUTTON);
-        Thread.sleep(1000);
-
-        Page_MainBoard.Inst.ClickCenter();
-
-        Thread.sleep(1000);
-        Page_GridManager.Inst.Click(syncType); //情报数据
-        Thread.sleep(1000);
-        Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步,下载
-        Thread.sleep(1000);
-
     }
 
     void downloaddata(String syncType) throws NoSuchFieldException, ClassNotFoundException, InterruptedException
