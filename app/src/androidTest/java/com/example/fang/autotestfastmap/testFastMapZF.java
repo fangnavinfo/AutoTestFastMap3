@@ -92,7 +92,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_BRAND, "丰田维修"},
         };
 
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE);
         Assert.assertTrue(Page_MyData.Inst.isExistByName("测试ＰＯＩ"));
@@ -106,7 +106,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -122,7 +122,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "14612345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -138,7 +138,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "14812345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -154,7 +154,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "16612345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -282,13 +282,13 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
 
-        AddPOI(attrib1, "116.40557", "39.96121");
+        AddPOI(attrib1, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
-        String infoFid = AddPOI(attrib2, "116.40667", "39.96115");
+        String infoFid = AddPOI(attrib2, "116.40667", "39.96115", "忽略捕捉新增");
 
         SearchLocation("116.40557", "39.96121");
         synchronize_zhou(Page_GridManager.POI_UPDATE);
@@ -307,14 +307,14 @@ public class testFastMapZF extends testFastMapBase {
     public void test00105_2_poi_father_error_check() throws Exception {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid = AddPOI(attrib1, "116.40557", "39.96121");
+        String infoFid = AddPOI(attrib1, "116.40557", "39.96121", "忽略捕捉新增");
 
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
-        AddPOI(attrib2, "116.40557", "39.96121");
+        AddPOI(attrib2, "116.40557", "39.96121", "忽略捕捉新增");
 
         Thread.sleep(1000);
 
@@ -351,18 +351,24 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
 
-        AddPOI(attrib1);
+        AddPOI(attrib1, "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
-        AddPOI(attrib2);
+        AddPOI(attrib2, "忽略捕捉新增");
 
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
         Page_MyData.Inst.SelectData("中餐馆ＴＥＳＴ１");
+
+        try {
+            Page_POI.Inst.Click(Page_POI.HIDE_POI_NAME);
+        } catch (Exception e) {
+
+        }
 
         Page_POI.Inst.Click(Page_POI.NAME_ICON);
 
@@ -380,13 +386,13 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "政府机关TEST"},
                 {Page_POI.SELECT_TYPE, "区级政府机关(广州市）"}};
 
-        AddPOI(attrib1, "116.40624", "39.96918");
+        AddPOI(attrib1, "116.40624", "39.96918", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "银行TEST"},
                 {Page_POI.SELECT_TYPE, "银行"},
                 {Page_POI.POI_SAME, "政府机关ＴＥＳＴ"}};
 
-        String infoFid = AddPOI(attrib2, "116.40628", "39.96918");
+        String infoFid = AddPOI(attrib2, "116.40628", "39.96918", "忽略捕捉新增");
 
         SearchLocation("116.40624", "39.96918");
         synchronize_zhou(Page_GridManager.POI_UPDATE);
@@ -507,7 +513,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -692,13 +698,13 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
 
-        AddPOI(attrib1, "116.40557", "39.96121");
+        AddPOI(attrib1, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
-        String infoFid = AddPOI(attrib2, "116.40667", "39.96115");
+        String infoFid = AddPOI(attrib2, "116.40667", "39.96115", "忽略捕捉新增");
 
         SearchLocation("116.40557", "39.96121");
 
@@ -732,7 +738,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -768,7 +774,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_TRUCK, "卡车+小汽车"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -785,7 +791,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_REMARK, "名称"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -802,7 +808,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_REMARK, "电话"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -819,7 +825,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_REMARK, "分类"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -836,7 +842,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_REMARK, "品牌"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -853,7 +859,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_REMARK, "地址"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -870,7 +876,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_REMARK, "邮编"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -887,7 +893,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"},
                 {Page_POI.POI_REMARK, "深度信息"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
 
@@ -989,13 +995,13 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "中餐馆TEST"},
                 {Page_POI.SELECT_TYPE, "中餐馆"}};
 
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "风景名胜TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜"},
                 {Page_POI.POI_SAME, "中餐馆ＴＥＳＴ"}};
 
-        String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
+        String infoFid = AddPOI(attrib2, "116.40628", "39.95918", "忽略捕捉新增");
 
         Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
         Page_POI.Inst.ClickByText("已采集");
@@ -1022,7 +1028,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "风景名胜TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜"}};
 
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918", "忽略捕捉新增");
 
         Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
         Page_POI.Inst.ClickByText("已采集");
@@ -1033,7 +1039,7 @@ public class testFastMapZF extends testFastMapBase {
                 {Page_POI.POI_SAME, "风景名胜ＴＥＳＴ"}};
 
         try {
-            AddPOI(attrib2, "116.40628", "39.95918");
+            AddPOI(attrib2, "116.40628", "39.95918", "忽略捕捉新增");
         } catch (Exception e) {
 
         }
@@ -1052,13 +1058,13 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "中餐馆TEST"},
                 {Page_POI.SELECT_TYPE, "中餐馆"}};
 
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "旅游观光TEST"},
                 {Page_POI.SELECT_TYPE, "旅游观光"},
                 {Page_POI.POI_SAME, "中餐馆ＴＥＳＴ"}};
 
-        String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
+        String infoFid = AddPOI(attrib2, "116.40628", "39.95918", "忽略捕捉新增");
 
         SearchLocation("116.40624", "39.95918");
         synchronize_zhou(Page_GridManager.POI_UPDATE);
@@ -1081,14 +1087,14 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "旅游观光TEST"},
                 {Page_POI.SELECT_TYPE, "旅游观光"}};
 
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "风景名胜售票点TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜售票点"},
                 {Page_POI.POI_SAME, "旅游观光ＴＥＳＴ"}};
 
         try {
-            AddPOI(attrib2, "116.40628", "39.95918");
+            AddPOI(attrib2, "116.40628", "39.95918", "忽略捕捉新增");
         } catch (Exception e) {
 
         }
@@ -1107,14 +1113,14 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "旅游观光TEST"},
                 {Page_POI.SELECT_TYPE, "旅游观光"}};
 
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "风景名胜TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜"},
                 {Page_POI.POI_SAME, "旅游观光ＴＥＳＴ"}};
 
         try {
-            AddPOI(attrib2, "116.40628", "39.95918");
+            AddPOI(attrib2, "116.40628", "39.95918", "忽略捕捉新增");
         } catch (Exception e) {
 
         }
@@ -1232,17 +1238,17 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "百货商场零售"}};
 
-        AddPOI(attrib1, "116.40557", "39.96121");
+        AddPOI(attrib1, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid1 = AddPOI(attrib2, "116.40557", "39.96121");
+        String fid1 = AddPOI(attrib2, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib3 = {{Page_POI.NAME, "异国风味TEST1"},
                 {Page_POI.SELECT_TYPE, "异国风味"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid2 = AddPOI(attrib3, "116.40557", "39.96121");
+        String fid2 = AddPOI(attrib3, "116.40557", "39.96121", "忽略捕捉新增");
 
         Sqlitetools.RefreshData();
 
@@ -1269,27 +1275,27 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "大厦TEST1"},
                 {Page_POI.SELECT_TYPE, "百货商场零售"}};
 
-        AddPOI(attrib1, "116.40557", "39.96121");
+        AddPOI(attrib1, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆TEST1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid1 = AddPOI(attrib2, "116.40557", "39.96121");
+        String fid1 = AddPOI(attrib2, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib3 = {{Page_POI.NAME, "异国风味TEST1"},
                 {Page_POI.SELECT_TYPE, "异国风味"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid2 = AddPOI(attrib3, "116.40557", "39.96121");
+        String fid2 = AddPOI(attrib3, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib4 = {{Page_POI.NAME, "酒吧TEST1"},
                 {Page_POI.SELECT_TYPE, "酒吧"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid3 = AddPOI(attrib4, "116.40557", "39.96121");
+        String fid3 = AddPOI(attrib4, "116.40557", "39.96121", "忽略捕捉新增");
 
         String[][] attrib5 = {{Page_POI.NAME, "冷饮店TEST1"},
                 {Page_POI.SELECT_TYPE, "冷饮店"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-        String fid4 = AddPOI(attrib5, "116.40557", "39.96121");
+        String fid4 = AddPOI(attrib5, "116.40557", "39.96121", "忽略捕捉新增");
 
         Sqlitetools.RefreshData();
 
@@ -2052,7 +2058,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ２"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MARQUEE_POI_9002);
         Page_MainBoard.Inst.Click(new Point(500, 500));
@@ -3005,7 +3011,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
                 {Page_POI.SELECT_TYPE, "小区"},
                 {Page_POI.TEL, "19012345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib,"忽略捕捉新增");
 
         Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
         Page_POI.Inst.ClickByText("已采集");
@@ -3039,7 +3045,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.TEL, "19012345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         Page_MainBoard.Inst.Drag(1800, 1400, 1800, 1300, 100);
         // 创建点门牌
@@ -3070,7 +3076,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib = {{Page_POI.NAME, "测试ＰＯＩ"},
                 {Page_POI.SELECT_TYPE, "银行"},
                 {Page_POI.TEL, "19012345678"}};
-        AddPOI(attrib);
+        AddPOI(attrib, "忽略捕捉新增");
 
         GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
         Page_MyData.Inst.SelectData("测试ＰＯＩ");
@@ -3122,59 +3128,40 @@ public class testFastMapZF extends testFastMapBase {
 
     }
 
-    // POI：语音附件上传入库（月基线需求）
+
+    // Tips：语音附件上传入库（月基线需求）
     @Test
-    public void test00143_1_poi_record_check() throws Exception {
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+    public void test00143_1_tips_record_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.ClickCenter();
 
-        //拍照并返回
-        Thread.sleep(2000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("红绿灯");
+        String infoRowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY).trim().substring(8);
+        Page_Light.Inst.LongClick(Page_Light.RECORD, 10000);
+        Page_Light.Inst.Click(Page_Light.SAVE);
+        ExitMyData();
 
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试123456");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "风景名胜");
+        IndoorCheckConfirm("红绿灯");
 
-        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        //同步数据
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
 
-        //景区等级
-        Page_POI.Inst.Click(Page_POI.A5);
-        Page_POI.Inst.Click(Page_POI.TAG2);
-
-        //录音：10000ms
-        Page_POI.Inst.LongClick(Page_POI.RECORD, 10000);
-
-        Page_POI.Inst.Click(Page_POI.SAVE);
-
-        GotoMyData(Page_MyData.POI_TYPE); //进入我的数据
-        Page_MyData.Inst.SelectData("测试１２３４５６");
-
-        Thread.sleep(1000);
-
-        infoFid = Page_POI.Inst.GetValue(Page_POI.FID).substring(4);
-
-        Page_POI.Inst.Click(Page_POI.CANCEL);
-        Page_MyData.Inst.Click(Page_MyData.BACK);
-        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
-
-        synchronize_zhou(Page_GridManager.POI_UPDATE);
 
         Sqlitetools.CleanDataAndRestart();
 
-        synchronize_zhou(Page_GridManager.POI_UPDATE);
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
 
         Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
-        Page_Search.Inst.ClickbyText("POI");
-        Page_Search.Inst.SetValue(Page_Search.EDITPOI, infoFid);
-        Page_Search.Inst.Click(Page_Search.FID);
-        Page_Search.Inst.Click(Page_Search.SEARCH_START_POI);
+        Page_Search.Inst.ClickbyText("Tips");
+        Page_Search.Inst.SetValue(Page_Search.TIPS_ROWKEY, infoRowkey);
+
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_TIPS);
         Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
 
-        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        String time = Page_Light.Inst.GetValue(Page_Light.RECORD_TIME);
 
-        String time = Page_POI.Inst.GetValue(Page_POI.RECORD_TIME);
-
-        assertEquals(time, "10");
+        assertEquals(time.contains("10"),true);
     }
 
 
@@ -3250,7 +3237,7 @@ public class testFastMapZF extends testFastMapBase {
         String[][] attrib1 = {{Page_POI.NAME, "测试ＰＯＩ001"},
                 {Page_POI.SELECT_TYPE, "中餐馆"}};
 
-        AddPOI(attrib1, "116.40572", "39.96958");
+        AddPOI(attrib1, "116.40572", "39.96958", "忽略捕捉新增");
 
         //增加匝道
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.RAMP);

@@ -213,7 +213,7 @@ public class testFastMapYL extends testFastMapBase
                 {Page_POI.NAME, "紧急停车带"},
                 {Page_POI.SELECT_TYPE, "紧急停车带"}
         };
-        AddPOI(attrib);
+        AddPOI(attrib,"捕捉点位新增");
 
         CheckMyData(Page_MyData.POI_TYPE, "紧急停车带");
     }
@@ -226,7 +226,7 @@ public class testFastMapYL extends testFastMapBase
                 {Page_POI.NAME, "彩票投注站"},
                 {Page_POI.SELECT_TYPE, "彩票投注站"}
         };
-        AddPOI(attrib);
+        AddPOI(attrib,"捕捉点位新增");
 
         //我的数据
         CheckMyData(Page_MyData.POI_TYPE, "彩票投注站");
@@ -237,14 +237,14 @@ public class testFastMapYL extends testFastMapBase
     {
         String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid =AddPOI(attrib1);
+        String infoFid =AddPOI(attrib1,"捕捉点位新增");
 
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆ＴＥＳＴ１"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
 
-        AddPOI(attrib2);
+        AddPOI(attrib2,"捕捉点位新增");
 
         Thread.sleep(1000);
         Page_MainBoard.Inst.ClickCenter();
@@ -579,7 +579,7 @@ public class testFastMapYL extends testFastMapBase
         //小区有父无子 不展示精细化卡片
         String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
                 {Page_POI.SELECT_TYPE, "120202"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -636,7 +636,7 @@ public class testFastMapYL extends testFastMapBase
         String[][] attribs = {{Page_POI.NAME, "中餐馆"},
                 {Page_POI.SELECT_TYPE, "110101"},
                 {Page_POI.POI_FATHER, "小区"}};
-        AddPOI(attribs);
+        AddPOI(attribs,"捕捉点位新增");
 
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("小区");
@@ -662,7 +662,7 @@ public class testFastMapYL extends testFastMapBase
         //有子有父
         String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
                 {Page_POI.SELECT_TYPE, "120202"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -733,7 +733,7 @@ public class testFastMapYL extends testFastMapBase
         //有子有父删除子
         String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
                 {Page_POI.SELECT_TYPE, "120202"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
@@ -888,7 +888,7 @@ public class testFastMapYL extends testFastMapBase
 //        //框选子
 //        String[][] attrib1 = {{Page_POI.NAME, "中餐馆"},
 //                {Page_POI.SELECT_TYPE, "110101"}};
-//        AddPOI(attrib1);
+//        AddPOI(attrib1,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 //        try
@@ -929,7 +929,7 @@ public class testFastMapYL extends testFastMapBase
         //小区有父无子 不展示精细化卡片
         String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
                 {Page_POI.SELECT_TYPE, "120202"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -986,7 +986,7 @@ public class testFastMapYL extends testFastMapBase
         String[][] attribs = {{Page_POI.NAME, "中餐馆"},
                 {Page_POI.SELECT_TYPE, "110101"},
                 {Page_POI.POI_FATHER, "小区"}};
-        AddPOI(attribs);
+        AddPOI(attribs,"捕捉点位新增");
 
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("小区");
@@ -1013,7 +1013,7 @@ public class testFastMapYL extends testFastMapBase
         //有子有父
         String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
                 {Page_POI.SELECT_TYPE, "120202"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
@@ -1085,7 +1085,7 @@ public class testFastMapYL extends testFastMapBase
         //有子有父删除子
         String[][] attrib1 = {{Page_POI.NAME, "住宅楼"},
                 {Page_POI.SELECT_TYPE, "120202"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -1245,7 +1245,7 @@ public class testFastMapYL extends testFastMapBase
             //        //框选子
             //        String[][] attrib1 = {{Page_POI.NAME, "中餐馆"},
             //                {Page_POI.SELECT_TYPE, "110101"}};
-            //        AddPOI(attrib1);
+            //        AddPOI(attrib1,"捕捉点位新增");
             //
             //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
             //        try
@@ -1728,7 +1728,7 @@ public class testFastMapYL extends testFastMapBase
 //        //框选子
 //        String[][] attrib1 = {{Page_POI.NAME, "中餐馆"},
 //                {Page_POI.SELECT_TYPE, "110101"}};
-//        AddPOI(attrib1);
+//        AddPOI(attrib1,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 //
@@ -1761,7 +1761,7 @@ public class testFastMapYL extends testFastMapBase
         //小区有父无子 不展示精细化卡片
         String[][] attrib1 = {{Page_POI.NAME, "医疗机构"},
                 {Page_POI.SELECT_TYPE, "170100"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
@@ -1820,7 +1820,7 @@ public class testFastMapYL extends testFastMapBase
 
         String[][] attrib1 = {{Page_POI.NAME, "医疗机构"},
                 {Page_POI.SELECT_TYPE, "170100"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -1895,7 +1895,7 @@ public class testFastMapYL extends testFastMapBase
         //小区有父无子 不展示精细化卡片
         String[][] attrib1 = {{Page_POI.NAME, "医疗机构"},
                 {Page_POI.SELECT_TYPE, "170100"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
@@ -1955,7 +1955,7 @@ public class testFastMapYL extends testFastMapBase
 
         String[][] attrib1 = {{Page_POI.NAME, "医疗机构"},
                 {Page_POI.SELECT_TYPE, "170100"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -2022,7 +2022,7 @@ public class testFastMapYL extends testFastMapBase
         //小区有父无子 不展示精细化卡片
         String[][] attrib1 = {{Page_POI.NAME, "教学楼１"},
                 {Page_POI.SELECT_TYPE, "170100"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
@@ -2080,7 +2080,7 @@ public class testFastMapYL extends testFastMapBase
 //
 //        String[][] attrib1 = {{Page_POI.NAME, "教学楼１"},
 //                {Page_POI.SELECT_TYPE, "160106"}};
-//        AddPOI(attrib1);
+//        AddPOI(attrib1,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 //        try
@@ -2146,7 +2146,7 @@ public class testFastMapYL extends testFastMapBase
 //        //小区有父无子 不展示精细化卡片
 //        String[][] attrib1 = {{Page_POI.NAME, "度假村"},
 //                {Page_POI.SELECT_TYPE, "180302"}};
-//        AddPOI(attrib1);
+//        AddPOI(attrib1,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 //        try
@@ -2204,7 +2204,7 @@ public class testFastMapYL extends testFastMapBase
 
         String[][] attrib1 = {{Page_POI.NAME, "度假村"},
                 {Page_POI.SELECT_TYPE, "180302"}};
-        AddPOI(attrib1);
+        AddPOI(attrib1,"捕捉点位新增");
 
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -3125,7 +3125,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.SELECT_TYPE, "中餐馆"}
 //        };
 //
-//        AddPOI(attrib);
+//        AddPOI(attrib,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
 //        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
@@ -3174,7 +3174,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.NAME, "测试"},
 //                {Page_POI.SELECT_TYPE, "中餐馆"}
 //        };
-//        AddPOI(attrib);
+//        AddPOI(attrib,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
 //        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
@@ -3210,7 +3210,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.NAME, "测试"},
 //                {Page_POI.SELECT_TYPE, "中餐馆"}
 //        };
-//        AddPOI(attrib);
+//        AddPOI(attrib,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
 //        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER);
@@ -3280,7 +3280,7 @@ public class testFastMapYL extends testFastMapBase
 //                {Page_POI.NAME, "测试"},
 //                {Page_POI.SELECT_TYPE, "中餐馆"}
 //        };
-//        AddPOI(attrib);
+//        AddPOI(attrib,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
 //        Page_PAS.Inst.SetValue(Page_PAS.NAME, "测试点门牌");
@@ -11262,13 +11262,13 @@ public class testFastMapYL extends testFastMapBase
         String[][] attrib1 = {{Page_POI.NAME, "中餐馆TEST"},
                 {Page_POI.SELECT_TYPE, "中餐馆"}};
 
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918","捕捉点位新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "风景名胜TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜"},
                 {Page_POI.POI_SAME, "中餐馆ＴＥＳＴ"}};
 
-        String infoFid = AddPOI(attrib2, "116.40628", "39.95918");
+        String infoFid = AddPOI(attrib2, "116.40628", "39.95918","捕捉点位新增");
 
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
         Page_POI.Inst.ClickByText("已采集");
@@ -11289,7 +11289,7 @@ public class testFastMapYL extends testFastMapBase
         String[][] attrib1 = {{Page_POI.NAME, "风景名胜TEST"},
                 {Page_POI.SELECT_TYPE, "风景名胜"}};
 
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918","捕捉点位新增");
 
         Page_MainBoard.Inst.Drag(1800,1400,1800,250,100);
         Page_POI.Inst.ClickByText("已采集");
@@ -11300,7 +11300,7 @@ public class testFastMapYL extends testFastMapBase
                 {Page_POI.POI_SAME, "风景名胜ＴＥＳＴ"}};
 
         try {
-            AddPOI(attrib2, "116.40628", "39.95918");
+            AddPOI(attrib2, "116.40628", "39.95918","捕捉点位新增");
         }catch (Exception e) {
 
         }
@@ -11344,7 +11344,7 @@ public class testFastMapYL extends testFastMapBase
                 {Page_POI.POI_SAME, "旅游观光ＴＥＳＴ"}};
 
         try {
-            AddPOI(attrib2, "116.40628", "39.95918");
+            AddPOI(attrib2, "116.40628", "39.95918","捕捉点位新增");
         }catch (Exception e) {
 
         }
@@ -11361,23 +11361,23 @@ public class testFastMapYL extends testFastMapBase
         //查看默认值
         String[][] attrib1 = {{Page_POI.NAME, "驾校"},
                 {Page_POI.SELECT_TYPE, "驾校"}};
-        AddPOI(attrib1, "116.40624", "39.95918");
+        AddPOI(attrib1, "116.40624", "39.95918","捕捉点位新增");
 
         String[][] attrib2 = {{Page_POI.NAME, "百货"},
                 {Page_POI.SELECT_TYPE, "百货商场零售"}};
-        AddPOI(attrib2, "116.40624", "39.95918");
+        AddPOI(attrib2, "116.40624", "39.95918","捕捉点位新增");
 
         String[][] attrib4 = {{Page_POI.NAME, "公司"},
                 {Page_POI.SELECT_TYPE, "公司"}};
-        AddPOI(attrib4, "116.40624", "39.95918");
+        AddPOI(attrib4, "116.40624", "39.95918","捕捉点位新增");
 
         String[][] attrib5 = {{Page_POI.NAME, ""},
                 {Page_POI.SELECT_TYPE, "公司"}};
-        AddPOI(attrib5, "116.40624", "39.95918");
+        AddPOI(attrib5, "116.40624", "39.95918","捕捉点位新增");
 
         String[][] attrib7 = {{Page_POI.NAME, "大厦/写字楼"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        AddPOI(attrib7, "116.40624", "39.95918");
+        AddPOI(attrib7, "116.40624", "39.95918","捕捉点位新增");
         SearchLocation("116.40624", "39.95918");
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
         try
@@ -12006,7 +12006,7 @@ public class testFastMapYL extends testFastMapBase
         SearchLocation(LOC_K3);
         String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid =AddPOI(attrib1);
+        String infoFid =AddPOI(attrib1,"捕捉点位新增");
         //新增物流园
         //SearchLocation(LOC_K1);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12048,7 +12048,7 @@ public class testFastMapYL extends testFastMapBase
         //功能面 关联无名称POI
         SearchLocation(LOC_K3);
         String[][] attrib1 = {{Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid =AddPOI(attrib1);
+        String infoFid =AddPOI(attrib1,"捕捉点位新增");
         //新增物流园
         //SearchLocation(LOC_K1);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12103,9 +12103,9 @@ public class testFastMapYL extends testFastMapBase
 //        SearchLocation(LOC_K3);
 //        String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
 //                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-//        String infoFid1 =AddPOI(attrib1);
+//        String infoFid1 =AddPOI(attrib1,"捕捉点位新增");
 //        String[][] attrib2 = {{Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-//        String infoFid2 =AddPOI(attrib2);
+//        String infoFid2 =AddPOI(attrib2,"捕捉点位新增");
 //        String[][] attrib3 = {{Page_POI.NAME, "紧急停车带"},
 //                {Page_POI.SELECT_TYPE, "紧急停车带"}};
 //        String infoFid3 =AddPOI(attrib3);
@@ -12189,9 +12189,9 @@ public class testFastMapYL extends testFastMapBase
 //        SearchLocation(LOC_K3);
 //        String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
 //                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-//        String infoFid1 =AddPOI(attrib1);
+//        String infoFid1 =AddPOI(attrib1,"捕捉点位新增");
 //        String[][] attrib2 = {{Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-//        String infoFid2 =AddPOI(attrib2);
+//        String infoFid2 =AddPOI(attrib2,"捕捉点位新增");
 //        String[][] attrib3 = {{Page_POI.NAME, "紧急停车带"},
 //                {Page_POI.SELECT_TYPE, "紧急停车带"}};
 //        String infoFid3 =AddPOI(attrib3);
@@ -12277,7 +12277,7 @@ public class testFastMapYL extends testFastMapBase
 //        SearchLocation(LOC_K3);
 //        String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
 //                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-//        String infoFid =AddPOI(attrib1);
+//        String infoFid =AddPOI(attrib1,"捕捉点位新增");
 //        //新增物流园
 //        //SearchLocation(LOC_K1);
 //        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12326,12 +12326,12 @@ public class testFastMapYL extends testFastMapBase
         SearchLocation(LOC_K3);
         String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid1 =AddPOI(attrib1);
+        String infoFid1 =AddPOI(attrib1,"捕捉点位新增");
         String[][] attrib2 = {{Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid2 =AddPOI(attrib2);
+        String infoFid2 =AddPOI(attrib2,"捕捉点位新增");
         String[][] attrib3 = {{Page_POI.NAME, "紧急停车带"},
                 {Page_POI.SELECT_TYPE, "紧急停车带"}};
-        String infoFid3 =AddPOI(attrib3);
+        String infoFid3 =AddPOI(attrib3,"捕捉点位新增");
         //新增物流园
         SearchLocation(LOC_K3);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -12414,9 +12414,9 @@ public class testFastMapYL extends testFastMapBase
 //        SearchLocation(LOC_K3);
 //        String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
 //                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-//        String infoFid1 =AddPOI(attrib1);
+//        String infoFid1 =AddPOI(attrib1,"捕捉点位新增");
 //        String[][] attrib2 = {{Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-//        String infoFid2 =AddPOI(attrib2);
+//        String infoFid2 =AddPOI(attrib2,"捕捉点位新增");
 //        String[][] attrib3 = {{Page_POI.NAME, "紧急停车带"},
 //                {Page_POI.SELECT_TYPE, "紧急停车带"}};
 //        String infoFid3 =AddPOI(attrib3);
@@ -12504,7 +12504,7 @@ public class testFastMapYL extends testFastMapBase
         SearchLocation(LOC_K3);
         String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
                 {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid =AddPOI(attrib1);
+        String infoFid =AddPOI(attrib1,"捕捉点位新增");
         //新增物流园
         SearchLocation(LOC_K3);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
@@ -13018,7 +13018,7 @@ public class testFastMapYL extends testFastMapBase
 //        Page_MainBoard.Inst.ClickCenter();
 //        String[][] attrib1 = {{Page_POI.NAME, "中餐馆TEST"},
 //                {Page_POI.SELECT_TYPE, "中餐馆"}};
-//        AddPOI(attrib1);
+//        AddPOI(attrib1,"捕捉点位新增");
 //
 //        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
 //        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理

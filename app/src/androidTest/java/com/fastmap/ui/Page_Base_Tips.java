@@ -22,7 +22,13 @@ public class Page_Base_Tips extends FastMapPage
     
     @FindResource(Id="et_remark_txt", ios_name="page_multiTextCard")
     public static String REMARK;//备注
-    
+
+    @FindResource(Id="mic_button")
+    public static String RECORD;
+
+    @FindResource(Id="tv_time")
+    public static String RECORD_TIME;
+
     @FindResource(Id="camera_button_myselt", ios_name="mediaOperate_photoBtn")
     public static String CAMERA;
     

@@ -852,20 +852,20 @@ public class testFastMapBase
 //
 //    }
 //
-    protected String AddPOI(String[][] attribs, String Lng, String Lat) throws Exception
+    protected String AddPOI(String[][] attribs, String Lng, String Lat, String addKind) throws Exception
     {
         SearchLocation(Lng, Lat);
-        return AddPOI(attribs);
+        return AddPOI(attribs,addKind);
     }
 
-    protected String AddPOI(String[][] attribs) throws Exception
+    protected String AddPOI(String[][] attribs, String addKind) throws Exception
     {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         try
         {
         	Thread.sleep(1000);
-        	Page_MainBoard.Inst.ClickbyText("捕捉点位新增");
+        	Page_MainBoard.Inst.ClickbyText(addKind);
         }
         catch (Exception e)
         {
