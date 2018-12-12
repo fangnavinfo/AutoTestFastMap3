@@ -15,6 +15,9 @@ public class Page_POI extends FastMapPage
     @FindResource(Id="fm_et_name_before", ios_name="请输入曾用名")
     public static String BEFORE_NAME;
 
+    @FindResource(Id="fm_et_address")
+    public static String ADDRESS;
+
     @FindResource(Id="img_name_alias_add")
     public static String ALIAS_ADD;
     @FindResource(Id="img_name_list_alias_del")

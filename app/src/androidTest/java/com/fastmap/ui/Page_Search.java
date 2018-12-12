@@ -70,6 +70,12 @@ public class Page_Search extends FastMapPage
     @FindResource(Id="tv_item")
     public static String HISTORY;
 
+    @FindResource(Id="rbtn_search_info_infoId")
+    public static String GLOBALID_INFO;
+
+    @FindResource(Id="rbtn_search_info_infoName")
+    public static String NAME_INFO;
+
     public static Page_Search Inst;
     static{
         Inst = new Page_Search();

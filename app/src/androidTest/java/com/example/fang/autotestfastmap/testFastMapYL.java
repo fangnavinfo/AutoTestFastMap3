@@ -96,7 +96,7 @@ public class testFastMapYL extends testFastMapBase
 //        Page_MainBoard.Inst.ClickCenter();
         //testFastMapBase.setClassUp("zhanglingling03655","036550");
        //testFastMapBase.setClassUp("duxuejun01540","015400");
-        testFastMapBase.setClassUp("1","1");
+        testFastMapBase.setClassUp();
         //testFastMapBase.setClassUp("wukunyu02074","wy0207402815");
     }
 

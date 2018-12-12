@@ -111,6 +111,11 @@ public class testadapter
     {
         UiObject2 obj = mDevice.wait(Until.findObject(By.text(text)), 5000);
         obj.click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void ClickByText(String text, int time)
@@ -535,5 +540,10 @@ public class testadapter
         UiObject2 obj2 = mDevice.wait(Until.findObject(By.res(packageName, upperId)), 500);
         List<UiObject2> lst = obj2.findObjects(By.clazz(className));
         return  lst;
+    }
+
+    public static String GetPackageName()
+    {
+        return packageName;
     }
 }

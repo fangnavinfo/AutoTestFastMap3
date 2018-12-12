@@ -67,6 +67,7 @@ public class testFastMapBase
     @BeforeClass
     public static void setClassUp() throws Exception
     {
+        setClassUp(false);
         testadapter.ClearCap();
     }
 
@@ -76,14 +77,10 @@ public class testFastMapBase
 
     }
 
-    protected  static void setClassUp(String userName, String passWord) throws Exception
-    {
-        setClassUp(userName, passWord, false);
-    }
-    protected  static void setClassUpByLicenceCheck(String userName, String passWord, String licence) throws Exception
+    protected  static void setClassUpByLicenceCheck(String licence) throws Exception
     {
         testFastMapBase.licence = licence;
-        setClassUp(userName, passWord, false);
+        setClassUp(false);
         testFastMapBase.licence = "";
     }
     protected  static void ClearData() throws Exception {
@@ -95,10 +92,16 @@ public class testFastMapBase
         method.invoke(null);
     }
 
-    protected  static void setClassUp(String userName, String passWord, boolean isHmWorking) throws Exception
+    protected  static void setClassUp(boolean isHmWorking) throws Exception
     {
-        testFastMapBase.userName = userName;
-        testFastMapBase.passWord = passWord;
+        if(testadapter.GetPackageName().contains("mbl")) {
+            testFastMapBase.userName = "1";
+            testFastMapBase.passWord = "1";
+        }else{
+            testFastMapBase.userName = "collector2";
+            testFastMapBase.passWord = "123456";
+        }
+
         testFastMapBase.isHmWorking = isHmWorking;
 
         testadapter.ReStartApp();
