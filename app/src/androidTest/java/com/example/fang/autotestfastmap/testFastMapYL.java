@@ -12550,12 +12550,12 @@ public class testFastMapYL extends testFastMapBase
     {//poi父子关系 上传两个POI 删除数据库 下载子
         String[][] attrib2 = {{Page_POI.NAME, "级酒店"},
                 {Page_POI.SELECT_TYPE, "星级酒店"}};
-        String infoFid = AddPOI(attrib2, "116.40728", "39.95918");
+        String infoFid = AddPOI(attrib2, "116.40728", "39.95918","捕捉点位新增");
 
         String[][] attrib1 = {{Page_POI.NAME, "餐馆TES"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.POI_FATHER,"级酒店"}};
-        AddPOI(attrib1, "116.40528", "39.95918");
+        AddPOI(attrib1, "116.40528", "39.95918","捕捉点位新增");
 
 
         synchronize(Page_GridManager.POI_UPDATE);
