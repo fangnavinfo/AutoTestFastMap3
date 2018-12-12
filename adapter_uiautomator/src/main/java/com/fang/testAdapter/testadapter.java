@@ -491,7 +491,7 @@ public class testadapter
             for (int i=0; i<array.length; i++)
             {
                 //com.fastmap.hd
-                if (array[i].contains("package:com.fastmap.hd.mbl"))
+                if (array[i].contains("package:com.fastmap.hd"))
                 {
                     packageName = array[i].substring("package:".length());
                 }
