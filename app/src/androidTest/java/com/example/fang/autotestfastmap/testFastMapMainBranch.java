@@ -61,7 +61,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI：充电站添加框选子功能
     @Test
-    public void test00123_7_poi_charge_father_check() throws Exception {
+    public void test001_7_poi_charge_father_check() throws Exception {
 
         //创建充电站
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -155,7 +155,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI：充电站添加框选子功能
     @Test
-    public void test00123_8_poi_charge_father_check() throws Exception {
+    public void test001_8_poi_charge_father_check() throws Exception {
 
         //创建充电站
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
@@ -222,7 +222,7 @@ public class testFastMapMainBranch extends testFastMapBase {
     }
 
     @Test
-    public void test001_1_info_search_check() throws Exception {
+    public void test002_1_info_search_check() throws Exception {
 
         // 上报情报
         Thread.sleep(1000);
@@ -275,7 +275,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI地址录入方式优化
     @Test
-    public void test00132_1_pas_input_update_check() throws Exception {
+    public void test003_1_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -304,7 +304,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI地址录入方式优化
     @Test
-    public void test00132_2_pas_input_update_check() throws Exception {
+    public void test003_2_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -332,7 +332,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI地址录入方式优化
     @Test
-    public void test00132_3_pas_input_update_check() throws Exception {
+    public void test003_3_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -359,7 +359,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI地址录入方式优化
     @Test
-    public void test00132_4_pas_input_update_check() throws Exception {
+    public void test003_4_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -387,7 +387,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI地址录入方式优化
     @Test
-    public void test00132_5_pas_input_update_check() throws Exception {
+    public void test003_5_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -416,7 +416,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI地址录入方式优化
     @Test
-    public void test00132_6_pas_input_update_check() throws Exception {
+    public void test003_6_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -445,7 +445,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     // POI地址录入方式优化
     @Test
-    public void test00132_7_pas_input_update_check() throws Exception {
+    public void test003_7_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -472,7 +472,7 @@ public class testFastMapMainBranch extends testFastMapBase {
     }
 
     @Test
-    public void test00132_8_pas_input_update_check() throws Exception {
+    public void test003_8_pas_input_update_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
 
         Thread.sleep(2000);
@@ -500,7 +500,7 @@ public class testFastMapMainBranch extends testFastMapBase {
 
     //精细化开关优化
     @Test
-    public void test002_1_layer_check() throws Exception {
+    public void test004_1_layer_check() throws Exception {
         // 创建点门牌
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
 
@@ -537,7 +537,7 @@ public class testFastMapMainBranch extends testFastMapBase {
     }
 
     @Test
-    public void test002_2_layer_check() throws Exception {
+    public void test004_2_layer_check() throws Exception {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FUNCTIONAL_SURFACE);
         Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2-100,testadapter.getDisplayHeight()/2-100));
         Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2-100,testadapter.getDisplayHeight()/2+100));

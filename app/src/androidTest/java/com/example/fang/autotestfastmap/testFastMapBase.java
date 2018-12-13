@@ -983,6 +983,7 @@ public class testFastMapBase
     	Page_MainBoard.Inst.Click(point);
 
         Page_ElecEye.Inst.Click(Page_ElecEye.EYE_OVERSPEED);
+        Page_MainBoard.Inst.Drag(1800, 1000, 1800, 200, 10);
         Page_ElecEye.Inst.SetSpeed("40");
         Page_ElecEye.Inst.Click(Page_ElecEye.SAVE);
     }

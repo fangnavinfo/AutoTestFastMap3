@@ -59,11 +59,7 @@ public class testFastMapMonthBranch extends testFastMapBase {
         //super.setAfter();
         CPUMonitor.Assert();
     }
-    
-    @Test
-    public void test003() throws Exception {
-        assertEquals(3, 3);
-    }
+
 
     // POI：增加照片类型（月基线需求）
     @Test

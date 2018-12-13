@@ -115,7 +115,7 @@ public class Page_ElecEye extends Page_Base_Tips
     @FindResource(clazz="android.widget.ScrollView")
     public static String SCROLL;
 
-    @FindResource(clazz="android.widget.CheckBox", Text="卡车", ios_name="运输卡车")
+    @FindResource(clazz="android.widget.CheckBox", Text="运输卡车", ios_name="运输卡车")
     public static String TRUCK;
 
     @FindResource(Id="electronic_eye_et_speed_limit_number", ios_name="eleceye_valueLabel")
