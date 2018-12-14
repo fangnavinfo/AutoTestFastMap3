@@ -328,7 +328,7 @@ public class FastMapPage
 
     public final static boolean IS_OS_TEST = false;
 
-    private Field GetField(String findRes) throws NoSuchFieldException
+    public Field GetField(String findRes) throws NoSuchFieldException
     {
         try
         {

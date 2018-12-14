@@ -60,6 +60,11 @@ public class testadapter
                 }
 
                 obj.click();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
             catch(StaleObjectException e)
@@ -540,6 +545,12 @@ public class testadapter
         UiObject2 obj2 = mDevice.wait(Until.findObject(By.res(packageName, upperId)), 500);
         List<UiObject2> lst = obj2.findObjects(By.clazz(className));
         return  lst;
+    }
+
+    public static UiObject2 findObjectById(String resourceId)
+    {
+        UiObject2 obj2 = mDevice.wait(Until.findObject(By.res(packageName, resourceId)), 3000);
+        return  obj2;
     }
 
     public static String GetPackageName()

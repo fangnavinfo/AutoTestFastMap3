@@ -1,5 +1,8 @@
 package com.example.fang.autotestfastmap;
 
+import android.support.test.uiautomator.UiObject2;
+
+import com.fang.testAdapter.FindResource;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_Confirm;
@@ -31,6 +34,7 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
@@ -1140,10 +1144,18 @@ public class testFastMapBase
         Page_GridManager.Inst.Click(syncType); //情报数据
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(Page_GridManager.SYNCHRONOUS_BUTTON); //同步
-        Thread.sleep(1000);
-        Page_GridManager.Inst.SetValue(Page_GridManager.INFO_ID, "123456");//工单号
-        Page_GridManager.Inst.Click(Page_GridManager.OK);
-        Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+
+        String infoId = Page_GridManager.Inst.GetField(Page_GridManager.INFO_ID).getAnnotation(FindResource.class).Id();
+
+        UiObject2 uiObject2 = testadapter.findObjectById(infoId);
+
+        if(uiObject2 != null) {
+            //月基线
+            Page_GridManager.Inst.SetValue(Page_GridManager.INFO_ID, "123456");//工单号
+            Page_GridManager.Inst.Click(Page_GridManager.OK);
+            Page_GridManager.Inst.Click(Page_GridManager.NO_TASK_CONFIRM);
+        }
+
         Thread.sleep(1000);
         Page_GridManager.Inst.Click(Page_GridManager.STATIS_CONFIRM);
 
