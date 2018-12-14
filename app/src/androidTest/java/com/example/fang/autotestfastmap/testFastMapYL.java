@@ -450,10 +450,14 @@ public class testFastMapYL extends testFastMapBase
 
         //Page_POI.Inst.ScrollClick(Page_POI.NO_CHARGE_GUN);
         //Page_POI.Inst.Click(Page_POI.NO_CHARGE_GUN);
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
         Page_POI.Inst.ClickbyText("无");
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_POI.Inst.Click(Page_POI.AC_3);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
-        synchronize(Page_GridManager.POI_UPDATE);
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
         GotoMyData(Page_MyData.POI_TYPE);
         Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
         assertFalse(Page_POI.Inst.isExistByName(Page_POI.SELECT_TYPE));
