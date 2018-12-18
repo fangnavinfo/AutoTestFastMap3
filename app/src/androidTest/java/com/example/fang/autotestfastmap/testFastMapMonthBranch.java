@@ -7,9 +7,12 @@ import com.fang.testAdapter.Sqlitetools;
 import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_FunctionalArea;
 import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_Light;
+import com.fastmap.ui.Page_Line_PAS;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MyData;
+import com.fastmap.ui.Page_NoParking;
 import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
@@ -301,6 +304,308 @@ public class testFastMapMonthBranch extends testFastMapBase {
         assertEquals(time.isEmpty(),false);
     }
 
+    // 线门牌检查需求 点门牌+点门牌
+    @Test
+    public void test00144_1_line_pas_check() throws Exception {
+        // 创建点门牌1
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "P1");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "A1");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ１Ａ１");
+        String fid1 = Page_PAS.Inst.GetValue(Page_PAS.FID);
+        fid1 = fid1.replace("fid:","").replace("fid：","");
+        Page_PAS.Inst.Click(Page_PAS.CANCEL);
+        ExitMyData();
+
+        Page_MainBoard.Inst.Drag(600, 600, 400, 600, 10);
+
+        // 创建点门牌2
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "P2");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "A2");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ２Ａ２");
+        String fid2 = Page_PAS.Inst.GetValue(Page_PAS.FID);
+        fid2 = fid2.replace("fid:","").replace("fid：","");
+        Page_PAS.Inst.Click(Page_PAS.CANCEL);
+        ExitMyData();
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //建立起点
+        obj = lst.get(1);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+        //建立终点
+        obj = lst.get(9);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2-200, testadapter.getDisplayHeight()/2));
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("线门牌");
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid1));
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid2));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ｐ１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ｐ２"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ａ１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ａ２"));
+
+
+    }
+
+    // 线门牌检查需求
+    @Test
+    public void test00144_2_line_pas_check() throws Exception {
+        // 创建点门牌1
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "P1");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "A1");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ１Ａ１");
+        String fid1 = Page_PAS.Inst.GetValue(Page_PAS.FID);
+        fid1 = fid1.replace("fid:","").replace("fid：","");
+        Page_PAS.Inst.Click(Page_PAS.CANCEL);
+        ExitMyData();
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //建立起点
+        obj = lst.get(1);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("线门牌");
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid1));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ｐ１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ａ１"));
+    }
+
+    // 线门牌检查需求
+    @Test
+    public void test00144_3_line_pas_check() throws Exception {
+        // 创建点门牌1
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "P1");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "A1");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ１Ａ１");
+        String fid1 = Page_PAS.Inst.GetValue(Page_PAS.FID);
+        fid1 = fid1.replace("fid:","").replace("fid：","");
+        Page_PAS.Inst.Click(Page_PAS.CANCEL);
+        ExitMyData();
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //建立终点
+        obj = lst.get(9);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("线门牌");
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid1));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ｐ１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ａ１"));
+    }
+
+    // 线门牌检查需求 点门牌+POI
+    @Test
+    public void test00144_4_line_pas_check() throws Exception {
+        // 创建点门牌1
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "P1");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "A1");
+        Page_PAS.Inst.Click(Page_PAS.ODD);
+        Page_PAS.Inst.Click(Page_PAS.ROAD_TYPE);
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ１Ａ１");
+        String fid1 = Page_PAS.Inst.GetValue(Page_PAS.FID);
+        fid1 = fid1.replace("fid:","").replace("fid：","");
+        Page_PAS.Inst.Click(Page_PAS.CANCEL);
+        ExitMyData();
+
+        Page_MainBoard.Inst.Drag(600, 600, 400, 600, 10);
+
+        // 创建POI2
+        String[][] attrib0 = {{Page_POI.NAME, "中餐馆0"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},};
+        AddPOI(attrib0, "捕捉点位新增");
+
+        String[][] attrib = {{Page_POI.NAME, "中餐馆1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD1"}};
+        AddPOI(attrib, "捕捉点位新增");
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆2"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD2"}};
+        String fid2 = AddPOI(attrib2, "捕捉点位新增");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //建立起点
+        obj = lst.get(1);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+        Page_MainBoard.Inst.ClickByText("中餐馆２");
+        Page_MainBoard.Inst.ClickByText("确定");
+
+
+
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+        //建立终点
+        obj = lst.get(9);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2-200, testadapter.getDisplayHeight()/2));
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("线门牌");
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid1));
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid2));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ｐ１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆２"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("Ａ１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ２"));
+
+
+    }
+
+    // 线门牌检查需求 POI+POI
+    @Test
+    public void test00144_5_line_pas_check() throws Exception {
+        // 创建点门牌1
+        String[][] attrib0 = {{Page_POI.NAME, "中餐馆1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD1"}};
+        String fid1 = AddPOI(attrib0, "捕捉点位新增");
+
+        Page_MainBoard.Inst.Drag(600, 600, 400, 600, 10);
+
+        // 创建POI2
+        String[][] attrib = {{Page_POI.NAME, "中餐馆0"},
+                {Page_POI.SELECT_TYPE, "中餐馆"}};
+        AddPOI(attrib, "捕捉点位新增");
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆2"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD2"}};
+        String fid2 = AddPOI(attrib2, "捕捉点位新增");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //建立起点
+        obj = lst.get(1);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+
+
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+        //建立终点
+        obj = lst.get(9);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2-200, testadapter.getDisplayHeight()/2));
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("线门牌");
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid1));
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid2));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆２"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ２"));
+
+
+    }
 
     /////////以下注释用例均为月基线功能用例开始///////////////////
     //品牌

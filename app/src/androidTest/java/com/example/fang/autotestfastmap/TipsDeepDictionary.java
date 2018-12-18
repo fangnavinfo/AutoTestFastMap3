@@ -540,4 +540,9 @@ public class TipsDeepDictionary
      * 框选点门牌
      */
     public final static String PAS_SELECT = "9005";
+
+    /**
+     * 线门牌
+     */
+    public final static String LINE_PAS = "2401";
 }
