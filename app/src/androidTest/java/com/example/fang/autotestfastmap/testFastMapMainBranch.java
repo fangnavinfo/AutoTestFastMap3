@@ -4,7 +4,9 @@ import com.fang.testAdapter.Point;
 import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_FunctionalArea;
 import com.fastmap.ui.Page_InfoLine;
+import com.fastmap.ui.Page_InfoPoint;
 import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
@@ -12,6 +14,8 @@ import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
 import com.fastmap.ui.Page_Search;
 import com.fastmap.ui.Page_SearchResultList;
+import com.fastmap.ui.Page_Set;
+import com.fastmap.ui.Page_TruckForbidden;
 import com.fastmap.ui.Page_TrueSence;
 
 import org.junit.After;
@@ -569,5 +573,132 @@ public class testFastMapMainBranch extends testFastMapBase {
         Page_MainBoard.Inst.Click(Page_MainBoard.MODE);
         Page_MainBoard.Inst.Click(Page_MainBoard.REFINEMENT);
         Page_MainBoard.Inst.Click(Page_MainBoard.CLOSE);
+    }
+
+    //卡车交限，卡车类型验证
+    @Test
+    public void test005_1_truck_forbidden_kind_check() throws Exception {
+        //交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_1);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片一"));
+
+
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_SAMLL));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_MIDDLE));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_BIG));
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ADD_VIEW);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ADD_VIEW);
+
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片二"));
+
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_SAMLL));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_MIDDLE));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_BIG));
+
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        assertTrue(Page_TruckForbidden.Inst.isExistByName("属性卡片三"));
+
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_SAMLL));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_MIDDLE));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_BIG));
+    }
+
+    //卡车交限，卡车类型验证
+    @Test
+    public void test005_2_truck_forbidden_kind_check() throws Exception {
+        //交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_1);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.TRUCK_MIDDLE);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.TRUCK_BIG);
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车交限");
+
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 800, 100);
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_SAMLL));
+        assertTrue(!Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_MIDDLE));
+        assertTrue(!Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_BIG));
+
+    }
+
+    //卡车交限，卡车类型验证
+    @Test
+    public void test005_3_truck_forbidden_kind_check() throws Exception {
+        //交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.ICON_5);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.TRUCK_SAMLL);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.TRUCK_BIG);
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("卡车交限");
+
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 800, 100);
+        assertTrue(!Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_SAMLL));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_MIDDLE));
+        assertTrue(!Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_BIG));
+
+    }
+
+    //卡车交限，卡车类型验证
+    @Test
+    public void test005_4_truck_forbidden_kind_check() throws Exception {
+        //交限
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUCK_TRAFFIC_FORBIDDEN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.NO_PULL_INTO);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.TRUCK_SAMLL);
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.TRUCK_MIDDLE);
+
+        Page_TruckForbidden.Inst.Click(Page_TruckForbidden.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("禁止卡车驶入");
+
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 800, 100);
+        assertTrue(!Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_SAMLL));
+        assertTrue(!Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_MIDDLE));
+        assertTrue(Page_TruckForbidden.Inst.isChecked(Page_TruckForbidden.TRUCK_BIG));
+
+    }
+
+    //产品全貌照片设置项默认开启
+    @Test
+    public void test006_picture_switch_check() throws Exception {
+        //产品全貌开关设置
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.ScrollClick(Page_MainMenu.SET);
+
+        assertTrue(Page_Set.Inst.isChecked(Page_Set.FULLVIEW));
+
+        Page_Set.Inst.Click(Page_Set.BACK);
+
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        assertTrue(Page_POI.Inst.isExistByName("产品全貌"));
+
     }
 }

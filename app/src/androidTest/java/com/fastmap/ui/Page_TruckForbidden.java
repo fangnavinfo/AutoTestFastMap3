@@ -36,9 +36,21 @@ public class Page_TruckForbidden extends Page_Base_Tips
     @FindResource(Id="delete_view_button")
     public static String DELETE_VIEW;
 
+    //轻微型
+    @FindResource(Id="fm_truck_small")
+    public static String TRUCK_SAMLL;
+
+    //中型
+    @FindResource(Id="fm_truck_middle")
+    public static String TRUCK_MIDDLE;
+
+    //重型
+    @FindResource(Id="fm_truck_big")
+    public static String TRUCK_BIG;
+
     @FindResource(Id="truck_traffic_forbidden_no_pull_into")
     public static String NO_PULL_INTO;
-    
+
     public static Page_TruckForbidden Inst;
     static
     {
