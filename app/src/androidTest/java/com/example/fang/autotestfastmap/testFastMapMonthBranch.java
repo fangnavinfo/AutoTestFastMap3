@@ -11,6 +11,7 @@ import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_Light;
 import com.fastmap.ui.Page_Line_PAS;
 import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NoParking;
 import com.fastmap.ui.Page_PAS;
@@ -603,6 +604,82 @@ public class testFastMapMonthBranch extends testFastMapBase {
         assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ１"));
         assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆２"));
         assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ２"));
+
+
+    }
+
+    // 线门牌检查需求 POI
+    @Test
+    public void test00144_6_line_pas_check() throws Exception {
+        // 创建点门牌1
+        String[][] attrib0 = {{Page_POI.NAME, "中餐馆1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD1"}};
+        String fid1 = AddPOI(attrib0, "捕捉点位新增");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //建立起点
+        obj = lst.get(1);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+
+
+
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("线门牌");
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid1));
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ１"));
+
+
+    }
+
+    // 线门牌检查需求 POI
+    @Test
+    public void test00144_7_line_pas_check() throws Exception {
+        // 创建点门牌1
+        String[][] attrib0 = {{Page_POI.NAME, "中餐馆1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD1"}};
+        String fid1 = AddPOI(attrib0, "捕捉点位新增");
+
+
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+
+        UiObject2 obj;
+
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+        //建立终点
+        obj = lst.get(9);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2, testadapter.getDisplayHeight()/2));
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("线门牌");
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName(fid1));
+
+        assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆１"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ１"));
 
 
     }
@@ -1702,6 +1779,147 @@ public class testFastMapMonthBranch extends testFastMapBase {
 
 
 //////////////月基线功能用例结束////////////////////////////////
+    //起点或终点关联的要素的地址为空（点门牌的dprName和dpName任一为空；POI的address字段为空），需要报log
+    @Test
+    public void test_FM_2401_6_3_check() throws Exception {
+        test00144_6_line_pas_check();
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("中餐馆１");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS,"");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
+
+
+        AssertIndoorCheck("共存关系检查", "低", "FM-2401-6-3", "线门牌的关联要素的地址为空，请补充关联要素的地址。", "忽略");
+    }
+
+    //线门牌tips中关联的起终点要素，只能作为当前线门牌tips的起终点。（即：线门牌关联的要素只能在线门牌tips中出现一次）否则报LOG
+    @Test
+    public void test_FM_2401_8_2_check() throws Exception {
+        test00144_6_line_pas_check();
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        ExitMyData();
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //建立起点
+        obj = lst.get(1);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+
+        AssertIndoorCheck("配对Tips检查", "中", "FM-2401-8-2", "线门牌起点或终点重复配对（重复的tips需要通过log定位）", "");
+    }
+
+    //线门牌tips中的起终点要素，如果关联的是点门牌，点门牌类型（type）必须是地址门牌，不能是楼门门牌和楼栋门牌
+    @Test
+    public void test_FM_2401_2_1_check_1() throws Exception {
+        test00144_2_line_pas_check();
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ１Ａ１");
+        Page_PAS.Inst.Click(Page_PAS.DOOR_PAS);
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-2401-2-1", "线门牌起终点关联的点门牌类型必须是地址门牌", "");
+    }
+
+    //线门牌tips中的起终点要素，如果关联的是点门牌，点门牌类型（type）必须是地址门牌，不能是楼门门牌和楼栋门牌
+    @Test
+    public void test_FM_2401_2_1_check_2() throws Exception {
+        test00144_2_line_pas_check();
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ１Ａ１");
+        Page_PAS.Inst.Click(Page_PAS.BUILDING_PAS);
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-2401-2-1", "线门牌起终点关联的点门牌类型必须是地址门牌", "");
+    }
+
+    //线门牌tips中的起终点关联要素，如果都是点门牌且点门牌的dprName非空时，必须相同
+    @Test
+    public void test_FM_2401_2_2_check() throws Exception {
+        test00144_1_line_pas_check();
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-2401-2-2", "线门牌起终点关联的点门牌的dprName分别为“*”和“*”，道路名称不一致，请确认", "");
+    }
+
+    //线门牌tips中的起终点关联要素，如果都是POI且address非空时，除去符号和数字，仅保留汉字+字母（不区分全半角+大小写）后的内容，必须相同。 
+    @Test
+    public void test_FM_2401_2_3_check_1() throws Exception {
+        test00144_5_line_pas_check();
+
+        AssertIndoorCheck("Tips内容值域检查", "低", "FM-2401-2-3", "线门牌起终点关联的POI的地址分别为“*”和“*”，地址不一致，请确认", "忽略");
+    }
+
+    //线门牌tips中的起终点关联要素，如果都是POI且address非空时，除去符号和数字，仅保留汉字+字母（不区分全半角+大小写）后的内容，必须相同。 
+    @Test
+    public void test_FM_2401_2_3_check_2() throws Exception {
+        test00144_5_line_pas_check();
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("中餐馆２");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, " Add1 ");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        ExitMyData();
+
+        AssertIndoorCheck("", "", "", "", "");
+    }
+
+    //1.线门牌tips中的起终点关联的要素，如果存在没有关联对象时，报log1；
+    @Test
+    public void test_FM_2401_2_4_check_1() throws Exception {
+        test00144_2_line_pas_check();
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        ExitMyData();
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-2401-2-4", "线门牌tips中的起终点关联的要素不能为空，请补充","");
+    }
+
+    //2.线门牌tips中的起终点关联的POI或点门牌必须在本地存在，否则报log2。
+    @Test
+    public void test_FM_2401_2_4_check_2() throws Exception {
+        test00144_2_line_pas_check();
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        ExitMyData();
+
+        GotoMyData(Page_MyData.PAS_TYPE);
+        Thread.sleep(1000);
+        Page_MyData.Inst.SelectData("Ｐ１Ａ１");
+        Page_PAS.Inst.Click(Page_PAS.DELETE);
+        Page_PAS.Inst.ClickByText("确认");
+        ExitMyData();
+
+        AssertIndoorCheck("Tips内容值域检查", "中", "FM-2401-2-4", "线门牌tips起终点要素关联的POI或点门牌不存在，请确认","");
+    }
 
 
 }
