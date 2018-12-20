@@ -1964,7 +1964,7 @@ public class testFastMapCommon extends testFastMapBase {
         Page_MainBoard.Inst.Click(new Point(1100, 750));
         Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
     }
-
+/*
     // POI：增加Tag子表
     @Test
     public void test00128_1_poi_category_check() throws Exception {
@@ -2068,7 +2068,7 @@ public class testFastMapCommon extends testFastMapBase {
         }
 
     }
-
+*/
     //图形专项作业
     @Test
     public void test00129_1_indoor_data_check() throws Exception {
@@ -3170,76 +3170,6 @@ public class testFastMapCommon extends testFastMapBase {
         Page_POI.Inst.Click(Page_POI.SAVE);
     }
 
-    @Test
-    public void test998_00211_poi_add() throws Exception
-    {
-        //卡车标识原则
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
-        Thread.sleep(3000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ１");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "收费站");
-        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
-        assertEquals("卡车+小汽车",strTruck);
-        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
-        Page_POI.Inst.Click(Page_POI.SAVE);
-        strFid = strFid.replace("fid:", "");
-        strFid = strFid.replace("fid : ", "");
-        Sqlitetools.RefreshData();
-        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
-        assertSame(2,truck);
-    }
-
-    @Test
-    public void test998_00213_poi_add() throws Exception
-    {
-        //卡车标识原则 加油站  柴油
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
-        Thread.sleep(3000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ３");
-        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "加油站");
-        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
-        assertEquals("非卡车",strTruck);
-        Page_POI.Inst.Drag(1813,1272,1813,412,5);
-        Page_POI.Inst.Drag(1813,1272,1813,412,5);
-        Page_POI.Inst.Click(Page_POI.DIESEL);//柴油
-
-        Page_POI.Inst.Click(Page_POI.SAVE);
-        strFid = strFid.replace("fid:", "");
-        strFid = strFid.replace("fid : ", "");
-        Sqlitetools.RefreshData();
-        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
-        assertSame(2,truck);
-    }
-
-    @Test
-    public void test998_00214_poi_add() throws Exception
-    {
-        //卡车标识原则 加油站  柴油
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
-        Thread.sleep(3000);
-        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
-
-        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ４");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "厂家一览表外汽车零售及修理");
-        Page_POI.Inst.SetValue(Page_POI.SELECT_BRAND,"一汽解放");
-        String strTruck = Page_POI.Inst.GetValue(Page_POI.POI_TRUCK);
-        assertEquals("仅卡车",strTruck);
-        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
-        Page_POI.Inst.Click(Page_POI.SAVE);
-        strFid = strFid.replace("fid:", "");
-        strFid = strFid.replace("fid : ", "");
-        Sqlitetools.RefreshData();
-        int truck = (int)Sqlitetools.GetPoisDataByRowKey(strFid,"truck");
-        assertSame(1,truck);
-    }
 
     @Test
     public void test998_00215_poi_add() throws Exception
