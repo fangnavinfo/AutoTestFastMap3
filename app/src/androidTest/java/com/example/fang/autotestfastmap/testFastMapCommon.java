@@ -3141,34 +3141,6 @@ public class testFastMapCommon extends testFastMapBase {
         CheckMyData(Page_MyData.POI_TYPE, "彩票投注站");
     }
 
-    @Test
-    public void test998_00210_poi_relationship() throws Exception
-    {
-        String[][] attrib1 = {{Page_POI.NAME, "大厦ＴＥＳＴ１"},
-                {Page_POI.SELECT_TYPE, "大厦/写字楼"}};
-        String infoFid =AddPOI(attrib1,"捕捉点位新增");
-
-
-        String[][] attrib2 = {{Page_POI.NAME, "中餐馆ＴＥＳＴ１"},
-                {Page_POI.SELECT_TYPE, "中餐馆"},
-                {Page_POI.POI_FATHER, "大厦ＴＥＳＴ１"}};
-
-        AddPOI(attrib2,"捕捉点位新增");
-
-        Thread.sleep(1000);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MultiList.Inst.ClickbyText("中餐馆ＴＥＳＴ１");
-        Thread.sleep(2000);
-        Page_POI.Inst.Click(Page_POI.TOTAL_NAME);
-        String temp = Page_POI.Inst.GetValue(Page_POI.NAME);
-        assertEquals(temp, "大厦ＴＥＳＴ１-中餐馆ＴＥＳＴ１");
-        Thread.sleep(3000);
-        Page_POI.Inst.Click(Page_POI.TOTAL_NAME);
-        temp = Page_POI.Inst.GetValue(Page_POI.NAME);
-        assertEquals(temp, "中餐馆ＴＥＳＴ１");
-
-        Page_POI.Inst.Click(Page_POI.SAVE);
-    }
 
 
     @Test
