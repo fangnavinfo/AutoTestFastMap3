@@ -6339,7 +6339,8 @@ public class testFastMapCommon extends testFastMapBase {
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ９");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
 
-        Page_POI.Inst.ScrollClick(Page_POI.PERSION_GATE);
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_POI.Inst.Click(Page_POI.PERSION_GATE);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         AssertIndoorCheck("大门","中","FM-1104-6-7","","");
@@ -6365,7 +6366,8 @@ public class testFastMapCommon extends testFastMapBase {
         Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ９");
         Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
 
-        Page_POI.Inst.ScrollClick(Page_POI.PERSION_GATE);
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_POI.Inst.Click(Page_POI.PERSION_GATE);
         Page_POI.Inst.Click(Page_POI.SAVE);
 
         AssertIndoorCheck("大门","中","FM-1104-6-7","","不能忽视");
