@@ -7783,76 +7783,76 @@ public class testFastMapCommon extends testFastMapBase {
         CheckMyData(Page_MyData.TIPS_TYPE, "里程桩");
     }
 
-    @Test @IMPORTANT
-    public void test998_01703_MilePost_add() throws Exception
-    {
-        if(FastMapPage.IS_OS_TEST)
-        {
-            return;
-        }
-
-        String[] LOC_K8 = {"116.41222", "39.96192"};
-        SearchLocation(LOC_K8);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
-        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Thread.sleep(1000);
-        Page_MainBoard.Inst.ClickCenter();
-        Thread.sleep(1000);
-        Page_MilePost.Inst.Click(Page_MilePost.ROADNAME);
-        Thread.sleep(1000);
-        Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
-        Thread.sleep(1000);
-        Page_MilePost.Inst.Click(Page_MilePost.FIVE);
-        Thread.sleep(1000);
-        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
-        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-
-        SearchLocation(LOC_K8);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
-        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Page_MilePost.Inst.Drag(400,200,300,200,5);
-        Thread.sleep(2000);
-
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MilePost.Inst.Click(Page_MilePost.INC);
-        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
-        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-
-        SearchLocation(LOC_K8);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
-        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Page_MilePost.Inst.Drag(400,200,100,200,5);
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.ClickCenter();
-        String str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
-        assertTrue(str.equals("7"));
-        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
-        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-
-        SearchLocation(LOC_K8);
-        Page_MilePost.Inst.ClickCenter();
-        //Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Thread.sleep(2000);
-        //Page_MilePost.Inst.ScrollClick(Page_MilePost.MILE_NO);
-        Page_MilePost.Inst.Drag(1743,846,1743,300,5);
-        Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
-        Page_MilePost.Inst.Click(Page_MilePost.ZERO);
-        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-
-        SearchLocation(LOC_K8);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
-        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
-        Page_MilePost.Inst.Drag(400,200,10,200,5);
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.ClickCenter();
-        str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
-
-        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
-
-        assertTrue((str.equals("8")));
-
-        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
-    }
+//    @Test @IMPORTANT
+//    public void test998_01703_MilePost_add() throws Exception
+//    {
+//        if(FastMapPage.IS_OS_TEST)
+//        {
+//            return;
+//        }
+//
+//        String[] LOC_K8 = {"116.41222", "39.96192"};
+//        SearchLocation(LOC_K8);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+//        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+//        Thread.sleep(1000);
+//        Page_MainBoard.Inst.ClickCenter();
+//        Thread.sleep(1000);
+//        Page_MilePost.Inst.Click(Page_MilePost.ROADNAME);
+//        Thread.sleep(1000);
+//        Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
+//        Thread.sleep(1000);
+//        Page_MilePost.Inst.Click(Page_MilePost.FIVE);
+//        Thread.sleep(1000);
+//        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
+//        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+//
+//        SearchLocation(LOC_K8);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+//        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+//        Page_MilePost.Inst.Drag(400,200,300,200,5);
+//        Thread.sleep(2000);
+//
+//        Page_MainBoard.Inst.ClickCenter();
+//        Page_MilePost.Inst.Click(Page_MilePost.INC);
+//        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
+//        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+//
+//        SearchLocation(LOC_K8);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+//        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+//        Page_MilePost.Inst.Drag(400,200,100,200,5);
+//        Thread.sleep(2000);
+//        Page_MainBoard.Inst.ClickCenter();
+//        String str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
+//        assertTrue(str.equals("7"));
+//        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
+//        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+//
+//        SearchLocation(LOC_K8);
+//        Page_MilePost.Inst.ClickCenter();
+//        //Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+//        Thread.sleep(2000);
+//        //Page_MilePost.Inst.ScrollClick(Page_MilePost.MILE_NO);
+//        Page_MilePost.Inst.Drag(1743,846,1743,300,5);
+//        Page_MilePost.Inst.Click(Page_MilePost.MILE_EDIT);
+//        Page_MilePost.Inst.Click(Page_MilePost.ZERO);
+//        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+//
+//        SearchLocation(LOC_K8);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);
+//        Page_MilePost.Inst.Click(Page_MilePost.MILEPOST);
+//        Page_MilePost.Inst.Drag(400,200,10,200,5);
+//        Thread.sleep(2000);
+//        Page_MainBoard.Inst.ClickCenter();
+//        str = Page_MilePost.Inst.GetValue(Page_MilePost.MILE_EDIT);
+//
+//        Page_MilePost.Inst.SetValue(Page_MilePost.MILE_NO, "G001");
+//
+//        assertTrue((str.equals("8")));
+//
+//        Page_MilePost.Inst.Click(Page_MilePost.SAVE);
+//    }
 
 
     @Test
@@ -8676,37 +8676,37 @@ public class testFastMapCommon extends testFastMapBase {
         assertSame(type, 1);
     }
 
-    @Test
-    public void test998_02210_speedlimitlane() throws Exception
-    {
-        if (FastMapPage.IS_OS_TEST)
-        {
-            return;
-        }
-
-        //点限速 关联 2测线还是 1link
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
-        Page_MainBoard.Inst.ClickCenter();
-        Page_MainBoard.Inst.Click(new Point(1038,200));
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEDESTRIAN_RD);
-        //Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
-        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
-        Thread.sleep(2000);
-        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
-        Page_MainBoard.Inst.ClickCenter();
-        Thread.sleep(2000);
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
-        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
-        GotoMyData(Page_MyData.TIPS_TYPE);
-        Page_MyData.Inst.ClickbyText("点限速");
-        Thread.sleep(2000);
-        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
-        Sqlitetools.RefreshData();
-        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
-        JSONObject jsonObject = new JSONObject(temp);
-        int type = jsonObject.getJSONObject("f").getInt("type");
-        assertSame(type, 2);
-    }
+//    @Test
+//    public void test998_02210_speedlimitlane() throws Exception
+//    {
+//        if (FastMapPage.IS_OS_TEST)
+//        {
+//            return;
+//        }
+//
+//        //点限速 关联 2测线还是 1link
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_TEST_LINE_10002);
+//        Page_MainBoard.Inst.ClickCenter();
+//        Page_MainBoard.Inst.Click(new Point(1038,200));
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.PEDESTRIAN_RD);
+//        //Page_SurveyLine.Inst.Click(Page_SurveyLine.LANE_NUM_1);
+//        Page_SurveyLine.Inst.Click(Page_SurveyLine.SAVE);
+//        Thread.sleep(2000);
+//        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SPEED_LIMIT_POINT);//只能通过点限速去点击车道限速
+//        Page_MainBoard.Inst.ClickCenter();
+//        Thread.sleep(2000);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.NUM40);
+//        Page_SpeedLimitLane.Inst.Click(Page_SpeedLimitLane.SAVE);
+//        GotoMyData(Page_MyData.TIPS_TYPE);
+//        Page_MyData.Inst.ClickbyText("点限速");
+//        Thread.sleep(2000);
+//        String rowkey = Page_SpeedLimitLane.Inst.GetRowKey();
+//        Sqlitetools.RefreshData();
+//        String temp = new String((byte[]) Sqlitetools.GetTipsDataByRowKey(rowkey, "deep"));
+//        JSONObject jsonObject = new JSONObject(temp);
+//        int type = jsonObject.getJSONObject("f").getInt("type");
+//        assertSame(type, 2);
+//    }
 
     @Test
     public void test998_02211_speedlimitlane() throws Exception
