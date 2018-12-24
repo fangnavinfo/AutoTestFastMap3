@@ -1342,7 +1342,7 @@ public class testFastMapBase
         Page_ErrorList.Inst.ClickbyText("查看详情");
 
         String txtErrMessage = Page_ErrorList.Inst.GetValue(Page_ErrorList.ERROR_CONTENT);
-        assertEquals(txtErrMessage, error);
+        assertEquals(txtErrMessage.replace("fid:","").replace("fid：",""), error.replace("fid:","").replace("fid：",""));
     }
 
     protected void SetConfFullView() throws InterruptedException, NoSuchFieldException, ClassNotFoundException

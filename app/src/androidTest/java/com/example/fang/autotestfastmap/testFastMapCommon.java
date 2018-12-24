@@ -12618,6 +12618,10 @@ public class testFastMapCommon extends testFastMapBase {
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.ClickbyText("车道变化点");
         Page_LaneChangePoint.Inst.Click(Page_LaneChangePoint.CANCEL);
+
+        if(Page_MainBoard.Inst.isExistByName("舍弃")){
+            Page_MyData.Inst.ClickbyText("舍弃");
+        }
         ExitMyData();
 
         GotoMyData(Page_MyData.TIPS_TYPE);
@@ -14227,7 +14231,7 @@ public class testFastMapCommon extends testFastMapBase {
         str = Page_POI.Inst.GetValuebyIndex(Page_POI.TEXTVIEW,5);
         assertEquals("公司",str);
         str = Page_POI.Inst.GetValuebyIndex(Page_POI.TEXTVIEW,7);
-        assertEquals("",str);
+        assertTrue("".equals(str) || "<无名称>".equals(str));
 //        str = Page_POI.Inst.GetItemValue(Page_POI.LISTCLASS,1,Page_POI.FAILNAME);
 //        assertEquals("公司",str);
 
