@@ -1,18 +1,25 @@
 package com.example.fang.autotestfastmap;
 
+import android.support.test.uiautomator.UiObject2;
+
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
 import com.fang.testAdapter.testadapter;
+import com.fastmap.ui.Page_ChangeLaneNotice;
+import com.fastmap.ui.Page_DirectionBoard;
 import com.fastmap.ui.Page_FunctionalArea;
 import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_InfoPoint;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
+import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
+import com.fastmap.ui.Page_RealSign;
+import com.fastmap.ui.Page_RoadNameSign;
 import com.fastmap.ui.Page_Search;
 import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Set;
@@ -26,6 +33,10 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import java.io.BufferedInputStream;
+import java.sql.Blob;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -774,4 +785,181 @@ public class testFastMapMainBranch extends testFastMapBase {
         assertTrue(Page_POI.Inst.isExistByName("产品全貌"));
 
     }
+
+    //道路名专题图
+    @Test
+    public void test007_road_name_check() throws Exception {
+        //产品全貌开关设置
+        Page_MainBoard.Inst.Click(Page_MainBoard.ADAS_MODE);
+
+        assertTrue(Page_POI.Inst.isExistByName("道路名"));
+
+    }
+
+    //底图号码来源验证
+    @Test
+    public void test008_1_road_name_check() throws Exception {
+        //方向看板
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DIRECTION_BOARD);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.COPY);
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.SAVE);
+
+        Page_MainBoard.Inst.Drag(100, 400, 100, 200, 10);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.DIRECTION_BOARD);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.PASTE);
+        Page_DirectionBoard.Inst.Click(Page_DirectionBoard.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        UiObject2 obj;
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("plrlv_mydata_item", "android.widget.TextView");
+        //第一个方向看板
+        obj = lst.get(1);
+        obj.click();
+        String rowkey1 = Page_DirectionBoard.Inst.GetRowKey();
+        byte[] blob1 = Sqlitetools.GetDeepDataByRowkey(rowkey1);
+        //第二个方向看板
+        obj = lst.get(3);
+        obj.click();
+        String rowkey2 = Page_DirectionBoard.Inst.GetRowKey();
+        byte[] blob2 = Sqlitetools.GetDeepDataByRowkey(rowkey2);
+
+        String blobString1 = new String(blob1,"GBK");
+        String blobString2 = new String(blob2,"GBK");
+
+        assertTrue(blobString1.contains("\"ptnSrc\":0"));
+        assertTrue(blobString2.contains("\"ptnSrc\":1"));
+
+    }
+
+    //底图号码来源验证
+    @Test
+    public void test008_2_road_name_check() throws Exception {
+        //Real Sign
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.REAL_SIGN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_RealSign.Inst.Click(Page_RealSign.COPY);
+        Page_RealSign.Inst.Click(Page_RealSign.SAVE);
+
+        Page_MainBoard.Inst.Drag(100, 400, 100, 200, 10);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.REAL_SIGN);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_RealSign.Inst.Click(Page_RealSign.PASTE);
+        Page_RealSign.Inst.Click(Page_RealSign.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        UiObject2 obj;
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("plrlv_mydata_item", "android.widget.TextView");
+        //第一个方向看板
+        obj = lst.get(1);
+        obj.click();
+        String rowkey1 = Page_RealSign.Inst.GetRowKey();
+        byte[] blob1 = Sqlitetools.GetDeepDataByRowkey(rowkey1);
+        //第二个方向看板
+        obj = lst.get(3);
+        obj.click();
+        String rowkey2 = Page_RealSign.Inst.GetRowKey();
+        byte[] blob2 = Sqlitetools.GetDeepDataByRowkey(rowkey2);
+
+        String blobString1 = new String(blob1,"GBK");
+        String blobString2 = new String(blob2,"GBK");
+
+        assertTrue(blobString1.contains("\"ptnSrc\":0"));
+        assertTrue(blobString2.contains("\"ptnSrc\":1"));
+
+    }
+
+    //底图号码来源验证
+    @Test
+    public void test008_3_road_name_check() throws Exception {
+        //路口实景图
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TrueSence.Inst.Click(Page_TrueSence.COPY);
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        Page_MainBoard.Inst.Drag(100, 400, 100, 200, 10);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_TrueSence.Inst.Click(Page_TrueSence.PASTE);
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        Sqlitetools.RefreshData();
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        UiObject2 obj;
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("plrlv_mydata_item", "android.widget.TextView");
+        //第一个方向看板
+        obj = lst.get(1);
+        obj.click();
+        String rowkey1 = Page_TrueSence.Inst.GetRowKey();
+        byte[] blob1 = Sqlitetools.GetDeepDataByRowkey(rowkey1);
+        //第二个方向看板
+        obj = lst.get(3);
+        obj.click();
+        String rowkey2 = Page_TrueSence.Inst.GetRowKey();
+        byte[] blob2 = Sqlitetools.GetDeepDataByRowkey(rowkey2);
+
+        String blobString1 = new String(blob1,"GBK");
+        String blobString2 = new String(blob2,"GBK");
+
+        assertTrue(blobString1.contains("\"ptnSrc\":0"));
+        assertTrue(blobString2.contains("\"ptnSrc\":1"));
+
+    }
+
+    //变道提示
+    @Test
+    public void test009_change_lane_check() throws Exception {
+        SearchLocation("116.42180","39.95967");
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.CHANGE_LANE_NOTICE);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.LANE_LEFT);
+        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.LANE_CENTER);
+        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.LANE_RIGHT);
+
+        UiObject2 obj;
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.ImageView");
+        //左
+        obj = lst.get(0);
+        obj.click();
+        Page_MainBoard.Inst.Click(new Point(400,350));
+        //中
+        obj = lst.get(2);
+        obj.click();
+        Page_MainBoard.Inst.Click(new Point(700,200));
+        //右
+        obj = lst.get(4);
+        obj.click();
+        Page_MainBoard.Inst.Click(new Point(1000,350));
+
+        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("变道提示");
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.RelativeLayout");
+        assertTrue(lst.size() == 3);
+    }
+
+
 }

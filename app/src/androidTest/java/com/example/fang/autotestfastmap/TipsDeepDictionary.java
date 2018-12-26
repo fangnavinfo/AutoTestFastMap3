@@ -545,4 +545,9 @@ public class TipsDeepDictionary
      * 线门牌
      */
     public final static String LINE_PAS = "2401";
+
+    /**
+     * 变道提示
+     */
+    public final static String CHANGE_LANE_NOTICE = "1312";
 }
