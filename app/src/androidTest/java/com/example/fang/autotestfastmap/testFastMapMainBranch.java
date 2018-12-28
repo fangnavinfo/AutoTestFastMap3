@@ -8,6 +8,7 @@ import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_ChangeLaneNotice;
 import com.fastmap.ui.Page_DirectionBoard;
 import com.fastmap.ui.Page_FunctionalArea;
+import com.fastmap.ui.Page_HovLine;
 import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_InfoPoint;
 import com.fastmap.ui.Page_MainBoard;
@@ -960,6 +961,107 @@ public class testFastMapMainBranch extends testFastMapBase {
         lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.RelativeLayout");
         assertTrue(lst.size() == 3);
     }
+
+    //hov车道
+    @Test
+    public void test010_1_hov_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HOV_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_HovLine.Inst.Click(Page_HovLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("HOV车道");
+
+        assertEquals(Page_HovLine.Inst.GetValue(Page_HovLine.TIME),"请输入时间...");
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.KECHE));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.JIJIUCHE));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.GONGJIAOCHE));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.PEISONGKACHE));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.YUNSHUKACHE));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.CHUZUCHE));
+        assertEquals(Page_HovLine.Inst.GetValue(Page_HovLine.MIN_TOTAL),"2");
+        assertEquals(Page_HovLine.Inst.GetValue(Page_HovLine.MAX_TOTAL),"0");
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.QIYOU));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.DIANDONG));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.YOUDIANHUNDONG));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.KETIDAINENGYUAN));
+        assertTrue(!Page_HovLine.Inst.isChecked(Page_HovLine.QITA));
+    }
+
+    @Test
+    public void test010_2_hov_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HOV_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_HovLine.Inst.Click(Page_HovLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+
+
+
+        Page_HovLine.Inst.Click(Page_HovLine.ADD_TIME);
+        Page_MainBoard.Inst.ClickByText("确定");
+
+        //Page_HovLine.Inst.Click(Page_HovLine.KECHE);
+        //Page_HovLine.Inst.Click(Page_HovLine.JIJIUCHE);
+        Page_HovLine.Inst.Click(Page_HovLine.GONGJIAOCHE);
+        Page_HovLine.Inst.Click(Page_HovLine.PEISONGKACHE);
+        Page_HovLine.Inst.Click(Page_HovLine.YUNSHUKACHE);
+        Page_HovLine.Inst.Click(Page_HovLine.CHUZUCHE);
+
+        Page_HovLine.Inst.Click(Page_HovLine.QIYOU);
+        Page_HovLine.Inst.Click(Page_HovLine.DIANDONG);
+        Page_HovLine.Inst.Click(Page_HovLine.YOUDIANHUNDONG);
+        Page_HovLine.Inst.Click(Page_HovLine.KETIDAINENGYUAN);
+        Page_HovLine.Inst.Click(Page_HovLine.QITA);
+
+
+        Page_HovLine.Inst.SetValue(Page_HovLine.MIN_TOTAL,"1");
+        Page_HovLine.Inst.SetValue(Page_HovLine.MAX_TOTAL,"3");
+
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+        Page_HovLine.Inst.SetValue(Page_HovLine.MIN_TOTAL,"100");
+        Page_HovLine.Inst.SetValue(Page_HovLine.MAX_TOTAL,"201");
+
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+        Page_HovLine.Inst.SetValue(Page_HovLine.MIN_TOTAL,"100");
+        Page_HovLine.Inst.SetValue(Page_HovLine.MAX_TOTAL,"99");
+
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+        Page_HovLine.Inst.SetValue(Page_HovLine.MIN_TOTAL,"100");
+        Page_HovLine.Inst.SetValue(Page_HovLine.MAX_TOTAL,"101");
+
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("HOV车道");
+
+
+        assertEquals(Page_HovLine.Inst.GetValue(Page_HovLine.TIME),"06:00~20:00;");
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.KECHE));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.JIJIUCHE));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.GONGJIAOCHE));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.PEISONGKACHE));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.YUNSHUKACHE));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.CHUZUCHE));
+        assertEquals(Page_HovLine.Inst.GetValue(Page_HovLine.MIN_TOTAL),"100");
+        assertEquals(Page_HovLine.Inst.GetValue(Page_HovLine.MAX_TOTAL),"101");
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.QIYOU));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.DIANDONG));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.YOUDIANHUNDONG));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.KETIDAINENGYUAN));
+        assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.QITA));
+    }
+
 
 
 }

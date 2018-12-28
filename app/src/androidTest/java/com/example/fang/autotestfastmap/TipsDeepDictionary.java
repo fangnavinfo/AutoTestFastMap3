@@ -550,4 +550,9 @@ public class TipsDeepDictionary
      * 变道提示
      */
     public final static String CHANGE_LANE_NOTICE = "1312";
+
+    /**
+     * HOV车道
+     */
+    public final static String HOV_LANE = "1216";
 }
