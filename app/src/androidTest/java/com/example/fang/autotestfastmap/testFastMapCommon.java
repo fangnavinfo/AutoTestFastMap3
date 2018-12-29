@@ -9839,7 +9839,7 @@ public class testFastMapCommon extends testFastMapBase {
         Thread.sleep(2000);
         Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
         Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
-        Page_MainBoard.Inst.Drag(138,417,318,417,5);
+        Page_MainBoard.Inst.Drag(138,470,318,470,5);
         Thread.sleep(2000);
         Page_TollGate.Inst.Click(Page_TollGate.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
@@ -9875,7 +9875,7 @@ public class testFastMapCommon extends testFastMapBase {
         Thread.sleep(2000);
         Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
         Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
-        Page_MainBoard.Inst.Drag(138,417,318,417,5);
+        Page_MainBoard.Inst.Drag(138,470,318,470,5);
         Thread.sleep(2000);
         Page_TollGate.Inst.Click(Page_TollGate.SAVE);
         GotoIndoorTools();
@@ -9920,7 +9920,7 @@ public class testFastMapCommon extends testFastMapBase {
         Thread.sleep(2000);
         Page_TollGate.Inst.SetValue(Page_TollGate.EDIT,"测试名称");
         Page_TollGate.Inst.ClickbyText("交卡付费后再领卡");
-        Page_MainBoard.Inst.Drag(138,417,318,417,5);
+        Page_MainBoard.Inst.Drag(138,470,318,470,5);
         Thread.sleep(2000);
         Page_TollGate.Inst.Click(Page_TollGate.SAVE);
         GotoMyData(Page_MyData.TIPS_TYPE);
@@ -15367,6 +15367,7 @@ public class testFastMapCommon extends testFastMapBase {
 
         Page_DirectionBoard.Inst.Click(Page_DirectionBoard.CAMERA);
         Page_Info_Camera.Inst.Click(Page_Info_Camera.TAKE_PIC);
+        Thread.sleep(2000);
         Page_Info_Camera.Inst.Click(Page_Info_Camera.BACK);
         Page_DirectionBoard.Inst.Click(Page_DirectionBoard.SAVE);
 
