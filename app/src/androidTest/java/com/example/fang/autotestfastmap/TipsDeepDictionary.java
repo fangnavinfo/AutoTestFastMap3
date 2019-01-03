@@ -555,4 +555,19 @@ public class TipsDeepDictionary
      * HOV车道
      */
     public final static String HOV_LANE = "1216";
+
+    /**
+     * 公交优先车道
+     */
+    public final static String BUS_PRIORITY_LANE = "1215";
+
+    /**
+     * 借道左转车道
+     */
+    public final static String TURN_LEFT_LANE = "1217";
+
+    /**
+     * 红绿灯受控
+     */
+    public final static String TRAFFIC_LIGHT_CONTROL = "1123";
 }

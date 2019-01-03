@@ -8,7 +8,7 @@ import com.fang.testAdapter.Sqlitetools;
 import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_BuildingArea;
-import com.fastmap.ui.Page_BusLine;
+import com.fastmap.ui.Page_BusLane;
 import com.fastmap.ui.Page_ConditionSpeedLimit;
 import com.fastmap.ui.Page_Confirm;
 import com.fastmap.ui.Page_Dangerous;
@@ -1918,24 +1918,24 @@ public class testFastMapCommon extends testFastMapBase {
         SearchLocation(LOC_K7);
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUS_LINE);
         Page_MainBoard.Inst.Click(new Point(950, 750));
-        Page_BusLine.Inst.Click(Page_BusLine.CHOOSE_END);
+        Page_BusLane.Inst.Click(Page_BusLane.CHOOSE_END);
         Page_MainBoard.Inst.Click(new Point(1000, 750));
         Page_MainBoard.Inst.Drag(100, 450, 180, 450, 10);
         Page_MainBoard.Inst.Click(new Point(100, 300));
-        Page_BusLine.Inst.Click(Page_BusLine.SAVE);
+        Page_BusLane.Inst.Click(Page_BusLane.SAVE);
 
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(705, 745));
-        Page_BusLine.Inst.Click(Page_BusLine.MOVE);
+        Page_BusLane.Inst.Click(Page_BusLane.MOVE);
         Page_MainBoard.Inst.Drag(100, 450, 150, 450, 10);
-        Page_BusLine.Inst.Click(Page_BusLine.MOVE);
-        Page_BusLine.Inst.Click(Page_BusLine.SAVE);
+        Page_BusLane.Inst.Click(Page_BusLane.MOVE);
+        Page_BusLane.Inst.Click(Page_BusLane.SAVE);
 
         Thread.sleep(2000);
         Page_MainBoard.Inst.Click(new Point(618, 785));
-        Page_BusLine.Inst.Click(Page_BusLine.CHOOSE_END);
+        Page_BusLane.Inst.Click(Page_BusLane.CHOOSE_END);
         Page_MainBoard.Inst.Click(new Point(1100, 750));
-        Page_BusLine.Inst.Click(Page_BusLine.SAVE);
+        Page_BusLane.Inst.Click(Page_BusLane.SAVE);
     }
 
     //公交车道、可逆车道支持起点移动
@@ -1955,7 +1955,7 @@ public class testFastMapCommon extends testFastMapBase {
         Page_MainBoard.Inst.Click(new Point(705, 745));
         Page_ReverseLine.Inst.Click(Page_ReverseLine.MOVE);
         Page_MainBoard.Inst.Drag(100, 450, 150, 450, 10);
-        Page_BusLine.Inst.Click(Page_BusLine.MOVE);
+        Page_BusLane.Inst.Click(Page_BusLane.MOVE);
         Page_ReverseLine.Inst.Click(Page_ReverseLine.SAVE);
 
         Thread.sleep(2000);
@@ -15708,9 +15708,6 @@ public class testFastMapCommon extends testFastMapBase {
         assertEquals("道路情报", Page_InfoFrame.Inst.GetValue(Page_InfoFrame.NAME));
     }
 
-
-
-
     //卡车限制
     @Test
     public void test_FM_1110_2_3_check() throws Exception {
@@ -17029,6 +17026,479 @@ public class testFastMapCommon extends testFastMapBase {
 
         AssertIndoorCheck("Tips内容值域检查", "低", "FM-1707-2-9", "请确认里程桩道路名称和道路编号是否都为空", "");
     }
+
+
+
+    // POI：充电站添加框选子功能
+    @Test
+    public void test001_7_poi_charge_father_check() throws Exception {
+
+        //创建充电站
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试充电站ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Drag(100, 600, 100, 550, 10);
+
+        //创建充电桩1
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试充电桩ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_POI.Inst.Click(Page_POI.AC_3);
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Drag(100, 600, 100, 550, 10);
+        //创建充电桩2
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试充电桩ＰＯＩ２");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电桩");
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        Page_POI.Inst.Click(Page_POI.CHARGE_GUN);
+
+        Page_POI.Inst.SetValue(Page_POI.CHARGING_CONNECTOR_ID, "1234567890abcdefghijklmnopqrstuvwxyz");
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_POI.Inst.Click(Page_POI.AC_3);
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+
+        //进入我的数据
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.SelectData("测试充电站ＰＯＩ");
+
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+
+        Page_MainBoard.Inst.ClickbyText("     框选子POI     ");
+
+
+        Page_MainBoard.Inst.Click(new Point(500, 500));
+        Page_MainBoard.Inst.Click(new Point(500, 1000));
+        Page_MainBoard.Inst.Click(new Point(1500, 1000));
+        Page_MainBoard.Inst.Click(new Point(1500, 500));
+
+        Page_POI.Inst.Click(Page_POI.COMPLETE);
+
+        Page_POI.Inst.ClickbyText("全选");
+        Page_POI.Inst.ClickbyText("保存");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MyData.Inst.SelectData("测试充电桩ＰＯＩ１");
+        assertTrue(Page_POI.Inst.isExistByName("测试充电站ＰＯＩ"));
+        Page_POI.Inst.Click(Page_POI.CANCEL);
+
+        Page_MyData.Inst.SelectData("测试充电桩ＰＯＩ２");
+        assertTrue(Page_POI.Inst.isExistByName("测试充电站ＰＯＩ"));
+        Page_POI.Inst.Click(Page_POI.CANCEL);
+    }
+
+    // POI：充电站添加框选子功能
+    @Test
+    public void test001_8_poi_charge_father_check() throws Exception {
+
+        //创建充电站
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试充电站ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "电动汽车充电站");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Drag(100, 600, 100, 550, 10);
+
+        //创建中餐馆1
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试中餐馆ＰＯＩ１");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Drag(100, 600, 100, 550, 10);
+
+        //创建星级酒店2
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试星级酒店ＰＯＩ２");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "星级酒店");
+
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+
+        //进入我的数据
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.SelectData("测试充电站ＰＯＩ");
+
+        Page_POI.Inst.Click(Page_POI.POI_FATHER);
+
+        Page_MainBoard.Inst.ClickbyText("     框选子POI     ");
+
+        Thread.sleep(1000);
+
+        Page_MainBoard.Inst.Click(new Point(500, 500));
+        Page_MainBoard.Inst.Click(new Point(500, 1000));
+        Page_MainBoard.Inst.Click(new Point(1500, 1000));
+        Page_MainBoard.Inst.Click(new Point(1500, 500));
+
+        Page_POI.Inst.Click(Page_POI.COMPLETE);
+
+
+        assertTrue(!Page_POI.Inst.isExistByName("全选"));
+        assertTrue(!Page_POI.Inst.isExistByName("保存"));
+
+    }
+
+    //搜索模块中增加情报搜索功能
+    @Test
+    public void test002_1_info_search_check() throws Exception {
+
+        // 上报情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.POINT_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(900, 500)); //点击情报位置
+
+        Page_InfoLine.Inst.SetValue(Page_InfoLine.NAME, "测试上报情报"); //输入情报名称
+        Page_InfoLine.Inst.Click(Page_InfoLine.ROAD_TYPE);
+        Page_InfoLine.Inst.Click(Page_InfoLine.LEVEL_1);
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME); //点击选择时间
+        Page_InfoLine.Inst.Click(Page_InfoLine.TIME_CONFIRM);
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.CAMERA);//拍照
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//点击拍照
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);//点击返回
+
+
+        Page_InfoLine.Inst.Click(Page_InfoLine.SAVE); //点击保存
+
+        //获取globalID
+        GotoMyData(Page_MyData.INFO_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("测试上报情报", "测试上报情报");
+        String globalId = Page_InfoLine.Inst.GetValue(Page_InfoLine.GLOBAL_ID).substring(10);
+        Page_InfoLine.Inst.Click(Page_InfoLine.CANCEL);
+        ExitMyData();
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, globalId);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+
+        assertTrue(Page_POI.Inst.isExistByName("测试上报情报"));
+
+
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.BACK);
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("情报");
+        Page_Search.Inst.SetValue(Page_Search.EDITINFO, "测试上报情报");
+        Page_Search.Inst.Click(Page_Search.NAME_INFO);
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_INFO);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        assertTrue(Page_POI.Inst.isExistByName("测试上报情报"));
+
+    }
+
+    // POI地址录入方式优化
+    @Test
+    public void test003_1_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址1");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+        assertTrue(!Page_POI.Inst.isExistByName("地址０"));
+        assertTrue(!Page_POI.Inst.isExistByName("地址-１"));
+        assertTrue(Page_POI.Inst.isExistByName("地址１"));
+        assertTrue(Page_POI.Inst.isExistByName("地址２"));
+    }
+
+    // POI地址录入方式优化
+    @Test
+    public void test003_2_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址a");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+
+        assertTrue(Page_POI.Inst.isExistByName("地址ａ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址ｂ"));
+    }
+
+    // POI地址录入方式优化
+    @Test
+    public void test003_3_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址A");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+        assertTrue(Page_POI.Inst.isExistByName("地址Ａ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址Ｂ"));
+    }
+
+    // POI地址录入方式优化
+    @Test
+    public void test003_4_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址Z");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+        assertTrue(Page_POI.Inst.isExistByName("地址Ｚ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址Ｙ"));
+
+    }
+
+    // POI地址录入方式优化
+    @Test
+    public void test003_5_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址z");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+
+        assertTrue(Page_POI.Inst.isExistByName("地址ｚ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址ｙ"));
+
+    }
+
+    // POI地址录入方式优化
+    @Test
+    public void test003_6_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址E");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+        assertTrue(Page_POI.Inst.isExistByName("地址Ｅ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址Ｄ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址Ｆ"));
+
+    }
+
+    // POI地址录入方式优化
+    @Test
+    public void test003_7_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址e");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+        assertTrue(Page_POI.Inst.isExistByName("地址ｅ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址ｄ"));
+        assertTrue(Page_POI.Inst.isExistByName("地址ｆ"));
+    }
+
+    @Test
+    public void test003_8_poi_input_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "中餐馆");
+        Page_POI.Inst.SetValue(Page_POI.ADDRESS, "地址10");
+        Page_POI.Inst.Click(Page_POI.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_MainBoard.Inst.ClickbyText("忽略捕捉新增");
+        Thread.sleep(2000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+
+        Page_POI.Inst.Click(Page_POI.ADDRESS);
+
+        assertTrue(Page_POI.Inst.isExistByName("地址９"));
+        assertTrue(Page_POI.Inst.isExistByName("地址１０"));
+        assertTrue(Page_POI.Inst.isExistByName("地址１１"));
+    }
+
+    //产品全貌照片设置项默认开启
+    @Test
+    public void test006_picture_switch_check() throws Exception {
+        //产品全貌开关设置
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.ScrollClick(Page_MainMenu.SET);
+
+        assertTrue(Page_Set.Inst.isChecked(Page_Set.FULLVIEW));
+
+        Page_Set.Inst.Click(Page_Set.BACK);
+
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+
+        assertTrue(Page_POI.Inst.isExistByName("产品全貌"));
+
+    }
+
+    //道路名专题图
+    @Test
+    public void test007_road_name_check() throws Exception {
+        //产品全貌开关设置
+        Page_MainBoard.Inst.Click(Page_MainBoard.ADAS_MODE);
+
+        assertTrue(Page_MainBoard.Inst.isExistByName("道路名")||
+                Page_MainBoard.Inst.isExistById("rb_fc_mode_five"));
+
+    }
+
 
 
     // 上报情报
