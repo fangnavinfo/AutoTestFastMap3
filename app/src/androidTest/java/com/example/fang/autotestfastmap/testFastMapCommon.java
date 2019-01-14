@@ -7120,7 +7120,7 @@ public class testFastMapCommon extends testFastMapBase {
         Page_MainBoard.Inst.ClickCenter();
         Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_IN);
         Page_TrueSence.Inst.ClickbyText("请求编号");
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
         for (int i=0;i<6;i++)
         {
@@ -13461,7 +13461,7 @@ public class testFastMapCommon extends testFastMapBase {
         assertFalse(Page_TrueSence.Inst.GetIsEnableByName("请求编号"));
         Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_IN);
         Page_TrueSence.Inst.ClickbyText("请求编号");
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         assertFalse(Page_TrueSence.Inst.GetIsEnableByName("请求编号"));
         Thread.sleep(2000);
         assertFalse(Page_TrueSence.Inst.GetIsEnableByName("高速入口"));
@@ -13493,7 +13493,7 @@ public class testFastMapCommon extends testFastMapBase {
         Page_MainBoard.Inst.ClickCenter();
         Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_IN);
         Page_TrueSence.Inst.ClickbyText("请求编号");
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         String strtemp = Page_TrueSence.Inst.GetValue(Page_TrueSence.ET_IMG_NUMBER);
         Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
 
@@ -13516,7 +13516,7 @@ public class testFastMapCommon extends testFastMapBase {
         Page_MainBoard.Inst.ClickCenter();
         Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_IN);
         Page_TrueSence.Inst.ClickbyText("请求编号");
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
         for (int i=0;i<6;i++)
         {
@@ -15920,7 +15920,7 @@ public class testFastMapCommon extends testFastMapBase {
         SearchLocation(LOC_K7);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
-        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_MainBoard.Inst.ClickCenter();
         Page_Kind.Inst.Click(Page_Kind.CITY_HIGH_SPEED);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
@@ -15935,7 +15935,7 @@ public class testFastMapCommon extends testFastMapBase {
         SearchLocation(LOC_K7);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
-        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_MainBoard.Inst.ClickCenter();
         Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NO_PASS_THROUGH);
@@ -16107,7 +16107,7 @@ public class testFastMapCommon extends testFastMapBase {
         SearchLocation(LOC_K7);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
-        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_MainBoard.Inst.ClickCenter();
         Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         //禁止驶入1级道路（测线且t_sync=1）
@@ -16126,7 +16126,7 @@ public class testFastMapCommon extends testFastMapBase {
         SearchLocation(LOC_K7);
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.KIND);
-        Page_MainBoard.Inst.Click(new Point(1500, 800));
+        Page_MainBoard.Inst.ClickCenter();
         Page_Kind.Inst.Click(Page_Kind.HIGH_SPEED);
 
         //禁止驶入2级道路（测线且t_sync=1）
