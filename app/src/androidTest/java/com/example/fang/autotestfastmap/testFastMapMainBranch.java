@@ -6,9 +6,11 @@ import com.fang.testAdapter.FindResource;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
 import com.fang.testAdapter.testadapter;
+import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_BusPriorityLane;
 import com.fastmap.ui.Page_ChangeLaneNotice;
 import com.fastmap.ui.Page_DirectionBoard;
+import com.fastmap.ui.Page_FerryTime;
 import com.fastmap.ui.Page_FunctionalArea;
 import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_HovLine;
@@ -46,6 +48,7 @@ import java.sql.Blob;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -394,6 +397,52 @@ public class testFastMapMainBranch extends testFastMapBase {
         Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
 
         Page_LightControl.Inst.isExistByName(infoRowkey);
+
+    }
+
+    //障碍物类型
+    @Test
+    public void test014_obstruction_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ADD_POINT_1700);//打点
+
+        Page_AddPoint.Inst.Click(Page_AddPoint.OBST);
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_AddPoint.Inst.Click(Page_AddPoint.VEHICLE);
+        Page_AddPoint.Inst.Click(Page_AddPoint.MANPOWER_BICYCLE);
+        Page_AddPoint.Inst.Click(Page_AddPoint.TRICYCLE);
+        Page_AddPoint.Inst.Click(Page_AddPoint.ELECTRIC_BICYCLE);
+        Page_AddPoint.Inst.Click(Page_AddPoint.PEDESTRIAN);
+
+        Page_AddPoint.Inst.Click(Page_AddPoint.SAVE);
+
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("障碍物");
+        assertFalse(Page_AddPoint.Inst.isChecked(Page_AddPoint.VEHICLE));
+        assertTrue(Page_AddPoint.Inst.isChecked(Page_AddPoint.MANPOWER_BICYCLE));
+        assertTrue(Page_AddPoint.Inst.isChecked(Page_AddPoint.TRICYCLE));
+        assertTrue(Page_AddPoint.Inst.isChecked(Page_AddPoint.ELECTRIC_BICYCLE));
+        assertTrue(Page_AddPoint.Inst.isChecked(Page_AddPoint.PEDESTRIAN));
+
+    }
+
+    //人渡轮渡时间限制
+    @Test
+    public void test015_ferry_time_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FERRY_TIME);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_FerryTime.Inst.Click(Page_FerryTime.ADD_TIME);
+        Page_MainBoard.Inst.ClickByText("确定");
+        Page_FerryTime.Inst.Click(Page_FerryTime.SAVE);
+
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("人渡轮渡时间限制");
+
+        assertEquals("06:00~20:00;", Page_FerryTime.Inst.GetValue(Page_FerryTime.TIME));
 
     }
 

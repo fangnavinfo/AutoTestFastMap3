@@ -570,4 +570,9 @@ public class TipsDeepDictionary
      * 红绿灯受控
      */
     public final static String TRAFFIC_LIGHT_CONTROL = "1123";
+
+    /**
+     * 人渡轮渡时间限制
+     */
+    public final static String FERRY_TIME = "1218";
 }
