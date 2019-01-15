@@ -76,6 +76,10 @@ public class Page_Search extends FastMapPage
     @FindResource(Id="rbtn_search_info_infoName")
     public static String NAME_INFO;
 
+    @FindResource(Id="btn_search_range_tips")
+    public static String RANGE;
+
+
     public static Page_Search Inst;
     static{
         Inst = new Page_Search();

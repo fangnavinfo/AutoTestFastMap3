@@ -11,6 +11,7 @@ import com.fastmap.ui.Page_InfoLine;
 import com.fastmap.ui.Page_Light;
 import com.fastmap.ui.Page_Line_PAS;
 import com.fastmap.ui.Page_MainBoard;
+import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NoParking;
@@ -754,6 +755,43 @@ public class testFastMapMonthBranch extends testFastMapBase {
         assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ１"));
 
 
+    }
+
+    // 按工单范围圈搜索信息
+    @Test
+    public void test00145_unit_check() throws Exception {
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.GRID_MANAGER); //Grid管理
+        Thread.sleep(5000);
+        UiObject2 obj;
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("grid_project_list", "android.widget.TextView");
+        //第一个工单名称
+        obj = lst.get(1);
+        String unitString = obj.getText().toString().replace("工单名称：","").replace("工单名称:","");
+
+        Page_GridManager.Inst.Click(Page_GridManager.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.Click(Page_Search.RANGE);
+        Thread.sleep(2000);
+
+        String str = "";
+        boolean b = false;
+
+        lst = testadapter.findAllObjectsByClass("truck_group", "android.widget.TextView");
+        //工单名称
+        for(int i = 0;i < lst.size(); i++) {
+            obj = lst.get(i);
+            str = obj.getText().toString();
+            if(str.contains(unitString)) {
+                b = true;
+                break;
+            }
+        }
+
+        assertTrue(b);
     }
 
     /////////以下注释用例均为月基线功能用例开始///////////////////
