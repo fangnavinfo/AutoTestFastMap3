@@ -78,6 +78,7 @@ import com.fastmap.ui.Page_TruckForbidden;
 import com.fastmap.ui.Page_TruckLimit;
 import com.fastmap.ui.Page_TruckLimitLane;
 import com.fastmap.ui.Page_TrueSence;
+import com.fastmap.ui.Page_TurnLeftLane;
 import com.fastmap.ui.Page_VariableSpeedLimit;
 import com.fastmap.ui.Page_VehicleLane;
 
@@ -17028,6 +17029,141 @@ public class testFastMapCommon extends testFastMapBase {
         Page_MilePost.Inst.Click(Page_MilePost.SAVE);
 
         AssertIndoorCheck("Tips内容值域检查", "低", "FM-1707-2-9", "请确认里程桩道路名称和道路编号是否都为空", "");
+    }
+
+    @Test
+    public void test_FM_1216_1_2_check() throws Exception {
+        SearchLocation("116.42160","39.95967");
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(arrayPoint);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HOV_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_HovLine.Inst.Click(Page_HovLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(750, 800));
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+
+        //删除测线
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("测线");
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        Page_SurveyLine.Inst.ClickbyText("仅删除测线");
+        ExitMyData();
+
+        AssertIndoorCheck("HOV车道", "高", "FM-1216-1-2", "Tips没有关联道路或测线或Node", "");
+    }
+
+    @Test
+    public void test_FM_1216_2_1_check() throws Exception {
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HOV_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+
+        AssertIndoorCheck("HOV车道", "高", "FM-1216-2-1", "HOV车道Tips没有终点、请添加终点", "");
+    }
+
+    @Test
+    public void test_FM_1216_6_1_check() throws Exception {
+        SearchLocation(LOC_K10);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HOV_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_HovLine.Inst.Click(Page_HovLine.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(750, 800));
+        Page_HovLine.Inst.Click(Page_HovLine.SAVE);
+
+
+        AssertIndoorCheck("HOV车道", "高", "FM-1216-6-1", "HOV车道不能关联在8级别（含以下）道路上", "");
+    }
+
+
+    @Test
+    public void test_FM_1217_1_2_check() throws Exception {
+        SearchLocation("116.42160","39.95967");
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(arrayPoint);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TURN_LEFT_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(750, 800));
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+
+        //删除测线
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("测线");
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        Page_SurveyLine.Inst.ClickbyText("仅删除测线");
+        ExitMyData();
+
+        AssertIndoorCheck("借道左转车道", "高", "FM-1217-1-2", "Tips没有关联道路或测线或Node", "");
+    }
+
+    @Test
+    public void test_FM_1217_2_1_check() throws Exception {
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TURN_LEFT_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+
+        AssertIndoorCheck("借道左转车道", "高", "FM-1217-2-1", "借道左转车道Tips没有终点、请添加终点", "");
+    }
+
+    @Test
+    public void test_FM_1217_6_1_check() throws Exception {
+        SearchLocation(LOC_K10);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TURN_LEFT_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(750, 800));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+
+        AssertIndoorCheck("借道左转车道", "高", "FM-1217-6-1", "借道左转车道不能关联在8级别（含以下）道路上", "");
+    }
+
+    @Test
+    public void test_FM_1218_1_2_check() throws Exception {
+        SearchLocation("116.42160","39.95967");
+
+        Point[] arrayPoint = {new Point(1000, 1000), new Point(1000, 500)};
+        DrawRoad(arrayPoint);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.FERRY_TIME);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_FerryTime.Inst.Click(Page_FerryTime.SAVE);
+
+
+        //删除测线
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("测线");
+        Page_SurveyLine.Inst.Click(Page_SurveyLine.DELETE);
+        Page_SurveyLine.Inst.ClickbyText("仅删除测线");
+        ExitMyData();
+
+
+        AssertIndoorCheck("人渡轮渡时间限制", "高", "FM-1218-1-2", "Tips没有关联道路或测线或Node", "");
     }
 
 
