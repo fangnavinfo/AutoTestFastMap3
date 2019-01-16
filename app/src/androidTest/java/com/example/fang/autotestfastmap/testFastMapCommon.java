@@ -25,6 +25,7 @@ import com.fastmap.ui.Page_Gradient;
 import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_HighSpeedDivider;
 import com.fastmap.ui.Page_HighSpeedEntryPic;
+import com.fastmap.ui.Page_HighWayGoThrough;
 import com.fastmap.ui.Page_HovLine;
 import com.fastmap.ui.Page_IndoorMyData;
 import com.fastmap.ui.Page_IndoorTools;
@@ -44,12 +45,14 @@ import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MultiList;
+import com.fastmap.ui.Page_MultiVirtualConnect;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NoParking;
 import com.fastmap.ui.Page_NoParkingTruck;
 import com.fastmap.ui.Page_NoPassing;
 import com.fastmap.ui.Page_NormalCrossPic;
 import com.fastmap.ui.Page_Note;
+import com.fastmap.ui.Page_OrdinaryRoadNoCrossing;
 import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
@@ -65,6 +68,7 @@ import com.fastmap.ui.Page_RoundAbout;
 import com.fastmap.ui.Page_Search;
 import com.fastmap.ui.Page_SearchResultList;
 import com.fastmap.ui.Page_Set;
+import com.fastmap.ui.Page_SingleLineVirtualConnect;
 import com.fastmap.ui.Page_Sketch;
 import com.fastmap.ui.Page_SpeedLimit;
 import com.fastmap.ui.Page_SpeedLimitLane;
@@ -79,6 +83,8 @@ import com.fastmap.ui.Page_TruckLimit;
 import com.fastmap.ui.Page_TruckLimitLane;
 import com.fastmap.ui.Page_TrueSence;
 import com.fastmap.ui.Page_TurnLeftLane;
+import com.fastmap.ui.Page_UndergroundOverpass;
+import com.fastmap.ui.Page_UndergroundPedestrian;
 import com.fastmap.ui.Page_VariableSpeedLimit;
 import com.fastmap.ui.Page_VehicleLane;
 
@@ -3019,6 +3025,451 @@ public class testFastMapCommon extends testFastMapBase {
 
         assertEquals("设施情报", Page_InfoFrame.Inst.GetValue(Page_InfoFrame.NAME));
     }
+
+
+    @Test
+    public void test00140_6_default_info_name_check() throws Exception {
+        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
+        Page_MainBoard.Inst.Click(Page_MainBoard.FRAME_INFO); //点击点情报
+        Thread.sleep(1000);
+        Page_MainBoard.Inst.Click(new Point(900, 500)); //点击情报位置
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 600));
+
+        Page_InfoFrame.Inst.Click(Page_InfoFrame.DRAW_FINISH);
+        Page_InfoFrame.Inst.Click(Page_InfoFrame.ROAD_TYPE);
+
+        assertEquals("道路情报", Page_InfoFrame.Inst.GetValue(Page_InfoFrame.NAME));
+    }
+
+    //地下通道/过街天桥
+    @Test
+    public void test00141_undergound_overpass_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.UNDERGROUND_GALLERY_OVERPASS);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        UiObject2 obj;
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.CheckBox");
+
+        //斜坡
+        obj = lst.get(1);
+        obj.click();
+
+        //其他
+        obj = lst.get(10);
+        obj.click();
+
+        Page_UndergroundOverpass.Inst.Click(Page_UndergroundOverpass.OVERPASS);
+        Page_UndergroundOverpass.Inst.Click(Page_UndergroundOverpass.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("过街天桥/地下通道");
+
+        assertTrue(Page_UndergroundOverpass.Inst.isChecked(Page_UndergroundOverpass.OVERPASS));
+    }
+
+    //人行过道
+    @Test
+    public void test00142_undergound_pedestrian_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.UNDERGROUND_PEDESTRIAN_CORRIDOR);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+
+        Page_UndergroundPedestrian.Inst.Click(Page_UndergroundPedestrian.FINISH);
+        Page_UndergroundPedestrian.Inst.Click(Page_UndergroundPedestrian.NO_CROSSING);
+        Page_UndergroundPedestrian.Inst.Click(Page_UndergroundPedestrian.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("人行过道");
+
+        assertTrue(Page_UndergroundPedestrian.Inst.isChecked(Page_UndergroundPedestrian.NO_CROSSING));
+        assertTrue(Page_UndergroundPedestrian.Inst.isChecked(Page_UndergroundPedestrian.NO_TRICICYCLE));
+        assertTrue(Page_UndergroundPedestrian.Inst.isChecked(Page_UndergroundPedestrian.NO_BIKE));
+    }
+
+    //单线虚拟连接
+    @Test
+    public void test00143_SingleLineVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SINGLE_LINE_VIRTUAL_CONNECT);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+
+
+        Page_SingleLineVirtualConnect.Inst.Click(Page_SingleLineVirtualConnect.LADDER);
+        Page_SingleLineVirtualConnect.Inst.Click(Page_SingleLineVirtualConnect.SLOPE);
+
+
+        UiObject2 obj;
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.RadioButton");
+
+        //上坡
+        obj = lst.get(0);
+        obj.click();
+
+        //下坡
+        obj = lst.get(3);
+        obj.click();
+
+        Page_SingleLineVirtualConnect.Inst.Click(Page_SingleLineVirtualConnect.STRAIGHT_LADDER);
+        Page_SingleLineVirtualConnect.Inst.Click(Page_SingleLineVirtualConnect.ESCALATER);
+
+        Page_SingleLineVirtualConnect.Inst.Click(Page_SingleLineVirtualConnect.RETROGTADE_MOTION);
+
+        Page_SingleLineVirtualConnect.Inst.Click(Page_SingleLineVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("单线虚拟连接");
+
+        assertTrue(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.STRAIGHT_LADDER));
+        assertTrue(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.ESCALATER));
+        assertTrue(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.LADDER));
+        assertTrue(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.SLOPE));
+
+        assertFalse(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.EITHER_DIRECTION));
+        assertFalse(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.DIRECT_MOTION));
+        assertTrue(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.RETROGTADE_MOTION));
+        assertFalse(Page_SingleLineVirtualConnect.Inst.isChecked(Page_SingleLineVirtualConnect.IMPASSABLE));
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.RadioButton");
+
+        //上坡
+        obj = lst.get(4);
+        obj.click();
+
+        //下坡
+        obj = lst.get(7);
+        obj.click();
+
+        assertTrue(lst.get(4).isChecked());
+        assertFalse(lst.get(5).isChecked());
+        assertFalse(lst.get(6).isChecked());
+        assertTrue(lst.get(7).isChecked());
+    }
+
+    //复合虚拟连接
+    @Test
+    public void test00144_1_MultiVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MULTI_VIRTUAL);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FINISH);
+
+
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.CABLEWAY);
+        Page_MultiVirtualConnect.Inst.SetValue(Page_MultiVirtualConnect.NAME,"测试");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ADD_TIME);
+        Page_MultiVirtualConnect.Inst.ClickByText("确定");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FEE_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.LR);
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("复合虚拟连接");
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.CABLEWAY));
+        assertTrue("测试".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.NAME)));
+        assertTrue("06:00~20:00;".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.TIME)));
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.FEE_YES));
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.LR));
+    }
+
+    //复合虚拟连接
+    @Test
+    public void test00144_2_MultiVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MULTI_VIRTUAL);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FINISH);
+
+
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.BUILDING);
+        Page_MultiVirtualConnect.Inst.SetValue(Page_MultiVirtualConnect.NAME,"测试");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ADD_TIME);
+        Page_MultiVirtualConnect.Inst.ClickByText("确定");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.NOBS_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FEE_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ASC);
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("复合虚拟连接");
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.BUILDING));
+        assertTrue("测试".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.NAME)));
+        assertTrue("06:00~20:00;".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.TIME)));
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.NOBS_YES));
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.FEE_YES));
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.ASC));
+    }
+
+    //复合虚拟连接
+    @Test
+    public void test00144_3_MultiVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MULTI_VIRTUAL);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FINISH);
+
+
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.PARK);
+        Page_MultiVirtualConnect.Inst.SetValue(Page_MultiVirtualConnect.NAME,"测试");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ADD_TIME);
+        Page_MultiVirtualConnect.Inst.ClickByText("确定");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.NOBS_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FEE_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.DESC);
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("复合虚拟连接");
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.PARK));
+        assertTrue("测试".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.NAME)));
+        assertTrue("06:00~20:00;".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.TIME)));
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.NOBS_YES));
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.FEE_YES));
+
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.DESC));
+    }
+
+    //复合虚拟连接
+    @Test
+    public void test00144_4_MultiVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MULTI_VIRTUAL);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FINISH);
+
+
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SQUARE);
+        Page_MultiVirtualConnect.Inst.SetValue(Page_MultiVirtualConnect.NAME,"测试");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ADD_TIME);
+        Page_MultiVirtualConnect.Inst.ClickByText("确定");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.NOBS_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FEE_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.NLR);
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("复合虚拟连接");
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.SQUARE));
+        assertTrue("测试".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.NAME)));
+        assertTrue("06:00~20:00;".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.TIME)));
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.NOBS_YES));
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.FEE_YES));
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.NLR));
+    }
+
+
+    //复合虚拟连接
+    @Test
+    public void test00144_5_MultiVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MULTI_VIRTUAL);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FINISH);
+
+
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.STREET);
+        Page_MultiVirtualConnect.Inst.SetValue(Page_MultiVirtualConnect.NAME,"测试");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ADD_TIME);
+        Page_MultiVirtualConnect.Inst.ClickByText("确定");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FEE_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.LR);
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("复合虚拟连接");
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.STREET));
+        assertTrue("测试".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.NAME)));
+        assertTrue("06:00~20:00;".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.TIME)));
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.FEE_YES));
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.LR));
+    }
+
+    //复合虚拟连接
+    @Test
+    public void test00144_6_MultiVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MULTI_VIRTUAL);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FINISH);
+
+
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.UNDERGROUND_PASS);
+        Page_MultiVirtualConnect.Inst.SetValue(Page_MultiVirtualConnect.NAME,"测试");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ADD_TIME);
+        Page_MultiVirtualConnect.Inst.ClickByText("确定");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.NOBS_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FEE_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ASC);
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("复合虚拟连接");
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.UNDERGROUND_PASS));
+        assertTrue("测试".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.NAME)));
+        assertTrue("06:00~20:00;".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.TIME)));
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.NOBS_YES));
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.FEE_YES));
+
+
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.ASC));
+    }
+
+    //复合虚拟连接
+    @Test
+    public void test00144_7_MultiVirtualConnect_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.MULTI_VIRTUAL);
+
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+        Page_MainBoard.Inst.Click(new Point(1000, 800));
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FINISH);
+
+
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.OTHER);
+        Page_MultiVirtualConnect.Inst.SetValue(Page_MultiVirtualConnect.NAME,"测试");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.ADD_TIME);
+        Page_MultiVirtualConnect.Inst.ClickByText("确定");
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.NOBS_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.FEE_YES);
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.DESC);
+
+        Page_MultiVirtualConnect.Inst.Click(Page_MultiVirtualConnect.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("复合虚拟连接");
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.OTHER));
+        assertTrue("测试".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.NAME)));
+        assertTrue("06:00~20:00;".equals(Page_MultiVirtualConnect.Inst.GetValue(Page_MultiVirtualConnect.TIME)));
+
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.NOBS_YES));
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.FEE_YES));
+
+
+
+        assertTrue(Page_MultiVirtualConnect.Inst.isChecked(Page_MultiVirtualConnect.DESC));
+    }
+
+    //高速路行人非机动车通行
+    @Test
+    public void test00145_HighWayGoThrough_check() throws Exception {
+        SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.HIGHWAY_GO_THROUGH);
+        Page_MainBoard.Inst.ClickCenter();
+
+
+        Page_HighWayGoThrough.Inst.Click(Page_HighWayGoThrough.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+
+        Page_HighWayGoThrough.Inst.Click(Page_HighWayGoThrough.NO_PED_CROSSING);
+        Page_HighWayGoThrough.Inst.Click(Page_HighWayGoThrough.NO_BICYCLE_CROSSING);
+
+
+        Page_HighWayGoThrough.Inst.Click(Page_HighWayGoThrough.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("高速路行人非机动车通行");
+
+
+        assertFalse(Page_HighWayGoThrough.Inst.isChecked(Page_HighWayGoThrough.NO_PED_CROSSING));
+        assertFalse(Page_HighWayGoThrough.Inst.isChecked(Page_HighWayGoThrough.NO_BICYCLE_CROSSING));
+        assertTrue(Page_HighWayGoThrough.Inst.isChecked(Page_HighWayGoThrough.NO_TRICYCLE_CROSSING));
+        assertTrue(Page_HighWayGoThrough.Inst.isChecked(Page_HighWayGoThrough.NO_ELEC_BICYCLE_CROSSING));
+    }
+
+    //普通路行人非机动车禁行
+    @Test
+    public void test00146_HighWayGoThrough_check() throws Exception {
+        SearchLocation(LOC_K8);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.ORDINARY_ROAD_NO_CROSSING);
+        Page_MainBoard.Inst.ClickCenter();
+
+
+        Page_OrdinaryRoadNoCrossing.Inst.Click(Page_OrdinaryRoadNoCrossing.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 500));
+
+        Page_OrdinaryRoadNoCrossing.Inst.Click(Page_OrdinaryRoadNoCrossing.NO_TRICYCLE_CROSSING);
+        Page_OrdinaryRoadNoCrossing.Inst.Click(Page_OrdinaryRoadNoCrossing.NO_ELEC_BICYCLE_CROSSING);
+
+
+        Page_OrdinaryRoadNoCrossing.Inst.Click(Page_OrdinaryRoadNoCrossing.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据,自采集情报
+        Page_MyData.Inst.ClickbyText("普通路行人非机动车禁行");
+
+
+        assertTrue(Page_OrdinaryRoadNoCrossing.Inst.isChecked(Page_OrdinaryRoadNoCrossing.NO_PED_CROSSING));
+        assertTrue(Page_OrdinaryRoadNoCrossing.Inst.isChecked(Page_OrdinaryRoadNoCrossing.NO_BICYCLE_CROSSING));
+        assertFalse(Page_OrdinaryRoadNoCrossing.Inst.isChecked(Page_OrdinaryRoadNoCrossing.NO_TRICYCLE_CROSSING));
+        assertFalse(Page_OrdinaryRoadNoCrossing.Inst.isChecked(Page_OrdinaryRoadNoCrossing.NO_ELEC_BICYCLE_CROSSING));
+    }
+
+
 
     @Test
     public void test998_00202_poi_add() throws Exception
@@ -15697,20 +16148,6 @@ public class testFastMapCommon extends testFastMapBase {
     }
 
 
-    @Test
-    public void test00140_6_default_info_name_check() throws Exception {
-        Page_MainBoard.Inst.Click(Page_MainBoard.REPORT); //点上报
-        Page_MainBoard.Inst.Click(Page_MainBoard.FRAME_INFO); //点击点情报
-        Thread.sleep(1000);
-        Page_MainBoard.Inst.Click(new Point(900, 500)); //点击情报位置
-        Page_MainBoard.Inst.Click(new Point(1000, 500));
-        Page_MainBoard.Inst.Click(new Point(1000, 600));
-
-        Page_InfoFrame.Inst.Click(Page_InfoFrame.DRAW_FINISH);
-        Page_InfoFrame.Inst.Click(Page_InfoFrame.ROAD_TYPE);
-
-        assertEquals("道路情报", Page_InfoFrame.Inst.GetValue(Page_InfoFrame.NAME));
-    }
 
     //卡车限制
     @Test
