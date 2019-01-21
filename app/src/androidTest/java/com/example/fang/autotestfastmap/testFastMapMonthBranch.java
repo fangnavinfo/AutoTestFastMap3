@@ -625,7 +625,7 @@ public class testFastMapMonthBranch extends testFastMapBase {
     // 线门牌检查需求 POI+POI
     @Test
     public void test00144_5_line_pas_check() throws Exception {
-        // 创建点门牌1
+        // 创建POI1
         String[][] attrib0 = {{Page_POI.NAME, "中餐馆1"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
                 {Page_POI.ADDRESS, "ADD1"}};
@@ -640,7 +640,7 @@ public class testFastMapMonthBranch extends testFastMapBase {
 
         String[][] attrib2 = {{Page_POI.NAME, "中餐馆2"},
                 {Page_POI.SELECT_TYPE, "中餐馆"},
-                {Page_POI.ADDRESS, "ADD2"}};
+                {Page_POI.ADDRESS, "ADDR2"}};
         String fid2 = AddPOI(attrib2, "捕捉点位新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
@@ -676,7 +676,7 @@ public class testFastMapMonthBranch extends testFastMapBase {
         assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆１"));
         assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ１"));
         assertTrue(Page_Line_PAS.Inst.isExistByName("中餐馆２"));
-        assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤ２"));
+        assertTrue(Page_Line_PAS.Inst.isExistByName("ＡＤＤＲ２"));
 
 
     }
@@ -1828,7 +1828,7 @@ public class testFastMapMonthBranch extends testFastMapBase {
     //起点或终点关联的要素的地址为空（点门牌的dprName和dpName任一为空；POI的address字段为空），需要报log
     @Test
     public void test_FM_2401_6_3_check() throws Exception {
-        test00144_6_line_pas_check();
+        test00144_5_line_pas_check();
         Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
         ExitMyData();
 
@@ -1847,9 +1847,24 @@ public class testFastMapMonthBranch extends testFastMapBase {
     //线门牌tips中关联的起终点要素，只能作为当前线门牌tips的起终点。（即：线门牌关联的要素只能在线门牌tips中出现一次）否则报LOG
     @Test
     public void test_FM_2401_8_2_check() throws Exception {
-        test00144_6_line_pas_check();
-        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
-        ExitMyData();
+        // 创建POI1
+        String[][] attrib0 = {{Page_POI.NAME, "中餐馆0"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD0"}};
+        String fid1 = AddPOI(attrib0, "捕捉点位新增");
+
+        Page_MainBoard.Inst.Drag(600, 600, 400, 600, 10);
+
+        // 创建POI2
+        String[][] attrib = {{Page_POI.NAME, "中餐馆1"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD1"}};
+        AddPOI(attrib, "捕捉点位新增");
+
+        String[][] attrib2 = {{Page_POI.NAME, "中餐馆2"},
+                {Page_POI.SELECT_TYPE, "中餐馆"},
+                {Page_POI.ADDRESS, "ADD2"}};
+        String fid2 = AddPOI(attrib2, "捕捉点位新增");
 
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
 
@@ -1864,6 +1879,46 @@ public class testFastMapMonthBranch extends testFastMapBase {
 
         Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
 
+
+        Page_PAS.Inst.ClickByText("中餐馆１");
+        Page_PAS.Inst.ClickByText("确定");
+
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+        //建立终点
+        obj = lst.get(9);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2-200, testadapter.getDisplayHeight()/2));
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.LINE_PAS);
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+
+        //建立起点
+        obj = lst.get(1);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2 , testadapter.getDisplayHeight()/2));
+
+
+        Page_PAS.Inst.ClickByText("中餐馆２");
+        Page_PAS.Inst.ClickByText("确定");
+
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+        //建立终点
+        obj = lst.get(9);
+        obj.click();
+        Thread.sleep(2000);
+
+        Page_MainBoard.Inst.Click(new Point(testadapter.getDisplayWidth()/2-200, testadapter.getDisplayHeight()/2));
+
         Page_Line_PAS.Inst.Click(Page_Line_PAS.SAVE);
 
 
@@ -1873,7 +1928,7 @@ public class testFastMapMonthBranch extends testFastMapBase {
     //线门牌tips中的起终点要素，如果关联的是点门牌，点门牌类型（type）必须是地址门牌，不能是楼门门牌和楼栋门牌
     @Test
     public void test_FM_2401_2_1_check_1() throws Exception {
-        test00144_2_line_pas_check();
+        test00144_1_line_pas_check();
         Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
         ExitMyData();
 
@@ -1911,6 +1966,10 @@ public class testFastMapMonthBranch extends testFastMapBase {
     public void test_FM_2401_2_2_check() throws Exception {
         test00144_1_line_pas_check();
 
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
+
         AssertIndoorCheck("Tips内容值域检查", "中", "FM-2401-2-2", "线门牌起终点关联的点门牌的dprName分别为“*”和“*”，道路名称不一致，请确认", "");
     }
 
@@ -1918,6 +1977,10 @@ public class testFastMapMonthBranch extends testFastMapBase {
     @Test
     public void test_FM_2401_2_3_check_1() throws Exception {
         test00144_5_line_pas_check();
+
+        Page_Line_PAS.Inst.Click(Page_Line_PAS.CANCEL);
+        Page_MyData.Inst.Click(Page_MyData.BACK);
+        Page_MainMenu.Inst.Click(Page_MainMenu.BACK);
 
         AssertIndoorCheck("Tips内容值域检查", "低", "FM-2401-2-3", "线门牌起终点关联的POI的地址分别为“*”和“*”，地址不一致，请确认", "忽略");
     }
