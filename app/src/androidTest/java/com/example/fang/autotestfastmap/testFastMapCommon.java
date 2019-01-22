@@ -9,6 +9,7 @@ import com.fang.testAdapter.testadapter;
 import com.fastmap.ui.Page_AddPoint;
 import com.fastmap.ui.Page_BuildingArea;
 import com.fastmap.ui.Page_BusLane;
+import com.fastmap.ui.Page_BusPriorityLane;
 import com.fastmap.ui.Page_ChangeLaneNotice;
 import com.fastmap.ui.Page_ConditionSpeedLimit;
 import com.fastmap.ui.Page_Confirm;
@@ -40,6 +41,7 @@ import com.fastmap.ui.Page_LaneChangePoint;
 import com.fastmap.ui.Page_LaneInfo;
 import com.fastmap.ui.Page_LaneNumber;
 import com.fastmap.ui.Page_Light;
+import com.fastmap.ui.Page_LightControl;
 import com.fastmap.ui.Page_Login;
 import com.fastmap.ui.Page_MainBoard;
 import com.fastmap.ui.Page_MainMenu;
@@ -18448,7 +18450,167 @@ public class testFastMapCommon extends testFastMapBase {
         assertTrue(Page_HovLine.Inst.isChecked(Page_HovLine.QITA));
     }
 
+    //公交优先车道
+    @Test
+    public void test011_1_bus_priority_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUS_PRIORITY_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.SAVE);
 
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("公交优先车道");
+
+        assertEquals(Page_BusPriorityLane.Inst.GetValue(Page_BusPriorityLane.TIME),"请输入时间...");
+
+    }
+
+    @Test
+    public void test011_2_bus_priority_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUS_PRIORITY_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_MainBoard.Inst.Click(new Point(105, 320));
+        Page_MainBoard.Inst.Click(new Point(260, 320));
+        Page_MainBoard.Inst.Click(new Point(1305, 320));
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //第1个增加时间
+        obj = lst.get(3);
+        obj.click();
+        Page_MyData.Inst.ClickbyText("确定");
+
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("公交优先车道");
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.EditText");
+
+        //第1个时间
+        obj = lst.get(0);
+        assertEquals(obj.getText(),"06:00~20:00;");
+
+        //第2个时间
+        obj = lst.get(1);
+        assertEquals(obj.getText(),"请输入时间...");
+
+    }
+
+
+    //借道左转
+    @Test
+    public void test012_1_turn_left_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TURN_LEFT_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("借道左转车道");
+
+        assertEquals(Page_TurnLeftLane.Inst.GetValue(Page_TurnLeftLane.TIME),"请输入时间...");
+
+    }
+
+    @Test
+    public void test012_2_turn_left_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TURN_LEFT_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_MainBoard.Inst.Click(new Point(105, 320));
+        Page_MainBoard.Inst.Click(new Point(260, 320));
+        Page_MainBoard.Inst.Click(new Point(1305, 320));
+
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        Page_MainBoard.Inst.Click(new Point(105, 320));
+        Page_MainBoard.Inst.Click(new Point(260, 320));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        Page_MainBoard.Inst.Click(new Point(180, 320));
+        Page_MainBoard.Inst.Click(new Point(1305, 320));
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //第1个增加时间
+        obj = lst.get(3);
+        obj.click();
+        Page_MyData.Inst.ClickbyText("确定");
+
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("借道左转车道");
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.EditText");
+
+        //第1个时间
+        obj = lst.get(0);
+        assertEquals(obj.getText(),"06:00~20:00;");
+
+        //第2个时间
+        obj = lst.get(1);
+        assertEquals(obj.getText(),"请输入时间...");
+
+    }
+
+    //红绿灯受控
+    @Test
+    public void test013_traffic_light_control_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT_CONTROL);
+
+        Page_MainBoard.Inst.ClickCenter();
+        Page_LightControl.Inst.Click(Page_LightControl.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("红绿灯受控退出信息");
+        String infoRowkey = Page_LightControl.Inst.GetValue(Page_LightControl.ROWKEY).replace("rowkey:","").replace("rowkey：","");
+        Page_LightControl.Inst.Click(Page_LightControl.CANCEL);
+        ExitMyData();
+
+        IndoorCheckConfirm("红绿灯受控退出信息");
+
+        //同步数据
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
+
+        Sqlitetools.CleanDataAndRestart();
+
+        SearchLocation(LOC_K7);
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("Tips");
+        Page_Search.Inst.SetValue(Page_Search.TIPS_ROWKEY, infoRowkey);
+
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_TIPS);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        Page_LightControl.Inst.isExistByName(infoRowkey);
+
+    }
 
     //障碍物类型
     @Test
@@ -18495,6 +18657,7 @@ public class testFastMapCommon extends testFastMapBase {
         assertEquals("06:00~20:00;", Page_FerryTime.Inst.GetValue(Page_FerryTime.TIME));
 
     }
+
 
     // 上报情报
     public void addReport(String infoType) throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
