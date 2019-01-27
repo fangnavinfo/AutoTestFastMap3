@@ -427,7 +427,10 @@ public class testadapter
                 case "wukunyu02074":
                     userPath = "/sdcard/" + dirName + "/data/collect/2074";
                     break;
-                case "1":
+                case "admin123":
+                    userPath = "/sdcard/" + dirName + "/data/collect/1";
+                    break;
+                case "admin123_hm":
                     userPath = "/sdcard/" + dirName + "/data/collect/1";
                     break;
                 default:
@@ -468,6 +471,7 @@ public class testadapter
         if (isHK)
         {
             userPath += "_HM/";
+
         }
         else
         {

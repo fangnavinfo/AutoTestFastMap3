@@ -5,6 +5,7 @@ import android.support.test.uiautomator.UiObject2;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
 import com.fang.testAdapter.testadapter;
+import com.fastmap.ui.Page_FerryTime;
 import com.fastmap.ui.Page_FunctionalArea;
 import com.fastmap.ui.Page_GridManager;
 import com.fastmap.ui.Page_InfoLine;
@@ -15,6 +16,7 @@ import com.fastmap.ui.Page_MainMenu;
 import com.fastmap.ui.Page_MilePost;
 import com.fastmap.ui.Page_MyData;
 import com.fastmap.ui.Page_NoParking;
+import com.fastmap.ui.Page_NonTrafficForbidden;
 import com.fastmap.ui.Page_PAS;
 import com.fastmap.ui.Page_POI;
 import com.fastmap.ui.Page_POI_Camera;
@@ -38,7 +40,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertFalse;
 /**
  * Created by fang on 17/11/21.
  */
@@ -792,6 +794,57 @@ public class testFastMapMonthBranch extends testFastMapBase {
         }
 
         assertTrue(b);
+    }
+
+    //非机动车交限
+    @Test
+    public void test00146_1_non_taffic_limit_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NON_TRAFFIC_FORBIDDEN);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.ICON_A2);
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.SAVE);
+
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("非机动车交限");
+
+        assertEquals("请输入时间...", Page_NonTrafficForbidden.Inst.GetValue(Page_NonTrafficForbidden.TIME));
+        assertTrue(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.BYCICLE));
+        assertTrue(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.TRI_BYCICLE));
+        assertTrue(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.ELEC_BYCICLE));
+        assertFalse(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.MAN));
+    }
+
+    @Test
+    public void test00146_2_non_taffic_limit_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.NON_TRAFFIC_FORBIDDEN);
+
+        Page_MainBoard.Inst.ClickCenter();
+
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.ICON_B4);
+
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.ADD_TIME);
+        Page_NonTrafficForbidden.Inst.ClickByText("确定");
+
+
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.BYCICLE);
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.TRI_BYCICLE);
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.ELEC_BYCICLE);
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.MAN);
+
+        Page_NonTrafficForbidden.Inst.Click(Page_NonTrafficForbidden.SAVE);
+
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("非机动车交限");
+
+        assertEquals("06:00~20:00;", Page_NonTrafficForbidden.Inst.GetValue(Page_NonTrafficForbidden.TIME));
+        assertFalse(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.BYCICLE));
+        assertFalse(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.TRI_BYCICLE));
+        assertFalse(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.ELEC_BYCICLE));
+        assertTrue(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.MAN));
     }
 
     /////////以下注释用例均为月基线功能用例开始///////////////////

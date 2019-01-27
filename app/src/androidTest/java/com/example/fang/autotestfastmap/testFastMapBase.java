@@ -99,8 +99,11 @@ public class testFastMapBase
     protected  static void setClassUp(boolean isHmWorking) throws Exception
     {
         if(testadapter.GetPackageName().contains("mbl")) {
-            testFastMapBase.userName = "1";
-            testFastMapBase.passWord = "1";
+            testFastMapBase.userName = "admin123";
+            if(true == isHmWorking) {
+                testFastMapBase.userName = "admin123_hm";
+            }
+            testFastMapBase.passWord = "admin123";
         }else{
             testFastMapBase.userName = "collector2";
             testFastMapBase.passWord = "123456";

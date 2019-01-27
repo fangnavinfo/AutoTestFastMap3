@@ -47,6 +47,12 @@ public class Page_Search extends FastMapPage
     @FindResource(Id="rbtn_search_poi_fid", Text = "fid")
     public static String FID;
 
+    @FindResource(Id = "edt_search_pas_input")
+    public static String EDITPAS;
+
+    @FindResource(Id = "tv_search_pas_btn")
+    public static String SEARCH_PAS;
+
     @FindResource(Id = "edt_search_info_input", ios_name="Info_search")
     public static String EDITINFO;
 

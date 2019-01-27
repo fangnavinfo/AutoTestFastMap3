@@ -575,4 +575,9 @@ public class TipsDeepDictionary
      * 人渡轮渡时间限制
      */
     public final static String FERRY_TIME = "1218";
+
+    /**
+     * 非机动车交限
+     */
+    public final static String NON_TRAFFIC_FORBIDDEN = "1313";
 }

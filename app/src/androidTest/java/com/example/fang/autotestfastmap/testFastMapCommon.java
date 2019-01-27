@@ -133,6 +133,13 @@ public class testFastMapCommon extends testFastMapBase {
 
         if (currTestName.getMethodName().equals("test00101_licence_plate_check")) {
             setClassUpByLicenceCheck("鄂A12345");
+        }if (currTestName.getMethodName().equals("test00101_poi_hm_brand_check")
+                ||currTestName.getMethodName().equals("test00106_hm_poi_same_error_check")
+                ||currTestName.getMethodName().equals("test013_hm_traffic_light_control_check")
+                ||currTestName.getMethodName().equals("test00117_hm_pas_update_check")
+                ||currTestName.getMethodName().equals("test00103_1_hm_poi_report_check")
+                ||currTestName.getMethodName().equals("test00129_hm_indoor_data_check")){
+            testFastMapBase.setClassUp(true);
         }else{
             testFastMapBase.setClassUp();
         }
@@ -285,6 +292,19 @@ public class testFastMapCommon extends testFastMapBase {
     @Test
     @IMPORTANT
     public void test00103_1_poi_report_check() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
+        // 上报情报
+        addReport(Page_InfoPoint.POI_TYPE);
+        // 同步情报
+        synchronize_zhou(Page_GridManager.INFO_UPDATE);
+        // 采纳情报
+        accept();
+        // 检查情报fid
+        checkFid();
+
+    }
+
+    @Test
+    public void test00103_1_hm_poi_report_check() throws InterruptedException, NoSuchFieldException, ClassNotFoundException {
         // 上报情报
         addReport(Page_InfoPoint.POI_TYPE);
         // 同步情报
@@ -482,6 +502,34 @@ public class testFastMapCommon extends testFastMapBase {
         String infoFid = AddPOI(attrib2, "116.40628", "39.96918", "忽略捕捉新增");
 
         SearchLocation("116.40624", "39.96918");
+        synchronize_zhou(Page_GridManager.POI_UPDATE);
+
+        //检查错误列表
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.ClickByText("错误列表");
+        Page_ErrorList.Inst.ClickbyText("Poi");
+        Page_ErrorList.Inst.ClickbyText("查看详情");
+
+        String txtErrMessage = Page_ErrorList.Inst.GetValue(Page_ErrorList.ERROR_CONTENT);
+        assertTrue(txtErrMessage.equals("同一poi(" + "fid:" + infoFid + ")在库中不存在") || txtErrMessage.equals("同一poi(" + infoFid + ")在库中不存在"));
+    }
+
+    // POI 错误列表增加父子关系、同一关系错误类型--港澳
+    @Test
+    public void test00106_hm_poi_same_error_check() throws Exception {
+
+        String[][] attrib1 = {{Page_POI.NAME, "政府机关TEST"},
+                {Page_POI.SELECT_TYPE, "区级政府机关"}};
+
+        AddPOI(attrib1, "113.99998", "22.36356", "忽略捕捉新增");
+
+        String[][] attrib2 = {{Page_POI.NAME, "银行TEST"},
+                {Page_POI.SELECT_TYPE, "银行"},
+                {Page_POI.POI_SAME, "政府机关ＴＥＳＴ"}};
+
+        String infoFid = AddPOI(attrib2, "114.00002", "22.36356", "忽略捕捉新增");
+
+        SearchLocation("113.99998", "22.36356");
         synchronize_zhou(Page_GridManager.POI_UPDATE);
 
         //检查错误列表
@@ -1247,6 +1295,32 @@ public class testFastMapCommon extends testFastMapBase {
 
         assertEquals("请输入道路名称", name);
         assertEquals("请输入门牌号", address);
+    }
+
+    // 港澳点门牌上传下载联调
+    @Test
+    public void test00117_hm_pas_update_check() throws Exception {
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.PAS_ADD_9004);
+
+        Page_PAS.Inst.Click(Page_PAS.ADDRESS_PAS);
+        Page_PAS.Inst.SetValue(Page_PAS.NAME, "道路名1");
+        Page_PAS.Inst.SetValue(Page_PAS.ADDRESS, "门牌号1");
+        Page_PAS.Inst.Click(Page_PAS.SAVE);
+
+        synchronize_zhou(Page_GridManager.PAS_UPDATE);
+
+        Sqlitetools.CleanDataAndRestart();
+
+        synchronize_zhou(Page_GridManager.PAS_UPDATE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("点门牌");
+        Page_Search.Inst.SetValue(Page_Search.EDITPAS,"道路名１");
+
+        Page_Search.Inst.Click(Page_Search.SEARCH_PAS);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        Page_LightControl.Inst.isExistByName("道路名１");
     }
 
     // 室内整理工具增加量测工具
@@ -2108,6 +2182,46 @@ public class testFastMapCommon extends testFastMapBase {
 
     @Test
     public void test00129_2_indoor_data_check() throws Exception {
+        SearchLocation(LOC_K7);
+
+        //点击新增实景图POI
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRUE_SCENE);
+        Page_MainBoard.Inst.Click(new Point(850, 750));
+
+        //高速出口
+        Page_TrueSence.Inst.Click(Page_TrueSence.HIGHWAY_LOAD_OUT);
+        //输入编号
+        Page_TrueSence.Inst.Click(Page_TrueSence.REQUEST);
+
+        //拍照5张并返回
+        Page_TrueSence.Inst.Click(Page_TrueSence.CAMERA);
+        Thread.sleep(1000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        //点击保存
+        Page_TrueSence.Inst.Click(Page_TrueSence.SAVE);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+        Page_MainBoard.Inst.Click(new Point(850, 760));
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TYPE_SELECT_LINE_10001);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.MAIN_MENU);
+        Page_MainMenu.Inst.Click(Page_MainMenu.INDOOR_TOOL);
+        Page_IndoorTools.Inst.Click(Page_IndoorTools.GRAPHIC_WORK);
+
+        assertTrue(Page_InfoPoint.Inst.isExistByName("实景图"));
+
+    }
+
+    @Test
+    public void test00129_hm_indoor_data_check() throws Exception {
         SearchLocation(LOC_K7);
 
         //点击新增实景图POI
@@ -18580,6 +18694,43 @@ public class testFastMapCommon extends testFastMapBase {
     @Test
     public void test013_traffic_light_control_check() throws Exception {
         SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT_CONTROL);
+
+        Page_MainBoard.Inst.ClickCenter();
+        Page_LightControl.Inst.Click(Page_LightControl.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("红绿灯受控退出信息");
+        String infoRowkey = Page_LightControl.Inst.GetValue(Page_LightControl.ROWKEY).replace("rowkey:","").replace("rowkey：","");
+        Page_LightControl.Inst.Click(Page_LightControl.CANCEL);
+        ExitMyData();
+
+        IndoorCheckConfirm("红绿灯受控退出信息");
+
+        //同步数据
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
+
+        Sqlitetools.CleanDataAndRestart();
+
+        SearchLocation(LOC_K7);
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
+
+        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+        Page_Search.Inst.ClickbyText("Tips");
+        Page_Search.Inst.SetValue(Page_Search.TIPS_ROWKEY, infoRowkey);
+
+        Page_Search.Inst.Click(Page_Search.SEARCH_START_TIPS);
+        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+
+        Page_LightControl.Inst.isExistByName(infoRowkey);
+
+    }
+
+    //红绿灯受控港澳联调
+    @Test
+    public void test013_hm_traffic_light_control_check() throws Exception {
+        SearchLocation("113.99998", "22.36867");
+        Page_MainBoard.Inst.ClickCenter();
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT_CONTROL);
 
         Page_MainBoard.Inst.ClickCenter();
