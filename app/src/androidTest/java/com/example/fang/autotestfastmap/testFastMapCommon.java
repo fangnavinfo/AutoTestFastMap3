@@ -17719,6 +17719,57 @@ public class testFastMapCommon extends testFastMapBase {
         AssertIndoorCheck("人渡轮渡时间限制", "高", "FM-1218-1-2", "Tips没有关联道路或测线或Node", "");
     }
 
+    @Test
+    public void test_FM_1123_2_1_check() throws Exception {
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT_CONTROL);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+        AssertIndoorCheckNull("FM-1123-2-1");
+
+        ExitIndoorToolsWithCheckResult();
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+
+        Page_MyData.Inst.SelectData("红绿灯受控退出信息");
+
+        Page_MainBoard.Inst.Click(new Point(730,412));
+        Page_LightControl.Inst.Click(Page_LightControl.SAVE);
+
+        ExitMyData();
+
+        AssertIndoorCheckNull("FM-1123-2-1");
+
+    }
+
+    @Test
+    public void test_FM_1312_2_1_check() throws Exception {
+        SearchLocation(LOC_K7);
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.CHANGE_LANE_NOTICE);
+        Page_MainBoard.Inst.ClickCenter();
+        Page_TrafficForbidden.Inst.Click(Page_TrafficForbidden.SAVE);
+
+        //AssertIndoorCheck("变道提示", "高", "FM-1312-2-1", "Tips没有退出线", "");
+
+        ExitIndoorToolsWithCheckResult();
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+
+        Page_MyData.Inst.SelectData("变道提示");
+
+        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.SELECT_OUT_LINE);
+        Page_MainBoard.Inst.Click(new Point(730,412));
+        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.SAVE);
+
+        ExitMyData();
+
+        AssertIndoorCheckNull("FM-1123-2-1");
+
+    }
+
 
 
     // POI：充电站添加框选子功能
@@ -18436,32 +18487,15 @@ public class testFastMapCommon extends testFastMapBase {
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.CHANGE_LANE_NOTICE);
         Page_MainBoard.Inst.ClickCenter();
 
-        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.LANE_LEFT);
-        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.LANE_CENTER);
-        Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.LANE_RIGHT);
-
-        UiObject2 obj;
-        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.ImageView");
-        //左
-        obj = lst.get(0);
-        obj.click();
-        Page_MainBoard.Inst.Click(new Point(400,350));
-        //中
-        obj = lst.get(2);
-        obj.click();
-        Page_MainBoard.Inst.Click(new Point(700,200));
-        //右
-        obj = lst.get(4);
-        obj.click();
-        Page_MainBoard.Inst.Click(new Point(1000,350));
 
         Page_ChangeLaneNotice.Inst.Click(Page_ChangeLaneNotice.SAVE);
 
         GotoMyData(Page_MyData.TIPS_TYPE);
         Page_MyData.Inst.SelectData("变道提示");
 
-        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.RelativeLayout");
-        assertTrue(lst.size() == 3);
+        Page_ChangeLaneNotice.Inst.isExistByName("选择退出线");
+        Page_ChangeLaneNotice.Inst.isExistByName("清空退出线");
+
     }
 
     //hov车道

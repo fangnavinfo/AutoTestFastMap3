@@ -8,12 +8,10 @@ import com.fang.testAdapter.FindResource;
  */
 public class Page_ChangeLaneNotice extends Page_Base_Tips
 {
-    @FindResource(Id="change_lane_notice_1")
-    public static String LANE_LEFT;
-    @FindResource(Id="change_lane_notice_2")
-    public static String LANE_CENTER;
-    @FindResource(Id="change_lane_notice_3")
-    public static String LANE_RIGHT;
+    @FindResource(Id="select_out_line")
+    public static String SELECT_OUT_LINE;
+    @FindResource(Id="cl_clean")
+    public static String CLEAN_OUT_LINE;
 
 
 
