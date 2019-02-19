@@ -3211,11 +3211,13 @@ public class testFastMapCommon extends testFastMapBase {
     //单线虚拟连接
     @Test
     public void test00143_SingleLineVirtualConnect_check() throws Exception {
+
+        SearchLocation(LOC_K7);
+
         Page_MainBoard.Inst.Trigger(TipsDeepDictionary.SINGLE_LINE_VIRTUAL_CONNECT);
 
-        Page_MainBoard.Inst.Click(new Point(1000, 500));
-        Page_MainBoard.Inst.Click(new Point(1000, 800));
-
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
 
 
         Page_SingleLineVirtualConnect.Inst.Click(Page_SingleLineVirtualConnect.LADDER);
