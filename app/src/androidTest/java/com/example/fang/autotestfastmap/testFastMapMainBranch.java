@@ -238,6 +238,131 @@ public class testFastMapMainBranch extends testFastMapBase {
 
 
 
+    //公交优先车道
+    @Test
+    public void test011_1_bus_priority_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUS_PRIORITY_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("公交优先车道");
+
+        assertEquals(Page_BusPriorityLane.Inst.GetValue(Page_BusPriorityLane.TIME),"请输入时间...");
+
+    }
+
+    @Test
+    public void test011_2_bus_priority_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.BUS_PRIORITY_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_MainBoard.Inst.Click(new Point(105, 320));
+        Page_MainBoard.Inst.Click(new Point(260, 320));
+        Page_MainBoard.Inst.Click(new Point(1305, 320));
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //第1个增加时间
+        obj = lst.get(3);
+        obj.click();
+        Page_MyData.Inst.ClickbyText("确定");
+
+        Page_BusPriorityLane.Inst.Click(Page_BusPriorityLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("公交优先车道");
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.EditText");
+
+        //第1个时间
+        obj = lst.get(0);
+        assertEquals(obj.getText(),"06:00~20:00;");
+
+        //第2个时间
+        obj = lst.get(1);
+        assertEquals(obj.getText(),"请输入时间...");
+
+    }
+
+
+    //借道左转
+    @Test
+    public void test012_1_turn_left_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TURN_LEFT_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("借道左转车道");
+
+        assertEquals(Page_TurnLeftLane.Inst.GetValue(Page_TurnLeftLane.TIME),"请输入时间...");
+
+    }
+
+    @Test
+    public void test012_2_turn_left_lane_check() throws Exception {
+        SearchLocation(LOC_K7);
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TURN_LEFT_LANE);
+        Page_MainBoard.Inst.Click(new Point(950, 750));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.CHOOSE_END);
+        Page_MainBoard.Inst.Click(new Point(1000, 750));
+        Page_MainBoard.Inst.Drag(100, 450, 1340, 450, 50);
+        //Page_MainBoard.Inst.Click(new Point(100, 300));
+        Page_MainBoard.Inst.Click(new Point(105, 320));
+        Page_MainBoard.Inst.Click(new Point(260, 320));
+        Page_MainBoard.Inst.Click(new Point(1305, 320));
+
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        Page_MainBoard.Inst.Click(new Point(105, 320));
+        Page_MainBoard.Inst.Click(new Point(260, 320));
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        Page_MainBoard.Inst.Click(new Point(180, 320));
+        Page_MainBoard.Inst.Click(new Point(1305, 320));
+
+        List<UiObject2> lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.TextView");
+
+        UiObject2 obj;
+
+        //第1个增加时间
+        obj = lst.get(3);
+        obj.click();
+        Page_MyData.Inst.ClickbyText("确定");
+
+        Page_TurnLeftLane.Inst.Click(Page_TurnLeftLane.SAVE);
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.SelectData("借道左转车道");
+
+        lst = testadapter.findAllObjectsByClass("tips_fragment_content", "android.widget.EditText");
+
+        //第1个时间
+        obj = lst.get(0);
+        assertEquals(obj.getText(),"06:00~20:00;");
+
+        //第2个时间
+        obj = lst.get(1);
+        assertEquals(obj.getText(),"请输入时间...");
+
+    }
 
 
 
