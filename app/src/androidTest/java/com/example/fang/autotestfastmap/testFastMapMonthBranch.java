@@ -5,10 +5,14 @@ import android.support.test.uiautomator.UiObject2;
 import com.fang.testAdapter.Point;
 import com.fang.testAdapter.Sqlitetools;
 import com.fang.testAdapter.testadapter;
+import com.fastmap.ui.Page_DirectionBoard;
 import com.fastmap.ui.Page_FerryTime;
 import com.fastmap.ui.Page_FunctionalArea;
 import com.fastmap.ui.Page_GridManager;
+import com.fastmap.ui.Page_IndoorTools;
 import com.fastmap.ui.Page_InfoLine;
+import com.fastmap.ui.Page_InfoPoint;
+import com.fastmap.ui.Page_Info_Camera;
 import com.fastmap.ui.Page_Light;
 import com.fastmap.ui.Page_Line_PAS;
 import com.fastmap.ui.Page_MainBoard;
@@ -845,6 +849,86 @@ public class testFastMapMonthBranch extends testFastMapBase {
         assertFalse(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.TRI_BYCICLE));
         assertFalse(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.ELEC_BYCICLE));
         assertTrue(Page_NonTrafficForbidden.Inst.isChecked(Page_NonTrafficForbidden.MAN));
+    }
+
+    @Test
+    public void test00147_1_picture_delete_check_1() throws Exception {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.TRAFFIC_LIGHT);
+        Page_MainBoard.Inst.ClickCenter();
+
+        GotoMyData(Page_MyData.TIPS_TYPE); //进入我的数据
+        Page_MyData.Inst.SelectData("红绿灯");
+        String infoRowkey = Page_Light.Inst.GetValue(Page_Light.ROWKEY).trim().substring(8);
+
+        Page_Light.Inst.Click(Page_Light.CAMERA);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_Info_Camera.TAKE_PIC);
+        Thread.sleep(1000);
+        Page_Info_Camera.Inst.Click(Page_Info_Camera.BACK);
+
+        Page_Light.Inst.Click(Page_Light.SAVE);
+        ExitMyData();
+
+        IndoorCheckConfirm("红绿灯");
+
+        //同步数据
+        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
+
+        testadapter.ClearPhotos();
+
+        Sqlitetools.RefreshData();
+
+        GotoMyData(Page_MyData.TIPS_TYPE);
+        Page_MyData.Inst.ClickbyText("红绿灯");
+
+        Page_Light.Inst.Click(Page_Light.PHOTO);
+
+
+//        Sqlitetools.CleanDataAndRestart();
+//
+//        synchronize_zhou(Page_GridManager.TIPS_UPDATE);
+//
+//        Page_MainBoard.Inst.Click(Page_MainBoard.SEARCH);
+//        Page_Search.Inst.ClickbyText("Tips");
+//        Page_Search.Inst.SetValue(Page_Search.TIPS_ROWKEY, infoRowkey);
+//
+//        Page_Search.Inst.Click(Page_Search.SEARCH_START_TIPS);
+//        Page_SearchResultList.Inst.Click(Page_SearchResultList.DATA_LIST);
+//
+//        String time = Page_Light.Inst.GetValue(Page_Light.RECORD_TIME);
+//
+//        assertEquals(time.isEmpty(),false);
+
+    }
+
+    @Test
+    public void test00147_1_picture_delete_check_2() throws Exception
+    {
+
+        Page_MainBoard.Inst.Trigger(TipsDeepDictionary.POI_ADD_9001);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.TAKE_PIC);//拍照
+        Thread.sleep(3000);
+        Page_POI_Camera.Inst.Click(Page_POI_Camera.BACK);
+
+        Page_POI.Inst.SetValue(Page_POI.NAME, "测试ＰＯＩ");
+        Page_POI.Inst.SetValue(Page_POI.SELECT_TYPE, "厂家一览表外汽车零售及修理");
+        String strFid = Page_POI.Inst.GetValue(Page_POI.FID);
+        Page_POI.Inst.Click(Page_POI.SAVE);
+        strFid = strFid.replace("fid:", "");
+        strFid = strFid.replace("fid : ", "");
+        //synchronize_zhou(Page_GridManager.POI_UPDATE);
+
+        testadapter.StopApp();
+
+        testadapter.ClearPhotos();
+
+        Sqlitetools.RefreshData();
+
+        GotoMyData(Page_MyData.POI_TYPE);
+        Page_MyData.Inst.ClickbyText("测试ＰＯＩ");
+        Page_MainBoard.Inst.Drag(1800, 1400, 1800, 250, 100);
+        Page_POI.Inst.Click(Page_POI.PHOTO);
     }
 
     /////////以下注释用例均为月基线功能用例开始///////////////////

@@ -561,4 +561,9 @@ public class testadapter
     {
         return packageName;
     }
+
+    public static void ClearPhotos() throws IOException
+    {
+        mDevice.executeShellCommand("rm -rf " + userPath+"photo");
+    }
 }

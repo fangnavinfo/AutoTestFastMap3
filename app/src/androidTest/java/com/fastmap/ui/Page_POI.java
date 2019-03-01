@@ -226,6 +226,11 @@ public class Page_POI extends FastMapPage
     public static String SELECTSON;
     @FindResource(Id="tv_father_popmsg_name")
     public static String POPNAME;
+
+    @FindResource(Id="layer_photo2")
+    public static String PHOTO;
+
+
     public static Page_POI Inst;
     static
     {

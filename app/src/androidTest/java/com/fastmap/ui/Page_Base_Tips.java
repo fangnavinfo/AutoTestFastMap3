@@ -31,7 +31,10 @@ public class Page_Base_Tips extends FastMapPage
 
     @FindResource(Id="camera_button_myselt", ios_name="mediaOperate_photoBtn")
     public static String CAMERA;
-    
+
+    @FindResource(Id="layer_photo2")
+    public static String PHOTO;
+
     public Page_Base_Tips()
     {
         try
